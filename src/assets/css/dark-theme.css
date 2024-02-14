@@ -1,0 +1,31 @@
+:root {
+  --bgDark: #1A171D;
+  --dbcardbg: rgba(0, 104, 255, 0.5);
+  --textBlack:#ffffff;
+  --textGrey:#B3B3B3;
+  --kpisrip:#0D121A;
+  --inputbr:rgba(255, 255, 255, 0.2);
+  --inputbg:#0D121A;
+  --progress:#525253;
+  --badgecolor:#FFCE00;
+  --textsecondary: rgba(255, 255, 255, 0.615);
+  --textthankyou:rgba(255, 255, 255, 0.8);
+  --tableborder:rgb(255 255 255 / 15%);
+  --bgDarkGrey-95: rgba(49, 60, 70, 0.75);
+  --bgGrey: #515a64;
+  --bodyBg: #000000;
+  --buttonbg: #6cdb00;
+  --stripText: linear-gradient(89.76deg, #00d7ff 17.89%, #0096ff 61.89%);
+  --white: #ffffff;
+  --cardBg: rgba(234, 234, 234, 0.07);
+  --cardshadow: 0px 1px 20px rgba(165, 0, 192, 0.3);
+  --tabBorder: linear-gradient(90deg, #3d2181 12.47%, #a161b9 49.87%, #d5955b 90.52%);
+  --statusbg:rgba(255, 255, 255, 0.2);
+  --darktheme-icons: url(../images/mint-darktheme-icons.svg);
+  --lightcalender:url(../images/calendar-new.svg);
+}
+body {
+  background: var(--bodyBg) url(../../assets/images/bg-ab.svg) no-repeat top center;
+  /* background-size: cover; */
+  background-color: #000000 !important;
+}

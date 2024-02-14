@@ -1,0 +1,98 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "contractAddress",
+          "type": "address"
+        }
+      ],
+      "name": "Deployed",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_salt",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "contract IStakeable",
+          "name": "_stakingContract",
+          "type": "address"
+        },
+        {
+          "internalType": "contract IERC20Metadata",
+          "name": "_rewardToken",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_totalsupply",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "tierWeights",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_listingTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_claimSlots",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_vestingTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_roundOneStartTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_roundOneEndTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_FCFSStartTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_FSCSEndTime",
+          "type": "uint256"
+        }
+      ],
+      "name": "deploy",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "contractAddress": "0xb19D48FE283694c4Da81dc462fa788980E56664d"
+}

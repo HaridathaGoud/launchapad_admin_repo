@@ -1,0 +1,364 @@
+{
+    "contractAddress": "",
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_membershipToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "_voteBalance",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "_addQuestionBalance",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "payable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "_newMembershipToken",
+                    "type": "address"
+                }
+            ],
+            "name": "MembershipTokenChanged",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "questionHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "proposer",
+                    "type": "address"
+                }
+            ],
+            "name": "QuestionAdded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "questionHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "bytes32",
+                    "name": "optionHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "voter",
+                    "type": "address"
+                }
+            ],
+            "name": "VoteCasted",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "questionHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "VotingResultsPublished",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_questionHash",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32[]",
+                    "name": "_optionHashes",
+                    "type": "bytes32[]"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_startTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_endTime",
+                    "type": "uint256"
+                }
+            ],
+            "name": "addQuestion",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_questionHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "calculateQuestionResult",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_questionHash",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "bytes32",
+                    "name": "_optionHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "castVote",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_newMembershipToken",
+                    "type": "address"
+                }
+            ],
+            "name": "changeMembershipToken",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "_questionHash",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getQuestionResult",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "membershipToken",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "questionEndTimes",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "questionResults",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "questionStartTimes",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "questions",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "questionHash",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "optionCount",
+                    "type": "uint8"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "_bal",
+                    "type": "uint8"
+                }
+            ],
+            "name": "setAddQuestionBalance",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint8",
+                    "name": "_bal",
+                    "type": "uint8"
+                }
+            ],
+            "name": "setVoteBalance",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}
