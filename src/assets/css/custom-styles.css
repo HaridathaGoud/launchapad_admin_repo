@@ -499,6 +499,10 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 .zindex1{z-index: 1 !important;}
 .launchpadadmin-modal .form-floating > .form-control{min-height: 46px;}
 .change-passwordmodal .input-style input::-ms-reveal { display: none; }
+
+/* admin start new styles  */
+.h-78{height: 78px;}
+
 @media (min-width: 768px) {
 .token-listing .was-validated .form-control:invalid{padding-right: 16px !important;}
   .allocation-error{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 700px;}

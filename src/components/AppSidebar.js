@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
 import Image from 'react-bootstrap/Image';
-import navBrand from "../assets/images/Minnapad-Logo.svg";
+import navBrand from "../assets/images/YB-Logo.svg";
 import Applications from './applications.menu';
 import AppMenu from './applications.menu/app.menu';
 import { setApp } from 'src/reducers/applicationReducer';
@@ -90,8 +90,8 @@ const AppSidebar = (props) => {
           dispatch({ type: 'set', visible })
         }}
       >
-        <div className='nav-brand menu-left superadmin-leftmenu d-flex align-items-center justify-content-center p-2 c-pointer'>
-          <Image src={navBrand} alt="" onClick={() =>  logoRedirection()} />
+        <div className='nav-brand menu-left superadmin-leftmenu d-flex align-items-center justify-content-center py-4 c-pointer h-78'>
+          <Image src={navBrand} alt="" onClick={() =>  logoRedirection()} width={70} />
         </div>
         <div className='menu-left superadmin-leftmenu screen-height mt-2'>
           <CSidebarNav>
