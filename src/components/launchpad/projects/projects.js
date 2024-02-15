@@ -1158,7 +1158,8 @@ const Projects = (props) => {
 
                         <Row className="mb-4">
                           <Col xl={12}>
-                            <Col xl={6} className="mb-3">
+                            <Row className='justify-content-center'>
+                            <Col xl={4} className="mb-4">
                               <Form.Group>
                                 <div className='profile-size identification-image  no-hover' >
                                   <span className='image-box'>
@@ -1175,6 +1176,7 @@ const Projects = (props) => {
                                 </div>
                               </Form.Group>
                             </Col>
+                            </Row>
                             <Row className="mt-3 mt-xl-0">
 
                               <Col xl={6} className="mb-3">
