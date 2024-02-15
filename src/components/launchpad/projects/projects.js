@@ -11,7 +11,7 @@ import Alert from 'react-bootstrap/Alert';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import PropTypes from 'prop-types'
 import { useSelector, connect, useDispatch } from 'react-redux';
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { setProjectDetail } from '../../../reducers/projectDetailsReducer';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { CBreadcrumb, CBreadcrumbItem, CLink } from '@coreui/react'
@@ -24,6 +24,8 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Multiselect from 'multiselect-react-dropdown';
 import { NumericFormat } from 'react-number-format';
 import { setSettingsLoaders } from 'src/reducers/authReducer';
+import profileavathar from "../../../assets/images/default-avatar.jpg";
+import { FloatingLabel, InputGroup, Modal } from 'react-bootstrap';
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMgs":
@@ -105,6 +107,7 @@ const Projects = (props) => {
   const [countryData, setCountryData] = useState([])
   const [imageError, setImageError] = useState()
   const [isValid, setIsValid] = useState(true);
+  const [show, setShow] = useState(false);
   useEffect(() => {
     dispatch({ type: 'loader', payload: true })
     dispatch({ type: 'loading', payload: true })
@@ -165,8 +168,15 @@ const Projects = (props) => {
       dispatch({ type: 'introductionHtml', payload: editorRef.current.getContent() })
     }
   };
-
-
+  const handleUpload = () => {
+    inputRef.current?.click();
+  }
+  const handleEdit = () => {
+    setShow(true)
+  }
+  const handleCancell = () => {
+    setShow(false)
+  }
 
   const validateForm = (obj) => {
     const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, contractAddress,
@@ -260,7 +270,7 @@ const Projects = (props) => {
   }
 
   const handleSaveProjectDetails = async (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
     const validationStatus = validateSelection(selectedValues);
     setIsValid(validationStatus);
     dispatch({ type: 'errorMgs', payload: null })
@@ -294,7 +304,7 @@ const Projects = (props) => {
         "projectOwnerId": projectItem?.id ? projectItem.id : isAdmin?.id,
         "initialSupply": state.projectSaveDetails?.initialSupply,
       }
-      
+
       dispatch({ type: 'projectSaveDetails', payload: obj })
       if (window.location.pathname.includes('/launchpad/idorequest')) {
         obj.id = state.projectSaveDetails?.id
@@ -302,10 +312,10 @@ const Projects = (props) => {
       let initialSupplyValue = obj?.initialSupply
       let totalNumberOfTokenValue = obj?.totalNumberOfTokens
       if (typeof totalNumberOfTokenValue === 'string') {
-        obj.totalNumberOfTokens = parseFloat(totalNumberOfTokenValue.replace(/[^0-9.-]+/g,''));
+        obj.totalNumberOfTokens = parseFloat(totalNumberOfTokenValue.replace(/[^0-9.-]+/g, ''));
       }
       if (typeof initialSupplyValue === 'string') {
-        obj.initialSupply = parseFloat(initialSupplyValue.replace(/[^0-9.-]+/g,''));
+        obj.initialSupply = parseFloat(initialSupplyValue.replace(/[^0-9.-]+/g, ''));
       }
       const formErrors = validateForm(obj);
       if (Object.keys(formErrors).length > 0) {
@@ -334,9 +344,9 @@ const Projects = (props) => {
         }
       }
     }
-      dispatch({ type: 'validated', payload: true })
-      dispatch({ type: 'buttonLoader', payload: false })
-      window.scroll(0, 0);
+    dispatch({ type: 'validated', payload: true })
+    dispatch({ type: 'buttonLoader', payload: false })
+    window.scroll(0, 0);
 
   }
 
@@ -1076,6 +1086,233 @@ const Projects = (props) => {
                 </Button>{' '}
               </div>
             </div>
+              <div className='d-flex justify-content-between align-items-center mb-2 mt-5'>
+                <h3 className='section-title '>Cast And Crew</h3>
+                <Button className='primary-btn mt-3 mt-md-0' onClick={handleEdit} ><span className='icon add-icon'></span> Add </Button>
+              </div>
+              <Row className='px-lg-3 px-2 mb-4'>
+                <Col className="profile-panel card-style p-0 home-card" lg={3}>
+                  <div >
+                    <div className="">
+                      <Form.Group>
+                        <div className='profile-size identification-image  no-hover' >
+                          <span className='image-box'>
+                            <img className='image-setup'
+                              src={profileavathar} alt="profile img"
+                            />
+                          </span>
+                        </div>
+                      </Form.Group>
+                    </div>
+
+
+                    <Row className="px-lg-3 px-2 mt-3">
+                      <Col md={6}>
+                        <label className="profile-label">Name</label>
+                        <p className="profile-value">Prabhas</p>
+                      </Col>
+
+                      <Col md={6}>
+                        <label className="profile-label">Website URL</label>
+                        <p className="profile-value">ergargqgrgaerg</p>
+                      </Col>
+                      <Col md={6}>
+                        <label className="profile-label">Insta URL</label>
+                        <p className="profile-value">ergargqgrgaerg</p>
+                      </Col>
+                      <Col md={6}>
+                        <label className="profile-label">FB URL</label>
+                        <p className="profile-value">ergargqgrgaerg</p>
+                      </Col>
+                      <Col md={6}>
+                        <label className="profile-label">Role</label>
+                        <p className="profile-value">Actor</p>
+                      </Col>
+                      <Col md={12}>
+                        <label className="profile-label">Bio</label>
+                        <p className="profile-value">
+                          Tollywood best Film Actor
+                        </p>
+                      </Col>
+                    </Row>
+
+                  </div>
+
+                  <Modal className="settings-modal profile-modal modal-tabview"
+                    show={show}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                  >
+                    <Form   >
+                      <Modal.Header className="d-flex justify-content-between">
+                        <Modal.Title id="example-custom-modal-styling-title">
+                          Add Cast and Crew
+                        </Modal.Title>
+                        <span className="icon close" onClick={handleCancell}></span>
+
+
+                      </Modal.Header>
+
+                      <Modal.Body className="launchpadadmin-modal">
+
+                        <Row className="mb-4">
+                          <Col xl={12}>
+                            <Col xl={6} className="mb-3">
+                              <Form.Group>
+                                <div className='profile-size identification-image  no-hover' >
+                                  <span className='image-box'>
+
+                                    <img className='image-setup'
+                                      src={profileavathar} alt="profile img"
+                                    />
+                                  </span>
+                                  <span>
+                                    <input ref={inputRef} type="file" name="myImage" id="input-file" onChange={uploadToClient} className="d-none" />
+                                    <Button onClick={handleUpload} className="icon camera cam-position upload-transparent">
+                                    </Button>
+                                  </span>
+                                </div>
+                              </Form.Group>
+                            </Col>
+                            <Row className="mt-3 mt-xl-0">
+
+                              <Col xl={6} className="mb-3">
+                                <FloatingLabel
+                                  controlId="floatingInput"
+                                  label="Name*"
+                                  className="mb-1 input-style mt-2"
+                                >
+                                  <Form.Control
+                                    type="text"
+                                    name="firstName"
+
+
+                                    autoComplete="off"
+                                    onChange={(e) => { setField('firstName', e.currentTarget.value) }}
+                                    isInvalid={!!errors.firstName}
+                                    required
+                                    placeholder="First Name *"
+                                    maxLength={50}
+                                  />
+                                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                </FloatingLabel>
+                              </Col>
+                              <Col xl={6} className="mb-3">
+                                <FloatingLabel
+                                  controlId="floatingInput"
+                                  label="Bio"
+                                  className="mb-1 input-style mt-2"
+                                >
+
+                                  <Form.Control
+                                    as="textarea"
+                                    placeholder="Enter Bio"
+                                    style={{ height: '100px' }}
+                                    onChange={(e) => { setField('lastName', e.currentTarget.value) }}
+                                    isInvalid={!!errors.lastName}
+                                    required
+                                    maxLength={50}
+                                  />
+                                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                </FloatingLabel>
+                              </Col>
+                              <Col xl={6} className="mb-3">
+                                <FloatingLabel
+                                  controlId="floatingInput"
+                                  label="Website URL"
+                                  className="mb-1 input-style mt-2"
+                                >
+                                  <Form.Control
+                                    type="text"
+                                    name="firstName"
+                                    autoComplete="off"
+                                    onChange={(e) => { setField('firstName', e.currentTarget.value) }}
+                                    isInvalid={!!errors.firstName}
+                                    required
+                                    placeholder="First Name *"
+                                    maxLength={50}
+                                  />
+                                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                </FloatingLabel>
+                              </Col>
+                              <Col xl={6} className="mb-3">
+                                <FloatingLabel
+                                  controlId="floatingInput"
+                                  label="Insta URL"
+                                  className="mb-1 input-style mt-2"
+                                >
+                                  <Form.Control
+                                    type="text"
+                                    name="firstName"
+                                    autoComplete="off"
+                                    onChange={(e) => { setField('firstName', e.currentTarget.value) }}
+                                    isInvalid={!!errors.firstName}
+                                    required
+                                    placeholder="First Name *"
+                                    maxLength={50}
+                                  />
+                                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                </FloatingLabel>
+                              </Col>
+                              <Col xl={6} className="mb-3">
+                                <FloatingLabel
+                                  controlId="floatingInput"
+                                  label="FB URL"
+                                  className="mb-1 input-style mt-2"
+                                >
+                                  <Form.Control
+                                    type="text"
+                                    name="firstName"
+                                    autoComplete="off"
+                                    onChange={(e) => { setField('firstName', e.currentTarget.value) }}
+                                    isInvalid={!!errors.firstName}
+                                    required
+                                    placeholder="First Name *"
+                                    maxLength={50}
+                                  />
+                                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                </FloatingLabel>
+                              </Col>
+                              <Col lg={6} md={12}>
+
+                                <FloatingLabel
+                                  controlId="floatingInput"
+                                  label="Role"
+                                  className="mb-1 input-style role mt-2"
+                                >
+                                  <Multiselect
+                                    className='multiselecter role-select'
+                                    options={jsonCountryCode}
+                                    selectedValues={selectedValues}
+                                    onSelect={onSelect}
+                                    onRemove={onSelect}
+                                    displayValue="name"
+                                    disable={(state.projectSaveDetails?.projectStatus == "Deployed"
+                                      || state.projectSaveDetails?.projectStatus == "Rejected"
+                                      || state.projectSaveDetails?.projectStatus == "Approved"
+                                    ) && true}
+                                  />
+                                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                </FloatingLabel>
+                                
+
+
+                              </Col>
+                            </Row>
+                          </Col>
+                        </Row>
+
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <div className="text-end"><Button className="transparent-btn" onClick={() => { handleCancel() }}>Cancel</Button>
+                          <Button className="filled-btn ms-lg-3 ms-2" type="submit" >
+                            Save</Button></div>
+                      </Modal.Footer>
+                    </Form>
+                  </Modal>
+                </Col>
+              </Row>
             </>}
 
           </Form>
