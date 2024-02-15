@@ -1090,9 +1090,9 @@ const Projects = (props) => {
                 <h3 className='section-title '>Cast And Crew</h3>
                 <Button className='primary-btn mt-3 mt-md-0' onClick={handleEdit} ><span className='icon add-icon'></span> Add </Button>
               </div>
-              <Row className='px-lg-3 px-2 mb-4'>
-                <Col className="profile-panel card-style p-0 home-card" lg={3}>
-                  <div >
+              <Row className='mb-4'>
+                <Col className="" lg={3}>
+                  <div className='profile-panel card-style home-card'>
                     <div className="">
                       <Form.Group>
                         <div className='profile-size identification-image  no-hover' >
