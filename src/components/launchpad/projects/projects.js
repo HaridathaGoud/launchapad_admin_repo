@@ -1069,6 +1069,58 @@ const Projects = (props) => {
                   </Row>
                 </Col>
               </Row>
+              
+            </div>
+              <div className='d-flex justify-content-between align-items-center mb-2 mt-5'>
+                <h3 className='section-title '>Cast And Crew</h3>
+                <Button className='primary-btn mt-3 mt-md-0' onClick={handleEdit} ><span className='icon add-icon'></span> Add </Button>
+              </div>
+              <Row className='mb-4'>
+                <Col className="" lg={3}>
+                  <div className='profile-panel card-style home-card p-lg-3 px-2'>
+                  
+                  <div>
+                      <Form.Group >
+                        <div className='profile-size castandcre-profile  no-hover mx-auto' >
+                          <span className='image-box'>
+                            <img className='image-setup'
+                              src={profileavathar} alt="profile img"
+                            />
+                          </span>
+                        </div>
+                        <p className="profile-value mb-0 text-center mt-2">Prabhas Rebelstar</p>
+                        <p className="profile-value mb-1 text-center">Actor</p>
+                        <p className="profile-label text-center">
+                          Tollywood best Film Actor
+                        </p>
+                      </Form.Group>
+                      </div>
+                      <hr/>
+                      <Row className="">
+                      <Col md={12}>
+                      <div className='d-flex gap-2'>
+                        <span className='icon facebook'></span>
+                        <p className="profile-value">wwww.facebook.com</p>
+                      </div>
+                
+                      <div className='d-flex gap-2'>
+                      <span className='icon website'></span>
+                        <p className="profile-value">www.actorprabhas.com</p>
+                      </div>
+                  
+                     <div className='d-flex gap-2'>
+                     <span className='icon instagram'></span>
+                        <p className="profile-value">actorprabhas/insta.com</p>
+                     </div>
+                      </Col>
+                      
+                    </Row>
+
+                  </div>
+
+                  
+                </Col>
+              </Row>
               <div className='text-end mt-xl-5 mb-5'>
                 <Button className='cancel-btn me-2' onClick={() => handleCancel()} >
                   Cancel</Button>{' '}
@@ -1085,60 +1137,8 @@ const Projects = (props) => {
 
                 </Button>{' '}
               </div>
-            </div>
-              <div className='d-flex justify-content-between align-items-center mb-2 mt-5'>
-                <h3 className='section-title '>Cast And Crew</h3>
-                <Button className='primary-btn mt-3 mt-md-0' onClick={handleEdit} ><span className='icon add-icon'></span> Add </Button>
-              </div>
-              <Row className='mb-4'>
-                <Col className="" lg={3}>
-                  <div className='profile-panel card-style home-card'>
-                    <div className="">
-                      <Form.Group>
-                        <div className='profile-size identification-image  no-hover' >
-                          <span className='image-box'>
-                            <img className='image-setup'
-                              src={profileavathar} alt="profile img"
-                            />
-                          </span>
-                        </div>
-                      </Form.Group>
-                    </div>
-
-
-                    <Row className="px-lg-3 px-2 mt-3">
-                      <Col md={6}>
-                        <label className="profile-label">Name</label>
-                        <p className="profile-value">Prabhas</p>
-                      </Col>
-
-                      <Col md={6}>
-                        <label className="profile-label">Website URL</label>
-                        <p className="profile-value">ergargqgrgaerg</p>
-                      </Col>
-                      <Col md={6}>
-                        <label className="profile-label">Insta URL</label>
-                        <p className="profile-value">ergargqgrgaerg</p>
-                      </Col>
-                      <Col md={6}>
-                        <label className="profile-label">FB URL</label>
-                        <p className="profile-value">ergargqgrgaerg</p>
-                      </Col>
-                      <Col md={6}>
-                        <label className="profile-label">Role</label>
-                        <p className="profile-value">Actor</p>
-                      </Col>
-                      <Col md={12}>
-                        <label className="profile-label">Bio</label>
-                        <p className="profile-value">
-                          Tollywood best Film Actor
-                        </p>
-                      </Col>
-                    </Row>
-
-                  </div>
-
-                  <Modal className="settings-modal profile-modal modal-tabview"
+            </>}
+            <Modal className="settings-modal profile-modal modal-tabview"
                     show={show}
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
@@ -1297,9 +1297,6 @@ const Projects = (props) => {
                                   />
                                   <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
                                 </FloatingLabel>
-                                
-
-
                               </Col>
                             </Row>
                           </Col>
@@ -1313,10 +1310,6 @@ const Projects = (props) => {
                       </Modal.Footer>
                     </Form>
                   </Modal>
-                </Col>
-              </Row>
-            </>}
-
           </Form>
         </>
       }
