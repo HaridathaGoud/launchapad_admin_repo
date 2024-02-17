@@ -136,7 +136,6 @@ const Projects = (props) => {
     dispatch({ type: 'loading', payload: true })
     dispatch({ type: 'bannerImgLoader', payload: true })
     dispatch({ type: 'cardImgLoader', payload: true })
-    dispatch({ type: 'castImgLoader', payload: true })
     window.scroll(0, 0);
     props.projectDetailsReducerData(projectId || props.informationProjectView, (callback) => {
       dispatch({ type: 'projectSaveDetails', payload: callback.data?.projectsViewModel })
@@ -147,7 +146,6 @@ const Projects = (props) => {
       dispatch({ type: 'loading', payload: false })
       dispatch({ type: 'bannerImgLoader', payload: false })
       dispatch({ type: 'cardImgLoader', payload: false })
-      dispatch({ type: 'castImgLoader', payload: false })
       dispatchData(setProjectDetail(callback?.data?.claimsAndAllocations))
       setSelectedValues(callback.data?.projectsViewModel?.countryRestrictions)
       getSelectedCountries(callback.data?.projectsViewModel?.countryRestrictions)
@@ -197,6 +195,7 @@ const Projects = (props) => {
 
   const handleEdit = (index) => {
     setShow(true)
+    dispatch({ type: 'castImgLoader', payload: false })
     if (index !== null) {
     const selectedItem = state.castCrewDataList[index];
     setSelectedroleValues(selectedItem?.role)
@@ -362,7 +361,7 @@ const Projects = (props) => {
         "initialSupply": state.projectSaveDetails?.initialSupply,
         "cast_Crews":   state.castCrewDataList, 
       }
-
+console.log(obj)
       dispatch({ type: 'projectSaveDetails', payload: obj })
       if (window.location.pathname.includes('/launchpad/idorequest')) {
         obj.id = state.projectSaveDetails?.id
