@@ -27,7 +27,9 @@ const launchpadApi=create({
 	baseURL:process.env.REACT_APP_API_LAUNCHPAD_POINT +"api/v1"
 
 })
-
+const projectApii = create({
+	baseURL: process.env.REACT_APP_API_LAUNCHPAD_POINT + "/api/v1/",
+});
 launchpadApi.axiosInstance.interceptors.request.use(async config => {
 	const token = store.getState().oidc.user.access_token;
 	config.headers.authorization = `Bearer ${token}`;
@@ -62,6 +64,6 @@ mintingApi.axiosInstance.interceptors.request.use(async config => {
 });
 
 export {
-	projectApi,marketApi,ipRegistry,kycInfo,marketPlaceApi,mintingApi,daoApi,launchpadApi
+	projectApi,marketApi,ipRegistry,kycInfo,marketPlaceApi,mintingApi,daoApi,launchpadApi,projectApii
 };
 

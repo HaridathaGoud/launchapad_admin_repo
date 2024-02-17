@@ -7,8 +7,8 @@ const SET_VIEWED_PROJECT = 'viewedProjects';
 const SET_PROJECT_SAVED = "projectedSaved"
 const SET_PROJECT_PAYMENT = "projectePayment"
 const PROJECT_DETAILS_SAVE = "projectDetailsSave";
-const USER_DETAILS = "userDetailsData"
-
+const USER_DETAILS = "userDetailsData";
+const SET_CAST_CREW_ROLES_LU="setcastCrewRolesLu";
 
 const userDetailsData = (payload) => {
   return {
@@ -52,9 +52,9 @@ const setProjectDetails = (payload) => {
   }
 };
 
-const setSuperAdminDetails = (payload) => {
+const setcastCrewRolesLu = (payload) => {
   return {
-    type: SUPERADMIN_DETAILS,
+    type: SET_CAST_CREW_ROLES_LU,
     payload
   }
 };
@@ -71,7 +71,12 @@ const setAdminDashboardDetails = (payload) => {
     payload
   }
 };
-
+const setSuperAdminDetails = (payload) => {
+  return {
+    type: SUPERADMIN_DETAILS,
+    payload
+  }
+};
 const projectDetailsData = (id, callback) => {
   return async (dispatch) => {
     dispatch(setProjectDetails({ key: "projectDetails", loader: true, data: null }));
@@ -150,7 +155,17 @@ const getAdminDashboardDetails = (AdminId) => {
 
   }
 }
-
+const fetchCastCrewRolesData = () => {
+  return async (dispatch) => {
+    dispatch(setcastCrewRolesLu({ key: "castCrewRolesLuData", loader: true, data: [] }));
+      let response = await apiCalls.getCastCrewRolesLu();
+   if(response.data){
+    dispatch(setcastCrewRolesLu({ key: "castCrewRolesLuData", loader: false, data: response.data, errorMsg: null }));
+   }else{
+    dispatch(setcastCrewRolesLu({ key: "castCrewRolesLuData", loader: false, data: null, errorMsg: apiCalls.isErrorDispaly(response) }));
+   }
+  };
+};
 let initialState = {
   projectDetails: {},
   superAdminDetails: {},
@@ -160,7 +175,8 @@ let initialState = {
   userData: {},
   projectedSaved: false,
   projectePayment: {},
-  projectSaveDetails: {}
+  projectSaveDetails: {},
+  castCrewRolesLuData: [],
 
 };
 
@@ -212,6 +228,8 @@ const launchPadReducer = (state, action) => {
     case SET_PROJECT_PAYMENT:
       state = { ...state, projectePayment: action.payload };
       return state;
+    case SET_CAST_CREW_ROLES_LU:
+      return { ...state, castCrewRolesLuData: action.payload };
     case ADMIN_DASHBOARD_DETAILS:
       return handleDetailsCase(state, action);
     default:
@@ -219,4 +237,4 @@ const launchPadReducer = (state, action) => {
   }
 }
 export default launchPadReducer;
-export { projectDetailsSave, projectDetailsData, SuperAdminDetails, UpComingProjectDetails, getAdminDashboardDetails, viewedProjects, userDetailsData, projectedSaved, projectePayment };
+export { projectDetailsSave, projectDetailsData, SuperAdminDetails, UpComingProjectDetails, getAdminDashboardDetails, viewedProjects, userDetailsData, projectedSaved, projectePayment,fetchCastCrewRolesData };

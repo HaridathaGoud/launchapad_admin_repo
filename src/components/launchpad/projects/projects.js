@@ -15,7 +15,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { setProjectDetail } from '../../../reducers/projectDetailsReducer';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { CBreadcrumb, CBreadcrumbItem, CLink } from '@coreui/react'
-import { projectDetailsData, projectDetailsSave, projectePayment } from '../launchpadReducer/launchpadReducer';
+import { projectDetailsData, projectDetailsSave, projectePayment,fetchCastCrewRolesData } from '../launchpadReducer/launchpadReducer';
 import moment from 'moment';
 import { validateContentRules } from '../../../utils/custom.validator';
 import jsonCountryCode from '../../../utils/countryCode.json';
@@ -64,6 +64,14 @@ const reducer = (state, action) => {
       return { ...state, address: action.payload };
     case "introductionHtml":
       return { ...state, introductionHtml: action.payload };
+    case "cast_CrewsFormDeatils":
+      return { ...state, cast_CrewsFormDeatils: action.payload };
+    case "cast_CrewsImage":
+      return { ...state, cast_CrewsImage: action.payload };
+    case "castImgLoader":
+      return { ...state, castImgLoader: action.payload };
+    case "castCrewDataList":
+      return { ...state, castCrewDataList: action.payload };
     default:
       return state;
   }
@@ -84,7 +92,19 @@ const initialState = {
   validated: false,
   scuess: false,
   address: false,
-  errors: {}
+  errors: {},
+  cast_CrewsFormDeatils: {
+    id: "00000000-0000-0000-0000-000000000000",
+    image: null,
+    name: '',
+    bio: '',
+    webisite: '',
+    instagram: '',
+    facebook: '',
+    role: []
+  },
+  castImgLoader: false,
+  castCrewDataList: [],
 };
 const Projects = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -94,6 +114,7 @@ const Projects = (props) => {
   const inputRef = useRef();
   const inputRef1 = useRef();
   const inputRef2 = useRef();
+  const inputRef3 = useRef();
   const walletAddress = useSelector((state) => state.walletAddress.walletAddress)
   const projectDetails = useSelector((state) => state.launchpad.projectDetails)
   const isProjectCardsId = useSelector(state => state.oidc?.isProjectCardsId)
@@ -108,11 +129,14 @@ const Projects = (props) => {
   const [imageError, setImageError] = useState()
   const [isValid, setIsValid] = useState(true);
   const [show, setShow] = useState(false);
+  const castCrewRolesLu = useSelector(state => state.launchpad?.castCrewRolesLuData?.data);
+  const [selectedroleValues, setSelectedroleValues] = useState([]);
   useEffect(() => {
     dispatch({ type: 'loader', payload: true })
     dispatch({ type: 'loading', payload: true })
     dispatch({ type: 'bannerImgLoader', payload: true })
     dispatch({ type: 'cardImgLoader', payload: true })
+    dispatch({ type: 'castImgLoader', payload: true })
     window.scroll(0, 0);
     props.projectDetailsReducerData(projectId || props.informationProjectView, (callback) => {
       dispatch({ type: 'projectSaveDetails', payload: callback.data?.projectsViewModel })
@@ -123,6 +147,7 @@ const Projects = (props) => {
       dispatch({ type: 'loading', payload: false })
       dispatch({ type: 'bannerImgLoader', payload: false })
       dispatch({ type: 'cardImgLoader', payload: false })
+      dispatch({ type: 'castImgLoader', payload: false })
       dispatchData(setProjectDetail(callback?.data?.claimsAndAllocations))
       setSelectedValues(callback.data?.projectsViewModel?.countryRestrictions)
       getSelectedCountries(callback.data?.projectsViewModel?.countryRestrictions)
@@ -142,6 +167,7 @@ const Projects = (props) => {
     props.projectDetailsReducerData(projectId || props.informationProjectView, (callback) => {
       dispatch({ type: 'projectSaveDetails', payload: callback.data?.projectsViewModel })
       dispatch({ type: 'projectDetails', payload: callback.data })
+      dispatch({ type: 'castCrewDataList', payload: callback.data?.projectsViewModel?.castCrews ? callback.data?.projectsViewModel?.castCrews:[] });
       dispatchData(setProjectDetail(callback?.data?.claimsAndAllocations))
       setSelectedValues(callback.data?.projectsViewModel?.countryRestrictions)
       getSelectedCountries(callback.data?.projectsViewModel?.countryRestrictions)
@@ -168,19 +194,27 @@ const Projects = (props) => {
       dispatch({ type: 'introductionHtml', payload: editorRef.current.getContent() })
     }
   };
-  const handleUpload = () => {
-    inputRef.current?.click();
-  }
-  const handleEdit = () => {
+
+  const handleEdit = (index) => {
     setShow(true)
+    if (index !== null) {
+    const selectedItem = state.castCrewDataList[index];
+    setSelectedroleValues(selectedItem?.role)
+    dispatch({ type: "cast_CrewsFormDeatils" ,payload: selectedItem });
+    }else{
+      dispatch({ type: "cast_CrewsFormDeatils", payload: {} });
+    }
   }
   const handleCancell = () => {
     setShow(false)
+    dispatch({ type: "cast_CrewsFormDeatils" ,payload:{} });
+    setSelectedroleValues([])
   }
 
   const validateForm = (obj) => {
     const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, contractAddress,
-      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply } = obj;
+      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply,name,cast_CrewsImage,bio,role,instagram,
+      facebook,webisite} = obj;
     const newErrors = {};
     const emojiRejex =
       /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff]|[\u2010-\u2017])/g;
@@ -245,6 +279,29 @@ const Projects = (props) => {
     } else if (totalNumberOfTokens && (emojiRejex.test(totalNumberOfTokens))) {
       newErrors.totalNumberOfTokens = 'Please provide valid content.';
     }
+    // if (!name || name === '') {
+    //   newErrors.name = 'Is required';
+    // } else if (!validateContentRules('', name)) {
+    //   newErrors.name = 'Please provide valid content.';
+    // }
+    // if (!cast_CrewsImage || cast_CrewsImage === '') {
+    //   newErrors.cast_CrewsImage = 'Is required';
+    // }
+    // if (!bio || bio == '') {
+    //   newErrors.bio = 'Is required';
+    // }
+    // if (!role || role == '') {
+    //   newErrors.role = 'Is required';
+    // }
+    // if (!instagram || instagram == '') {
+    //   newErrors.instagram = 'Is required';
+    // }
+    // if (!facebook || facebook === '') {
+    //   newErrors.facebook = 'Is required';
+    // }
+    // if (!webisite || webisite === '') {
+    //   newErrors.webisite = 'Is required';
+    // }
 
     return newErrors;
   };
@@ -303,6 +360,7 @@ const Projects = (props) => {
         "introductionHtml": state.introductionHtml || state.projectSaveDetails?.introductionHtml,
         "projectOwnerId": projectItem?.id ? projectItem.id : isAdmin?.id,
         "initialSupply": state.projectSaveDetails?.initialSupply,
+        "cast_Crews":   state.castCrewDataList, 
       }
 
       dispatch({ type: 'projectSaveDetails', payload: obj })
@@ -371,8 +429,12 @@ const Projects = (props) => {
           if (!!errors[type]) {
             setErrors({ ...errors, [field]: null })
           }
-        }
-        else {
+        }else if (type === 'image') {
+          dispatch({ type: 'castImgLoader', payload: true })
+          if (!!errors[type]) {
+            setErrors({ ...errors, [field]: null })
+          }
+        } else {
           dispatch({ type: 'cardImgLoader', payload: true })
           if (!!errors[type]) {
             setErrors({ ...errors, [field]: null })
@@ -382,6 +444,7 @@ const Projects = (props) => {
     }
   };
   const uploadToServer = async (file, type) => {
+    dispatch({ type: 'castImgLoader', payload: true }); 
     const body = new FormData();
     body.append('file', file);
     try {
@@ -391,6 +454,7 @@ const Projects = (props) => {
         dispatch({ type: 'loading', payload: false })
         dispatch({ type: 'cardImgLoader', payload: false })
         dispatch({ type: 'bannerImgLoader', payload: false })
+        dispatch({ type: 'castImgLoader', payload: false })
         dispatch({ type: 'errorMgs', payload: apiCalls.uploadErrorDisplay(res) })
       } else {
         let data = res
@@ -407,13 +471,22 @@ const Projects = (props) => {
           _obj.cardImage = data[0];
           dispatch({ type: 'cardImgLoader', payload: false })
           dispatch({ type: 'projectCardImages', payload: data[0] })
-        }
+        }else if (type == "CARD") {
+          _obj.cardImage = data[0];
+          dispatch({ type: 'cardImgLoader', payload: false })
+          dispatch({ type: 'projectCardImages', payload: data[0] })
+        }else if (type == "image") {
+          _obj.cardImage = data[0];
+          dispatch({ type: 'castImgLoader', payload: false })
+          dispatch({ type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, image: data[0] } })
+       }
       }
     } catch (error) {
       dispatch({ type: 'bannerImgLoader', payload: false })
       dispatch({ type: 'errorMgs', payload: apiCalls.isErrorDispaly(error) })
       dispatch({ type: 'loading', payload: false })
       dispatch({ type: 'cardImgLoader', payload: false })
+      dispatch({ type: 'castImgLoader', payload: false })
       window.scroll(0, 0);
     }
   };
@@ -483,6 +556,36 @@ const Projects = (props) => {
     setSelectedValues(selectedList);
 
   };
+
+  const handlecastCrewData = (event) => {
+    const { name, value } = event.target;
+    dispatch({ type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, [name]: value} 
+    });
+  }
+
+  const onRolsSelect = (selectedList) => {
+    const selectedRoleNames = selectedList?.map(item => item.role).flat();
+    setSelectedroleValues(selectedList);
+    dispatch({ type: 'cast_CrewsFormDeatils',payload: { ...state.cast_CrewsFormDeatils, role: selectedRoleNames } })
+  };
+
+  const handleCastCrewDataSave=async (event) => {
+    event.preventDefault();
+    const formDetails = { ...state.cast_CrewsFormDeatils };
+    const existingIndex = state.castCrewDataList?.findIndex(item => item.id === formDetails.id);
+    if (existingIndex !== -1) {
+      const updatedList = [...state.castCrewDataList];
+      updatedList[existingIndex] = { ...formDetails, recordStatus: "modified" };
+      dispatch({ type: 'castCrewDataList', payload: updatedList });
+    } else {
+      const formData  =  { ...state.cast_CrewsFormDeatils, id: '00000000-0000-0000-0000-000000000000' };
+      dispatch({ type: 'castCrewDataList', payload: [...state.castCrewDataList, { ...formData, recordStatus: "added" }] });
+    }
+    setShow(false)
+    setSelectedroleValues([])
+  }
+
+
   return (<>
     {state.loader && <div className="text-center"><Spinner ></Spinner></div>}
     {!state.loader && <>
@@ -1073,26 +1176,27 @@ const Projects = (props) => {
             </div>
               <div className='d-flex justify-content-between align-items-center mb-2 mt-5'>
                 <h3 className='section-title '>Cast And Crew</h3>
-                <Button className='primary-btn mt-3 mt-md-0' onClick={handleEdit} ><span className='icon add-icon'></span> Add </Button>
+                <Button className='primary-btn mt-3 mt-md-0' onClick={()=>handleEdit()} ><span className='icon add-icon'></span> Add </Button>
               </div>
               <Row className='mb-4'>
-                <Col className="" lg={3}>
-                  <div className='profile-panel card-style home-card p-lg-3 px-2'>
-                  
+                {state.castCrewDataList && state.castCrewDataList.map((item,index)=>(<> 
+                <Col className="" lg={3} key={item.id}>
+                  <div className='profile-panel card-style home-card p-lg-3 px-2' key={index}onClick={() => handleEdit(index)}>
                   <div>
                       <Form.Group >
                         <div className='profile-size castandcre-profile  no-hover mx-auto' >
                           <span className='image-box'>
                             <img className='image-setup'
-                              src={profileavathar} alt="profile img"
+                              src={item?.image  || profileavathar} alt="profile img"
                             />
                           </span>
                         </div>
-                        <p className="profile-value mb-0 text-center mt-2">Prabhas Rebelstar</p>
-                        <p className="profile-value mb-1 text-center">Actor</p>
-                        <p className="profile-label text-center">
-                          Tollywood best Film Actor
-                        </p>
+                        {/* <p className="profile-value mb-0 text-center mt-2">Prabhas Rebelstar</p> */}
+                        <p className="profile-value mb-0 text-center mt-2">{item?.name }</p>
+                        {/* <p className="profile-value mb-1 text-center">Actor</p> */}
+                          <p className="profile-value mb-1 text-center">{item?.role}</p>
+                        {/* <p className="profile-label text-center">Tollywood best Film Actor</p> */}
+                        <p className="profile-label text-center">{item?.bio }</p>
                       </Form.Group>
                       </div>
                       <hr/>
@@ -1100,27 +1204,28 @@ const Projects = (props) => {
                       <Col md={12}>
                       <div className='d-flex gap-2'>
                         <span className='icon facebook'></span>
-                        <p className="profile-value">wwww.facebook.com</p>
+                        {/* <p className="profile-value">wwww.facebook.com</p> */}
+                        <p className="profile-value">{item?.facebook }</p>
                       </div>
                 
                       <div className='d-flex gap-2'>
                       <span className='icon website'></span>
-                        <p className="profile-value">www.actorprabhas.com</p>
+                        {/* <p className="profile-value">www.actorprabhas.com</p> */}
+                        <p className="profile-value">{item?.webisite } </p>
                       </div>
                   
                      <div className='d-flex gap-2'>
                      <span className='icon instagram'></span>
-                        <p className="profile-value">actorprabhas/insta.com</p>
+                        {/* <p className="profile-value">actorprabhas/insta.com</p> */}
+                        <p className="profile-value">{item?.instagram } </p>
                      </div>
                       </Col>
-                      
                     </Row>
-
                   </div>
-
-                  
                 </Col>
+                </> ))}
               </Row>
+
               <div className='text-end mt-xl-5 mb-5'>
                 <Button className='cancel-btn me-2' onClick={() => handleCancel()} >
                   Cancel</Button>{' '}
@@ -1160,21 +1265,32 @@ const Projects = (props) => {
                           <Col xl={12}>
                             <Row className='justify-content-center'>
                             <Col xl={4} className="mb-4">
-                              <Form.Group>
-                                <div className='profile-size identification-image  no-hover' >
-                                  <span className='image-box'>
+                        <Form.Group>
+                          <div className='profile-size identification-image  no-hover' >
+                            <span className='image-box' >
+                              {state.castImgLoader && <Spinner className='castcrew-loader' fallback={state.castImgLoader}></Spinner>}
+                              {!state.castImgLoader &&
+                                <span className='imgupload-span'>
+                                  <Image className='image-setup' age src={state?.cast_CrewsFormDeatils?.image || profileavathar} width="100" height="100" alt="" />
+                                </span>
+                                }
+                              { !state.castImgLoader &&
+                                <span >
+                                  <Form.Control
+                                    ref={inputRef3}
+                                    type="file"
+                                    name="image"
+                                    id="input-file"
+                                    onChange={(e) => uploadToClient(e, 'image')}
+                                    className="d-none"
+                                  />
+                                  <Button onClick={()=>inputRef3.current?.click()} className="icon camera cam-position upload-transparent"></Button>
+                                </span>
+                              }
+                            </span>
 
-                                    <img className='image-setup'
-                                      src={profileavathar} alt="profile img"
-                                    />
-                                  </span>
-                                  <span>
-                                    <input ref={inputRef} type="file" name="myImage" id="input-file" onChange={uploadToClient} className="d-none" />
-                                    <Button onClick={handleUpload} className="icon camera cam-position upload-transparent">
-                                    </Button>
-                                  </span>
-                                </div>
-                              </Form.Group>
+                          </div>
+                        </Form.Group>
                             </Col>
                             </Row>
                             <Row className="mt-3 mt-xl-0">
@@ -1186,13 +1302,12 @@ const Projects = (props) => {
                                   className="mb-1 input-style mt-2"
                                 >
                                   <Form.Control
+                                    defaultValue={state?.cast_CrewsFormDeatils?.name || ''}
                                     type="text"
-                                    name="firstName"
-
-
+                                    name="name"
                                     autoComplete="off"
-                                    onChange={(e) => { setField('firstName', e.currentTarget.value) }}
-                                    isInvalid={!!errors.firstName}
+                                    onChange={handlecastCrewData}
+                                    isInvalid={!!errors.name }
                                     required
                                     placeholder="First Name *"
                                     maxLength={50}
@@ -1207,15 +1322,16 @@ const Projects = (props) => {
                                   className="mb-1 input-style mt-2"
                                 >
 
-                                  <Form.Control
-                                    as="textarea"
-                                    placeholder="Enter Bio"
-                                    style={{ height: '100px' }}
-                                    onChange={(e) => { setField('lastName', e.currentTarget.value) }}
-                                    isInvalid={!!errors.lastName}
-                                    required
-                                    maxLength={50}
-                                  />
+                          <Form.Control
+                            value={state?.cast_CrewsFormDeatils?.bio || ''}
+                            as="textarea"
+                            name='bio'
+                            placeholder="Enter Bio"
+                            style={{ height: '100px' }}
+                            onChange={handlecastCrewData}
+                            isInvalid={!!errors.bio}
+                            maxLength={50}
+                          />
                                   <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
                                 </FloatingLabel>
                               </Col>
@@ -1226,12 +1342,12 @@ const Projects = (props) => {
                                   className="mb-1 input-style mt-2"
                                 >
                                   <Form.Control
+                                  value={state?.cast_CrewsFormDeatils?.webisite||''}
                                     type="text"
-                                    name="firstName"
+                                    name="webisite"
                                     autoComplete="off"
-                                    onChange={(e) => { setField('firstName', e.currentTarget.value) }}
-                                    isInvalid={!!errors.firstName}
-                                    required
+                                    onChange={handlecastCrewData}
+                                    isInvalid={!!errors.webisite}
                                     placeholder="First Name *"
                                     maxLength={50}
                                   />
@@ -1245,12 +1361,12 @@ const Projects = (props) => {
                                   className="mb-1 input-style mt-2"
                                 >
                                   <Form.Control
+                                  value={state?.cast_CrewsFormDeatils?.instagram||''}
                                     type="text"
-                                    name="firstName"
+                                    name="instagram"
                                     autoComplete="off"
-                                    onChange={(e) => { setField('firstName', e.currentTarget.value) }}
-                                    isInvalid={!!errors.firstName}
-                                    required
+                                    onChange={handlecastCrewData}
+                                    isInvalid={!!errors.instagram}
                                     placeholder="First Name *"
                                     maxLength={50}
                                   />
@@ -1264,12 +1380,12 @@ const Projects = (props) => {
                                   className="mb-1 input-style mt-2"
                                 >
                                   <Form.Control
+                                  value={state?.cast_CrewsFormDeatils?.facebook||''}
                                     type="text"
-                                    name="firstName"
+                                    name="facebook"
                                     autoComplete="off"
-                                    onChange={(e) => { setField('firstName', e.currentTarget.value) }}
-                                    isInvalid={!!errors.firstName}
-                                    required
+                                    onChange={handlecastCrewData}
+                                    isInvalid={!!errors.facebook}
                                     placeholder="First Name *"
                                     maxLength={50}
                                   />
@@ -1285,15 +1401,11 @@ const Projects = (props) => {
                                 >
                                   <Multiselect
                                     className='multiselecter role-select'
-                                    options={jsonCountryCode}
-                                    selectedValues={selectedValues}
-                                    onSelect={onSelect}
-                                    onRemove={onSelect}
-                                    displayValue="name"
-                                    disable={(state.projectSaveDetails?.projectStatus == "Deployed"
-                                      || state.projectSaveDetails?.projectStatus == "Rejected"
-                                      || state.projectSaveDetails?.projectStatus == "Approved"
-                                    ) && true}
+                                    options={castCrewRolesLu}
+                                    selectedValues={selectedroleValues}
+                                    onSelect={onRolsSelect}
+                                    onRemove={onRolsSelect}
+                                    displayValue="role"
                                   />
                                   <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
                                 </FloatingLabel>
@@ -1304,8 +1416,8 @@ const Projects = (props) => {
 
                       </Modal.Body>
                       <Modal.Footer>
-                        <div className="text-end"><Button className="transparent-btn" onClick={() => { handleCancel() }}>Cancel</Button>
-                          <Button className="filled-btn ms-lg-3 ms-2" type="submit" >
+                        <div className="text-end"><Button className="transparent-btn" onClick={() => { handleCancell() }}>Cancel</Button>
+                          <Button className="filled-btn ms-lg-3 ms-2" type="submit" onClick={(e) => handleCastCrewDataSave(e)} >
                             Save</Button></div>
                       </Modal.Footer>
                     </Form>
@@ -1334,6 +1446,7 @@ const connectDispatchToProps = (dispatch) => {
     projectDetailsReducerData: (id, callback) => {
 
       dispatch(projectDetailsData(id, callback));
+      dispatch(fetchCastCrewRolesData());
     },
   }
 }

@@ -1,4 +1,4 @@
-import { projectApi, marketApi,ipRegistry,kycInfo,marketPlaceApi,mintingApi,daoApi,launchpadApi } from ".";
+import { projectApi, marketApi,ipRegistry,kycInfo,marketPlaceApi,mintingApi,daoApi,launchpadApi,projectApii } from ".";
 import { ApiControllers } from "./config";
 import CryptoJS from "crypto-js";
 
@@ -216,6 +216,9 @@ const getlaunchpadProjects = (id, take, skip, search) => {
 const getUserProfile= (id) => {
   return projectApi.get(ApiControllers.user + `UserProfile/${id}`)
 }
+const getCastCrewRolesLu = () => {
+  return projectApii.get(ApiControllers.projects + `roleslu`)
+}
 const getIpRegistery = () => {
   return ipRegistry.get(`/check?access_key=`+process.env.REACT_APP_IPREGISTERY_KEY);
 };
@@ -303,6 +306,6 @@ totalBonus,updateRefferal,getProposalView,postCreateProposal,getProposalList,get
   , savetiers, UpdateClaimsAndAllocation, getProjects, getTiers, getSuperAdminDetails, getUpcomingProjects,
   updateContractAddressStatus, adminOrSuperAdminDetails, getlaunchpadProjects, getLaunchpadProjectDetails, getProjectFeed,getUserProfile,
   apiUploadPost,metaDataDetails,memberTypes,memberPrice,updateTransaction,
-  getPeriodType,getWhiteListeddata,saveWhitelist,getPeriodsData,memberTypes,customerWalletAddressChecking,getProposalVoters,uploadErrorDisplay}
+  getPeriodType,getWhiteListeddata,saveWhitelist,getPeriodsData,memberTypes,customerWalletAddressChecking,getProposalVoters,uploadErrorDisplay,getCastCrewRolesLu}
 
 export default apiCalls

@@ -510,7 +510,7 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 }
 .role-select .searchWrapper input{border: transparent !important;}
 .role-select .searchWrapper{padding: 3px 5px;}
-
+.castcrew-loader{position: absolute;right: 45%;top: 45%;}
 @media (min-width: 768px) {
 .token-listing .was-validated .form-control:invalid{padding-right: 16px !important;}
   .allocation-error{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 700px;}
