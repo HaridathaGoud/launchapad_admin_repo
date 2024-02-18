@@ -208,12 +208,12 @@ const Projects = (props) => {
     setShow(false)
     dispatch({ type: "cast_CrewsFormDeatils" ,payload:{} });
     setSelectedroleValues([])
+    setErrors({});
   }
 
   const validateForm = (obj) => {
     const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, contractAddress,
-      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply,name,cast_CrewsImage,bio,role,instagram,
-      facebook,webisite} = obj;
+      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply} = obj;
     const newErrors = {};
     const emojiRejex =
       /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff]|[\u2010-\u2017])/g;
@@ -278,29 +278,6 @@ const Projects = (props) => {
     } else if (totalNumberOfTokens && (emojiRejex.test(totalNumberOfTokens))) {
       newErrors.totalNumberOfTokens = 'Please provide valid content.';
     }
-    // if (!name || name === '') {
-    //   newErrors.name = 'Is required';
-    // } else if (!validateContentRules('', name)) {
-    //   newErrors.name = 'Please provide valid content.';
-    // }
-    // if (!cast_CrewsImage || cast_CrewsImage === '') {
-    //   newErrors.cast_CrewsImage = 'Is required';
-    // }
-    // if (!bio || bio == '') {
-    //   newErrors.bio = 'Is required';
-    // }
-    // if (!role || role == '') {
-    //   newErrors.role = 'Is required';
-    // }
-    // if (!instagram || instagram == '') {
-    //   newErrors.instagram = 'Is required';
-    // }
-    // if (!facebook || facebook === '') {
-    //   newErrors.facebook = 'Is required';
-    // }
-    // if (!webisite || webisite === '') {
-    //   newErrors.webisite = 'Is required';
-    // }
 
     return newErrors;
   };
@@ -361,7 +338,6 @@ const Projects = (props) => {
         "initialSupply": state.projectSaveDetails?.initialSupply,
         "cast_Crews":   state.castCrewDataList, 
       }
-console.log(obj)
       dispatch({ type: 'projectSaveDetails', payload: obj })
       if (window.location.pathname.includes('/launchpad/idorequest')) {
         obj.id = state.projectSaveDetails?.id
@@ -567,21 +543,50 @@ console.log(obj)
     setSelectedroleValues(selectedList);
     dispatch({ type: 'cast_CrewsFormDeatils',payload: { ...state.cast_CrewsFormDeatils, role: selectedRoleNames } })
   };
+const validateCastCrewForm=()=>{
+  let validatingForm = {...state.cast_CrewsFormDeatils}
+  const newErrors = {};// state.cast_CrewsFormDeatils
+  const emojiRejex =
+    /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff]|[\u2010-\u2017])/g;
+    const urlRegex = /^www\.[a-zA-Z]+\.(com)$/;
 
+    if (!validatingForm?.name || validatingForm?.name === '') {
+    newErrors.name = 'Is required';
+  } else if (!validateContentRules('', validatingForm?.name)) {
+    newErrors.name = 'Please provide valid content.';
+  }
+  if (validatingForm?.instagram && !urlRegex.test(validatingForm?.instagram)) {
+    newErrors.instagram = 'Please provide a valid Instagram URL';
+  }
+  if (validatingForm?.facebook && !urlRegex.test(validatingForm?.facebook)) {
+    newErrors.facebook = 'Please provide a valid Facebook URL';
+  }
+  if (validatingForm?.webisite && !urlRegex.test(validatingForm?.webisite)) {
+    newErrors.webisite = 'Please provide a valid Website URL';
+  }
+  return newErrors;
+}
   const handleCastCrewDataSave=async (event) => {
     event.preventDefault();
+    const formErrors = validateCastCrewForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+  } else {
     const formDetails = { ...state.cast_CrewsFormDeatils };
     const existingIndex = state.castCrewDataList?.findIndex(item => item.id === formDetails.id);
     if (existingIndex !== -1) {
       const updatedList = [...state.castCrewDataList];
       updatedList[existingIndex] = { ...formDetails, recordStatus: "modified" };
       dispatch({ type: 'castCrewDataList', payload: updatedList });
+      setErrors({});
     } else {
       const formData  =  { ...state.cast_CrewsFormDeatils, id: '00000000-0000-0000-0000-000000000000' };
       dispatch({ type: 'castCrewDataList', payload: [...state.castCrewDataList, { ...formData, recordStatus: "added" }] });
+      setErrors({});
     }
     setShow(false)
     setSelectedroleValues([])
+   }
   }
 
 
@@ -1311,7 +1316,7 @@ console.log(obj)
                                     placeholder="First Name *"
                                     maxLength={50}
                                   />
-                                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                  <Form.Control.Feedback type="invalid">{errors?.name || state?.errors?.name}</Form.Control.Feedback>
                                 </FloatingLabel>
                               </Col>
                               <Col xl={6} className="mb-3">
@@ -1331,7 +1336,7 @@ console.log(obj)
                             isInvalid={!!errors.bio}
                             maxLength={50}
                           />
-                                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                  <Form.Control.Feedback type="invalid">{errors?.bio || state?.errors?.bio}</Form.Control.Feedback>
                                 </FloatingLabel>
                               </Col>
                               <Col xl={6} className="mb-3">
@@ -1350,7 +1355,7 @@ console.log(obj)
                                     placeholder="First Name *"
                                     maxLength={50}
                                   />
-                                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                  <Form.Control.Feedback type="invalid">{errors?.webisite || state?.errors?.webisite}</Form.Control.Feedback>
                                 </FloatingLabel>
                               </Col>
                               <Col xl={6} className="mb-3">
@@ -1369,7 +1374,7 @@ console.log(obj)
                                     placeholder="First Name *"
                                     maxLength={50}
                                   />
-                                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                  <Form.Control.Feedback type="invalid">{errors?.instagram || state?.errors?.instagram}</Form.Control.Feedback>
                                 </FloatingLabel>
                               </Col>
                               <Col xl={6} className="mb-3">
@@ -1388,7 +1393,7 @@ console.log(obj)
                                     placeholder="First Name *"
                                     maxLength={50}
                                   />
-                                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                  <Form.Control.Feedback type="invalid">{errors?.facebook || state?.errors?.facebook}</Form.Control.Feedback>
                                 </FloatingLabel>
                               </Col>
                               <Col lg={6} md={12}>
@@ -1406,7 +1411,9 @@ console.log(obj)
                                     onRemove={onRolsSelect}
                                     displayValue="role"
                                   />
-                                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+                                  <Form.Control.Feedback type="invalid">3
+                                  
+                                  </Form.Control.Feedback>
                                 </FloatingLabel>
                               </Col>
                             </Row>
