@@ -271,8 +271,8 @@ function AppHeader(props){
 
           {/* <li><Link to="/minting/dashboard" className={"underline" + (url === "minting" ? " active" : "")} onClick={() => gotoMinting()} >Minting</Link></li> */}
           {/* <li><Link to="/minting/dashboard" className={"underline" + (url === "minting" ? " active" : "")} onClick={() => dispatch(setApp("minting"))}>Minting</Link></li> */}
-         {/* {props?.userInfo?.role=="Super Admin"&&
-          <li><Link to="/marketplace/dashboard" className={"underline" + (url === "marketplace" ? " active" : "")} onClick={() => dispatch(setApp("marketplace"))}>Marketplace</Link></li>} */}
+         {props?.userInfo?.role=="Super Admin"&&
+          <li><Link to="/marketplace/dashboard" className={"underline" + (url === "marketplace" ? " active" : "")} onClick={() => dispatch(setApp("marketplace"))}>Marketplace</Link></li>}
            {props?.userInfo?.role=="Super Admin"&&  <li><Link to="/dao/dashboard" className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dashboard"))}>DAO</Link></li>}
         
          {props?.userInfo?.role=="Admin"&&<li><Link to={`/dao/proposal/${daoId}`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>gotoDao()}>DAO</Link></li>}

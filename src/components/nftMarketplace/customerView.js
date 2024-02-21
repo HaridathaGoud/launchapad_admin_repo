@@ -71,12 +71,12 @@ const ProfileView = () => {
         setLoader(true);
        await getMarketPlaceData(`NFTDetails/${nftTokenId}/${nftCollectionContractAddress}/${nftId}`)
           .then((response) => {
-            loadFavoritesCount(response.data.id);
-            loadNFTViewsCount(response.data.id);
-            getMoreNftsCollection(response.data);
-            setNftDetails(response.data);
-            getbidData(response.data.id);
-            setFav(response.data.isFavorite);
+            loadFavoritesCount(response?.data?.id);
+            loadNFTViewsCount(response?.data?.id);
+            getMoreNftsCollection(response?.data);
+            setNftDetails(response?.data);
+            getbidData(response?.data?.id);
+            setFav(response?.data?.isFavorite);
             setLoader(false);
             
           })
@@ -89,7 +89,7 @@ const ProfileView = () => {
       const loadFavoritesCount = async (userid) => {
         let response = await getMarketPlaceData(`NftFavoritesCount/${userid}`);
         if (response) {
-          setfavCount(response.data);
+          setfavCount(response?.data);
         } else {
           setErrorMsg(isErrorDispaly(response));
         }
@@ -98,7 +98,7 @@ const ProfileView = () => {
       const loadNFTViewsCount = async (userid) => {
         let response = await getMarketPlaceData(`getviewerscount/${userid}`);
         if (response) {
-          setviewsCount(response.data);
+          setviewsCount(response?.data);
         } else {
           setErrorMsg(isErrorDispaly(response));
         }
@@ -107,7 +107,7 @@ const ProfileView = () => {
       const getNFTContractdetails = async (nftTokenId,nftCollectionContractAddress) => {
         let response = await getMarketPlaceData(`GetNFTContractDetails/${nftTokenId}/${nftCollectionContractAddress}`);
         if (response) {
-          setNFTContractdetails(response.data);
+          setNFTContractdetails(response?.data);
         } else {
           setErrorMsg(isErrorDispaly(response));
         }
@@ -116,7 +116,7 @@ const ProfileView = () => {
       const getNFTProperties = async (nftTokenId,nftCollectionContractAddress) => {
         let response = await getMarketPlaceData(`NFTProperties/${nftTokenId}/${nftCollectionContractAddress}`);
         if (response) {
-          setnftAttributes(JSON.parse(response.data?.attributes));
+          setnftAttributes(JSON.parse(response?.data?.attributes));
         } else {
           setErrorMsg(isErrorDispaly(response));
         }
@@ -125,7 +125,7 @@ const ProfileView = () => {
       const getbidData = async (nftBidId) => {
         let response = await getMarketPlaceData(`biddata/${nftBidId}/${10}/${0}`);
         if (response) {
-          setBidData(response.data);
+          setBidData(response?.data);
         } else {
           setErrorMsg(isErrorDispaly(response));
         }
