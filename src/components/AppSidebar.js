@@ -69,11 +69,15 @@ const AppSidebar = (props) => {
 
   const logoRedirection=()=>{
     if(props.adminDetails.isInvestor){
-      onAppSelect("minting");
-      navigate('/minting/dashboard');
+      // onAppSelect("minting");
+      // navigate('/minting/dashboard');
+      onAppSelect("launchpad");
+      navigate('/launchpad/dashboard');
     }else{
-      onAppSelect("kyc");
-    navigate('/kyc/customers');
+      // onAppSelect("kyc");
+    // navigate('/kyc/customers');
+       onAppSelect("launchpad");
+      navigate('/launchpad/dashboard');
     }
 
   }

@@ -924,7 +924,8 @@ const Projects = (props) => {
                 <div><h6 className='input-label section-title mb-2 mt-2'>Project Feed</h6></div>
                 <div className='projects-editor'>
                   <Editor
-                    apiKey='myyg2t1wdqdsjfdk71z1cyy0ts5iwq5u638ze7ub8sccahbh'
+                  apiKey= 'sr9qzkyye574at479qfqi56rc3bprw5vols3fvpvmewh491f'
+                    // apiKey='myyg2t1wdqdsjfdk71z1cyy0ts5iwq5u638ze7ub8sccahbh'
                     onInit={(evt, editor) => editorRef.current = editor}
                     initialValue={state.projectSaveDetails?.introductionHtml}
                     onChange={handledescription}

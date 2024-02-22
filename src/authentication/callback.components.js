@@ -13,12 +13,14 @@ const CallbackPage = () => {
         store.dispatch(profileSuccess(user));
         store.dispatch(getAdminDetails(user?.profile?.sub));
         if(user?.profile.isInvestor){
-            return  navigate("/minting/dashboard")
+            return   navigate("/launchpad/dashboard");
+            // navigate("/minting/dashboard")
         }
         else{
             const url = localStorage.getItem("__url");
             localStorage.removeItem("__url");
-            navigate(url && url !== "/callback" ? url : "/kyc/customers")
+            navigate(url && url !== "/callback" ? url : "/launchpad/dashboard")
+            // navigate(url && url !== "/callback" ? url : "/kyc/customers")
         }
        
     }
