@@ -4,7 +4,8 @@ import { Button } from 'react-bootstrap';
 const Pageerror = () => {
   const router = useNavigate();
  const goToDashBoard=()=>{
-  router('/kyc/customers');
+  // router('/kyc/customers');
+    router('/launchpad/customers');
   }
   return (
     <>

@@ -25,11 +25,14 @@ const DefaultLayout = () => {
       });
     }
     if (window.location.pathname === '/') {
-      onAppSelect("kyc");
+      // onAppSelect("kyc");
+      onAppSelect("launchpad");
       if(User?.profile?.isInvestor){
-       return navigate("minting/dashboard")
+      return navigate('/launchpad/dashboard');
+      //  return navigate("minting/dashboard")
       }else{
-        return navigate("/kyc/customers")
+        return navigate('/launchpad/dashboard');
+        // navigate("/kyc/customers")
       }
        
     }
