@@ -1,10 +1,18 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setApp } from 'src/reducers/applicationReducer';
 import { Button } from 'react-bootstrap';
 const Pageerror = () => {
   const router = useNavigate();
+  const dispatch = useDispatch()
+
+  const onAppSelect = (app_name) => {
+    dispatch(setApp(app_name));
+  }
  const goToDashBoard=()=>{
   // router('/kyc/customers');
+    onAppSelect("launchpad");
     router('/launchpad/dashboard');
   }
   return (

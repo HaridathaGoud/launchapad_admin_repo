@@ -6,6 +6,7 @@ import { daoCards } from '../proposalReducer/proposalReducer';
 import { connect,useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { Placeholder } from 'react-bootstrap';
+import profileavathar from '../../assets/images/default-avatar.jpg';
 
 const  Dashboard =(props)=> {
     const [daoCardDetails,setDaoCardsDetails] = useState([]);
@@ -29,7 +30,7 @@ const  Dashboard =(props)=> {
                  {daoCardDetails?.map((item)=>(
                 <Col lg={3} md={6} xs={12} className='mt-md-3'>
                 {!loading?<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' onClick={()=>goToProposalList(item)}>
-                    <Card.Img variant="top" src={item?.logo} />
+                    <Card.Img variant="top" src={item?.logo || profileavathar } />
                     <Card.Body>                        
                         <Card.Text className='mb-1'>
                            Name: {item.name}
