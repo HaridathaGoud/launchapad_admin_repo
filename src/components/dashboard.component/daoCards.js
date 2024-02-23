@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-import { daoCards } from '../proposalReducer/proposalReducer';
-import { connect,useSelector } from 'react-redux';
+import { daoCards,InvestorDaoCards } from '../proposalReducer/proposalReducer';
+import { connect,useSelector  } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { Placeholder } from 'react-bootstrap';
 import profileavathar from '../../assets/images/default-avatar.jpg';
@@ -11,14 +11,20 @@ import profileavathar from '../../assets/images/default-avatar.jpg';
 const  Dashboard =(props)=> {
     const [daoCardDetails,setDaoCardsDetails] = useState([]);
     const loading =useSelector((state) => state?.proposal?.daoCards?.isLoading)
+    const isAdmin = useSelector(state => state.oidc?.adminDetails);
     const router = useNavigate();
-
     useEffect(()=>{
-        props?.trackWallet((callback)=>{
-            setDaoCardsDetails(callback);
-        })
+        if (isAdmin?.isInvestor===true) {
+            props?.trackDaoWallet((callback)=>{
+                setDaoCardsDetails(callback);
+            })
+        }else{
+            props?.trackWallet((callback)=>{
+                setDaoCardsDetails(callback);
+            })
+        }
+        
     },[])
-
     const goToProposalList = (item)=>{
         router(`/dao/proposal/${item?.daoId}`);
     }
@@ -30,13 +36,13 @@ const  Dashboard =(props)=> {
                  {daoCardDetails?.map((item)=>(
                 <Col lg={3} md={6} xs={12} className='mt-md-3'>
                 {!loading?<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' onClick={()=>goToProposalList(item)}>
-                    <Card.Img variant="top" src={item?.logo || profileavathar } />
+                    <Card.Img variant="top" src={item?.logo || profileavathar  } />
                     <Card.Body>                        
                         <Card.Text className='mb-1'>
                            Name: {item.name}
                         </Card.Text>
                        <Card.Text className='card-description'>
-                        members: {item?.members.toLocaleString()}
+                        members: {item?.members?.toLocaleString()}
                         </Card.Text>
                     </Card.Body>
                 </Card>:(
@@ -61,9 +67,14 @@ const  Dashboard =(props)=> {
     )
 }
 const connectDispatchToProps = (dispatch) => {
+ const isAdmin = useSelector(state => state.oidc?.adminDetails);
+  const inverstorId = isAdmin?.id;
     return {
           trackWallet: (callback) => {
             dispatch(daoCards(callback));
+        },
+        trackDaoWallet: (callback) => {
+            dispatch(InvestorDaoCards(callback,inverstorId ));
         },
         dispatch,
       }

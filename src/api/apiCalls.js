@@ -1,4 +1,4 @@
-import { projectApi, marketApi,ipRegistry,kycInfo,marketPlaceApi,mintingApi,daoApi,launchpadApi,projectApii } from ".";
+import { projectApi, marketApi,ipRegistry,kycInfo,marketPlaceApi,mintingApi,daoApi,launchpadApi,projectApii,daoApiAdmin } from ".";
 import { ApiControllers } from "./config";
 import CryptoJS from "crypto-js";
 
@@ -76,7 +76,9 @@ const getStakingTransactions = (take, skip, searchBy) => {
   return kycInfo.get(ApiControllers.projects + `StakingTransactions/${take}/${skip}/${searchBy || null}`)
 }
 
-
+const getInvestorDaoDetails=(investorId,take,skip)=> {
+  return daoApiAdmin.get(ApiControllers.projects +`DaoDetails/${investorId}/${take}/${skip}`);
+}
 
 
 const isErrorDispaly = (objValue) => {
@@ -306,6 +308,6 @@ totalBonus,updateRefferal,getProposalView,postCreateProposal,getProposalList,get
   , savetiers, UpdateClaimsAndAllocation, getProjects, getTiers, getSuperAdminDetails, getUpcomingProjects,
   updateContractAddressStatus, adminOrSuperAdminDetails, getlaunchpadProjects, getLaunchpadProjectDetails, getProjectFeed,getUserProfile,
   apiUploadPost,metaDataDetails,memberTypes,memberPrice,updateTransaction,
-  getPeriodType,getWhiteListeddata,saveWhitelist,getPeriodsData,memberTypes,customerWalletAddressChecking,getProposalVoters,uploadErrorDisplay,getCastCrewRolesLu}
+  getPeriodType,getWhiteListeddata,saveWhitelist,getPeriodsData,memberTypes,customerWalletAddressChecking,getProposalVoters,uploadErrorDisplay,getCastCrewRolesLu,getInvestorDaoDetails}
 
 export default apiCalls

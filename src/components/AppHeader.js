@@ -277,7 +277,7 @@ function AppHeader(props){
           {/* <li><Link to="/minting/dashboard" className={"underline" + (url === "minting" ? " active" : "")} onClick={() => dispatch(setApp("minting"))}>Minting</Link></li> */}
 
           {props?.userInfo?.role=="Admin"&&<li><Link to="/launchpad/dashboard" className={"underline" + (url === "launchpad" ? " active" : "")} onClick={() => dispatch(setApp("launchpad"))}>Launchpad</Link></li>}
-          {props?.userInfo?.role=="Admin"&&<li><Link to={`/dao/proposal/${daoId}`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>gotoDao()}>DAO</Link></li>}
+          {props?.userInfo?.role=="Admin"&&<li><Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>gotoDao()}>DAO</Link></li>}
 
           {props?.userInfo?.role=="Super Admin"&& <li><Link to="/launchpad/dashboard" className={"underline" + (url === "launchpad" ? " active" : "")} onClick={() => dispatch(setApp("launchpad"))}>Launchpad</Link></li>}
            {props?.userInfo?.role=="Super Admin"&&  <li><Link to="/dao/dashboard" className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dashboard"))}>DAO</Link></li>}

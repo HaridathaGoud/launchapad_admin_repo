@@ -22,6 +22,10 @@ const mintingApi = create({
 const daoApi = create({
 	baseURL: process.env.REACT_APP_API_DAO_END_POINT + "/api/v1/",
 });
+const daoApiAdmin = create({
+	baseURL: process.env.REACT_APP_API_DAO_END_POINT_ADMIN + "/api/v1/",
+});
+
 const launchpadApi=create({
 	//baseURL:"https://tstlaunchpadapi.azurewebsites.net/api/v1"
 	baseURL:process.env.REACT_APP_API_LAUNCHPAD_POINT +"api/v1"
@@ -64,6 +68,6 @@ mintingApi.axiosInstance.interceptors.request.use(async config => {
 });
 
 export {
-	projectApi,marketApi,ipRegistry,kycInfo,marketPlaceApi,mintingApi,daoApi,launchpadApi,projectApii
+	projectApi,marketApi,ipRegistry,kycInfo,marketPlaceApi,mintingApi,daoApi,launchpadApi,projectApii,daoApiAdmin
 };
 

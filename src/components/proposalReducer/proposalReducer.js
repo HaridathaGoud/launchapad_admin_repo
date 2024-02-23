@@ -127,6 +127,27 @@ const daoCards = (callback) => {
   };
 }
 
+const InvestorDaoCards = (callback,inverstorId ) => {
+  return async (dispatch) => {
+    dispatch(setDaoCards({ key: 'daoCards', loading: true, data: {} }));
+    const res = await apiCalls.getInvestorDaoDetails(inverstorId,10, 0);
+    if (res) {
+      dispatch(setDaoCards({ key: 'daoCards', loading: false, data: res.data, error: null }));
+      callback ? callback(res.data) : "";
+
+    } else {
+      dispatch(
+        setDaoCards({
+          key: 'daoCards',
+          loading: false,
+          data: {},
+          error: res,
+        }),
+      );
+    }
+  };
+}
+
 const getLookUp = (getLookUp) => {
   return async (dispatch) => {
     dispatch(lookUp({ key: 'lookUp', loading: true, data: {},error:null }));
@@ -290,4 +311,4 @@ const proposalReducer = (state, action) => {
 
 
 export default proposalReducer;
-export { daoCards, setDaoCards, getLookUp, proposalViewData, contractDetailsData,getCardsProposalList,proposalData,getProposalViewData,fetchVotersData,proposalVotersData,saveProposalCall,isCheckSeeMore,proposalDetailsList };
+export { daoCards, setDaoCards,InvestorDaoCards, getLookUp, proposalViewData, contractDetailsData,getCardsProposalList,proposalData,getProposalViewData,fetchVotersData,proposalVotersData,saveProposalCall,isCheckSeeMore,proposalDetailsList };
