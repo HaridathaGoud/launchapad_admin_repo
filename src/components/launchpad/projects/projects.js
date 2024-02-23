@@ -546,7 +546,8 @@ const Projects = (props) => {
  const validateCastCrewForm=()=>{
   let validatingForm = {...state.cast_CrewsFormDeatils}
   const newErrors = {};
-  const urlRegex = /^www\.[a-zA-Z]+\.(com)$/;
+  // const urlRegex = /^www\.[a-zA-Z]+\.(com)$/;
+  const urlRegex   = /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?\/?$/gm;
     if (!validatingForm?.name || validatingForm?.name === '') {
     newErrors.name = 'Is required';
   } else if (!validateContentRules('', validatingForm?.name)) {
