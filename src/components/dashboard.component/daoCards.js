@@ -28,7 +28,7 @@ const  Dashboard =(props)=> {
             
                  {daoCardDetails?.map((item)=>(
                 <Col lg={3} md={6} xs={12} className='mt-md-3'>
-                {!loading?<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer' onClick={()=>goToProposalList(item)}>
+                {!loading?<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' onClick={()=>goToProposalList(item)}>
                     <Card.Img variant="top" src={item?.logo} />
                     <Card.Body>                        
                         <Card.Text className='mb-1'>
