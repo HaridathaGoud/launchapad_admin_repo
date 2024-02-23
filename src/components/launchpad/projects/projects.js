@@ -1205,22 +1205,22 @@ const Projects = (props) => {
                       <hr/>
                       <Row className="">
                       <Col md={12}>
-                      <div className='d-flex gap-2'>
+                      <div className='d-flex gap-2 mb-2'>
                         <span className='icon facebook'></span>
                         {/* <p className="profile-value">wwww.facebook.com</p> */}
-                        <p className="profile-value">{item?.facebook }</p>
+                        <p className="profile-value mb-0">{item?.facebook }</p>
                       </div>
                 
-                      <div className='d-flex gap-2'>
+                      <div className='d-flex gap-2 mb-2'>
                       <span className='icon website'></span>
                         {/* <p className="profile-value">www.actorprabhas.com</p> */}
-                        <p className="profile-value">{item?.webisite } </p>
+                        <p className="profile-value mb-0">{item?.webisite } </p>
                       </div>
                   
                      <div className='d-flex gap-2'>
                      <span className='icon instagram'></span>
                         {/* <p className="profile-value">actorprabhas/insta.com</p> */}
-                        <p className="profile-value">{item?.instagram } </p>
+                        <p className="profile-value mb-0">{item?.instagram } </p>
                      </div>
                       </Col>
                     </Row>
