@@ -5,7 +5,7 @@ const Pageerror = () => {
   const router = useNavigate();
  const goToDashBoard=()=>{
   // router('/kyc/customers');
-    router('/launchpad/customers');
+    router('/launchpad/dashboard');
   }
   return (
     <>

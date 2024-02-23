@@ -21,7 +21,8 @@ const AppContent = () => {
               )
             )
           })}
-          <Route path="/" element={<Navigate to="kyc/customers" replace />} />
+          {/* <Route path="/" element={<Navigate to="kyc/customers" replace />} /> */}
+          <Route path="/" element={<Navigate to="launchpad/dashboard" replace />} />
         </Routes>
       </Suspense>
     </CContainer>

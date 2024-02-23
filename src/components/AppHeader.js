@@ -118,8 +118,10 @@ function AppHeader(props){
   const handleLogout = () => {
     dispatch(clearProfile())
     userManager?.signoutRedirect();
-    onAppSelect("kyc");
-    navigate('/kyc/customers')
+    onAppSelect("launchpad");
+    navigate('/launchpad/dashboard')
+    // onAppSelect("kyc");
+    // navigate('/kyc/customers')
   }
 
 
@@ -260,8 +262,10 @@ function AppHeader(props){
         aria-controls="example-collapse-text"
         aria-expanded={open} />
         <Image className='mobile-nav' src={navBrand} alt="" onClick={() => {
-            onAppSelect("kyc");
-            navigate('/kyc/customers');
+            // onAppSelect("kyc");
+            // navigate('/kyc/customers');
+            onAppSelect("launchpad");
+            navigate('/launchpad/dashboard');
           }} />
       <CHeaderNav className="ms-3 align-items-center">
         <ul className='header-menu'>
