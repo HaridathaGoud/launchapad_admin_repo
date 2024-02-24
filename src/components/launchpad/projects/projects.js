@@ -1206,26 +1206,26 @@ const Projects = (props) => {
                         {/* <p className="profile-value mb-1 text-center">Actor</p> */}
                           <p className="profile-value mb-1 text-center">{item?.role}</p>
                         {/* <p className="profile-label text-center">Tollywood best Film Actor</p> */}
-                        <p className="profile-label text-center">{item?.bio }</p>
+                        <p className="profile-label text-center ellipsis">{item?.bio }</p>
                       </Form.Group>
                       </div>
                       <hr/>
                       <Row className="">
                       <Col md={12}>
                       <div className='d-flex gap-2 mb-2'>
-                        <span className='icon facebook'></span>
+                        <span className='icon facebook shrink-0'></span>
                         {/* <p className="profile-value">wwww.facebook.com</p> */}
                         <p className="profile-value mb-0">{item?.facebook }</p>
                       </div>
                 
                       <div className='d-flex gap-2 mb-2'>
-                      <span className='icon website'></span>
+                      <span className='icon website shrink-0'></span>
                         {/* <p className="profile-value">www.actorprabhas.com</p> */}
                         <p className="profile-value mb-0">{item?.webisite } </p>
                       </div>
                   
                      <div className='d-flex gap-2'>
-                     <span className='icon instagram'></span>
+                     <span className='icon instagram shrink-0'></span>
                         {/* <p className="profile-value">actorprabhas/insta.com</p> */}
                         <p className="profile-value mb-0">{item?.instagram } </p>
                      </div>
