@@ -1191,7 +1191,7 @@ const Projects = (props) => {
               <Row className='mb-4'>
                 {state.castCrewDataList && state.castCrewDataList.map((item,index)=>(<> 
                 <Col className="" lg={3} key={item.id}>
-                  <div className='profile-panel card-style home-card p-lg-3 px-2' key={index}onClick={() => handleEdit(index)}>
+                  <div className='profile-panel mb-4 card-style home-card p-lg-3 p-2' key={index}onClick={() => handleEdit(index)}>
                   <div>
                       <Form.Group >
                         <div className='profile-size castandcre-profile  no-hover mx-auto' >
