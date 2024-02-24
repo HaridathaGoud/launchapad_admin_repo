@@ -546,13 +546,14 @@ const Projects = (props) => {
   const validateCastCrewForm = () => {
     const validatingForm = { ...state.cast_CrewsFormDeatils };
     const newErrors = {};
-    //  const urlRegex = /^(ftp|http[s]?):\/\/[^ "]+$/;
-     const urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
-    // const urlRegex = /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?\/?$/gm;
+   const urlRegex = /^(?:(?:https?|ftp|file):\/\/|www\.)[^\s/$.?#].[^\s]*$/;
     if (!validatingForm?.name || validatingForm?.name === '') {
       newErrors.name = 'Is required';
     } else if (!validateContentRules('', validatingForm?.name)) {
       newErrors.name = 'Please provide valid content for the name.';
+    }
+    if (!validatingForm?.role || validatingForm?.role === '') {
+      newErrors.role = 'Is required';
     }
     if (validatingForm?.instagram && !urlRegex.test(validatingForm?.instagram)) {
       newErrors.instagram = 'Please provide a valid Instagram URL';
@@ -566,10 +567,6 @@ const Projects = (props) => {
     return newErrors;
   }
   
-  const mergeWithInitialState = (formData, castCrewsFormInitial) => {
-    const mergedData = { ...castCrewsFormInitial, ...formData };
-    return mergedData;
-  };
   const handleCastCrewDataSave=async (event) => {
     event.preventDefault();
     const formErrors = validateCastCrewForm();
@@ -577,16 +574,15 @@ const Projects = (props) => {
       setErrors(formErrors);
   } else {
     const formDetails = { ...state.cast_CrewsFormDeatils };
-    const formData = mergeWithInitialState(formDetails, initialState.cast_CrewsFormDeatils);
-    const existingIndex = state.castCrewDataList?.findIndex(item => item.id === formData.id);
+    const existingIndex = state.castCrewDataList?.findIndex(item => item.id === formDetails.id);
     if (existingIndex !== -1) {
       const updatedList = [...state.castCrewDataList];
-      updatedList[existingIndex] = { ...formData, recordStatus: "modified" };
+      updatedList[existingIndex] = { ...formDetails, recordStatus: "modified" };
       dispatch({ type: 'castCrewDataList', payload: updatedList });
       setErrors({});
     } else {
-      const newData = { ...formData, id: '00000000-0000-0000-0000-000000000000', recordStatus: "added" };
-      dispatch({ type: 'castCrewDataList', payload: [...state.castCrewDataList, newData] });
+      const formData  =  { ...state.cast_CrewsFormDeatils, id: '00000000-0000-0000-0000-000000000000' };
+      dispatch({ type: 'castCrewDataList', payload: [...state.castCrewDataList, { ...formData, recordStatus: "added" }] });
       setErrors({});
     }
     setShow(false)
@@ -1201,34 +1197,29 @@ const Projects = (props) => {
                             />
                           </span>
                         </div>
-                        {/* <p className="profile-value mb-0 text-center mt-2">Prabhas Rebelstar</p> */}
                         <p className="profile-value mb-0 text-center mt-2">{item?.name }</p>
-                        {/* <p className="profile-value mb-1 text-center">Actor</p> */}
                           <p className="profile-value mb-1 text-center">{item?.role}</p>
-                        {/* <p className="profile-label text-center">Tollywood best Film Actor</p> */}
                         <p className="profile-label text-center ellipsis">{item?.bio }</p>
                       </Form.Group>
                       </div>
                       <hr/>
                       <Row className="">
                       <Col md={12}>
+                        {item?.facebook && 
                       <div className='d-flex gap-2 mb-2'>
                         <span className='icon facebook shrink-0'></span>
-                        {/* <p className="profile-value">wwww.facebook.com</p> */}
                         <p className="profile-value mb-0">{item?.facebook }</p>
-                      </div>
-                
+                      </div>}
+                      {item?.webisite && 
                       <div className='d-flex gap-2 mb-2'>
                       <span className='icon website shrink-0'></span>
-                        {/* <p className="profile-value">www.actorprabhas.com</p> */}
                         <p className="profile-value mb-0">{item?.webisite } </p>
-                      </div>
-                  
+                      </div>}
+                      {item?.instagram && 
                      <div className='d-flex gap-2'>
                      <span className='icon instagram shrink-0'></span>
-                        {/* <p className="profile-value">actorprabhas/insta.com</p> */}
                         <p className="profile-value mb-0">{item?.instagram } </p>
-                     </div>
+                     </div>}
                       </Col>
                     </Row>
                   </div>
@@ -1414,10 +1405,9 @@ const Projects = (props) => {
                                     onSelect={onRolsSelect}
                                     onRemove={onRolsSelect}
                                     displayValue="role"
+                                    isInvalid={!!errors.role}
                                   />
-                                  <Form.Control.Feedback type="invalid">3
-                                  
-                                  </Form.Control.Feedback>
+                                  <Form.Control.Feedback type="invalid" className={`${errors?.role ? 'error-role': ''}`}>{errors?.role || state?.errors?.role} </Form.Control.Feedback>
                                 </FloatingLabel>
                               </Col>
                             </Row>

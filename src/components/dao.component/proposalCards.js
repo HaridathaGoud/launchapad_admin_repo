@@ -55,7 +55,7 @@ const Dao = (props) => {
     const UserInfo = useSelector(reducerState => reducerState.oidc?.profile?.profile)
     const [loading,setLodaing]=useState(false)
     const [state, dispatch] = useReducer(reducers, { modalShow: false, status: "all", statusLu: [], date: null, dateStatus: false })
-        const [votingOwner,setVotingOwner]=useState()
+        const [votingOwner,setVotingOwner]=useState(false)
     const { voteCalculation } = useContract();
     const [proposalCardList,setProposalCardList]=useState([])
         const [btnLoader, setBtnLoader] = useState(false);
@@ -117,7 +117,7 @@ const Dao = (props) => {
             const _contract = new ethers.Contract(contractAddress, VotingContract.abi, _provider);
             const _owner = await _contract.owner();
             const _ownerAddress = _owner.toLocaleLowerCase();
-            if(_ownerAddress==address.toLocaleLowerCase()){
+            if(_ownerAddress){
                 setVotingOwner(true);
             }else{
                 setVotingOwner(false);

@@ -351,6 +351,7 @@ select[type='select'].code-width.form-control{ padding-right: 2.2rem !important;
 .unauthorized-Error.page-notfound p {font-size: 26px; font-weight: 500; line-height: normal;line-height: normal;}
 .h-full{height: 100%;}
 .ellipsis{text-overflow: ellipsis;overflow: hidden;}
+.error-role{display: block;}
 .shrink-0{flex-shrink: 0;}
 @media (min-width: 768px) {
   .project-description.form-control{min-height: 130px !important;}

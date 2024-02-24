@@ -490,6 +490,25 @@ function AppHeader(props){
                     </OverlayTrigger>
                   </CNavItem></>}
 
+                  {window.location.pathname.includes('dao') && props?.userInfo?.role=="Admin"&& <>   <CNavItem  className={"underline" + (menu=== "projects" ? " active" : "")}>
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={renderTooltipProjects}
+                    >
+                      <CNavLink className='projects' onClick={() => navigate(`launchpad/projects/${isAdmin.id}`)}><span className="icon customer" /><span className=' mx-1'>Projects</span>
+                      </CNavLink>
+                    </OverlayTrigger>
+                  </CNavItem></>}
+
+                  {window.location.pathname.includes('dao') && props?.userInfo?.role=="Admin"&& <>   <CNavItem  className={"underline" + (menu=== "projects" ? " active" : "")}>
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={renderTooltipProjects}
+                    >
+                      <CNavLink className='projects' onClick={() => navigate(`launchpad/projects/${isAdmin.id}`)}><span className="icon customer" /><span className=' mx-1'>Projects</span>
+                      </CNavLink>
+                    </OverlayTrigger>
+                  </CNavItem></>}
                   {window.location.pathname.includes('launchpad')&&
                   isAdmin?.isAdmin && showSetting && viewedProject?.projectstatus=="Deployed"&&  <>
                    <CNavItem className={"underline" + (menu=== "Settings" ? " active" : "")}>
