@@ -458,7 +458,7 @@ function AppHeader(props){
                     <CNavItem className='mobile-active-menu'>
                     <CNavLink className='nav-item'>
                       {props?.userInfo?.role=="Super Admin"&& <Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dashboard"))}>DAO</Link>}
-                      {props?.userInfo?.role=="Admin"&&<Link to={`/dao/proposal/${daoId}`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>gotoDao()}>DAO</Link>}
+                      {props?.userInfo?.role=="Admin"&&<Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>gotoDao()}>DAO</Link>}
                      </CNavLink>
                       </CNavItem>
                     

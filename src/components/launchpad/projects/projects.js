@@ -543,27 +543,33 @@ const Projects = (props) => {
     setSelectedroleValues(selectedList);
     dispatch({ type: 'cast_CrewsFormDeatils',payload: { ...state.cast_CrewsFormDeatils, role: selectedRoleNames } })
   };
- const validateCastCrewForm=()=>{
-  let validatingForm = {...state.cast_CrewsFormDeatils}
-  const newErrors = {};
-  // const urlRegex = /^www\.[a-zA-Z]+\.(com)$/;
-  const urlRegex   = /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?\/?$/gm;
+  const validateCastCrewForm = () => {
+    const validatingForm = { ...state.cast_CrewsFormDeatils };
+    const newErrors = {};
+    //  const urlRegex = /^(ftp|http[s]?):\/\/[^ "]+$/;
+     const urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+    // const urlRegex = /^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?\/?$/gm;
     if (!validatingForm?.name || validatingForm?.name === '') {
-    newErrors.name = 'Is required';
-  } else if (!validateContentRules('', validatingForm?.name)) {
-    newErrors.name = 'Please provide valid content.';
+      newErrors.name = 'Is required';
+    } else if (!validateContentRules('', validatingForm?.name)) {
+      newErrors.name = 'Please provide valid content for the name.';
+    }
+    if (validatingForm?.instagram && !urlRegex.test(validatingForm?.instagram)) {
+      newErrors.instagram = 'Please provide a valid Instagram URL';
+    }
+    if (validatingForm?.facebook && !urlRegex.test(validatingForm?.facebook)) {
+      newErrors.facebook = 'Please provide a valid Facebook URL';
+    }
+    if (validatingForm?.webisite && !urlRegex.test(validatingForm?.webisite)) {
+      newErrors.webisite = 'Please provide a valid Website URL';
+    }
+    return newErrors;
   }
-  if (validatingForm?.instagram && !urlRegex.test(validatingForm?.instagram)) {
-    newErrors.instagram = 'Please provide a valid Instagram URL';
-  }
-  if (validatingForm?.facebook && !urlRegex.test(validatingForm?.facebook)) {
-    newErrors.facebook = 'Please provide a valid Facebook URL';
-  }
-  if (validatingForm?.webisite && !urlRegex.test(validatingForm?.webisite)) {
-    newErrors.webisite = 'Please provide a valid Website URL';
-  }
-  return newErrors;
-}
+  
+  const mergeWithInitialState = (formData, castCrewsFormInitial) => {
+    const mergedData = { ...castCrewsFormInitial, ...formData };
+    return mergedData;
+  };
   const handleCastCrewDataSave=async (event) => {
     event.preventDefault();
     const formErrors = validateCastCrewForm();
@@ -571,15 +577,16 @@ const Projects = (props) => {
       setErrors(formErrors);
   } else {
     const formDetails = { ...state.cast_CrewsFormDeatils };
-    const existingIndex = state.castCrewDataList?.findIndex(item => item.id === formDetails.id);
+    const formData = mergeWithInitialState(formDetails, initialState.cast_CrewsFormDeatils);
+    const existingIndex = state.castCrewDataList?.findIndex(item => item.id === formData.id);
     if (existingIndex !== -1) {
       const updatedList = [...state.castCrewDataList];
-      updatedList[existingIndex] = { ...formDetails, recordStatus: "modified" };
+      updatedList[existingIndex] = { ...formData, recordStatus: "modified" };
       dispatch({ type: 'castCrewDataList', payload: updatedList });
       setErrors({});
     } else {
-      const formData  =  { ...state.cast_CrewsFormDeatils, id: '00000000-0000-0000-0000-000000000000' };
-      dispatch({ type: 'castCrewDataList', payload: [...state.castCrewDataList, { ...formData, recordStatus: "added" }] });
+      const newData = { ...formData, id: '00000000-0000-0000-0000-000000000000', recordStatus: "added" };
+      dispatch({ type: 'castCrewDataList', payload: [...state.castCrewDataList, newData] });
       setErrors({});
     }
     setShow(false)

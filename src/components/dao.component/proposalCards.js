@@ -110,6 +110,7 @@ const Dao = (props) => {
     
     
     async function getVotingOwner() {
+        debugger
       let contractAddress=daoName?.name=="SEIICHI ISHII"?votingSeicheContractAddress:votingKeijiContractAddress
         try {
             const _connector = window?.ethereum;
