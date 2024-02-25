@@ -4,46 +4,41 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
-          "name": "owner",
+          "name": "deployedAddress",
           "type": "address"
         },
         {
-          "indexed": false,
+          "indexed": true,
           "internalType": "address",
-          "name": "contractAddress",
+          "name": "owner",
           "type": "address"
         }
       ],
-      "name": "Deployed",
+      "name": "ClaimableContractDeployed",
       "type": "event"
     },
     {
       "inputs": [
-        {
-          "internalType": "bytes32",
-          "name": "_salt",
-          "type": "bytes32"
-        },
         {
           "internalType": "contract IStakeable",
           "name": "_stakingContract",
           "type": "address"
         },
         {
-          "internalType": "contract IERC20Metadata",
+          "internalType": "contract IERC20MetadataUpgradeable",
           "name": "_rewardToken",
           "type": "address"
         },
         {
           "internalType": "uint256",
-          "name": "_totalsupply",
+          "name": "_totalSupply",
           "type": "uint256"
         },
         {
           "internalType": "uint256[]",
-          "name": "tierWeights",
+          "name": "_tierWeights",
           "type": "uint256[]"
         },
         {
@@ -78,21 +73,45 @@
         },
         {
           "internalType": "uint256",
-          "name": "_FSCSEndTime",
+          "name": "_FCFSEndTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_tokenPrice",
           "type": "uint256"
         }
       ],
-      "name": "deploy",
+      "name": "deployClaimableContract",
       "outputs": [
         {
           "internalType": "address",
-          "name": "addr",
+          "name": "",
           "type": "address"
         }
       ],
       "stateMutability": "nonpayable",
       "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "stakingcontractToAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
     }
   ],
-  "contractAddress": "0xb19D48FE283694c4Da81dc462fa788980E56664d"
+  "contractAddress": "0xBe3f1FfC32dC7A9ceCA0F3e5310B35Ff94C23aAd"
 }
