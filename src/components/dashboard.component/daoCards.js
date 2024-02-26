@@ -19,6 +19,7 @@ const Dashboard = (props) => {
     const isAdmin = useSelector(state => state.oidc?.adminDetails);
     const [deployContractLoader,setDeployLoader]=useState(false);
     const [errorMsg,setErrorMsg]=useState(null);
+    const [selectedDaoId,setIsSelectedDaoId]=useState(null);
     const router = useNavigate();
     useEffect(() => {
         if (isAdmin?.isInvestor === true) {
@@ -36,7 +37,8 @@ const Dashboard = (props) => {
         router(`/dao/proposal/${item?.daoId}`);
     }
     const deployDAO=async(daoDetails)=>{
-        setDeployLoader(true)     
+        setDeployLoader(true) 
+        setIsSelectedDaoId(daoDetails?.daoId);    
         try{
             const _provider = new ethers.providers.Web3Provider(window?.ethereum);
             let accounts = await _provider.send("eth_requestAccounts", []);
@@ -52,13 +54,16 @@ const Dashboard = (props) => {
                try{
               let res=  await apiCalls.updateContractAddressStatus(updateProject);
                 setDeployLoader(false);
+                setIsSelectedDaoId(null)
                } catch (error) {
+                setIsSelectedDaoId(null)
                 setErrorMsg( apiCalls.isErrorDispaly(res));
                 setErrorMsg(error);
                 setDeployLoader(false);
               }
             })
         }   catch (error) {
+            setIsSelectedDaoId(null)
             setErrorMsg(apiCalls.isErrorDispaly(error));
             setDeployLoader(false);
           }
@@ -78,10 +83,10 @@ const Dashboard = (props) => {
             <h5 className='mb-1 back-text'>DAO’s</h5>
             <Row>
             
-                {daoCardDetails?.map((item) => (
+                {daoCardDetails?.map((item,index) => (
                     <Col lg={3} md={6} xs={12} className='mt-md-3'>
-                        {!loading &&<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' onClick={() => goToProposalList(item)}>
-                            <Card.Img variant="top" src={item?.logo || profileavathar} />
+                        {!loading &&<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={index} >
+                            <Card.Img variant="top" src={item?.logo || profileavathar} onClick={() => goToProposalList(item)}/>
                             <Card.Body>
                                 <Card.Text className='mb-1'>
                                     Name: {item.name}
@@ -89,7 +94,7 @@ const Dashboard = (props) => {
                                 <Card.Text className='card-description'>
                                     members: {item?.members?.toLocaleString()}
                                 </Card.Text>
-                                {item?.status?.toLowerCase() == "approved" && <Button onClick={()=>deployDAO(item)}>{deployContractLoader && <Spinner/>}Deploy</Button>}
+                                {item?.status?.toLowerCase() == "approved" && <Button onClick={()=>deployDAO(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) &&<span><Spinner size='sm'/></span> }Deploy</Button>}
                             </Card.Body>
                         </Card>} 
                             {loading && <div><Placeholder as={Card.Title} animation="glow">
