@@ -1,0 +1,72 @@
+{
+    "abi": [
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "deployedAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "VotingContractDeployed",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "membershipToken",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "voteBalance",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "addQuestionBalance",
+                    "type": "uint8"
+                }
+            ],
+            "name": "deployVotingContract",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "membershipToContract",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ],
+    "contractAddress": "0x4233Cb081dF91250a09E23Bc45598A0814700a84"
+}
