@@ -434,6 +434,10 @@ const ProjectCards = () => {
                             <Button className='' onClick={() => getOnePersonDetailsBasedOnId(val)} >
                               Deployed</Button>
                           </>}
+                          {val?.projectstatus?.toLowerCase() === 'deploying' && <>
+                            <Button className='' onClick={() => getOnePersonDetailsBasedOnId(val.id)} >
+                            Deploying</Button>
+                          </>}
                           {val?.projectstatus?.toLowerCase() === 'approved' && <>
                             <Button className='' onClick={() => getProjectDetails(val.id)} >
                               Deploy</Button>
@@ -516,7 +520,7 @@ const ProjectCards = () => {
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.totalSupply || '-'}</h6>
                       </div>
                     </Col>
-                    <Col lg={4} md={12}>
+                    {/* <Col lg={4} md={12}>
                       <div className="view-data">
                         <label className='project-text text-lightpurpl'>Tire Weights</label>
                         {state.detailsPreview.tierWeights?.length > 0 && <><h6 className='about-label mb-0 word-break'>
@@ -531,7 +535,7 @@ const ProjectCards = () => {
                         {state.detailsPreview.tierWeights?.length === 0 && <>
                           {'-'}</>}
                       </div>
-                    </Col>
+                    </Col> */}
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label className='profile-label'>Listing Time</label>

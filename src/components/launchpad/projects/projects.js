@@ -1314,7 +1314,25 @@ const Projects = (props) => {
                                   <Form.Control.Feedback type="invalid">{errors?.name || state?.errors?.name}</Form.Control.Feedback>
                                 </FloatingLabel>
                               </Col>
-                              <Col xl={6} className="mb-3">
+                              <Col lg={6} md={12}>
+                              <FloatingLabel
+                                controlId="floatingInput"
+                                label="Role"
+                                className="mb-1 input-style role mt-2"
+                              >
+                                <Multiselect
+                                  className='multiselecter role-select'
+                                  options={castCrewRolesLu}
+                                  selectedValues={selectedroleValues}
+                                  onSelect={onRolsSelect}
+                                  onRemove={onRolsSelect}
+                                  displayValue="role"
+                                  isInvalid={!!errors.role}
+                                />
+                                <Form.Control.Feedback type="invalid" className={`${errors?.role ? 'error-role': ''}`}>{errors?.role || state?.errors?.role} </Form.Control.Feedback>
+                              </FloatingLabel>
+                              </Col>
+                              <Col xl={12} className="mb-3">
                                 <FloatingLabel
                                   controlId="floatingInput"
                                   label="Bio"
@@ -1391,25 +1409,7 @@ const Projects = (props) => {
                                   <Form.Control.Feedback type="invalid">{errors?.facebook || state?.errors?.facebook}</Form.Control.Feedback>
                                 </FloatingLabel>
                               </Col>
-                              <Col lg={6} md={12}>
-
-                                <FloatingLabel
-                                  controlId="floatingInput"
-                                  label="Role"
-                                  className="mb-1 input-style role mt-2"
-                                >
-                                  <Multiselect
-                                    className='multiselecter role-select'
-                                    options={castCrewRolesLu}
-                                    selectedValues={selectedroleValues}
-                                    onSelect={onRolsSelect}
-                                    onRemove={onRolsSelect}
-                                    displayValue="role"
-                                    isInvalid={!!errors.role}
-                                  />
-                                  <Form.Control.Feedback type="invalid" className={`${errors?.role ? 'error-role': ''}`}>{errors?.role || state?.errors?.role} </Form.Control.Feedback>
-                                </FloatingLabel>
-                              </Col>
+                             
                             </Row>
                             </Col>
                             </Row>
