@@ -43,7 +43,7 @@ const Dashboard = (props) => {
             const _provider = new ethers.providers.Web3Provider(window?.ethereum);
             let accounts = await _provider.send("eth_requestAccounts", []);
             const _contract = new ethers.Contract(votingFactory?.contractAddress, votingFactory.abi, _provider?.getSigner());
-            const contractRes = await _contract.deployVotingContract(daoDetails.projectToken,ethers.utils.parseEther((daoDetails?.votingBalance||1000).toString()),ethers.utils.parseEther((daoDetails?.proposalCreationBalance||5000).toString()));
+            const contractRes = await _contract.deployVotingContract(daoDetails.projectToken,1,2);
             contractRes.wait().then(async (receipt) => {
                 const address = receipt.logs[0].address;
                 const updateProject = {
@@ -85,7 +85,7 @@ const Dashboard = (props) => {
             
                 {daoCardDetails?.map((item,index) => (
                     <Col lg={3} md={6} xs={12} className='mt-md-3'>
-                        {!loading &&<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={index} >
+                        {<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={index} >
                             <Card.Img variant="top" src={item?.logo || profileavathar} onClick={() => goToProposalList(item)}/>
                             <Card.Body>
                                 <Card.Text className='mb-1'>
@@ -96,8 +96,9 @@ const Dashboard = (props) => {
                                 </Card.Text>
                                 {item?.status?.toLowerCase() == "approved" && <Button onClick={()=>deployDAO(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) &&<span><Spinner size='sm'/></span> }Deploy</Button>}
                             </Card.Body>
-                        </Card>} 
-                            {loading && <div><Placeholder as={Card.Title} animation="glow">
+                        </Card>}                            
+                    </Col>))}
+                    {loading && <Col lg={3} md={6} xs={12} className='mt-md-3'> <div><Placeholder as={Card.Title} animation="glow">
                                 <Placeholder xs={12} className='cardimg-placeholder' />
                             </Placeholder>
                                 <Card.Body>
@@ -109,8 +110,7 @@ const Dashboard = (props) => {
                                         <Placeholder xs={6} />
                                     </Placeholder>
                                 </Card.Body>
-                            </div>}
-                    </Col>))}
+                            </div></Col>}
 
             </Row>
         </div>
