@@ -298,6 +298,10 @@ const getProposalVoters=(take,skip,proposalId)=> {
   return daoApi.get(ApiControllers.admin +`proposalvoters/${take}/${skip}/${proposalId}`);
 
 }
+const updateVotingContractAddress=(obj)=> {
+  return daoApi.put(ApiControllers.admin +`updatedaocontractaddress`,obj);
+
+}
 
 let apiCalls = {idoRequestStateChange,createInvestors,getAdminDashboarDataK,
   getLaunchPadProjectData,getTokenInfo,getClames,getAllocation,getAllocationDetails,
@@ -308,6 +312,6 @@ totalBonus,updateRefferal,getProposalView,postCreateProposal,getProposalList,get
   , savetiers, UpdateClaimsAndAllocation, getProjects, getTiers, getSuperAdminDetails, getUpcomingProjects,
   updateContractAddressStatus, adminOrSuperAdminDetails, getlaunchpadProjects, getLaunchpadProjectDetails, getProjectFeed,getUserProfile,
   apiUploadPost,metaDataDetails,memberTypes,memberPrice,updateTransaction,
-  getPeriodType,getWhiteListeddata,saveWhitelist,getPeriodsData,memberTypes,customerWalletAddressChecking,getProposalVoters,uploadErrorDisplay,getCastCrewRolesLu,getInvestorDaoDetails}
+  getPeriodType,getWhiteListeddata,saveWhitelist,getPeriodsData,memberTypes,customerWalletAddressChecking,getProposalVoters,uploadErrorDisplay,getCastCrewRolesLu,getInvestorDaoDetails,updateVotingContractAddress}
 
 export default apiCalls

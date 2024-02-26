@@ -51,10 +51,15 @@ const Dashboard = (props) => {
                   contractAddress: address,
                   status: "Deployed"
                 }
-               try{
-              let res=  await apiCalls.updateContractAddressStatus(updateProject);
-                setDeployLoader(false);
-                setIsSelectedDaoId(null)
+               try{                
+              let res=  await apiCalls.updateVotingContractAddress(updateProject);
+              if(res.ok){
+                props?.trackWallet((callback) => {
+                    setDaoCardsDetails(callback);
+                })
+                    setDeployLoader(false);
+                    setIsSelectedDaoId(null)
+              }              
                } catch (error) {
                 setIsSelectedDaoId(null)
                 setErrorMsg( apiCalls.isErrorDispaly(res));
@@ -95,6 +100,7 @@ const Dashboard = (props) => {
                                     members: {item?.members?.toLocaleString()}
                                 </Card.Text>
                                 {item?.status?.toLowerCase() == "approved" && <Button onClick={()=>deployDAO(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) &&<span><Spinner size='sm'/></span> }Deploy</Button>}
+                                {item?.status?.toLowerCase() == ("deploying" || "deployed") && <Button>{item?.status}</Button>}
                             </Card.Body>
                         </Card>}                            
                     </Col>))}
