@@ -211,7 +211,7 @@ const ProjectCards = () => {
   };
 
   const convertdateToMinutes = (someDateTime) => {
-    return new Date(someDateTime).getTime();
+    return new Date(someDateTime).getTime()/1000;
   }
 
   const redirectToProject = async () => {
@@ -264,10 +264,10 @@ const ProjectCards = () => {
     const listingTime = parseFloat(state.detailsPreview?.listTime?.slice(0, 2))
     const timeSolts = state.detailsPreview?.noOfSlots
     const vestingTime = state.detailsPreview?.vestingDays;
-    const rndStart = convertdateToMinutes(moment(state.detailsPreview?.privateStartDate).utc().format("YYYY-MM-DDTHH:mm:ss"));
-    const rndEnd = convertdateToMinutes(moment(state.detailsPreview?.privateEndDate).utc().format("YYYY-MM-DDTHH:mm:ss"));
-    const fcfss = convertdateToMinutes(moment(state.detailsPreview?.publicStartDate).utc().format("YYYY-MM-DDTHH:mm:ss"));
-    const fcfse = convertdateToMinutes(moment(state.detailsPreview?.publicEndDate).utc().format("YYYY-MM-DDTHH:mm:ss"));
+    const rndStart = convertdateToMinutes(moment(state.detailsPreview?.privateStartDate).format("YYYY-MM-DDTHH:mm:ss"));
+    const rndEnd = convertdateToMinutes(moment(state.detailsPreview?.privateEndDate).format("YYYY-MM-DDTHH:mm:ss"));
+    const fcfss = convertdateToMinutes(moment(state.detailsPreview?.publicStartDate).format("YYYY-MM-DDTHH:mm:ss"));
+    const fcfse = convertdateToMinutes(moment(state.detailsPreview?.publicEndDate).format("YYYY-MM-DDTHH:mm:ss"));
     const provider = new ethers.providers.Web3Provider(window?.ethereum)
     const factory = new ethers.Contract(DeployFactory.contractAddress, DeployFactory.abi, provider.getSigner());
     let accounts = await provider.send("eth_requestAccounts", []);
