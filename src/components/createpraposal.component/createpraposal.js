@@ -52,7 +52,7 @@ const reducers =(state ,action )=>{
   const [options, setOptions] = useState([{options: null,Id:"00000000-0000-0000-0000-000000000000",optionhash:null}]);
   const [attributes, setAttributes] = useState([]);
   const { getAddress } = UseEthers();
-  const [walletAddres,setWalletAddress]=useState()
+  const [walletAddres, setWalletAddres]=useState()
   const [state,dispatch]=useReducer(reducers,{startingDate:null,endingDate:null,optionsModalShow:false,startingTime:null,endingTime:null,
     epochStartTime:null,epochEndData:null,modalError:false,isChecked:false})
   const [copied,setCopied]=useState(false);
@@ -70,7 +70,7 @@ const reducers =(state ,action )=>{
     let address = await getAddress();
     if (address) {
       window.scroll(0,0);
-      setWalletAddress(address)
+      setWalletAddres(address)
       getBalanceCount()
     }
   }
@@ -231,7 +231,7 @@ const optionSave = ()=>{
 
   const setField = (field, value) => {
     setForm({...form,[field]: value})
-    if (!!errors[field]) {
+    if (errors[field]) {
       setErrors({ ...errors,[field]: null
       })
     }
@@ -306,7 +306,7 @@ if (isMobile) {
 }
 
     return (
-        <>
+       
         <Container className='dao-mt'>
          <Link className=' title-width-fit' to={`/dao/proposal/${params.id}`}><div className='d-flex align-items-center'> <span className='icon-dao back mr-2 c-pointer'></span><span className='mb-0 ms-2 back-text'>Create Proposal</span></div></Link>
           
@@ -441,8 +441,8 @@ if (isMobile) {
             <Row>
             
             {options.map((option, index) => (
-              <Col sm={12} xs={12} md={6} lg={6} xl={6} xxl={6}>
-              <div className='d-flex align-items-center add-block' key={index}>
+              <Col sm={12} xs={12} md={6} lg={6} xl={6} xxl={6} key={option?.Id}>
+              <div className='d-flex align-items-center add-block' key={option?.Id}>
                  <Form.Label className="mb-0">{option?.index ? (option?.index&&option?.index + ".") :"A."}</Form.Label>
                  <Form.Control
                  type="text"
@@ -472,7 +472,7 @@ if (isMobile) {
           </Modal.Footer>
         </Modal>
         </Container>
-        </>
+        
     );
 }
 const connectDispatchToProps = (dispatch) => {
