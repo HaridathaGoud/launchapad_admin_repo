@@ -340,11 +340,11 @@ const ProjectTokenDetails = (props) => {
      </>)
    
 }
-ProjectTokenDetails.propTypes = {
-  onBack: PropTypes.bool,
-  projectData: PropTypes.isRequired,
-  projectDetails: PropTypes.isRequired
-}
+// ProjectTokenDetails.propTypes = {
+//   onBack: PropTypes.bool,
+//   projectData: PropTypes.isRequired,
+//   projectDetails: PropTypes.isRequired
+// }
 
 
 

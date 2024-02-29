@@ -352,8 +352,7 @@ const ProjectCards = () => {
   }
 
   return (
-    <>
-      <div>
+    <div>
         {state.loader && <div className="text-center"><Spinner ></Spinner></div>}
         {!state.loader && <div className='Container'>
 
@@ -424,27 +423,29 @@ const ProjectCards = () => {
                           <h3 className="project-name">{val?.projectName}</h3>
                         </div>
                         <div className='card-footer px-0 d-flex justify-content-between project-card'>
-                          {val?.projectstatus?.toLowerCase() === 'rejected' && <>
+                          {val?.projectstatus?.toLowerCase() === 'rejected' && 
+                          <Button className='' onClick={() => getOnePersonDetailsBasedOnId(val)} >
+                              Rejected</Button>}
 
-                            <Button className='' onClick={() => getOnePersonDetailsBasedOnId(val)} >
-                              Rejected</Button>
-                          </>}
-                          {val?.projectstatus?.toLowerCase() === 'deployed' && <>
-
+                          {val?.projectstatus?.toLowerCase() === 'deployed' &&
                             <Button className='' onClick={() => getOnePersonDetailsBasedOnId(val)} >
                               Deployed</Button>
-                          </>}
-                          {val?.projectstatus?.toLowerCase() === 'deploying' && <>
+                          }
+                          
+                          {val?.projectstatus?.toLowerCase() === 'deploying' && 
                             <Button className='' onClick={() => getOnePersonDetailsBasedOnId(val.id)} >
                             Deploying</Button>
-                          </>}
-                          {val?.projectstatus?.toLowerCase() === 'approved' && <>
+                          }
+
+                          {val?.projectstatus?.toLowerCase() === 'approved' && 
                             <Button className='' onClick={() => getProjectDetails(val.id)} >
                               Deploy</Button>
-                          </>}
-                          {val?.projectstatus?.toLowerCase() === 'draft' && <>
+                          }
+
+                          {val?.projectstatus?.toLowerCase() === 'draft' && 
                             <Button className='' onClick={() => getOnePersonDetailsBasedOnId(val)} >Draft</Button>
-                          </>}
+                          }
+
                           {val?.projectstatus?.toLowerCase() === 'submitted' && <><Button className='' onClick={() => getOnePersonDetailsBasedOnId(val)} >View</Button> </>}
                         </div>
                       </div>
@@ -478,7 +479,7 @@ const ProjectCards = () => {
                 </Alert>
               )}
               <div className="text-center">{state.previewLoader && <Spinner className='text-center'></Spinner>}</div>
-              {!state.previewLoader && <>
+              {!state.previewLoader &&
                 <div>
                   <Row>
                     <Col lg={4} md={12}>
@@ -586,7 +587,7 @@ const ProjectCards = () => {
                     </Col>
                   </Row>
                 </div>
-              </>}
+              }
 
             </Modal.Body>
             <Modal.Footer>
@@ -602,9 +603,10 @@ const ProjectCards = () => {
           <ToasterMessage isShowToaster={success} success={success}></ToasterMessage>
         </div>
         </>}
-      </div>
-    </>);
+      </div>);
 }
+
+
 const connectStateToProps = ({ auth }) => {
   return { auth: auth };
 };

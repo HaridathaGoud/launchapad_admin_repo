@@ -685,4 +685,3 @@ const connectStateToProps = ({ auth }) => {
 export default connect(connectStateToProps, (dispatch) => {
   return { dispatch };
 })(projectdetails);
-//export default

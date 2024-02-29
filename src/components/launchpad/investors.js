@@ -58,10 +58,10 @@ const initialState = {
 
 const Investors = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [errorMessageProfile, setEerrorMessageProfile] = useState(null);
+  const [errorMessageProfile, setErrorMessageProfile] = useState(null);
   const [success, setSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
-  const [loaderform, setloaderform] = useState(false);
+  const [loaderform, setLoaderform] = useState(false);
   const navigate = useNavigate();
   const shouldLog = useRef(true);
   const pageSize = 10;
@@ -203,7 +203,7 @@ const Investors = () => {
   }
   const handleCancel = () => {
     setForm({})
-    setEerrorMessageProfile(false)
+    setErrorMessageProfile(false)
     setShow(false)
   }
 
@@ -274,10 +274,10 @@ const Investors = () => {
     const formErrors = validateForm();
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
-      setloaderform(false);
+      setLoaderform(false);
     } else {
-      setloaderform(true);
-      let obj = Object.assign({}, form);
+      setLoaderform(true);
+      let obj = { ...form};
       obj.id = "00000000-0000-0000-0000-000000000000"
       obj.userId = "00000000-0000-0000-0000-000000000000"
         obj.firstName = form.firstName
@@ -297,7 +297,7 @@ const Investors = () => {
       if (response.ok) {
         setSuccess(true)
         setSuccessMessage("Investor created successfully");
-        setloaderform(false);
+        setLoaderform(false);
         setShow(false)
         setForm({})
         setTimeout(function () {
@@ -306,11 +306,11 @@ const Investors = () => {
         setInvestorCreated(true)
       }
       else {
-        setEerrorMessageProfile(apiCalls.isErrorDispaly(response));
-        setloaderform(false);
+        setErrorMessageProfile(apiCalls.isErrorDispaly(response));
+        setLoaderform(false);
       }
       setValidated(true);
-      setloaderform(false);
+      setLoaderform(false);
     }
 
 
@@ -320,7 +320,7 @@ const Investors = () => {
   const addInvestors = () => {
     setForm({})
     setErrors({})
-    setEerrorMessageProfile(false)
+    setErrorMessageProfile(false)
     setShow(true)
   }
 
@@ -330,7 +330,7 @@ const Investors = () => {
       ...form,
       [field]: value
     })
-    if (!!errors[field]) {
+    if (errors[field]) {
       setErrors({
         ...errors,
         [field]: null
@@ -386,17 +386,15 @@ const Investors = () => {
               <Col className='d-flex align-items-center justify-content-end'><Button onClick={() => handleProject(items)} className='button-style'>Projects</Button></Col>
             </Row>
           ))}
-          {state.loadeMessage && <>
-            {state.adminInvestorDetails.length === 0 && <>
-              <div className='text-center'>
-                <img src={nodata} width={120} />
-                <h4 className="text-center nodata-text db-no-data">No Data Found</h4>
-              </div>
-            </>}
-          </>}
+          {state.loadeMessage && 
           <>
-
-          </>
+            {state.adminInvestorDetails.length === 0 &&
+            <div className='text-center'>
+                <img src={nodata} width={120} alt='' />
+                <h4 className="text-center nodata-text db-no-data">No Data Found</h4>
+            </div>
+            }
+          </>}
         </div>
         <>
           <div className='text-center'>
@@ -407,10 +405,9 @@ const Investors = () => {
               </span>  <span className='icon blue-doublearrow c-pointer' onClick={addProposalList}></span>
             </>}
           </div></>
-        {success && <><div className="">
+        {success && <div className="">
           <ToasterMessage isShowToaster={success} success={successMessage}></ToasterMessage>
-        </div>
-        </>}
+        </div>}
 
         <Modal className="settings-modal profile-modal modal-tabview"
           show={show}

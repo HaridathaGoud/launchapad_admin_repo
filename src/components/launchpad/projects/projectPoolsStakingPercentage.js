@@ -371,10 +371,10 @@ const ProjectsPoolsStaking = (props) => {
     {state.tokenClaimShow && <ProjectsTokenClaim closeProject={props.closeProject} goBackToPoolsStaking={goBackToPoolsStaking} saveTiersDetails={state.saveTiersDetails} stakingDetails={state.stakingDetails} projectId={props?.projectTokenData?.id} projectInfo={props?.projectInfo} />}
   </>)
 }
-ProjectsPoolsStaking.propTypes = {
-  goBackToTokenDetails: PropTypes.bool,
-  projectData: PropTypes.isRequired,
-  projectTokenData: PropTypes.isRequired,
-  projectInfo: PropTypes.isRequired
-}
+// ProjectsPoolsStaking.propTypes = {
+//   goBackToTokenDetails: PropTypes.bool,
+//   projectData: PropTypes.isRequired,
+//   projectTokenData: PropTypes.isRequired,
+//   projectInfo: PropTypes.isRequired
+// }
 export default ProjectsPoolsStaking;

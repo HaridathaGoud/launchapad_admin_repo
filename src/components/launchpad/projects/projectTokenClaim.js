@@ -559,14 +559,14 @@ const timeDate=(timeString)=>{
     </>
   )
 }
-ProjectsTokenClaim.propTypes = {
-  goBackToPoolsStaking: PropTypes.bool,
-  projectData: PropTypes.isRequired,
-  saveTiersDetails: PropTypes.isRequired,
-  stakingDetails: PropTypes.isRequired,
-  projectTokenData: PropTypes.isRequired,
-  projectId: PropTypes.isRequired,
-  projectDetails: PropTypes.isRequired,
-  projectInfo: PropTypes.isRequired
-}
+// ProjectsTokenClaim.propTypes = {
+//   goBackToPoolsStaking: PropTypes.bool,
+//   projectData: PropTypes.isRequired,
+//   saveTiersDetails: PropTypes.isRequired,
+//   stakingDetails: PropTypes.isRequired,
+//   projectTokenData: PropTypes.isRequired,
+//   projectId: PropTypes.isRequired,
+//   projectDetails: PropTypes.isRequired,
+//   projectInfo: PropTypes.isRequired
+// }
 export default ProjectsTokenClaim;

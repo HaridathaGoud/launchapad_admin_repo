@@ -23,9 +23,8 @@ import store from 'src/store';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Multiselect from 'multiselect-react-dropdown';
 import { NumericFormat } from 'react-number-format';
-import { setSettingsLoaders } from 'src/reducers/authReducer';
 import profileavathar from "../../../assets/images/default-avatar.jpg";
-import { FloatingLabel, InputGroup, Modal } from 'react-bootstrap';
+import { FloatingLabel, Modal } from 'react-bootstrap';
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMgs":
@@ -446,10 +445,6 @@ const Projects = (props) => {
           _obj.cardImage = data[0];
           dispatch({ type: 'cardImgLoader', payload: false })
           dispatch({ type: 'projectCardImages', payload: data[0] })
-        }else if (type == "CARD") {
-          _obj.cardImage = data[0];
-          dispatch({ type: 'cardImgLoader', payload: false })
-          dispatch({ type: 'projectCardImages', payload: data[0] })
         }else if (type == "image") {
           _obj.cardImage = data[0];
           dispatch({ type: 'castImgLoader', payload: false })
@@ -509,7 +504,7 @@ const Projects = (props) => {
     let _data = { ...state.projectSaveDetails };
     _data[event.target.name] = event.target.value;
     dispatch({ type: 'projectSaveDetails', payload: _data })
-    if (!!errors[field]) {
+    if (errors[field]) {
       setErrors({ ...errors, [field]: null })
     }
   }
@@ -520,7 +515,7 @@ const Projects = (props) => {
     _data.countryRestrictions = selectedNames
     dispatch({ type: 'projectSaveDetails', payload: _data })
 
-    if (!!errors?.countryRestrictions) {
+    if (errors?.countryRestrictions) {
       setErrors({ ...errors, countryRestrictions: null })
 
     }
@@ -685,7 +680,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
-                            ) && true}
+                            )}
                           />
                           <span
                             className="icon camera"
@@ -717,7 +712,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
-                            ) && true}
+                            )}
                           />
                           <span
                             className="icon camera"
@@ -737,6 +732,7 @@ const Projects = (props) => {
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
                     onClick={() => inputRef1.current?.click()}
+                    role="button"
                   >
                     {state.bannerImgLoader && <Spinner fallback={state.bannerImgLoader} className='position-absolute'></Spinner>}
                     {state.projectBannerImages && <span className='imgupload-span'>
@@ -754,7 +750,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
-                            ) && true}
+                            ) }
                           />
                           <span
                             className="icon camera"
@@ -784,7 +780,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
-                            ) && true}
+                            ) }
                           />
                           <span
                             className="icon camera"
@@ -817,7 +813,7 @@ const Projects = (props) => {
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
-                    ) && true}
+                    ) }
 
                   />
                   <Form.Control.Feedback type="invalid">{errors?.projectName || state?.errors?.projectName}</Form.Control.Feedback>
@@ -845,7 +841,7 @@ const Projects = (props) => {
                     disable={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
-                    ) && true}
+                    ) }
                   />
 
                   {errors?.countryRestrictions == "Is required" && (
@@ -866,7 +862,7 @@ const Projects = (props) => {
                       disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                         || state.projectSaveDetails?.projectStatus == "Rejected"
                         || state.projectSaveDetails?.projectStatus == "Approved"
-                      ) && true}
+                      ) }
                     >
                       <span className="icon md matic-icon" /> Matic
                     </Dropdown.Toggle>
@@ -892,7 +888,7 @@ const Projects = (props) => {
                       disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                         || state.projectSaveDetails?.projectStatus == "Rejected"
                         || state.projectSaveDetails?.projectStatus == "Approved"
-                      ) && true}
+                      ) }
                     />
                     <Form.Control.Feedback type="invalid">{errors?.tokenListingDate || state?.errors?.tokenListingDate}</Form.Control.Feedback>
 
@@ -916,7 +912,7 @@ const Projects = (props) => {
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
-                    ) && true}
+                    ) }
                     onChange={(e) => handleChange("description", e)} required
                   />
                   <Form.Control.Feedback type="invalid">{errors?.description || state?.errors?.description}</Form.Control.Feedback>
@@ -936,7 +932,7 @@ const Projects = (props) => {
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
-                    ) && true}
+                    ) }
                     init={{
                       height: 500,
                       menubar: false,
@@ -983,7 +979,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
-                            ) && true}
+                            ) }
                           />
                           <span
                             className="icon camera"
@@ -1013,7 +1009,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
-                            ) && true}
+                            ) }
                           />
                           <span
                             className="icon camera"
@@ -1046,7 +1042,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
-                        ) && true}
+                        ) }
                       />
                       <Form.Control.Feedback type="invalid">{errors?.contractAddress || state?.errors?.contractAddress}</Form.Control.Feedback>
 
@@ -1069,7 +1065,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
-                        ) && true}
+                        ) }
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenName || state?.errors?.tokenName}</Form.Control.Feedback>
 
@@ -1091,7 +1087,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
-                        ) && true}
+                        ) }
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenSymbol || state?.errors?.tokenSymbol}</Form.Control.Feedback>
 
@@ -1117,7 +1113,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
-                        ) && true}
+                        ) }
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenDecimal || state?.errors?.tokenDecimal}</Form.Control.Feedback>
 
@@ -1144,7 +1140,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
-                        ) && true}
+                        ) }
                       />
 
                       <Form.Control.Feedback type="invalid">{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</Form.Control.Feedback>
@@ -1170,7 +1166,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
-                        ) && true}
+                        )}
                       />
 
                       <Form.Control.Feedback type="invalid">{errors?.initialSupply || state?.errors?.initialSupply}</Form.Control.Feedback>
@@ -1439,6 +1435,7 @@ Projects.propTypes = {
   projectTokenData: PropTypes.isRequired,
   walletAddress: PropTypes.isRequired,
   informationProjectView: PropTypes.string,
+  closeProject: PropTypes.isRequired,
 
 }
 
