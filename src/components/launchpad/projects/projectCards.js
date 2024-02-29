@@ -405,7 +405,7 @@ const ProjectCards = () => {
                   <div className=" col-md-12 col-lg-3" >
                     <div className='nodata-image text-center'><img src={nodata} alt="" /></div>
                     <div className="value-section">
-                      <div className="card-footer text-center nodata-title">
+                      <div className="card-footer text-center nodata-title">  
                         No projects available
 
                       </div>
@@ -414,7 +414,7 @@ const ProjectCards = () => {
                 </div>}
 
               {state.ownerProjects?.map((val, key) =>
-                <Col xs={12} md={6} lg={3} className="mb-3" key={key}>
+                <Col xs={12} md={6} lg={3} className="mb-3" key={val?.id}>
                   <div className="card-style p-0 home-card">
                     <div className='card-content'>
                       <div className='card-image' > <span className='card-image-span'><img src={val?.tokenLogo || defaultLogo} alt="" /></span></div>
@@ -460,7 +460,7 @@ const ProjectCards = () => {
               <div className='text-center'>{loadMore && <Spinner size="sm" className='text-white text-center' />} </div>
               <div className='addmore-title' >
                 {!hide && <>
-                  <span className='d-block'><span onClick={addProposalList} className='c-pointer'>See More</span></span>  <span className='icon blue-doublearrow c-pointer' onClick={addProposalList}></span>
+                  <span className='d-block'><span onClick={addProposalList} role="button" className='c-pointer'>See More</span></span>  <span className='icon blue-doublearrow c-pointer' onClick={addProposalList}></span>
                 </>}
               </div></>
           </>}
@@ -484,40 +484,40 @@ const ProjectCards = () => {
                   <Row>
                     <Col lg={4} md={12}>
                       <div className="view-data">
-                        <label className='profile-label'>Project Name</label>
+                        <label htmlFor='profile-label' className='profile-label'>Project Name</label>
                         <h6 className='about-label text-overflow  mb-0'>{state.detailsPreview?.projectName || '-'}</h6>
                       </div></Col>
                     <Col lg={4} md={12}>
                       <div className="view-data">
-                        <label className='profile-label'>Staking Contract Address</label>
+                        <label htmlFor="stakingContractAddress" className='profile-label'>Staking Contract Address</label>
                         <div className='d-flex align-items-center'>
                           {state.detailsPreview?.stakingContractAddress && <>
                             <h6 className='about-label mb-0'>
                               {state.detailsPreview?.stakingContractAddress?.substring(0, 6)}...{state.detailsPreview?.stakingContractAddress?.slice(-4)}</h6>
                             <UseCopyToClipboard address={state.detailsPreview?.stakingContractAddress}></UseCopyToClipboard>
                           </>}
-                          {!state.detailsPreview?.stakingContractAddress && <>
-                            <h6>{'-'}</h6></>}
+                          {!state.detailsPreview?.stakingContractAddress &&
+                            <h6>{'-'}</h6>}
                         </div>
                       </div>
                     </Col>
                     <Col lg={4} md={12}>
                       <div className="view-data">
-                        <label className='profile-label'>Token Contract Address</label>
+                        <label htmlFor="tokenContractAddressInput" className='profile-label'>Token Contract Address</label>
                         <div className='d-flex align-items-center'>
                           {state.detailsPreview?.tokenContractAddress && <>
                             <h6 className='about-label mb-0'>
                               {state.detailsPreview?.tokenContractAddress?.substring(0, 6)}...{state.detailsPreview?.tokenContractAddress?.slice(-4)}</h6>
                             <UseCopyToClipboard address={state.detailsPreview?.tokenContractAddress}></UseCopyToClipboard>
                           </>}
-                          {!state.detailsPreview?.tokenContractAddress && <>
-                            <h6>{'-'}</h6></>}
+                          {!state.detailsPreview?.tokenContractAddress &&
+                            <h6>{'-'}</h6>}
                         </div>
                       </div>
                     </Col>
                     <Col lg={4} md={12}>
                       <div className="view-data">
-                        <label className='profile-label'>Total Supply</label>
+                        <label htmlFor="totalSupplyInput" className='profile-label'>Total Supply</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.totalSupply || '-'}</h6>
                       </div>
                     </Col>
@@ -539,7 +539,7 @@ const ProjectCards = () => {
                     </Col> */}
                     <Col lg={4} md={12}>
                       <div className="view-data">
-                        <label className='profile-label'>Listing Time</label>
+                        <label htmlFor="listingTime" className='profile-label'>Listing Time</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.listTime ?
                           moment(state.detailsPreview?.listTime).format("DD-MM-YYYY HH:mm")
                           : '-'} (UTC)</h6>
@@ -547,31 +547,31 @@ const ProjectCards = () => {
                     </Col>
                     <Col lg={4} md={12}>
                       <div className="view-data">
-                        <label className='profile-label'>Claim Slots</label>
+                        <label htmlFor="claimSlotsInput" className='profile-label'>Claim Slots</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.noOfSlots || '-'}</h6>
                       </div>
                     </Col>
                     <Col lg={4} md={12}>
                       <div className="view-data">
-                        <label className='profile-label'>Vesting Time</label>
+                        <label htmlFor="vestingTimeInput" className='profile-label'>Vesting Time</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.vestingDays || '-'} {state.detailsPreview?.vestingDays ? "(Days)" : ""}</h6>
                       </div>
                     </Col>
                     <Col lg={4} md={12}>
                       <div className="view-data">
-                        <label className='profile-label'>Round One Start Time(Private)</label>
+                        <label htmlFor="roundOneStartTimePrivate" className='profile-label'>Round One Start Time(Private)</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.privateStartDate ? moment(state.detailsPreview?.privateStartDate).format("DD-MM-YYYY HH:mm") : '-'} (UTC)</h6>
                       </div>
                     </Col>
                     <Col lg={4} md={12}>
                       <div className="view-data">
-                        <label className='profile-label'>Round One End Time(Private)</label>
+                        <label htmlFor="roundOneEndTimePrivate" className='profile-label'>Round One End Time(Private)</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.privateEndDate ? moment(state.detailsPreview?.privateEndDate).format("DD-MM-YYYY HH:mm") : '-'} (UTC)</h6>
                       </div>
                     </Col>
                     <Col lg={4} md={12}>
                       <div className="view-data">
-                        <label className='profile-label'>Round Two Start Time(Public)</label>
+                        <label htmlFor="roundTwoStartTime" className='profile-label'>Round Two Start Time(Public)</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.publicStartDate ?
                           moment(state.detailsPreview?.publicStartDate).format("DD-MM-YYYY HH:mm")
                           : '-'} (UTC)</h6>
@@ -579,7 +579,7 @@ const ProjectCards = () => {
                     </Col>
                     <Col lg={4} md={12}>
                       <div className="view-data">
-                        <label className='profile-label'>Round Two End Time(Public)</label>
+                        <label htmlFor="roundTwoEndTime" className='profile-label'>Round Two End Time(Public)</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.publicEndDate ?
                           moment(state.detailsPreview?.publicEndDate).format("DD-MM-YYYY HH:mm")
                           : '-'} (UTC)</h6>
@@ -599,10 +599,10 @@ const ProjectCards = () => {
             </Modal.Footer>
           </Modal>
         </div>}
-        {success && <><div className="text-center toster-placement toaster-cust">
+        {success &&<div className="text-center toster-placement toaster-cust">
           <ToasterMessage isShowToaster={success} success={success}></ToasterMessage>
         </div>
-        </>}
+        }
       </div>);
 }
 

@@ -215,7 +215,7 @@ const Projects = (props) => {
       tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply} = obj;
     const newErrors = {};
     const emojiRejex =
-      /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff]|[\u2010-\u2017])/g;
+      /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff]|[\u2010-\u2017])/;
 
     if (!projectName || projectName === '') {
       newErrors.projectName = 'Is required';
@@ -395,22 +395,22 @@ const Projects = (props) => {
         uploadToServer(file, type);
         if (type === 'banner') {
           dispatch({ type: 'bannerImgLoader', payload: true })
-          if (!!errors[type]) {
+          if (errors[type]) {
             setErrors({ ...errors, [field]: null })
           }
         } else if (type === 'LOGO') {
           dispatch({ type: 'loading', payload: true })
-          if (!!errors[type]) {
+          if (errors[type]) {
             setErrors({ ...errors, [field]: null })
           }
         }else if (type === 'image') {
           dispatch({ type: 'castImgLoader', payload: true })
-          if (!!errors[type]) {
+          if (errors[type]) {
             setErrors({ ...errors, [field]: null })
           }
         } else {
           dispatch({ type: 'cardImgLoader', payload: true })
-          if (!!errors[type]) {
+          if (errors[type]) {
             setErrors({ ...errors, [field]: null })
           }
         }
@@ -656,14 +656,12 @@ const Projects = (props) => {
                 <Col lg={3} md={12}>
                   <Form.Label className="input-label upload-file">Upload Image*</Form.Label>
                   <div
-
                     className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
-
-
-                    onClick={() => inputRef.current?.click()}>
+                    onClick={() => inputRef.current?.click()}
+                    role="button">
                     {state.loading && <Spinner fallback={state.loading} className='position-absolute'></Spinner>}
                     {state.projectLogoImages && !state.loading && <span className='imgupload-span'>
                       <Image src={state.projectLogoImages} width="100" height="100" alt="" /></span>}
@@ -959,7 +957,6 @@ const Projects = (props) => {
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
                       'upload-img token-upload mb-2 c-notallowed' :
                       'upload-img token-upload mb-2'}`}
-
                     onClick={() => inputRef2.current?.click()}>
                     {state.cardImgLoader && <Spinner fallback={state.cardImgLoader}></Spinner>}
                     {state.projectCardImages && !state.cardImgLoader &&
@@ -1181,7 +1178,7 @@ const Projects = (props) => {
                 <Button className='primary-btn mt-3 mt-md-0' onClick={()=>handleEdit()} ><span className='icon add-icon'></span> Add </Button>
               </div>
               <Row className='mb-4'>
-                {state.castCrewDataList && state.castCrewDataList.map((item,index)=>(<> 
+                { state?.castCrewDataList?.map((item,index)=>(
                 <Col className="" lg={3} key={item.id}>
                   <div className='profile-panel mb-4 card-style home-card p-lg-3 p-2' key={index}onClick={() => handleEdit(index)}>
                   <div>
@@ -1220,7 +1217,7 @@ const Projects = (props) => {
                     </Row>
                   </div>
                 </Col>
-                </> ))}
+                 ))}
               </Row>
 
               <div className='text-end mt-xl-5 mb-5'>
@@ -1251,7 +1248,7 @@ const Projects = (props) => {
                         <Modal.Title id="example-custom-modal-styling-title">
                           Add Cast and Crew
                         </Modal.Title>
-                        <span className="icon close" onClick={handleCancell}></span>
+                        <span className="icon close" onClick={handleCancell} ></span>
 
 
                       </Modal.Header>
@@ -1431,12 +1428,10 @@ const Projects = (props) => {
   </>)
 }
 Projects.propTypes = {
-  onBack: PropTypes.bool,
   projectTokenData: PropTypes.isRequired,
-  walletAddress: PropTypes.isRequired,
   informationProjectView: PropTypes.string,
   closeProject: PropTypes.isRequired,
-
+  projectDetailsReducerData:PropTypes.isRequired,
 }
 
 

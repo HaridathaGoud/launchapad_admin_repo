@@ -12,23 +12,24 @@ import profileavathar from '../../assets/images/default-avatar.jpg';
 import votingFactory from '../../contract/votingFactory.json';
 import { ethers } from 'ethers';
 import apiCalls from 'src/api/apiCalls';
+import PropTypes from 'prop-types'
 
 const Dashboard = (props) => {
-    const [daoCardDetails, setDaoCardsDetails] = useState([]);
+    const [daoCardDetails, setDaoCardDetails] = useState([]);
     const loading = useSelector((state) => state?.proposal?.daoCards?.isLoading)
     const isAdmin = useSelector(state => state.oidc?.adminDetails);
-    const [deployContractLoader,setDeployLoader]=useState(false);
+    const [deployContractLoader, setDeployContractLoader]=useState(false);
     const [errorMsg,setErrorMsg]=useState(null);
-    const [selectedDaoId,setIsSelectedDaoId]=useState(null);
+    const [selectedDaoId, setSelectedDaoId]=useState(null);
     const router = useNavigate();
     useEffect(() => {
         if (isAdmin?.isInvestor === true) {
             props?.trackDaoWallet((callback) => {
-                setDaoCardsDetails(callback);
+                setDaoCardDetails(callback);
             })
         } else {
             props?.trackWallet((callback) => {
-                setDaoCardsDetails(callback);
+                setDaoCardDetails(callback);
             })
         }
 
@@ -37,11 +38,10 @@ const Dashboard = (props) => {
         router(`/dao/proposal/${item?.daoId}`);
     }
     const deployDAO=async(daoDetails)=>{
-        setDeployLoader(true) 
-        setIsSelectedDaoId(daoDetails?.daoId);    
+        setDeployContractLoader(true) 
+        setSelectedDaoId(daoDetails?.daoId);    
         try{
             const _provider = new ethers.providers.Web3Provider(window?.ethereum);
-            let accounts = await _provider.send("eth_requestAccounts", []);
             const _contract = new ethers.Contract(votingFactory?.contractAddress, votingFactory.abi, _provider?.getSigner());
             const contractRes = await _contract.deployVotingContract(daoDetails.projectToken,1,2);
             contractRes.wait().then(async (receipt) => {
@@ -55,22 +55,22 @@ const Dashboard = (props) => {
               let res=  await apiCalls.updateVotingContractAddress(updateProject);
               if(res.ok){
                 props?.trackWallet((callback) => {
-                    setDaoCardsDetails(callback);
+                    setDaoCardDetails(callback);
                 })
-                    setDeployLoader(false);
-                    setIsSelectedDaoId(null)
+                    setDeployContractLoader(false);
+                    setSelectedDaoId(null)
               }              
                } catch (error) {
-                setIsSelectedDaoId(null)
+                setSelectedDaoId(null)
                 setErrorMsg( apiCalls.isErrorDispaly(res));
                 setErrorMsg(error);
-                setDeployLoader(false);
+                setDeployContractLoader(false);
               }
             })
         }   catch (error) {
-            setIsSelectedDaoId(null)
+            setSelectedDaoId(null)
             setErrorMsg(apiCalls.isErrorDispaly(error));
-            setDeployLoader(false);
+            setDeployContractLoader(false);
           }
        
         
@@ -89,8 +89,8 @@ const Dashboard = (props) => {
             <Row>
             
                 {daoCardDetails?.map((item,index) => (
-                    <Col lg={3} md={6} xs={12} className='mt-md-3'>
-                        {<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={index} >
+                    <Col lg={3} md={6} xs={12} className='mt-md-3' key={item?.daoId}>
+                        {<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={item?.daoId} >
                             <Card.Img variant="top" src={item?.logo || profileavathar} onClick={() => goToProposalList(item)}/>
                             <Card.Body>
                                 <Card.Text className='mb-1'>
@@ -123,6 +123,10 @@ const Dashboard = (props) => {
         </div></>
     )
 }
+Dashboard.propTypes = {
+    trackWallet: PropTypes.isRequired,
+    trackDaoWallet: PropTypes.isRequired,
+  };
 const connectDispatchToProps = (dispatch) => {
     const isAdmin = useSelector(state => state.oidc?.adminDetails);
     const inverstorId = isAdmin?.id;
