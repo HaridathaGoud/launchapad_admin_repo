@@ -378,11 +378,11 @@ const Investors = () => {
         </div>
 
         <div className='user-content'>
-          {state.adminInvestorDetails?.map((items, index) => (
-            <Row className='badge-style' key={index}>
-              <Col style={{ width: 350 }}><label className='project-text text-lightpurpl'>Name</label><p className='mb-0 about-label text-overflow text-white' >{items.name}</p></Col>
-              <Col style={{ width: 350 }}><label className='project-text text-lightpurpl'>Mail Id</label><p className='mb-0 about-label text-overflow text-white'>{items.mailId}</p></Col>
-              <Col style={{ width: 350 }}><label className='project-text text-lightpurpl'>Phone Number</label><p className='mb-0 about-label text-overflow text-white'>{items.phoneNumber}</p></Col>
+          {state.adminInvestorDetails?.map((items) => (
+            <Row className='badge-style' key={items?.id}>
+              <Col style={{ width: 350 }}><label htmlFor="nameInput" className='project-text text-lightpurpl'>Name</label><p className='mb-0 about-label text-overflow text-white' >{items.name}</p></Col>
+              <Col style={{ width: 350 }}><label htmlFor="mailIdInput" className='project-text text-lightpurpl'>Mail Id</label><p className='mb-0 about-label text-overflow text-white'>{items.mailId}</p></Col>
+              <Col style={{ width: 350 }}><label htmlFor="phoneNumberInput" className='project-text text-lightpurpl'>Phone Number</label><p className='mb-0 about-label text-overflow text-white'>{items.phoneNumber}</p></Col>
               <Col className='d-flex align-items-center justify-content-end'><Button onClick={() => handleProject(items)} className='button-style'>Projects</Button></Col>
             </Row>
           ))}
@@ -541,14 +541,13 @@ const Investors = () => {
                             isInvalid={!!errors.phoneNoCountryCode}
                           >
                             <option>Select</option>
-                            {jsonPhoneCode.map((item, index) => (<>
-                              <option key={index}>{item.code}</option>
-                            </>
+                            {jsonPhoneCode.map((item) => (
+                              <option key={item?.id}>{item.code}</option>
                             ))}
 
                           </Form.Control>
 
-                          <label className="floatingInput-number cust-zindex">Phone No*</label>
+                          <label htmlFor="phoneNumberInput" className="floatingInput-number cust-zindex">Phone No*</label>
                           <Form.Control
                             type="text"
                             className="form-number input-radius"
@@ -589,12 +588,12 @@ const Investors = () => {
                             onChange={(e) => { setField('country', e.currentTarget.value) }}
                           >
                             <option>Select Country</option>
-                            {jsonCountryCode.map((item, index) => (
-                              <option key={index}>{item.name}</option>
+                            {jsonCountryCode.map((item) => (
+                              <option key={item?.id}>{item.name}</option>
                             ))}
                           </Form.Control>
                          
-                          <label className="floatingInput-number cust-zindex">Country*</label>
+                          <label htmlFor='country' className="floatingInput-number cust-zindex">Country*</label>
                           <Form.Control.Feedback type="invalid">{errors.country}</Form.Control.Feedback>
                         </InputGroup>
                       </FloatingLabel>

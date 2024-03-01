@@ -199,7 +199,7 @@ const SettingsDetails = () => {
 
             <Row>
                 <Col lg={6} md={12}>
-                    <label className='input-label mb-3 mt-2'>Set Vesting Time</label>
+                    <label htmlFor='vestingTime' className='input-label mb-3 mt-2'>Set Vesting Time</label>
                     <FloatingLabel
                         controlId="floatingInput"
                         className="mb-3 input-style"
@@ -212,7 +212,7 @@ const SettingsDetails = () => {
 
                 </Col>
                 <Col lg={6} md={12}>
-                    <label className='input-label mb-3 mt-2'>Set Listing Time</label>
+                    <label htmlFor='listingTime' className='input-label mb-3 mt-2'>Set Listing Time</label>
                     <FloatingLabel
                         controlId="floatingInput"
                         className="mb-3 input-style"
@@ -226,7 +226,7 @@ const SettingsDetails = () => {
             </Row>
             <Row>
                 <Col lg={6} md={12}>
-                    <label className='input-label mb-3 mt-2'>Set Round1 time</label>
+                    <label htmlFor='round1Time' className='input-label mb-3 mt-2'>Set Round1 time</label>
                     <FloatingLabel
                         controlId="floatingInput"
                         className="mb-3 input-style"
@@ -238,7 +238,7 @@ const SettingsDetails = () => {
 
                 </Col>
                 <Col lg={6} md={12}>
-                    <label className='input-label mb-3 mt-2'>Set Round2 time</label>
+                    <label htmlFor='round2Time' className='input-label mb-3 mt-2'>Set Round2 time</label>
                     <FloatingLabel
                         controlId="floatingInput"
                         className="mb-3 input-style"
@@ -252,7 +252,7 @@ const SettingsDetails = () => {
 
                 </Col>
                 <Col lg={6} md={12}>
-                    <label className='input-label mb-3 mt-2'>Fcfs start time</label>
+                    <label htmlFor='fsfsStartTime' className='input-label mb-3 mt-2'>Fcfs start time</label>
                     <FloatingLabel
                         controlId="floatingInput"
                         className="mb-3 input-style"

@@ -7,7 +7,6 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import KycDetails from "../kyc/kycdetails";
 import defaultAvathar from "../../assets/images/default-avatar.jpg"
-import PropTypes from 'prop-types';
 import { CBreadcrumb, CBreadcrumbItem, CLink } from '@coreui/react';
 import Button from 'react-bootstrap/Button';
 import ToasterMessage from "src/utils/toasterMessages";
@@ -27,7 +26,7 @@ const ProfileInfo = () => {
   const [sucesMsg, setSucesMsg] = useState(null);
   const shouldLog = useRef(true);
   const [show, setShow] = useState(false);
-  const [selection, setCopySelections]=useState(null);
+  const [selection, setSelection]=useState(null);
   let { address,tab } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Kyc');
@@ -95,7 +94,7 @@ const ProfileInfo = () => {
   }
   const handleCopy = (dataItem) => {
     setCopied(true)
-    setCopySelections(dataItem)
+    setSelection(dataItem)
     setTimeout(() => setCopied(false), 1000)
 }
 const handleTabChange = (tab) => {
@@ -133,7 +132,7 @@ const handleTabChange = (tab) => {
                 <div className="ms-lg-4 approve-kyc">
                     <div className="d-flex align-items-center mb-3 justify-content-between">
                       <h5 className="activity-title mb-0">
-                        {userDetails.firstName ? userDetails.firstName : !userDetails.firstName ? "unnamed"  : "unnamed"}</h5>
+                        {userDetails?.firstName ? userDetails?.firstName : "unnamed"}</h5>
                        
                         </div>
                   <div className="custom-flex align-items-center flex-wrap"><div className="value-card"><span className="icon country"></span><label className="text-medium text-secondary ms-1">{userDetails.country ? userDetails.country : "--"}</label></div><div className="value-card"><span className="icon contact"></span><label className="text-medium text-secondary ms-1">{userDetails.countryCode ? userDetails.countryCode : "--"}{' '}{userDetails.phoneNo ? userDetails.phoneNo : "--"}</label></div>
@@ -178,9 +177,9 @@ const handleTabChange = (tab) => {
                 <div>
                   {userInfo.role=="Super Admin" &&
                   <>
-                   {(userDetails?.kycStatus?.toLowerCase() == "pending" ||  userDetails?.kycStatus?.toLowerCase() == "init")&& <>
+                   {(userDetails?.kycStatus?.toLowerCase() == "pending" ||  userDetails?.kycStatus?.toLowerCase() == "init")&&
                    <div className=" mt-lg-0 mt-3 sm-text-end"><Button className="filled-btn" onClick={handleShow}>Approve KYC</Button></div>
-                   </>}
+                   }
                    </>
                   }
 
@@ -243,15 +242,13 @@ const handleTabChange = (tab) => {
           </Modal.Footer>
 
         </Modal>
-        {sucesMsg && <><div className="text-center">
+        {sucesMsg &&<div className="text-center">
           <ToasterMessage isShowToaster={sucesMsg} success={sucesMsg}></ToasterMessage>
         </div>
-        </>}
+        }
       </div>
     </div>
   );
 }
-ProfileInfo.propTypes = {
-  userDetailsId: PropTypes.any,
-};
+
 export default ProfileInfo;

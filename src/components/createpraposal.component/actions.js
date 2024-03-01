@@ -5,7 +5,6 @@ import user from '../../assets/images/praposal-user.png';
 export default function Actions() {
 
     return (
-        <>
         <div className='mt-3'>
         <div className='voting-card'>
         <div className='p-voting'>
@@ -30,7 +29,7 @@ export default function Actions() {
         </div><hr/>
         <div className='dao-bg-card mt-4'>
             <div>
-                <img src={user} className='me-3'></img>
+                <img src={user} className='me-3'alt=''></img>
                 <span className='vertical-align-middle'>0x4a9...929A</span>
             </div>
             <div>
@@ -65,6 +64,5 @@ export default function Actions() {
         </div>
         </div>
         </div>
-        </>
         );
     }

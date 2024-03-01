@@ -291,7 +291,7 @@ const IDORequest = () => {
     dispatch({ type: 'btnDisabled', payload: false })
     dispatch({ type: 'selection', payload: value })
     dispatch({ type: 'btnDisabled', payload: true })
-    if (!!errors[field]) {
+    if (errors[field]) {
       setErrors({
         ...errors,
         [field]: null
@@ -310,7 +310,6 @@ const IDORequest = () => {
   const renderTooltipProject = (e, data) => renderTooltip(e, data);
 
   const statusValues = [{ name: "Submitted" }, { name: "Approved" }, { name: "Rejected" }]
-
   return (
     <>
       {state.loader && <div className="text-center"><Spinner ></Spinner></div>}
@@ -353,13 +352,12 @@ const IDORequest = () => {
 
           <div className="text-center">{state.loader && <Spinner></Spinner>}</div>
           {!state.loader && (
-            <>
               <div className='user-contentz'>
 
-                {state.idoRequestDetails?.map((item, index) => (
-                  <div className='badge-style' key={index}>
+                {state.idoRequestDetails?.map((item) => (
+                  <div className='badge-style' key={item?.id}>
                     <div style={{ width: 350 }} className="d-flex align-items-center justify-content-left">
-                      <label className='check-input-style  c-pointer d-flex align-items-center'>
+                      <label htmlFor='checkBoxId' className='check-input-style  c-pointer d-flex align-items-center'>
                         <input
                           className={currentCheckBox === item.id ? 'active' : 'inactive'}
                           id={item.id}
@@ -370,10 +368,10 @@ const IDORequest = () => {
                         />
                         <span></span>
                       </label>
-                      <div className='ms-3'><label className='project-text text-lightpurpl'>Created At</label>
+                      <div className='ms-3'><label htmlFor='createdAt' className='project-text text-lightpurpl'>Created At</label>
                         <p className='mb-0 about-label active text-overflow text-white'>{moment.utc(item?.createdAt).local().format("DD-MM-YYYY hh:mm ")}</p></div>
                     </div>
-                    <div style={{ width: 150 }}><label className='project-text text-lightpurpl'>Email Id</label>
+                    <div style={{ width: 150 }}><label htmlFor='emailId' className='project-text text-lightpurpl'>Email Id</label>
                       <OverlayTrigger
                         placement="top"
                         overlay={renderTooltipEmail({}, item.emailId)}>
@@ -381,26 +379,26 @@ const IDORequest = () => {
 
                       </OverlayTrigger>
                     </div>
-                    <div style={{ width: 150 }}><label className='project-text text-lightpurpl'>Project Name</label>
+                    <div style={{ width: 150 }}><label  htmlFor='projectName' className='project-text text-lightpurpl'>Project Name</label>
                       <OverlayTrigger
                         placement="top"
                         overlay={renderTooltipProject({}, item.projectName)}>
                         <p className='mb-0 about-label text-overflow text-white'>{item.projectName ? item.projectName : '-'}</p>
                       </OverlayTrigger>
                     </div>
-                    <div style={{ width: 150 }}><label className='project-text text-lightpurpl'>Initial Supply</label>
+                    <div style={{ width: 150 }}><label htmlFor='initialSupply' className='project-text text-lightpurpl'>Initial Supply</label>
                       <p className='mb-0 about-label text-overflow text-white'>
                         <NumericFormat value={item?.initialSupply ? item?.initialSupply : '-'} decimalSeparator="." displayType={'text'} thousandSeparator={true} />
                       </p></div>
                     <div style={{ width: 150 }}>
                       <div>
-                        <label className="project-text text-lightpurpl">Total Supply</label>
+                        <label htmlFor='totalSupply' className="project-text text-lightpurpl">Total Supply</label>
                         <p className=" kpi-val mb-0">
                           <NumericFormat value={item?.totalSupply ? item?.totalSupply : '-'} decimalSeparator="." displayType={'text'} thousandSeparator={true} />
                         </p>
                       </div>
                     </div>
-                    <div style={{ width: 150 }}><label className='project-text text-lightpurpl'>Status</label>
+                    <div style={{ width: 150 }}><label htmlFor='status' className='project-text text-lightpurpl'>Status</label>
                       <p className='mb-0'>{item?.status ? item.status : "-"}</p>
                     </div>
                     <div style={{ width: 150 }} className='d-flex align-items-center justify-content-end'><Button onClick={() => getOnePersonDetailsBasedOnId(item)} className="button-style d-flex align-items-center justify-content-left c-pointer"><span className='icon view c-pointer'></span><div className='ps-2'><p className='mb-0 about-label text-overflow text-white c-pointer'>View</p></div></Button></div>
@@ -408,12 +406,12 @@ const IDORequest = () => {
                 ))}
 
                 {state.loadeMessage && <>
-                  {state.idoRequestDetails.length === 0 && <>
+                  {state.idoRequestDetails.length === 0 &&
                     <div className='text-center'>
-                      <img src={nodata} width={120} />
+                      <img src={nodata} width={120} alt=''/>
                       <h4 className="text-center nodata-text db-no-data">No Data Found</h4>
                     </div>
-                  </>}
+                  }
                 </>}
                 <Modal centered show={state.show} onHide={handleClose} backdrop={false} className="settings-modal profile-modal">
                   {state.errorMsg && (
@@ -453,8 +451,8 @@ const IDORequest = () => {
                           isInvalid={!!errors.country}
                           onChange={(e) => { setField('status', e.currentTarget.value) }}
                         >
-                          {statusValues.map((item, index) => (
-                            <option key={index}>{item.name}</option>
+                          {statusValues.map((item) => (
+                            <option key={item?.name}>{item.name}</option>
                           ))}
                         </Form.Control>
 
@@ -471,21 +469,20 @@ const IDORequest = () => {
                             (form?.status == "Submitted" && state.SelectData?.status == "Submitted")
                           }
                         >
-                          <span>{state.btnLoader && <Spinner size="sm" />} </span>
-                          Ok</Button>
+                          <span>{state.btnLoader && <Spinner size="sm" />}</span>
+                          <span>Ok</span></Button>
                       }
                     </div></div>
                   </Modal.Body>
                 </Modal>
               </div>
-            </>)}
-          <>
-
+            )}
+          
             {loadData && (<div className='addmore-title' >
               <span className='d-block'> <span className='c-pointer' onClick={addProposalList}>
                 <span>{seeMoreLoader && <Spinner size="sm" />} </span> See More</span></span>  <span className='icon blue-doublearrow c-pointer' onClick={addProposalList}></span>
             </div>)}
-          </>
+          
 
 
         </div>
@@ -510,10 +507,10 @@ const IDORequest = () => {
           </Modal.Body>
         </Modal>
       </>}
-      {success && <><div className="">
+      {success && <div className="">
         <ToasterMessage isShowToaster={success} success={success}></ToasterMessage>
       </div>
-      </>}
+      }
     </>
 
   )

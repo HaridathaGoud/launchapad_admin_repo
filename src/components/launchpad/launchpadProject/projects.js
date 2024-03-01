@@ -63,7 +63,6 @@ export default function Projects(props) {
     }
   };
 
-
   const userProfile = async () => {
     let res = await apiCalls.customerDetails(address);
     if (res.ok) {
@@ -279,13 +278,11 @@ export default function Projects(props) {
               )}
             </div>
             {!state.loader && (
-              <>
                 <div>
                   {state.cardDetails?.length != 0 &&
                     <div className="row full-width">
                       {state.cardDetails?.map((item) => (
-                        <>
-                          <div className="col-md-6 col-sm-12 col-xs-4 col-xl-4 mb-3">
+                          <div className="col-md-6 col-sm-12 col-xs-4 col-xl-4 mb-3" key={item?.id}>
                             <div className="project-detail">
                               <div className="detail-card">
                                 <Link
@@ -416,31 +413,22 @@ export default function Projects(props) {
                               </div>
                             </div>
                           </div>
-                        </>
                       ))}
                     </div>}
                   {state.cardDetails?.length == 0 &&
-
-                    <>
                       <div className="nodata-text db-no-data">
                         <Image src={nodata} className="text-center" alt=""></Image>
                         <h3 className="text-center nodata">{state.loadeMessage}</h3>
                       </div>
-                    </>
-
                   }
-                  <>
 
                     <div className='text-center'>{loadMore && <Spinner size="sm" className='text-white' />}</div>
                     {(state.cardDetails?.length != 0 && loadData) && <div className='addmore-title' >
-                      <>
                         {!hide && (<>  <span className='d-block'><span onClick={addProposalList}>See More</span></span>
                           <span onClick={addProposalList} className='icon blue-doublearrow'></span></>)}
-                      </>
                     </div>}
-                  </>
+
                 </div>
-              </>
             )}
           </div>
         </Tab>
@@ -477,14 +465,12 @@ export default function Projects(props) {
               )}
             </div>
             {!state.loader && (
-              <>
                 <div>
 
                   {state.cardDetails?.length != 0 &&
                     <div className="row full-width">
                       {state.cardDetails?.map((item) => (
-                        <>
-                          <div className="col-md-6 col-sm-12 col-xs-4 col-xl-4 mb-3">
+                          <div className="col-md-6 col-sm-12 col-xs-4 col-xl-4 mb-3" key={item?.id}>
                             <div className="project-detail">
                               <div className="detail-card">
                                 <Link
@@ -619,27 +605,21 @@ item.accessType == 'Private'? endDate: item.publicEndDate
                               </div>
                             </div>
                           </div>
-                        </>
                       ))}
                     </div>}
-                  {state.cardDetails?.length == 0 && <>
+                  {state.cardDetails?.length == 0 &&
                     <div className="nodata-text db-no-data">
                       <Image src={nodata} className="text-center" alt=""></Image>
                       <h3 className="text-center nodata">{state.loadeMessage}</h3>
                     </div>
-                  </>}
-                  <>
+                  }
 
                     <div className='text-center'>{loadMore && <Spinner size="sm" className='text-white' />}</div>
                     {(state.cardDetails?.length != 0 && loadData) && <div className='addmore-title' >
-                      <>
                         {!hide && (<> <span className='d-block'><span onClick={addProposalList}>See More</span></span>   <span className='icon blue-doublearrow' onClick={addProposalList}></span></>)}
-                      </>
                     </div>}
-                  </>
 
                 </div>
-              </>
             )}
           </div>
         </Tab>
@@ -707,14 +687,12 @@ item.accessType == 'Private'? endDate: item.publicEndDate
               </div>
             )}
             {!state.loader && (
-              <>
                 <div>
 
                   {state.cardDetails?.length != 0 &&
                     <div className="row full-width">
                       {state.cardDetails?.map((item) => (
-                        <>
-                          <div className="col-md-6 col-sm-12 col-xs-4 col-xl-4 mb-3">
+                          <div className="col-md-6 col-sm-12 col-xs-4 col-xl-4 mb-3" key={item?.id}>
                             <div className="project-detail">
                               <div className="detail-card">
                                 <Link
@@ -848,28 +826,24 @@ item.accessType == 'Private'? endDate: item.publicEndDate
                               </div>
                             </div>
                           </div>
-                        </>
                       ))}
                     </div>}
-                  {state.cardDetails?.length == 0 && <>
+                  {state.cardDetails?.length == 0 &&
                     <div className="nodata-text db-no-data">
                       <Image src={nodata} className="text-center" alt=""></Image>
                       <h3 className="text-center nodata">{state.loadeMessage}</h3>
                     </div>
-                  </>}
+                  }
 
 
 
                   <div className='text-center'>{loadMore && <Spinner size="sm" className='text-white' />}</div>
                   {(state.cardDetails?.length != 0 && loadData) && <div className='addmore-title ' >
-                    <>
                       {!hide && (<>  <span className='d-block'><span className='c-pointer' onClick={addProposalList}>See More</span></span> <span className='icon blue-doublearrow c-pointer' onClick={addProposalList}></span></>)}
-                    </>
                   </div>}
 
 
                 </div>
-              </>
             )}
           </div>
         </Tab>

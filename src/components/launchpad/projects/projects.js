@@ -126,7 +126,6 @@ const Projects = (props) => {
   const [selectedValues, setSelectedValues] = useState([]);
   const [countryData, setCountryData] = useState([])
   const [imageError, setImageError] = useState()
-  const [isValid, setIsValid] = useState(true);
   const [show, setShow] = useState(false);
   const castCrewRolesLu = useSelector(state => state.launchpad?.castCrewRolesLuData?.data);
   const [selectedroleValues, setSelectedroleValues] = useState([]);
@@ -303,8 +302,6 @@ const Projects = (props) => {
 
   const handleSaveProjectDetails = async (event) => {
     event.preventDefault();
-    const validationStatus = validateSelection(selectedValues);
-    setIsValid(validationStatus);
     dispatch({ type: 'errorMgs', payload: null })
     event.preventDefault();
     if (state.projectSaveDetails?.projectStatus &&
@@ -314,7 +311,7 @@ const Projects = (props) => {
     } else {
       dispatch({ type: 'buttonLoader', payload: true })
       let obj = {
-        "id": projectSaveDetails?.id == null ? projectId ? projectId : "00000000-0000-0000-0000-000000000000" : projectSaveDetails?.id,
+        "id": projectSaveDetails?.id != null ? projectSaveDetails.id : (projectId ?? "00000000-0000-0000-0000-000000000000"),
         "contractAddress": state.projectSaveDetails?.contractAddress,
         "tokenName": state.projectSaveDetails?.tokenName,
         "tokenSymbol": state.projectSaveDetails?.tokenSymbol,
@@ -386,7 +383,7 @@ const Projects = (props) => {
   const uploadToClient = (event, type) => {
     setImageError(null)
     dispatch({ type: 'errorMgs', payload: null })
-    if (event.target.files && event.target.files[0]) {
+    if (event.target.files) {
       const file = event.target.files[0];
       if (!file.name.match(/\.(jpg|jpeg|png|gif|webp)$/)) {
         setImageError("It is not permitted to upload a file. Only jpg,jpeg,png,gif,webp files can be uploaded.")
@@ -495,9 +492,6 @@ const Projects = (props) => {
     setSelectedValues(countries)
   }
 
-  const validateSelection = (selectedOptions) => {
-    return selectedOptions?.length > 0;
-  };
 
   const handleChange = (field, event) => {
     event.preventDefault()
@@ -661,7 +655,7 @@ const Projects = (props) => {
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
                     onClick={() => inputRef.current?.click()}
-                    role="button">
+                    >
                     {state.loading && <Spinner fallback={state.loading} className='position-absolute'></Spinner>}
                     {state.projectLogoImages && !state.loading && <span className='imgupload-span'>
                       <Image src={state.projectLogoImages} width="100" height="100" alt="" /></span>}
@@ -1180,7 +1174,7 @@ const Projects = (props) => {
               <Row className='mb-4'>
                 { state?.castCrewDataList?.map((item,index)=>(
                 <Col className="" lg={3} key={item.id}>
-                  <div className='profile-panel mb-4 card-style home-card p-lg-3 p-2' key={index}onClick={() => handleEdit(index)}>
+                  <div className='profile-panel mb-4 card-style home-card p-lg-3 p-2' key={index}onClick={() => handleEdit(index)} >
                   <div>
                       <Form.Group >
                         <div className='profile-size castandcre-profile  no-hover mx-auto' >
@@ -1250,12 +1244,8 @@ const Projects = (props) => {
                         </Modal.Title>
                         <span className="icon close" onClick={handleCancell} ></span>
 
-
                       </Modal.Header>
-
-                      <Modal.Body className="launchpadadmin-modal">
-
-                        
+                      <Modal.Body className="launchpadadmin-modal">            
                             <Row>
                             <Col xl={4} className="mb-4">
                         <Form.Group>

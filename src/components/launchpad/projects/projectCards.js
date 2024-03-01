@@ -22,6 +22,8 @@ import { projectDetailsSave, projectePayment, viewedProjects } from "src/compone
 import ToasterMessage from "src/utils/toasterMessages";
 import { useConnectWallet } from '../../../hooks/useConnectWallet';
 import { useAccount } from 'wagmi'
+import PropTypes from 'prop-types'
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMgs":

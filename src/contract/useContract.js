@@ -5,7 +5,6 @@ import Contract from './mint.json';
 import { useSelector } from 'react-redux';
 
 export function useContract() {
- const PRIVATE_KEY =process.env.PRIVATE_KEY;
  const selectedDAO = useSelector((state) => state?.oidc?.defaultData);
  async function addQuestion(contractAddress,questionHash, oprionHash, startTime, endTime) {
    return proposalAddQuestion(contractAddress,questionHash,oprionHash,startTime,endTime);
@@ -22,7 +21,6 @@ function parseError(message) {
  return _message;
 }
 async function proposalAddQuestion(contractAddress,args1, args2, args3, args4) {
-
  const { request } = await prepareWriteContract({
    address: contractAddress,
    abi: VotingContract.abi,
@@ -33,7 +31,6 @@ async function proposalAddQuestion(contractAddress,args1, args2, args3, args4) {
  return writeContract(request);
 }
 async function proposalCastVote(contractAddress,args1, args2) {
-
  const  request  = await prepareWriteContract({
    address: contractAddress,
    abi: VotingContract.abi,

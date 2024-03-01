@@ -245,7 +245,7 @@ function AppHeader(props){
               id="nav-dropdown"
             >
               {daoLuData?.map((item) =>
-              (<NavDropdown.Item eventKey={item.id}
+              (<NavDropdown.Item eventKey={item.id} key={item?.id}
                 className={`${item?.daoName != DefaultdaoData?.daoName ? "dropdwn-liststyle" : "dropdwn-liststyle selected"}`}
                 onClick={() => handleDaoLu(item)}>
                 <div className='d-flex align-items-center'>
@@ -366,7 +366,7 @@ function AppHeader(props){
                         id="nav-dropdown"
                       >
                         {daoLuData?.map((item) =>
-                        (<NavDropdown.Item eventKey={item.id}
+                        (<NavDropdown.Item eventKey={item.id} key={item?.id}
                           className={`${item?.daoName != DefaultdaoData?.daoName ? "dropdwn-liststyle" : "dropdwn-liststyle selected"}`}
                           onClick={() => handleDaoLu(item)}>
                           <div className='d-flex align-items-center'>
@@ -510,7 +510,7 @@ function AppHeader(props){
                     </OverlayTrigger>
                   </CNavItem></>}
                   {window.location.pathname.includes('launchpad')&&
-                  isAdmin?.isAdmin && showSetting && viewedProject?.projectstatus=="Deployed"&&  <>
+                  isAdmin?.isAdmin && showSetting && viewedProject?.projectstatus=="Deployed"&& 
                    <CNavItem className={"underline" + (menu=== "Settings" ? " active" : "")}>
                     <OverlayTrigger
                       placement="right"
@@ -518,7 +518,7 @@ function AppHeader(props){
                         <CNavLink className='customer' ><span className="icon nav-settings" /><span className=' mx-1'>Settings</span></CNavLink>
                      
                     </OverlayTrigger>
-                  </CNavItem></>}
+                  </CNavItem>}
 
 
                   {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Super Admin"&& <>   <CNavItem  className={"underline" + (menu=== "customers" ? " active" : "")}>
@@ -550,7 +550,7 @@ function AppHeader(props){
                     </OverlayTrigger>
                   </CNavItem>
                   </>}
-                  {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Super Admin"&& <>
+                  {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Super Admin"&&
                     <CNavItem className={"underline" + (menu=== "idorequest" ? " active" : "")}>
                       <> <OverlayTrigger
                         placement="right"
@@ -559,9 +559,9 @@ function AppHeader(props){
                       </OverlayTrigger>
                       </>
                     </CNavItem>
-                  </>}
+                  }
 
-                  {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Super Admin"&&<>
+                  {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Super Admin"&&
                     <CNavItem className={"underline" + (menu=== "transactions" ? " active" : "")}>
                       <OverlayTrigger
                         placement="right"
@@ -569,7 +569,7 @@ function AppHeader(props){
                         <CNavLink onClick={() => navigate('launchpad/transactions')}><span className="icon transaction-list me-0" /><span className=' mx-1'>Transactions</span></CNavLink>
                       </OverlayTrigger>
                     </CNavItem>
-                  </>}
+                  }
 
                 </SimpleBar>
               </CSidebarNav>
@@ -582,6 +582,12 @@ function AppHeader(props){
   )
 }
 
+AppHeader.propTypes = {
+  periodsLuData: PropTypes.isRequired,
+  oidc: PropTypes.string,
+  userInfo: PropTypes.isRequired,
+  projectDetailsReducerData:PropTypes.isRequired,
+}
 const connectStateToProps = ({ auth, oidc }) => {
   return {
     auth: auth,

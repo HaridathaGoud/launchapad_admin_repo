@@ -17,7 +17,7 @@ import { useAccount } from 'wagmi';
 import UseEthers from '../../utils/useEthers';
 import Moment from 'react-moment';
 import { ethers } from 'ethers/lib';
-
+import PropTypes from 'prop-types'
 
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
 
@@ -81,13 +81,13 @@ function PublishProposal(props) {
      publishProposal(walletAddress);
     }
   }
-const publishProposalWalletCOnnect=()=>{
+const publishProposalWalletCOnnect=async ()=>{
   if (isConnected) {
     getWalletAddress();
 }
 else {
     try {
-          getWalletAddress()
+         await getWalletAddress()
     } catch (error) {
         setErrorMsg(error?.reason);
         setBtnLoader(false)
@@ -128,7 +128,7 @@ const publishProposal =  async(walletAddress) => {
         setTxHash(response.hash)
         const _connector = window?.ethereum;
         const provider = new ethers.providers.Web3Provider(_connector);
-            const txResponse = await provider.waitForTransaction(response.hash);
+        const txResponse = await provider.waitForTransaction(response.hash);
       if (txResponse && txResponse.status === 0) {
         setErrorMsg("Transaction failed");
         setBtnLoader(false)
@@ -235,6 +235,11 @@ const publishProposal =  async(walletAddress) => {
         </Row>
       </Container>
   );
+}
+PublishProposal.propTypes = {
+  proposal: PropTypes.string,
+  contractDetails: PropTypes.isRequired,
+  saveProposalData:PropTypes.isRequired,
 }
 const connectStateToProps = ({ oidc, proposal }) => {
   return { oidc: oidc, proposal: proposal };

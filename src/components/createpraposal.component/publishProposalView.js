@@ -7,7 +7,7 @@ import PlaceHolder from '../shimmers/placeHolder';
 import { useParams } from "react-router-dom";
 import Moment from 'react-moment';
 import { useAccount } from 'wagmi';
-
+import PropTypes from 'prop-types'
 
 function TestingPraposalflow(props) {
    const proposalView = useSelector((state) => state?.proposal?.proViewData)
@@ -48,7 +48,6 @@ function TestingPraposalflow(props) {
 
 
   return (
-    <>
       <div className='praposal-left-card mb-5'>
       {errorMsg && (
           <Alert variant="danger">
@@ -77,9 +76,7 @@ function TestingPraposalflow(props) {
             <div>
                     <p className='prtype-font'>Proposal options</p>
                     {proposalView?.data?.options?.map((item)=>(
-                      <>
-                      <p className='prtype-font'>{getRecorderValue(item?.recorder)}. {item?.option} {`(${item?.votersCount || "0"})`}</p>
-                      </>
+                      <p className='prtype-font' key={item?.recorder}>{getRecorderValue(item?.recorder)}. {item?.option} {`(${item?.votersCount || "0"})`}</p>
                     ))}                  
                     </div>
 
@@ -111,9 +108,11 @@ function TestingPraposalflow(props) {
         </div>:<PlaceHolder contenthtml={PublishShimmers}/>}
       </div>
 
-    </>
   );
 }
+TestingPraposalflow.propTypes = {
+  proViewData: PropTypes.isRequired,
+};
 const connectStateToProps = ({ oidc }) => {
   return { oidc: oidc };
 };

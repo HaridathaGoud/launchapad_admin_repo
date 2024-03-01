@@ -72,13 +72,13 @@ const ProjectsTokenClaim = (props) => {
     let _data = { ...state.claimDetails };
     _data[event.target.name] = event.target.value;
     dispatch({ type: 'claimDetails', payload: _data })
-    if (!!formErrors[field]) {
+    if (formErrors[field]) {
       setFormErrors({ ...formErrors, [field]: null })
     }
   }
 
   const validateForm = (obj) => {
-    const { noofSlots, vestingDays, publicStartDate, publicEndDate, privateStartDate, privateEndDate } = obj || state?.claimDetails;
+    const { noofSlots, vestingDays, publicStartDate, publicEndDate, privateStartDate, privateEndDate } = obj || state?.claimDetails || {};
     const newErrors = {};
     const dateRegex = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/;
     if (!noofSlots || noofSlots === '') {
@@ -153,16 +153,12 @@ const timeDate=(timeString)=>{
     ) {
       if(isAdmin.isInvestor){
          return  navigate(`/launchpad/projects/${isAdmin.id}`);
-      }else{
-        if (investorsDetails.project == null) {
+      }
+      if (investorsDetails.project == null) {
           navigate('/launchpad/idorequest');
         } else {
           navigate(`/launchpad/investors/projects/${investorsDetails?.project?.id}`);
         }
-      }
-    
-
-
     } else {
       const privateEndingTimeInSeconds = parseTime(state.claimDetails?.privateEndDate);
       const privateStartingTimeInSeconds = parseTime( state.claimDetails?.privateStartDate);
@@ -550,23 +546,19 @@ const timeDate=(timeString)=>{
           </>
 
         </Form>
-        {state.success && <><div className="">
+        {state.success &&<div className="">
           <ToasterMessage isShowToaster={state.success} success={state.successMessage}></ToasterMessage>
         </div>
-        </>}
+        }
 
       </div>}
     </>
   )
 }
-// ProjectsTokenClaim.propTypes = {
-//   goBackToPoolsStaking: PropTypes.bool,
-//   projectData: PropTypes.isRequired,
-//   saveTiersDetails: PropTypes.isRequired,
-//   stakingDetails: PropTypes.isRequired,
-//   projectTokenData: PropTypes.isRequired,
-//   projectId: PropTypes.isRequired,
-//   projectDetails: PropTypes.isRequired,
-//   projectInfo: PropTypes.isRequired
-// }
+ProjectsTokenClaim.propTypes = {
+  closeProject: PropTypes.isRequired,
+  goBackToPoolsStaking: PropTypes.isRequired,
+  projectId: PropTypes.isRequired,
+  projectInfo: PropTypes.isRequired
+}
 export default ProjectsTokenClaim;

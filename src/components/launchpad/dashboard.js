@@ -8,6 +8,7 @@ import store from 'src/store';
 import { showSettings } from 'src/reducers/authReducer';
 import { CBreadcrumb, CBreadcrumbItem } from '@coreui/react';
 import { Spinner } from 'react-bootstrap';
+import PropTypes from 'prop-types'
 
 const DashboardPage = (props) => {
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails?.isAdmin);
@@ -80,6 +81,11 @@ const DashboardPage = (props) => {
     </> }
     </>
   )
+}
+DashboardPage.propTypes = {
+  superAdminDetails: PropTypes.isRequired,
+  upcomingProjectsDetails: PropTypes.isRequired,
+  adminDashboardDetails: PropTypes.isRequired,
 }
 const connectDispatchToProps = (dispatch) => {
   return {

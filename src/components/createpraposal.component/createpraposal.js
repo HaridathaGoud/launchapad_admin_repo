@@ -117,7 +117,7 @@ const optionSave = ()=>{
   let _attribute = []; 
     for (let i in _properties) {
      let _obj = _properties[i];
-     if(_obj.options == "" || _obj.options == null || !_obj.options?.trim()){
+     if(!_obj.options?.trim()){
       return dispatch({type:'modalError',payload:"Please fill the data."})
       }else if(validateContentRule("", _obj.options)){
         return dispatch({type:'modalError',payload:"Please provide valid content."})

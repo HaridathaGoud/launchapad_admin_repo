@@ -74,8 +74,6 @@ import Pageerror from './components/pagenotfound';
 import ProjectsPoolsStaking from './components/launchpad/projects/projectPoolsStakingPercentage';
 import ProjectsTokenClaim from './components/launchpad/projects/projectTokenClaim';
 import ProjectTokenDetails from './components/launchpad/projects/projectTokenDetails';
-import useErrorHandler from './components/errorPage/useErrorHandler'; // Import your custom error handler hook
-import ErrorBoundary from './components/errorPage/errorBoundary'; // Import your error boundary component
 import ErrorPage from './components/errorPage/errorPage'; 
 const loading = (
   <div className="pt-3 text-center">

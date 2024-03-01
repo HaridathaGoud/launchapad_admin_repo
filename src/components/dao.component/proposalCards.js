@@ -22,6 +22,8 @@ import ToasterMessage from 'src/utils/toasterMessages';
 import VotingContract from '../../contract/voting.json';
 import moment from 'moment';
 import ErrorPage from "../../../src/views/pages/unauthorizederror/unauthorizederror"
+import PropTypes from 'prop-types'
+
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
  
 const reducers = (state, action) => {
@@ -52,7 +54,7 @@ const Dao = (props) => {
     const proposalData = useSelector((reducerState) => reducerState?.proposal?.proposalDetailsList);
     const loadData = useSelector((reducerState) => reducerState.proposal?.isCheckSeeMore);
     const UserInfo = useSelector(reducerState => reducerState.oidc?.profile?.profile)
-    const [loading,setLodaing]=useState(false)
+    const [loading, setLoading]=useState(false)
     const [state, dispatch] = useReducer(reducers, { modalShow: false, status: "all", statusLu: [], date: null, dateStatus: false })
         const [votingOwner,setVotingOwner]=useState(false)
     const { voteCalculation } = useContract();
@@ -63,7 +65,7 @@ const Dao = (props) => {
     const [loadMore,setLoadMore] = useState(false)
     const [hide,setHide] = useState(false)
     const [daoName,setDaoName]=useState(null)
-    const [selection,setIsSelection]=useState(null);
+    const [selection, setSelection]=useState(null);
     const votingSeicheContractAddress = process.env.REACT_APP_VOTING_CONTRACTOR;
     const votingKeijiContractAddress = process.env.REACT_APP_VOTING_KEIJI_CONTRACTOR;
         const { address, isConnected } = useAccount()
@@ -82,11 +84,11 @@ const Dao = (props) => {
 
     useEffect(() => {
         getApprovedProposalData(status)
-                setLodaing(true)
+                setLoading(true)
         props?.lookUp((callback) => {
             
             dispatch({ type: 'statusLu', payload: callback })
-            setLodaing(false)
+            setLoading(false)
             window.scrollTo(0,0)
         })
         props?.trackWallet((callback)=>{
@@ -172,15 +174,15 @@ const Dao = (props) => {
         }else if (data) {
             if (!state?.dateStatus && data != "all") {
                 let pageNo = 1
-                props.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, startDate, endDate,handleCallback)
+                props?.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, startDate, endDate,handleCallback)
                
-            } else if(data && state?.dateStatus){
+            } else if( state?.dateStatus){
                 let pageNo = 1
-                props.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, state?.date, state?.dateStatus,handleCallback
+                props?.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, state?.date, state?.dateStatus,handleCallback
                 )
               
             }else {
-                props.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, startDate, endDate,handleCallback)
+                props?.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, startDate, endDate,handleCallback)
                 let _pageNo = pageNo + 1;
                 setPageNo(_pageNo);
                
@@ -249,7 +251,7 @@ const Dao = (props) => {
     };
     const handleCalculateVote=async(item)=>{
         setErrorMsg(null)
-        setIsSelection(item?.proposalId)
+        setSelection(item?.proposalId)
          setBtnLoader(true)
         if (isConnected) {
             handleVote(item);
@@ -390,7 +392,7 @@ const Dao = (props) => {
                                                 <Form.Select aria-label="Default select example" className='c-pointer text-white' onChange={(e) => getApprovedProposalData(e)} >
                                                     
                                                     {state?.statusLu?.map((item) => (
-                                                        <option value={item?.name} >{item?.name}</option>
+                                                        <option value={item?.name} key={item?.id}>{item?.name}</option>
                                                     ))}
                                                 </Form.Select>
                                             </Col>
@@ -427,7 +429,7 @@ const Dao = (props) => {
                                 {proposalCardList != "" &&
                                     <>
                                         {proposalCardList?.map((item) => (
-                                            <Col sm={12} xs={12} md={12} lg={12} xl={12} xxl={12} className='mb-4'>
+                                            <Col sm={12} xs={12} md={12} lg={12} xl={12} xxl={12} className='mb-4' key={item?.id}>
 
                                                 {shimmerLoading ?
                                                     <div className='status-section card-pading'>
@@ -474,7 +476,7 @@ const Dao = (props) => {
                                                             </p>
                                                         </div>
                                                         <div className='option-style'>
-                                                            {item?.options?.map((data) => (<div className='option-display card-op-diply db-crds-option status-cards-opt'>
+                                                            {item?.options?.map((data) => (<div className='option-display card-op-diply db-crds-option status-cards-opt' key={data?.recorder}>
                                                                 <p className='para-text mt-3 me-3'>{getRecorderValue(data.recorder)}. {data?.option} {`(${data?.votersCount || "0"})`}
                                                                 </p>
                                                             </div>))}
@@ -492,16 +494,14 @@ const Dao = (props) => {
                                             </Col>))}
                                         <span className='text-center'>{loadMore && <Spinner size="sm" />}</span>
                                         {loadData && (
-                                            <>
-
-                                                <div className='addmore-title' onClick={addProposalList}><span className='c-pointer'>
+                                                <div className='addmore-title' onClick={addProposalList} role="button"><span className='c-pointer'>
                                                     {!hide && (<> <p className='mb-0 addmore-title'>See More</p><span className='icon-dao double-arrowblue'></span></>)}
                                                 </span></div>
-                                            </>)}
+                                            )}
                                     </>}
 
                                     {proposalCardList == "" &&<div className='text-center'>
-                                        <img src={nodata} width={60} />
+                                        <img src={nodata} width={60} alt=''/>
                                         <h4 className="text-center no-data-text">No Data Found</h4>
                                     </div>
                                 }
@@ -509,20 +509,18 @@ const Dao = (props) => {
                             </Row>
 
                         </div> : <FirstPraposal handleRedirect={handleRedirect} votingOwner={votingOwner} />}
-                        
-                        {/* {(proposalData == "" && state?.status?.toLocaleLowerCase() != "all"
-                        || state?.status?.toLocaleLowerCase() != "approved"
-                        || state?.status?.toLocaleLowerCase() != "declined"
-                        || state?.status?.toLocaleLowerCase() != "pending"
-                        || state?.status?.toLocaleLowerCase() != "closed"
-                        || state?.dateStatus) &&<FirstPraposal handleRedirect={handleRedirect} votingOwner={votingOwner} />} */}
 
                 </Container>}
             </>
         }</>
     );
 }
-
+Dao.PropTypes = {
+    lookUp: PropTypes.isRequired,
+    trackWallet: PropTypes.isRequired,
+    proposalDetailsList: PropTypes.isRequired,
+    projectDetailsReducerData:PropTypes.isRequired,
+  }
 
 const connectDispatchToProps = (dispatch) => {
     return {

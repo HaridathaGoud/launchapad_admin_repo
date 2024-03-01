@@ -10,6 +10,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { connect, useSelector } from 'react-redux';
 import cyber from '../../../assets/images/cyber-arena.svg'
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types'
 function Projectdetails({ projectCardId }) {
   const [errorMsg, setErrorMsg] = useState(null);
   const [loader, setLoader] = useState(false);
@@ -100,7 +101,6 @@ function Projectdetails({ projectCardId }) {
     }
   };
   return (
-    <>
 
       <div className="">
         <div className="">
@@ -363,10 +363,12 @@ function Projectdetails({ projectCardId }) {
           )}
         </div>
       </div>
-    </>
   );
 }
 
+Projectdetails.propTypes = {
+  projectCardId: PropTypes.isRequired,
+};
 const connectStateToProps = ({ auth }) => {
   return { auth: auth };
 };
