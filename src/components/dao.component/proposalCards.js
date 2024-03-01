@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form';
 import { useNavigate,useParams,Link } from 'react-router-dom';
 import { daoCards, getCardsProposalList, getLookUp } from '../proposalReducer/proposalReducer';
 import { connect, useSelector } from "react-redux";
-import { Placeholder } from 'react-bootstrap';
+import { Placeholder,Spinner } from 'react-bootstrap';
 import FirstPraposal from '../firstpraposal.component/firstpraposal';
 import nodata from '../../assets/images/no-data.png'
 import Moment from 'react-moment';
@@ -17,7 +17,6 @@ import { useContract } from 'src/contract/useContract';
 import { ethers } from 'ethers/lib';
 import apiCalls from 'src/api/apiCalls';
 import { isMobile } from 'react-device-detect';
-import { Spinner } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import ToasterMessage from 'src/utils/toasterMessages';
 import VotingContract from '../../contract/voting.json';
@@ -420,10 +419,10 @@ const Dao = (props) => {
                             </Row>
 
                             <Row className='mt-5'>
-                                {success && <><div className="text-center toster-placement toaster-cust">
+                                {success &&<div className="text-center toster-placement toaster-cust">
                                     <ToasterMessage isShowToaster={success} success={success}></ToasterMessage>
                                 </div>
-                                </>}
+                                }
 
                                 {proposalCardList != "" &&
                                     <>

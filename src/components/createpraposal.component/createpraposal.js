@@ -421,14 +421,7 @@ if (isMobile) {
           " >
             <Modal.Header>     
             <Modal.Title><h4>Add Your Options</h4></Modal.Title> 
-           <span className="icon close c-pointer" 
-           onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === 'Space') {
-              handleClose();
-            }
-          }}
-           onClick={handleClose} role="button"
-          tabIndex={0}></span>
+            <span className="icon close c-pointer" onClick={handleClose}></span>
           </Modal.Header>
           <Modal.Body> 
           {state?.modalError && (
