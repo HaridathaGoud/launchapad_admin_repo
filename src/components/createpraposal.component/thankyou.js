@@ -21,7 +21,6 @@ export default function Success() {
         setLoader(params.id)
       }, 2000);
     return (
-        <>
             <Container className='dao-mt'>
            <Link className=' title-width-fit' to={`/dao/publishproposal/${params.id}`}> <div className='d-flex align-items-center title-width-fit'>  <span className='icon-dao back mr-2 c-pointer'></span><span className='mb-0 ms-2 back-text'>Create Proposal</span></div></Link>
               <Row className='mt-5'>
@@ -30,7 +29,7 @@ export default function Success() {
                     </Col>
                     <Col md={8}> 
                     {loader ?<div className='voting-card text-center success-section sm-m-2'>
-                      <img src={success}></img>
+                      <img src={success} alt=''></img>
                       <h1 className='testing-title'>Thank You</h1>
                       <p>Your proposal is submitted successfully!</p>
                       <Button variant="primary" type="submit"  onClick={handleRedirect}>
@@ -40,6 +39,5 @@ export default function Success() {
                     </Col>
                 </Row>
             </Container>
-        </>
     );
 }

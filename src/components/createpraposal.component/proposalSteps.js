@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Placeholder from 'react-bootstrap/Placeholder';
+import PropTypes from 'prop-types';
+
 function StartedSteps(props) {
     const[loader,setLoader]=useState()
     setTimeout(() => {
@@ -52,4 +54,10 @@ function StartedSteps(props) {
         </>
     );
 }
+StartedSteps.PropTypes = {
+    formSteps: PropTypes.number.isRequired,
+    stepsOne: PropTypes.string.isRequired,
+    stepsTwo: PropTypes.string.isRequired,
+    stepsThree: PropTypes.string.isRequired,
+  };
 export default StartedSteps;

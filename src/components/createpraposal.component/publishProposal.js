@@ -155,8 +155,7 @@ const publishProposal =  async(walletAddress) => {
 
 
   return (
-    <>
-      <Container className='dao-mt'>
+    <Container className='dao-mt'>
       <Link className=' title-width-fit' to={`/dao/createpraposal/${params.id}`}><div className='d-flex align-items-center title-width-fit'>  <span className='icon-dao back mr-2 c-pointer'></span><span className='mb-0 ms-2 back-text'>Create Proposal</span></div></Link>
         <Row>
           <Col md={4} className='mt-5'>
@@ -196,10 +195,7 @@ const publishProposal =  async(walletAddress) => {
                   <div>
                     <p className='prtype-font'>Your proposal options</p>
                     {proposalDetails?.ProposalOptionDetails?.map((item)=>(
-                      
-                      <>
-                      <p className='prtype-font'>{item?.index || "A"}. {item?.options}</p>
-                      </>
+                      <p className='prtype-font' key={item?.id}>{item?.index || "A"}. {item?.options}</p>
                     ))}                  
                     </div>
 
@@ -238,7 +234,6 @@ const publishProposal =  async(walletAddress) => {
           </Col>
         </Row>
       </Container>
-    </>
   );
 }
 const connectStateToProps = ({ oidc, proposal }) => {

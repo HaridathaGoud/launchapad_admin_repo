@@ -173,15 +173,15 @@ const Dao = (props) => {
         }else if (data) {
             if (!state?.dateStatus && data != "all") {
                 let pageNo = 1
-                props.proposalDetailsList(pageNo, pageSize, params.id, data.toLowerCase(), search, startDate, endDate,handleCallback)
+                props.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, startDate, endDate,handleCallback)
                
             } else if(data && state?.dateStatus){
                 let pageNo = 1
-                props.proposalDetailsList(pageNo, pageSize, params.id, data.toLowerCase(), search, state?.date, state?.dateStatus,handleCallback
+                props.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, state?.date, state?.dateStatus,handleCallback
                 )
               
             }else {
-                props.proposalDetailsList(pageNo, pageSize, params.id, data.toLowerCase(), search, startDate, endDate,handleCallback)
+                props.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, startDate, endDate,handleCallback)
                 let _pageNo = pageNo + 1;
                 setPageNo(_pageNo);
                
@@ -239,13 +239,13 @@ const Dao = (props) => {
         if(state?.date && state?.dateStatus){
             let _pageNo = pageNo + 1;
             setPageNo(_pageNo);
-            props.proposalDetailsList(pageNo, pageSize, params.id, status.toLowerCase(), search, state?.date, state?.dateStatus,handleSecondCallback)
+            props.proposalDetailsList(pageNo, pageSize, params.id, status?.toLowerCase(), search, state?.date, state?.dateStatus,handleSecondCallback)
            
         }else{
             let _pageNo = pageNo + 1;
             setPageNo(_pageNo);
             setLoadMore(true)
-            props.proposalDetailsList(pageNo, pageSize, params.id, status.toLowerCase(), search, startDate, endDate,handleSecondCallback)
+            props.proposalDetailsList(pageNo, pageSize, params.id, status?.toLowerCase(), search, startDate, endDate,handleSecondCallback)
         } 
     };
     const handleCalculateVote=async(item)=>{
@@ -286,7 +286,7 @@ const Dao = (props) => {
                                  setSuccess("Vote calculated successfully");
                  setBtnLoader(false)
                  window.scroll(0,0);
-                 props.proposalDetailsList(1, pageSize, params.id, status.toLowerCase(), search, startDate, endDate,
+                 props.proposalDetailsList(1, pageSize, params.id, status?.toLowerCase(), search, startDate, endDate,
                  handleCallback)
                  setTimeout(function () {
                     setSuccess(null);

@@ -117,12 +117,12 @@ const optionSave = ()=>{
   let _attribute = []; 
     for (let i in _properties) {
      let _obj = _properties[i];
-     if(_obj.options == "" || _obj.options == null || !_obj.options.trim()){
+     if(_obj.options == "" || _obj.options == null || !_obj.options?.trim()){
       return dispatch({type:'modalError',payload:"Please fill the data."})
       }else if(validateContentRule("", _obj.options)){
         return dispatch({type:'modalError',payload:"Please provide valid content."})
       }else{
-        const isDuplicate = _attribute.some(item => item?.options?.trim().toLowerCase() === _obj?.options?.trim().toLowerCase());
+        const isDuplicate = _attribute.some(item => item?.options?.trim()?.toLowerCase() === _obj?.options?.trim()?.toLowerCase());
         if (isDuplicate) {
           return dispatch({ type: 'modalError', payload: "Options should be unique." });
         }else{
@@ -326,7 +326,7 @@ if (isMobile) {
               <div className='praposal-left-card ms-md-4'>
                 <Form noValidate onSubmit={(e) => handleRedirectToPublishProposalScreen(e)}>
                   <Form.Label className='starlabel mb-0'>Author</Form.Label>
-                  <div className='login-user'><img src={user}></img><span className='text-word-br'>{walletAddres}</span>
+                  <div className='login-user'><img src={user} alt=''></img><span className='text-word-br'>{walletAddres}</span>
                   <CopyToClipboard text={walletAddres} options={{ format: 'text/plain' }}
                         onCopy={() => handleCopy()}
                       >
@@ -421,7 +421,14 @@ if (isMobile) {
           " >
             <Modal.Header>     
             <Modal.Title><h4>Add Your Options</h4></Modal.Title> 
-           <span className="icon close c-pointer" onClick={handleClose}></span>
+           <span className="icon close c-pointer" 
+           onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === 'Space') {
+              handleClose();
+            }
+          }}
+           onClick={handleClose} role="button"
+          tabIndex={0}></span>
           </Modal.Header>
           <Modal.Body> 
           {state?.modalError && (

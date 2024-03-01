@@ -122,9 +122,9 @@ const ProjectsTokenClaim = (props) => {
     const [hours, minutes, seconds] = times.split(':').map(Number);
     let totalSeconds = hours * 3600 + minutes * 60 + seconds;
     
-    if (meridian.toLowerCase() === "pm" && hours !== 12) {
+    if (meridian?.toLowerCase() === "pm" && hours !== 12) {
       totalSeconds += 12 * 3600;
-    } else if (meridian.toLowerCase() === "am" && hours === 12) {
+    } else if (meridian?.toLowerCase() === "am" && hours === 12) {
       totalSeconds -= 12 * 3600;
     }
     
