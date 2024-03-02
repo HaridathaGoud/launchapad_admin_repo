@@ -384,8 +384,8 @@ const ProfileView = () => {
                                   {nftcontractDetails?.contractAddress?.slice(0, 4) +
                                     '....' +
                                     nftcontractDetails?.contractAddress?.substring(
-                                      nftcontractDetails?.contractAddress.length - 4,
-                                      nftcontractDetails?.contractAddress.length,
+                                      nftcontractDetails?.contractAddress?.length - 4,
+                                      nftcontractDetails?.contractAddress?.length,
                                     )}{' '}
                                   <span className="copy-space">
                                     {nftcontractDetails?.contractAddress && (
@@ -452,7 +452,7 @@ const ProfileView = () => {
                 </Col>
                 <Col lg={6} sm={12} className="ps-2">
                   <div className="ps-lg-4">
-                    {nftPropAttributes.length > 0 && (
+                    {nftPropAttributes?.length > 0 && (
                       <h3 className="property-title overview-space text-lg-start">Properties</h3>
                     )}
                     <Row>
@@ -538,7 +538,7 @@ const ProfileView = () => {
                   ))}
                 </Carousel>
               </div>
-              {moreCollection.length == 0 && (
+              {moreCollection?.length == 0 && (
                 <>
                   <div className="nodata-text db-no-data">
                     <Image src={nodata} alt=""></Image>

@@ -40,7 +40,7 @@ const BiddingDetails = (props) => {
          
 
         </table>
-        {props.bidData.length == 0 && (
+        {props.bidData?.length == 0 && (
           <>
             <div className="nodata-text db-no-data">
               <Image src={nodata} className="text-center" alt=""></Image>

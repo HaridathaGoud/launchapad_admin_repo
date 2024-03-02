@@ -209,11 +209,11 @@ class Referral extends Component {
 		this.setState({ ...this.state, warningMsg: null, success: null });
 		let isUpdate = false
 		const { selection, selectedObjs } = this.state
-		if (selection.length === 0) {
+		if (selection?.length === 0) {
 			this.setState({ ...this.state, selection: [], selectedObjs: [], warningMsg: "Please select atleast one record" });
 			this.useDivRef?.current?.scrollIntoView();
-		} else if (selectedObjs.length > 0) {
-			for (var i = 0; i < selectedObjs.length; i++) {
+		} else if (selectedObjs?.length > 0) {
+			for (var i = 0; i < selectedObjs?.length; i++) {
 				if (selectedObjs[i]?.status?.toLowerCase() === "paid") {
 					return this.setState({ ...this.state, selection: [], selectedObjs: [], warningMsg: "Please select pending records only" });
 

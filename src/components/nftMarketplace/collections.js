@@ -27,7 +27,7 @@ const Collections = () => {
     }
   
     const getCustomerCategory = async (pageNum, pageListSize) => {
-      if (category.length == 0) {
+      if (category?.length == 0) {
         setLoader(true);
       }
       const skip = pageNum * pageListSize - pageListSize;
@@ -60,7 +60,7 @@ const Collections = () => {
                 <div className="text-center">{loader && <Spinner></Spinner>}</div>
                 {!loader && (
                   <>
-                    {category.length > 0 ?
+                    {category?.length > 0 ?
                      (
                       category?.map((item, idx) => (
                         <div className="col-lg-3 mb-2" key={idx}>

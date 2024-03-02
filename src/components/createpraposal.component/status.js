@@ -58,7 +58,7 @@ export default function Status() {
                     </span>
              </p>
              <span className='common-text address-label'>
-                {proposarDetailas?.data?.walletAddress ? proposarDetailas?.data?.walletAddress?.slice(0, 4) + '.......' + proposarDetailas?.data?.walletAddress?.substring(proposarDetailas?.data?.walletAddress.length - 4, proposarDetailas?.data?.walletAddress.length) : "--"}
+                {proposarDetailas?.data?.walletAddress ? proposarDetailas?.data?.walletAddress?.slice(0, 4) + '.......' + proposarDetailas?.data?.walletAddress?.substring(proposarDetailas?.data?.walletAddress?.length - 4, proposarDetailas?.data?.walletAddress?.length) : "--"}
                 {proposarDetailas?.data?.walletAddress &&<CopyToClipboard 
                       text={proposarDetailas?.data?.walletAddress} 
                       options={{ format: 'text/plain' }}

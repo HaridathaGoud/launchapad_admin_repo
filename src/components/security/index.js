@@ -126,7 +126,7 @@ const Security = () => {
       return;
     }
     const formErrors = validateForm();
-    if (Object.keys(formErrors).length > 0) {
+    if (Object.keys(formErrors)?.length > 0) {
       setErrors(formErrors);
     }
     else {

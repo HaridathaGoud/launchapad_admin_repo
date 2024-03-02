@@ -222,6 +222,7 @@ const launchPadReducer = (state, action) => {
       return state;
     case SET_PROJECT_SAVED:
       state = { ...state, projectedSaved: action.payload };
+      return state;
     case PROJECT_DETAILS_SAVE:
       state = { ...state, projectSaveDetails: action.payload }
       return state;

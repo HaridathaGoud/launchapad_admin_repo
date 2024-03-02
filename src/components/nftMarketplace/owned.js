@@ -38,7 +38,7 @@ const owned = (props) => {
   };
 
   const getOwnedNfts = async (pageNum, pageListSize, nftType, searchBy) => {
-    if (ownedNftCollection.length == 0) {
+    if (ownedNftCollection?.length == 0) {
       setLoader(true);
     }
     const skip = pageNum * pageListSize - pageListSize;
@@ -178,7 +178,7 @@ const owned = (props) => {
                 <div className="text-center">{loader && <Spinner></Spinner>}</div>
                 {!loader && (
                   <> 
-                  {ownedNftCollection.length > 0 ? (
+                  {ownedNftCollection?.length > 0 ? (
                     ownedNftCollection?.map((item, idx) => (
                    
                     <div className="col-md-6 col-lg-3 col-xl-3 mt-3" >

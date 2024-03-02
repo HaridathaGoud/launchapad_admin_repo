@@ -57,7 +57,7 @@ const reducers =(state ,action )=>{
     epochStartTime:null,epochEndData:null,modalError:false,isChecked:false})
   const [copied,setCopied]=useState(false);
   const checkBoxChecked = (e) => {
-    if(attributes.length ==0 && !state.checked){
+    if(attributes?.length ==0 && !state.checked){
     dispatch({type:'isChecked',payload:e.target.checked})
     }
   
@@ -105,7 +105,7 @@ const reducers =(state ,action )=>{
  
   const deleteOption = (index) => {
     const updatedOptions = options.filter((_, i) => i !== index);
-    if(updatedOptions.length == 0){      
+    if(updatedOptions?.length == 0){      
       dispatch({type:'modalError',payload:"Please provide at least one option to continue."})
     }else{
       setOptions(updatedOptions);
@@ -161,7 +161,7 @@ const optionSave = ()=>{
     setErrorMsg(null)
     event.preventDefault();
     const formErrors = validateForm();
-    if (Object.keys(formErrors).length > 0) {
+    if (Object.keys(formErrors)?.length > 0) {
       setErrors(formErrors);
     } else if(state?.startingDate && state?.endingDate < state?.startingDate){
       setErrorMsg("Start date cannot be greater than the end date.")
@@ -169,7 +169,7 @@ const optionSave = ()=>{
     }else if((state?.startingDate == state?.endingDate) && state?.endingTime == state?.startingTime){
       setErrorMsg("Start time and end time cannot be the same.")
       window.scroll(0,0);
-    }else if(!state?.isChecked || attributes.length == 0 ){
+    }else if(!state?.isChecked || attributes?.length == 0 ){
       setErrorMsg("Please select proposal type")
       window.scroll(0,0);
     }else {
@@ -364,7 +364,7 @@ if (isMobile) {
                  <div className='proposal-type justify-content-between'>
               <div>  <input 
                 type='checkbox' 
-                checked={attributes.length !== 0 ?  state?.isChecked : ""}
+                checked={attributes?.length !== 0 ?  state?.isChecked : ""}
                 onChange={checkBoxChecked}
                 onClick={openModalPopUp} /><span className='icon-check c-pointer'> </span><span className='mb-0'>Voting</span></div>
                 </div>

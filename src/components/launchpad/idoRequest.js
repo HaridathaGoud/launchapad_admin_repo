@@ -133,7 +133,7 @@ const IDORequest = () => {
     }
   }
   const fetchMoreData = (pageNum, pageListSize, searchIDO) => {
-    if (state.idoRequestDetails.length < 100) {
+    if (state.idoRequestDetails?.length < 100) {
       setTimeout(() => {
         getIdoRequestDetails(pageNum, pageListSize, searchIDO);
       }, 500);
@@ -144,7 +144,7 @@ const IDORequest = () => {
   };
 
   const addProposalList = () => {
-    if (state.idoRequestDetails.length < 100) {
+    if (state.idoRequestDetails?.length < 100) {
       fetchMoreData(pageNo, pageSize, search);
     }
 
@@ -168,10 +168,10 @@ const IDORequest = () => {
       let mergeData = pageNum == 1 ? [...res.data] : [...state.idoRequestDetails, ...res.data];
       dispatch({ type: 'idoRequestDetails', payload: mergeData })
       setLoadData(res.data?.length >= 10)
-      if (mergeData.length > 0) {
+      if (mergeData?.length > 0) {
         dispatch({ type: 'loadeMessage', payload: ' ' })
         setSeeMoreLoader(false)
-      } else if (mergeData.length === 0) {
+      } else if (mergeData?.length === 0) {
         dispatch({ type: 'loadeMessage', payload: 'No Data Found' })
       }
     } else {
@@ -342,7 +342,7 @@ const IDORequest = () => {
             <i className="icon search-icon" onClick={handleSearchh}></i>
           </Form>
 
-          {state.idoRequestDetails.length != 0 && <div className='d-flex align-items-center sm-justify-content-end'>
+          {state.idoRequestDetails?.length != 0 && <div className='d-flex align-items-center sm-justify-content-end'>
             <div className='d-flex align-items-center filter-style c-pointer' onClick={handleShow} >
               <span className='icon state-change'></span><p className='ms-2 mb-0 project-text text-purple'>State Change</p></div>
 
@@ -406,7 +406,7 @@ const IDORequest = () => {
                 ))}
 
                 {state.loadeMessage && <>
-                  {state.idoRequestDetails.length === 0 &&
+                  {state.idoRequestDetails?.length === 0 &&
                     <div className='text-center'>
                       <img src={nodata} width={120} alt=''/>
                       <h4 className="text-center nodata-text db-no-data">No Data Found</h4>

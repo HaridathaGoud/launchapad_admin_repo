@@ -44,7 +44,6 @@ function AppHeader(props){
   const viewedProject = useSelector(state => state.launchpad?.viewedProject);
   const [url, setUrl] = useState(null);
   const [menu, setMenu] = useState(null);
-  const [daoId, setDaoId] = useState(null);
   const navigate = useNavigate();
   const params = useParams()
   const location = useLocation(); // once ready it returns the 'window.location' object
@@ -52,7 +51,6 @@ function AppHeader(props){
     let locationSplit = location.pathname.split('/');
     setUrl(locationSplit[1]);
     setMenu(locationSplit[2])
-    gotoDao()
   },[location]);
   
   const onAppSelect = (app_name) => {
@@ -193,27 +191,6 @@ function AppHeader(props){
     props?.periodsLuData(obj)
    
   }
-  
-  const gotoDao=()=>{
-    if(UserInfo?.role=="Admin"){
-      if(UserInfo?.daos=="null"){
-        
-        if(UserInfo){
-          setDaoId(null)
-        }
-      }else{
-        let  obj={
-          id: UserInfo?.role=="Admin" ? JSON.parse(UserInfo?.daos):null,
-          role:UserInfo?.role
-        }
-        if(UserInfo){
-          setDaoId(obj?.id[0])
-        }
-      }
-      
-     
-    }
-  }
 
   const popover = (
     <Popover id="popover-basic" className='settings-popover'>
@@ -277,10 +254,10 @@ function AppHeader(props){
           {/* <li><Link to="/minting/dashboard" className={"underline" + (url === "minting" ? " active" : "")} onClick={() => dispatch(setApp("minting"))}>Minting</Link></li> */}
 
           {props?.userInfo?.role=="Admin"&&<li><Link to="/launchpad/dashboard" className={"underline" + (url === "launchpad" ? " active" : "")} onClick={() => dispatch(setApp("launchpad"))}>Launchpad</Link></li>}
-          {props?.userInfo?.role=="Admin"&&<li><Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>gotoDao()}>DAO</Link></li>}
+          {props?.userInfo?.role=="Admin"&&<li><Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dao"))}>DAO</Link></li>}
 
           {props?.userInfo?.role=="Super Admin"&& <li><Link to="/launchpad/dashboard" className={"underline" + (url === "launchpad" ? " active" : "")} onClick={() => dispatch(setApp("launchpad"))}>Launchpad</Link></li>}
-           {props?.userInfo?.role=="Super Admin"&&  <li><Link to="/dao/dashboard" className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dashboard"))}>DAO</Link></li>}
+           {props?.userInfo?.role=="Super Admin"&&  <li><Link to="/dao/dashboard" className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dao"))}>DAO</Link></li>}
            {props?.userInfo?.role=="Super Admin"&&
           <li><Link to="/marketplace/dashboard" className={"underline" + (url === "marketplace" ? " active" : "")} onClick={() => dispatch(setApp("marketplace"))}>Marketplace</Link></li>}
 
@@ -457,8 +434,8 @@ function AppHeader(props){
                     </CNavItem></>}
                     <CNavItem className='mobile-active-menu'>
                     <CNavLink className='nav-item'>
-                      {props?.userInfo?.role=="Super Admin"&& <Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dashboard"))}>DAO</Link>}
-                      {props?.userInfo?.role=="Admin"&&<Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>gotoDao()}>DAO</Link>}
+                      {props?.userInfo?.role=="Super Admin"&& <Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dao"))}>DAO</Link>}
+                      {props?.userInfo?.role=="Admin"&&<Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dao"))}>DAO</Link>}
                      </CNavLink>
                       </CNavItem>
                     

@@ -121,7 +121,7 @@ const UserProfile = (props) => {
     setSuccess(null);
     setErrors({});
         const formErrors = validateForm();
-        if (Object.keys(formErrors).length > 0) {
+        if (Object.keys(formErrors)?.length > 0) {
           setErrors(formErrors);
           setLoader(false);
           setloaderform(false);

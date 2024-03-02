@@ -72,8 +72,6 @@ const Dashboard = (props) => {
             setErrorMsg(apiCalls.isErrorDispaly(error));
             setDeployContractLoader(false);
           }
-       
-        
     }
     return (
         <> {errorMsg && (
@@ -88,7 +86,7 @@ const Dashboard = (props) => {
             <h5 className='mb-1 back-text'>DAO’s</h5>
             <Row>
             
-                {daoCardDetails?.map((item,index) => (
+                {daoCardDetails?.map((item) => (
                     <Col lg={3} md={6} xs={12} className='mt-md-3' key={item?.daoId}>
                         {<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={item?.daoId} >
                             <Card.Img variant="top" src={item?.logo || profileavathar} onClick={() => goToProposalList(item)}/>

@@ -113,9 +113,9 @@ const Investors = () => {
         setHide(true)
         setLoadMore(false)
       }
-      if (MergeGridData.length > 0) {
+      if (MergeGridData?.length > 0) {
         dispatch({ type: 'loadeMessage', payload: ' ' })
-      } else if (MergeGridData.length === 0) {
+      } else if (MergeGridData?.length === 0) {
         dispatch({ type: 'loadeMessage', payload: 'No Data Found' })
       }
       if (search == null) {
@@ -149,9 +149,9 @@ const Investors = () => {
         setLoadMore(false)
         setHide(false)
       }
-      if (MergeGridData.length > 0) {
+      if (MergeGridData?.length > 0) {
         dispatch({ type: 'loadeMessage', payload: ' ' })
-      } else if (MergeGridData.length === 0) {
+      } else if (MergeGridData?.length === 0) {
         dispatch({ type: 'loadeMessage', payload: 'No Data Found' })
       }
       if (search == null) {
@@ -164,7 +164,7 @@ const Investors = () => {
   };
 
   const addProposalList = () => {
-    if (state.adminInvestorDetails.length > 0) {
+    if (state.adminInvestorDetails?.length > 0) {
       fetchMoreData(pageNo, pageSize, search);
     }
 
@@ -272,7 +272,7 @@ const Investors = () => {
     setErrors({});
     setSuccess(false)
     const formErrors = validateForm();
-    if (Object.keys(formErrors).length > 0) {
+    if (Object.keys(formErrors)?.length > 0) {
       setErrors(formErrors);
       setLoaderform(false);
     } else {
@@ -388,7 +388,7 @@ const Investors = () => {
           ))}
           {state.loadeMessage && 
           <>
-            {state.adminInvestorDetails.length === 0 &&
+            {state.adminInvestorDetails?.length === 0 &&
             <div className='text-center'>
                 <img src={nodata} width={120} alt='' />
                 <h4 className="text-center nodata-text db-no-data">No Data Found</h4>

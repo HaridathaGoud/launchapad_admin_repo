@@ -72,7 +72,7 @@ export class ColumnMenu extends React.Component {
   }
   render() {
     const oneVisibleColumn =
-      this.state.columns.filter((c) => c.show).length === 1
+      this.state.columns.filter((c) => c.show)?.length === 1
     return (
       <div>
         {this.props.column?.field !== 'caseids' &&

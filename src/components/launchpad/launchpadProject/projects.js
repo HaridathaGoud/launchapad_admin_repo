@@ -58,7 +58,7 @@ export default function Projects(props) {
   const [hide, setHide] = useState(false)
   let { address } = useParams();
   const fetchMoreData = () => {
-    if (state.cardDetails.length >= 3) {
+    if (state.cardDetails?.length >= 3) {
       getPrjectCardDetails(userDetails.id, pageSize, pageNo, search, state.type);
     }
   };
@@ -107,9 +107,9 @@ export default function Projects(props) {
         setHide(false)
       }
       setLoadData(false)
-      if (mergeData.length > 0) {
+      if (mergeData?.length > 0) {
         dispatch({ type: 'loadeMessage', payload: ' ' })
-      } else if (mergeData.length == 0) {
+      } else if (mergeData?.length == 0) {
         dispatch({ type: 'loadeMessage', payload: 'No data found' })
       }
       dispatch({ type: 'cardDetails', payload: mergeData })

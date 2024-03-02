@@ -140,6 +140,7 @@ const Projects = (props) => {
       dispatch({ type: 'projectLogoImages', payload: callback.data?.projectsViewModel?.tokenLogo })
       dispatch({ type: 'projectBannerImages', payload: callback.data?.projectsViewModel?.bannerImage })
       dispatch({ type: 'projectCardImages', payload: callback.data?.projectsViewModel?.cardImage })
+      dispatch({ type: 'castCrewDataList', payload: callback.data?.projectsViewModel?.castCrews ? callback.data?.projectsViewModel?.castCrews:[] });
       dispatch({ type: 'projectDetails', payload: callback.data })
       dispatch({ type: 'loading', payload: false })
       dispatch({ type: 'bannerImgLoader', payload: false })
@@ -152,25 +153,9 @@ const Projects = (props) => {
       getClaimsandAllocations(callback.data?.projectsViewModel)
     })
     getWalletAddress();
-
-
-  }, []);
+    }, []);
   useEffect(() => {
     handledescription();
-  }, [])
-
-  useEffect(() => {
-    props.projectDetailsReducerData(projectId || props.informationProjectView, (callback) => {
-      dispatch({ type: 'projectSaveDetails', payload: callback.data?.projectsViewModel })
-      dispatch({ type: 'projectDetails', payload: callback.data })
-      dispatch({ type: 'castCrewDataList', payload: callback.data?.projectsViewModel?.castCrews ? callback.data?.projectsViewModel?.castCrews:[] });
-      dispatchData(setProjectDetail(callback?.data?.claimsAndAllocations))
-      setSelectedValues(callback.data?.projectsViewModel?.countryRestrictions)
-      getSelectedCountries(callback.data?.projectsViewModel?.countryRestrictions)
-      store.dispatch(projectePayment(callback.data?.projectPayment))
-      dispatch({ type: 'loader', payload: false })
-      getClaimsandAllocations(callback.data?.projectsViewModel)
-    })
   }, [])
 
   const getWalletAddress = async () => {
@@ -347,7 +332,7 @@ const Projects = (props) => {
         obj.initialSupply = parseFloat(initialSupplyValue.replace(/[^0-9.-]+/g, ''));
       }
       const formErrors = validateForm(obj);
-      if (Object.keys(formErrors).length > 0) {
+      if (Object.keys(formErrors)?.length > 0) {
         setErrors(formErrors)
         dispatch({ type: 'errors', payload: formErrors })
         dispatch({ type: 'loader', payload: false })
@@ -559,7 +544,7 @@ const Projects = (props) => {
   const handleCastCrewDataSave=async (event) => {
     event.preventDefault();
     const formErrors = validateCastCrewForm();
-    if (Object.keys(formErrors).length > 0) {
+    if (Object.keys(formErrors)?.length > 0) {
       setErrors(formErrors);
   } else {
     const formDetails = { ...state.cast_CrewsFormDeatils };

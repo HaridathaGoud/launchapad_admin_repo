@@ -39,9 +39,9 @@ const CustomerInfo = () => {
       setLoader(false);
       let MergeGridData = pageNo === 1 ? [...response.data] : [...customerDetails, ...response.data];
       setCustomerDetails(MergeGridData);
-      if (MergeGridData.length > 0) {
+      if (MergeGridData?.length > 0) {
         setLoaderMessage(' ');
-      } else if (MergeGridData.length === 0) {
+      } else if (MergeGridData?.length === 0) {
         setLoaderMessage('No data available');
       }
       if (search == null) {
@@ -55,7 +55,7 @@ const CustomerInfo = () => {
   }
 
   const fetchMoreData = () => {
-    if (customerDetails.length < 500) {
+    if (customerDetails?.length < 500) {
       setTimeout(() => {
         getAllCustomer(pageNo, pageSize, search);
       }, 500);
@@ -144,7 +144,7 @@ const CustomerInfo = () => {
                       <td>
                         <span onClick={() => navigate(`/ProfileInfo/${items.walletAddress}`)}>
                           {' '}
-                          {items.walletAddress?.slice(0, 4) + '....' + items.walletAddress?.substring(items.walletAddress.length - 4)}
+                          {items.walletAddress?.slice(0, 4) + '....' + items.walletAddress?.substring(items.walletAddress?.length - 4)}
                         </span>
                       </td>
                       <td>
@@ -158,7 +158,7 @@ const CustomerInfo = () => {
                   </>))}
                 </tbody>
                 {loadeMessage && <>
-                  {customerDetails.length === 0 &&<tr><td colSpan="6"> <h4 className="text-center nodata-style">No data available</h4></td></tr>}
+                  {customerDetails?.length === 0 &&<tr><td colSpan="6"> <h4 className="text-center nodata-style">No data available</h4></td></tr>}
                 </>}
               </Table>
             </div>

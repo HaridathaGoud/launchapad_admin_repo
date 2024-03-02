@@ -155,7 +155,7 @@ const getDaoCardDetailsLu = (obj) => {
     dispatch(setDaoDetailsLu({ key: "periodsData", loading: true, data: null }));
     const response = await apiCalls.getPeriodsData(obj);
     dispatch(setDaoDetailsLu({ key: "periodsData", loading: false, data: response.data, error: null }));
-    if(response.data.length>0){
+    if(response?.data?.length>0){
       if (response.data) {
         dispatch(setDefaultDao(response.data[0]))
          dispatch(setDaoDetailsLu(response.data))  

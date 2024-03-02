@@ -53,7 +53,7 @@ const CreatedList = (props) => {
 
 
   const GetNfts = async (pageNum, pageListSize, nftType, searchProject) => {
-    if (nftcollections.length == 0) {
+    if (nftcollections?.length == 0) {
       setLoader(true);
     }
     const skip = pageNum * pageListSize - pageListSize;
@@ -173,7 +173,7 @@ const CreatedList = (props) => {
                 <div className="text-center">{loader && <Spinner></Spinner>}</div>
                 {!loader && (
                   <>
-                    {nftcollections.length > 0 ? (
+                    {nftcollections?.length > 0 ? (
                       nftcollections?.map((item, idx) => (
                         <div className="col-md-6 col-lg-3 col-xl-3 mt-3" key={idx}>
                         

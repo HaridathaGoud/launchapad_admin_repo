@@ -55,7 +55,7 @@ const favorited = (props) => {
   };
 
   const getFavourites = async (pageNum, pageListSize, nftType, searchBy) => {
-    if (favouritecollections.length == 0) {
+    if (favouritecollections?.length == 0) {
       setLoader(true);
     }
     const skip = pageNum * pageListSize - pageListSize;
@@ -167,7 +167,7 @@ const favorited = (props) => {
                 <div className="text-center">{loader && <Spinner></Spinner>}</div>
                 {!loader && (
                   <>
-                    {favouritecollections.length > 0 ? (
+                    {favouritecollections?.length > 0 ? (
                       favouritecollections?.map((item, idx) => (
                         <div className="col-md-6 col-lg-3 col-xl-3 mt-3" key={idx}>
                            <Card className="creator-bg c-pointer"  onClick={() => navigate(`/marketplace/customers/profileinfo/${item.tokenId}/${item?.collectionContractAddress}/${profileDetails.id}/view`)}>

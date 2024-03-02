@@ -45,9 +45,9 @@ const Dao = (props) => {
     const pageSize = 10;
     const search = null
     const [success, setSuccess] = useState(null);
-    const [startDate, setStartDate] = useState("")
+    const startDate="";
+    const endDate = "";
     const [status, setStatus] = useState("all")
-    const [endDate, setEndDate] = useState("")
     const [pageNo, setPageNo] = useState(1);
     const [errorMsg, setErrorMsg] = useState(null)
     const [lookUpError,setLookUpError] = useState(false);
@@ -515,11 +515,10 @@ const Dao = (props) => {
         }</>
     );
 }
-Dao.PropTypes = {
+Dao.propTypes = {
     lookUp: PropTypes.isRequired,
     trackWallet: PropTypes.isRequired,
     proposalDetailsList: PropTypes.isRequired,
-    projectDetailsReducerData:PropTypes.isRequired,
   }
 
 const connectDispatchToProps = (dispatch) => {

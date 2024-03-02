@@ -244,8 +244,8 @@ const MintGeneral = (props) => {
         for (let item of metaDataDetails) {
             const base64String = item?.image;
             const binaryString = atob(base64String);
-            let buffer = new Uint8Array(binaryString.length);
-            for (let i = 0; i < binaryString.length; i++) {
+            let buffer = new Uint8Array(binaryString?.length);
+            for (let i = 0; i < binaryString?.length; i++) {
                 buffer[i] = binaryString.charCodeAt(i);
             }
             const result = await ipfs.add(buffer);

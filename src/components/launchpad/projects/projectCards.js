@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useReducer } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { ethers } from 'ethers';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -22,7 +22,6 @@ import { projectDetailsSave, projectePayment, viewedProjects } from "src/compone
 import ToasterMessage from "src/utils/toasterMessages";
 import { useConnectWallet } from '../../../hooks/useConnectWallet';
 import { useAccount } from 'wagmi'
-import PropTypes from 'prop-types'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -85,28 +84,20 @@ const ProjectCards = () => {
   const role = useSelector(reducerstate => reducerstate?.oidc?.user?.profile?.role)
   const walletAddress = useSelector((reducerstate) => reducerstate.walletAddress?.walletAddress)
   const params = useParams();
-  const shouldLog = useRef(true);
   const [loadMore, setLoadMore] = useState(false);
   const [hide, setHide] = useState(false);
   const [deployedProject, setDeployedProject] = useState(false)
   const [search, setSearch] = useState();
   const { isConnected } = useAccount()
   const { connectWallet } = useConnectWallet();
-  useEffect(() => {
-    window.scroll(0, 0);
-    if (shouldLog.current) {
-      shouldLog.current = false;
-      getOwenersProjects(1, 10, null);
-    }
-  }, []);
+
 
   useEffect(() => {
     window.scroll(0, 0);
     store.dispatch(projectDetailsSave(null));
     store.dispatch(projectePayment(null))
     getOwenersProjects(1, 10, null);
-
-  }, [deployedProject])
+  }, [])
 
   const handleShow = () => {
     dispatch({ type: 'show', payload: true })
@@ -272,8 +263,6 @@ const ProjectCards = () => {
     const fcfse = convertdateToMinutes(moment(state.detailsPreview?.publicEndDate).format("YYYY-MM-DDTHH:mm:ss"));
     const provider = new ethers.providers.Web3Provider(window?.ethereum)
     const factory = new ethers.Contract(DeployFactory.contractAddress, DeployFactory.abi, provider.getSigner());
-    let accounts = await provider.send("eth_requestAccounts", []);
-    let hash = ethers.utils.solidityKeccak256(['address', 'address'], [DeployFactory.contractAddress, accounts[0]]);
     try {
       const contractRes = await factory.deployClaimableContract(
         tokenContract,
@@ -300,6 +289,7 @@ const ProjectCards = () => {
           await apiCalls.updateContractAddressStatus(updateProject);
           dispatch({ type: 'btnLoader', payload: false })
           setDeployedProject(true)
+          getOwenersProjects(1, 10, null);
           handleClose();
 
           setSuccess(`Project deployed successfully`);
@@ -349,7 +339,6 @@ const ProjectCards = () => {
   }
   const handleClose = () => {
     dispatch({ type: "detailsPreview", payload: {} })
-    dispatch({ type: 'show', payload: false })
     dispatch({ type: 'show', payload: false })
   }
 
@@ -402,7 +391,7 @@ const ProjectCards = () => {
 
           {!state.loader && <>
             <Row className='mt-4 mb-4'>
-              {state.ownerProjects.length === 0 &&
+              {state.ownerProjects?.length === 0 &&
                 <div className='Row d-flex justify-content-center'>
                   <div className=" col-md-12 col-lg-3" >
                     <div className='nodata-image text-center'><img src={nodata} alt="" /></div>
@@ -415,7 +404,7 @@ const ProjectCards = () => {
                   </div>
                 </div>}
 
-              {state.ownerProjects?.map((val, key) =>
+              {state.ownerProjects?.map((val) =>
                 <Col xs={12} md={6} lg={3} className="mb-3" key={val?.id}>
                   <div className="card-style p-0 home-card">
                     <div className='card-content'>

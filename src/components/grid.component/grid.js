@@ -75,7 +75,7 @@ export function withState(WrappedGrid) {
 			x = (typeof x) == 'string' ? x : x.toString();
 			var arParts = x.split('.');
 			var intPart = parseInt(arParts[0]).toLocaleString();
-			var decPart = (arParts.length > 1 ? arParts[1] : '');
+			var decPart = (arParts?.length > 1 ? arParts[1] : '');
 
 			return '' + intPart + (decPart ? ('.' + decPart) : '');
 		}
@@ -101,7 +101,7 @@ export function withState(WrappedGrid) {
 					collapseAllState.push(this.state.result[i].groupId)
 				}
 			}
-			const newCollapsedState = this.state.collapsedState.length
+			const newCollapsedState = this.state.collapsedState?.length
 				? []
 				:
 				collapseAllState
@@ -163,13 +163,13 @@ export function withState(WrappedGrid) {
 								filter={this.state.dataState.filter}
 								sort={this.state.dataState.sort}
 								onDataStateChange={this.handleDataStateChange}>
-								{this.state.dataState.group.length !== 0 && (
+								{this.state.dataState.group?.length !== 0 && (
 									<GridToolbar>
 										<Button
 											className="primary-btn"
 											style={{ backgroundColor: "yellow" }}
 											onClick={this.onGroupsToggle}>
-											{this.state.collapsedState.length ? "Expand" : "Collapse"}{" "}
+											{this.state.collapsedState?.length ? "Expand" : "Collapse"}{" "}
 											Groups
 										</Button>
 									</GridToolbar>
@@ -205,19 +205,19 @@ export function withState(WrappedGrid) {
 			const isObjectEqual = (obj1, obj2) => {
 				const obj1Keys = Object.keys(obj1);
 				const obj2Keys = Object.keys(obj2);
-				if (obj1Keys.length !== obj2Keys.length) return false;
+				if (obj1Keys?.length !== obj2Keys?.length) return false;
 				for (const key of obj1Keys) {
 					if (obj1[key] !== obj2[key]) return false;
 				}
 				return true;
 			}
 			const didArrayChange = (arr1, arr2) => {
-				if ((arr1 === undefined && arr2 === undefined) || (arr1 && !arr1.length && !arr2) || (arr2 && !arr2.length && !arr1)) {
+				if ((arr1 === undefined && arr2 === undefined) || (arr1 && !arr1?.length && !arr2) || (arr2 && !arr2?.length && !arr1)) {
 					return false;
 				}
 				if (!arr1 || !arr2) return true;
-				if (arr1.length !== arr2.length) return true;
-				for (let i = 0; i < arr1.length; i++) {
+				if (arr1?.length !== arr2?.length) return true;
+				for (let i = 0; i < arr1?.length; i++) {
 					if (!isObjectEqual(arr1[i], arr2[i])) return true;
 				}
 				return false;
@@ -236,10 +236,10 @@ export function withState(WrappedGrid) {
 			applyDataToGrid(changeEvent)
 
 			if (didArrayChange(prevGroup, eventGroup)) {
-				const newDataState = processWithGroups(this.state.ungroupedData.length > 0 ? this.state.ungroupedData : this.state.data, changeEvent.dataState.group);
+				const newDataState = processWithGroups(this.state.ungroupedData?.length > 0 ? this.state.ungroupedData : this.state.data, changeEvent.dataState.group);
 				this.setState({
 					collapsedState: [],
-					result: changeEvent.dataState.group.length > 0 ? newDataState : undefined,
+					result: changeEvent.dataState.group?.length > 0 ? newDataState : undefined,
 					group: changeEvent.dataState.group,
 				});
 			}
@@ -287,7 +287,7 @@ export function withState(WrappedGrid) {
 				oidc: { user },
 			} = store.getState();
 			let queryStr = `${toDataSourceRequestString(dataState)}`; // Serialize the state.
-			const hasGroups = dataState.group && dataState.group.length;
+			const hasGroups = dataState.group && dataState.group?.length;
 			if (this.props.additionalParams) {
 				let _additionalParams = "";
 				for (let key in this.props.additionalParams) {
@@ -325,15 +325,15 @@ export function withState(WrappedGrid) {
 						});
 						return result;
 					}
-					const originalData = (data && this.state.group.length > 0) ? extractObjectsWithId(data) : [];
-					const result = processWithGroups(this.state.group.length > 0 ? originalData : data, this.state.group);
+					const originalData = (data && this.state.group?.length > 0) ? extractObjectsWithId(data) : [];
+					const result = processWithGroups(this.state.group?.length > 0 ? originalData : data, this.state.group);
 					this.setState({
 						ungroupedData: originalData,
 						data: hasGroups ? translateDataSourceResultGroups(data) : data,
 						total,
 						dataState,
 						isLoading: false,
-						result: this.state.group.length > 0 ? result : undefined,
+						result: this.state.group?.length > 0 ? result : undefined,
 					});
 				})
 				.catch(err => {

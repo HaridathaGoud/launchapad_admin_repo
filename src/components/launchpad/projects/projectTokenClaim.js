@@ -250,7 +250,7 @@ const timeDate=(timeString)=>{
         privateEndDate: privateEndDate,
       }
       const formError = validateForm(obj);
-      if (Object.keys(formError).length > 0) {
+      if (Object.keys(formError)?.length > 0) {
         setFormErrors(formError)
         dispatch({ type: 'errors', payload: formError })
         dispatch({ type: 'claimloader', payload: false })

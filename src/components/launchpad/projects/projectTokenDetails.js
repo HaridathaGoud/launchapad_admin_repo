@@ -137,7 +137,7 @@ const ProjectTokenDetails = (props) => {
 
 
       const formErrors = validateForm(obj);
-      if (Object.keys(formErrors).length > 0) {
+      if (Object.keys(formErrors)?.length > 0) {
         setErrors(formErrors)
         dispatch({ type: 'errors', payload: formErrors })
         dispatch({type:'projectsPoolsStaking',payload:false}) 

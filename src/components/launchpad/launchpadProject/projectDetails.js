@@ -71,7 +71,7 @@ function projectdetails() {
     let privateEndDate = new Date(pjctInfo.privateEndDate).getTime();
     let publicEndDate = new Date(pjctInfo.publicEndDate).getTime();
     
-    if (calimsData.length > 0) {
+    if (calimsData?.length > 0) {
       calimsData?.map((value) => {
         let claimDate = new Date(value.date).getTime();
         if (isType && (privateEndDate <= claimDate || publicEndDate <= claimDate)) {
@@ -437,7 +437,6 @@ function projectdetails() {
                                         </thead>
                                         {allocationsData?.length != 0 && (
                                           <tbody>
-                                            <>
                                               {allocationsData?.map((item, idx) => (
                                                 <tr className="black-bg" key={idx}>
                                                   <td scope="row" className="pool-data">
@@ -453,18 +452,15 @@ function projectdetails() {
 
                                                 </tr>
                                               ))}
-                                            </>
+
                                           </tbody>
                                         )}
                                       </table>
                                       {allocationsData?.length == 0 && (
-
-                                        <>
                                           <div className="nodata-text db-no-data">
                                             <Image src={nodata} className="text-center" alt=""></Image>
                                             <h3 className="text-center nodata">No data found</h3>
                                           </div>
-                                        </>
                                       )}
                                     </div>
 
@@ -529,13 +525,10 @@ function projectdetails() {
                                           </tbody>
                                         </table>
                                         {claimsData?.length == 0 && (
-
-                                          <>
                                             <div className="nodata-text db-no-data">
                                               <Image src={nodata} className="text-center" alt=""></Image>
                                               <h3 className="text-center nodata">No data found</h3>
                                             </div>
-                                          </>
                                         )}
                                       </div>
                                     </div>
@@ -609,7 +602,6 @@ function projectdetails() {
 
               <Button type="button" className="btn-primary fill-btn" >
                 {btnLoader && (
-                  <>
                     <Spinner
                       as="span"
                       animation="border"
@@ -618,7 +610,6 @@ function projectdetails() {
                       role="status"
                       aria-hidden="true"
                     ></Spinner>
-                  </>
                 )}{' '}
                 Ok
               </Button>

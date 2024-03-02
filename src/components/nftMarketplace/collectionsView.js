@@ -35,7 +35,7 @@ const CollectionsView = (props) => {
   };
 
   const getExploreNftsDetails = async (pageNum, pageListSize, value) => {
-    if (nftDatafilter.length == 0) {
+    if (nftDatafilter?.length == 0) {
       setLoader(true);
     }
     setErrorMessage(null);
@@ -140,7 +140,7 @@ const CollectionsView = (props) => {
             <div className="text-center">{loader && <Spinner></Spinner>}</div>
             {!loader && (
               <>
-                {nftDatafilter.length > 0 ? (
+                {nftDatafilter?.length > 0 ? (
                   nftDatafilter?.map((item, idx) => (
                     <div className="col-md-6 col-lg-3 space-x mt-3" key={idx}>
                       <Card className="creator-bg c-pointer"   onClick={() => navigate(`/marketplace/customers/profileinfo/${item.tokenId}/${item?.collectionContractAddress}/${UserProfile.id}/view`)}>

@@ -136,7 +136,7 @@ const Settings = () => {
       return setPasswordErrorMsg("Current password and New password should not be same");
     }
     const formErrors = validateForm();
-    if(Object.keys(formErrors).length>0){
+    if(Object.keys(formErrors)?.length>0){
       setErrors(formErrors);
     }
     else {

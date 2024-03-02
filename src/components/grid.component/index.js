@@ -209,7 +209,7 @@ class List extends React.Component {
     };
 
     handleColumnReorder = (event) => {
-        for (let i = 0; i < event.columns.length; i++) {
+        for (let i = 0; i < event.columns?.length; i++) {
             if (event.columns[i].reorderable === true) {
                 break
             }
@@ -219,7 +219,7 @@ class List extends React.Component {
         }
 
         let columnsToSave = [];
-        if (this.state.columns.length === event.columns.length) {
+        if (this.state.columns?.length === event.columns?.length) {
             for (let i in this.state.columns) {
                 const col = { ...this.state.columns[i], orderIndex: event.columns[i]?.orderIndex }
                 columnsToSave.push(col)
