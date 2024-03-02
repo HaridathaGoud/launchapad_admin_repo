@@ -32,6 +32,7 @@ function PublishProposal(props) {
   const getCustomerId = useSelector((state) => state?.oidc?.profile?.profile?.sub);
   const saveProposal = useSelector((state) => state?.proposal?.saveProposal)
   const  DaoDetail = useSelector((state)=>state?.proposal?.daoCards.data)
+  const adminDetails = useSelector((state)=>state?.oidc?.adminDetails)
   const [errorMsg, setErrorMsg] = useState(null)
   const router = useNavigate();
   const { addQuestion} = useContract();
@@ -121,6 +122,7 @@ const publishProposal =  async(walletAddress) => {
     proposalType:proposalDetails?.proposalType,
     CreatorAddress:walletAddress,
     image: daoLogo,
+    creatorImage :adminDetails?.profilePicUrl ,
     proposalOptionDetails:proposalDetails?.ProposalOptionDetails
   }
   try {

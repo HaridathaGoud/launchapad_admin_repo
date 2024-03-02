@@ -235,6 +235,7 @@ function AppHeader(props){
               ))}
             </NavDropdown> </>)}</div> : ""}
       </CSidebar> : <CSidebar className='bg-none menu-left superadmin-leftmenu '></CSidebar>}
+      
       <CHeaderToggler className='mb-show icon toggole-icon d-md-none' onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
         aria-expanded={open} />
@@ -322,8 +323,6 @@ function AppHeader(props){
                     
                   </CNavItem>
                   
-
-  
 
                   {window.location.pathname.includes('home') && daoLuData !=null && <> <CNavItem className={"underline" + (menu === " dashboard" ? "customer active" : "")}>
                     <OverlayTrigger

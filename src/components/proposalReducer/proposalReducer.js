@@ -203,6 +203,7 @@ const saveProposalCall = (saveObj,callback)=>{
         proposalType:saveObj?.proposalType,
         CreatorAddress:saveObj?.CreatorAddress,
         image: saveObj?.image,
+        creatorImage: saveObj?.creatorImage,
         proposalOptionDetails:saveObj?.proposalOptionDetails
       }
       let response = await apiCalls.postCreateProposal(obj)
