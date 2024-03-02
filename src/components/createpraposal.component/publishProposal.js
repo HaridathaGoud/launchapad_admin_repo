@@ -36,12 +36,11 @@ function PublishProposal(props) {
   const router = useNavigate();
   const { addQuestion} = useContract();
  const [optionVotingHashs,setOptionVotingHashs]=useState([])
- const [daoName,setDaoName]=useState()
+ const [daoLogo,setDaoLogo]=useState()
  const [txHash,setTxHash]=useState(null)
  const [startDateEpoch,setStartDateEpoch] = useState()
  const [endDateEpoch,setEndDateEpoch] = useState()
- const votingSeicheContractAddress = process.env.REACT_APP_VOTING_CONTRACTOR;
- const votingKeijiContractAddress = process.env.REACT_APP_VOTING_KEIJI_CONTRACTOR;
+ const [votingContractAddress,setVotingContractAddress] = useState();
   useEffect(() => {
     let localDate1 = new Date(proposalDetails?.startdate); 
     let utcDate = localDate1.toISOString();   
@@ -65,7 +64,8 @@ function PublishProposal(props) {
   const getDaoItem=()=>{
     setTxHash(null)
     let daoData=DaoDetail?.find((item)=>item?.daoId==params.id?.toLocaleLowerCase())
-    setDaoName(daoData?.name)
+    setDaoLogo(daoData?.logo)
+    setVotingContractAddress(daoData?.votingContractAddress)
   }
   
   const getOptionHashes=()=>{
@@ -120,11 +120,11 @@ const publishProposal =  async(walletAddress) => {
     membershipsCount:proposalDetails?.membershipsCount,
     proposalType:proposalDetails?.proposalType,
     CreatorAddress:walletAddress,
+    image: daoLogo,
     proposalOptionDetails:proposalDetails?.ProposalOptionDetails
   }
-  let contractAddress=daoName=="SEIICHI ISHII"?votingSeicheContractAddress:votingKeijiContractAddress
   try {
-        const response = await addQuestion(contractAddress,proposalDetails.TitleHash, optionVotingHashs, startDateEpoch, endDateEpoch);
+        const response = await addQuestion(votingContractAddress,proposalDetails.TitleHash, optionVotingHashs, startDateEpoch, endDateEpoch);
         setTxHash(response.hash)
         const _connector = window?.ethereum;
         const provider = new ethers.providers.Web3Provider(_connector);
