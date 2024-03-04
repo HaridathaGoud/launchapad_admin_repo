@@ -377,10 +377,10 @@ const Dao = (props) => {
                                 <Col sm={12} xs={12} md={12} lg={12} xl={12} xxl={12} className='text-end'>
                                     <div className='md-d-flex justify-content-between align-items-center'>
                                         <div className='d-flex align-items-center title-width-fit'><span 
-                                        className={`icon-dao back mr-2  ${UserInfo?.role == "Super Admin" && "c-pointer"}`} 
+                                        className={`icon-dao back mr-2 cursor-pointer  ${UserInfo?.role == "Super Admin" && "c-pointer"}`} 
                                         onClick={handledashboard}></span>
                                             <span 
-                                            className={`mb-0 ms-2 back-text ${UserInfo?.role == "Super Admin" && "c-pointer"}`}
+                                            className={`mb-0 ms-2 back-text cursor-pointer ${UserInfo?.role == "Super Admin" && "c-pointer"}`}
                                              onClick={handledashboard}>Proposals</span></div>
 
                                         {(UserInfo?.role == "Admin" && votingOwner) && <Button className='custom-btn-primary cardbtnright-mt sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
