@@ -383,7 +383,7 @@ const Dao = (props) => {
                                             className={`mb-0 ms-2 back-text cursor-pointer ${UserInfo?.role == "Super Admin" && "c-pointer"}`}
                                              onClick={handledashboard}>Proposals</span></div>
 
-                                        {(UserInfo?.role == "Admin" && votingOwner) && <Button className='custom-btn-primary cardbtnright-mt sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
+                                        {(UserInfo?.role == "Admin" ) && <Button className='custom-btn-primary cardbtnright-mt sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
                                     </div>
 
                                 </Col>
