@@ -66,6 +66,8 @@ const Dao = (props) => {
     const [hide,setHide] = useState(false)
     const [daoName,setDaoName]=useState(null)
     const [selection, setSelection]=useState(null);
+    const  DaoDetail = useSelector((state)=>state?.proposal?.daoCards.data)
+    const [votingContractAddress,setVotingContractAddress]=useState()
     const votingSeicheContractAddress = process.env.REACT_APP_VOTING_CONTRACTOR;
     const votingKeijiContractAddress = process.env.REACT_APP_VOTING_KEIJI_CONTRACTOR;
         const { address, isConnected } = useAccount()
@@ -79,6 +81,9 @@ const Dao = (props) => {
         }      
         getVotingOwner()
         window.scrollTo(0,0)
+        let daoData=DaoDetail?.find((item)=>item?.daoId==params.id?.toLocaleLowerCase())
+        setVotingContractAddress(daoData?.votingContractAddress)
+
     },[address])
 
 
@@ -139,9 +144,7 @@ const Dao = (props) => {
 
     }
     const handledashboard = () => {
-        if(UserInfo?.role == "Super Admin"){
            router('/dao/dashboard')
-        }
     }
     function handleCallback(callback) {
         if (callback.ok) {
@@ -481,7 +484,6 @@ const Dao = (props) => {
                                                                 </p>
                                                             </div>))}
                                                         </div>
-
                                                         {UserInfo?.role == "Super Admin" ? "" : <>
                                                             {item.status == "Closed" ? "" : <>
                                                                 {item?.dateEnded && <Button

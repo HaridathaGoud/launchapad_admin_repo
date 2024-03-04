@@ -22,7 +22,6 @@ const AppSidebar = (props) => {
   const { getAddress } = UseEthers();
   const app_name = useSelector(state => state.application.app_name);
   const showSetting = useSelector(state => state.oidc?.isShowSettings)
-  const settingLoader = useSelector(state => state.oidc?.isSettingsLoading)
   const onAppSelect = (app_name) => {
     dispatch(setApp(app_name));
   }
@@ -34,6 +33,7 @@ const AppSidebar = (props) => {
       if (showSetting) {
         store.dispatch(showSettings(false));
       }
+      onAppSelect("launchpad");
       navigate(`/${menuItem}`);
     }
     else {
@@ -83,7 +83,6 @@ const AppSidebar = (props) => {
   }
 
   return (
-    <>
       <CSidebar
 
         position="fixed"
@@ -106,7 +105,6 @@ const AppSidebar = (props) => {
           </CSidebarNav>
         </div>
       </CSidebar>
-    </>
   )
 }
 

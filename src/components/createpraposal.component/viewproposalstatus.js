@@ -3,16 +3,14 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import TestingPraposalflow from './publishProposalView';
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
 import Status from './status';
 import Voters from '../voting.component/votersgrid';
-import { useParams } from "react-router-dom";
 
 
 export default function ProposalViewstatus() {
     const params = useParams()
     return (
-        <>
 
             <Container className='dao-mt'>
             <div className='d-flex align-items-center title-width-fit'>
@@ -33,6 +31,5 @@ export default function ProposalViewstatus() {
                    
                 </Row>
             </Container>
-        </>
     );
 }

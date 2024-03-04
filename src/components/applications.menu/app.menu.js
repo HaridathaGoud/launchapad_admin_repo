@@ -3,6 +3,7 @@ import KycMenu from "./kyc";
 import LaunchPadMenu from "./launchpad";
 import MintingMenu from "./minting";
 import MarketplaceMenu from "./marketplace";
+import DaoMenu from "./dao";
 
 
 function AppMenu({handleMenuNavigate}) {
@@ -10,6 +11,7 @@ function AppMenu({handleMenuNavigate}) {
     const appMenus = {
         "kyc": <KycMenu handleMenuNavigate={handleMenuNavigate} />,
         "launchpad": <LaunchPadMenu handleMenuNavigate={handleMenuNavigate} />,
+        "dao":<DaoMenu handleMenuNavigate={handleMenuNavigate} />,
         "minting": <MintingMenu handleMenuNavigate={handleMenuNavigate} />,
         "marketplace": <MarketplaceMenu handleMenuNavigate={handleMenuNavigate} />
     }
