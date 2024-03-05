@@ -89,6 +89,10 @@ const reducers =(state ,action )=>{
     }
 }
   const addOption = () => {
+    if (options.length >= 4) {
+      dispatch({ type: 'modalError', payload: "Maximum four options are allowed." });
+      return;
+    }
     const newFields = [...options, { value: null,Id:"00000000-0000-0000-0000-000000000000",optionhash:null }];
     let optionsArray = newFields.map((item,index)=>{
      return {
@@ -98,20 +102,27 @@ const reducers =(state ,action )=>{
         index: String.fromCharCode(65 + index)
       }
     })
-    setOptions(optionsArray);
-    
+    setOptions(optionsArray); 
   };
 
  
   const deleteOption = (index) => {
     const updatedOptions = options.filter((_, i) => i !== index);
-    if(updatedOptions?.length == 0){      
-      dispatch({type:'modalError',payload:"Please provide at least one option to continue."})
+    if(updatedOptions?.length <2){      
+      dispatch({type:'modalError',payload:"Please provide at least two option to continue."})
+    }else if(updatedOptions?.length >4){      
+      dispatch({type:'modalError',payload:"Maximum four options are allowed."})
     }else{
       setOptions(updatedOptions);
     }    
 }; 
 const optionSave = ()=>{
+  if (options.length < 2) {
+    return dispatch({ type: 'modalError', payload: "Please provide at least two options to continue." });
+  }
+  if (options.length > 4) {
+    return dispatch({ type: 'modalError', payload: "Maximum four options are allowed." })
+  }
   let isUpdate = false;
   let _properties = [...options];
   let _attribute = []; 
@@ -443,7 +454,7 @@ if (isMobile) {
             {options.map((option, index) => (
               <Col sm={12} xs={12} md={6} lg={6} xl={6} xxl={6} key={option?.Id}>
               <div className='d-flex align-items-center add-block' key={option?.Id}>
-                 <Form.Label className="mb-0">{option?.index ? (option?.index&&option?.index + ".") :"A."}</Form.Label>
+                 <Form.Label className="mb-0">{index+1}</Form.Label>
                  <Form.Control
                  type="text"
                  className='border-none-modal'
