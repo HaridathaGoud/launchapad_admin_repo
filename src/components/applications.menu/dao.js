@@ -37,7 +37,7 @@ const DaoMenu = (props) => {
                             placement="right"
                             overlay={renderTooltipCustomers}
                         >
-                            <CNavLink className='customer' onClick={() => handleMenuNavigate('launchpad/customers',false,app_name)}><span className="icon customer" />
+                            <CNavLink className='customer' onClick={() => handleMenuNavigate('launchpad/customers',false,"launchpad")}><span className="icon customer" />
                             </CNavLink>
                         </OverlayTrigger>
                     </CNavItem>}
