@@ -17,7 +17,7 @@ const DaoMenu = (props) => {
             Customers
         </Tooltip>
     );
-    const { handleMenuNavigate } = props;
+    const { handleMenuNavigate ,app_name} = props;
     let locationSplit = location?.pathname?.split('/');
     if (isAdmin?.isAdmin) { 
         return (
@@ -26,7 +26,7 @@ const DaoMenu = (props) => {
                         <OverlayTrigger
                             placement="right"
                             overlay={renderTooltipDashboard} >
-                            <CNavLink onClick={() => handleMenuNavigate('launchpad/dashboard')}><span className="icon menu" />
+                            <CNavLink onClick={() => handleMenuNavigate('launchpad/dashboard',false,app_name)}><span className="icon menu" />
                             </CNavLink>
                         </OverlayTrigger>
                     </CNavItem>}
@@ -37,7 +37,7 @@ const DaoMenu = (props) => {
                             placement="right"
                             overlay={renderTooltipCustomers}
                         >
-                            <CNavLink className='customer' onClick={() => handleMenuNavigate('launchpad/customers')}><span className="icon customer" />
+                            <CNavLink className='customer' onClick={() => handleMenuNavigate('launchpad/customers',false,app_name)}><span className="icon customer" />
                             </CNavLink>
                         </OverlayTrigger>
                     </CNavItem>}
@@ -50,7 +50,7 @@ const DaoMenu = (props) => {
                         <OverlayTrigger
                             placement="right"
                             overlay={renderTooltipDashboard} >
-                            <CNavLink onClick={() => handleMenuNavigate('launchpad/dashboard')}><span className="icon menu" />
+                            <CNavLink onClick={() => handleMenuNavigate('launchpad/dashboard',false,app_name)}><span className="icon menu" />
                             </CNavLink>
                         </OverlayTrigger>
                     </CNavItem>}

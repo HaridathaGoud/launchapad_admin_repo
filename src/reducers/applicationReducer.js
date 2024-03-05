@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const applicationReducer = createSlice({
     name: 'application',
     initialState: {
-        app_name: "kyc"
+        app_name: "launchpad"
     },
     reducers: {
 

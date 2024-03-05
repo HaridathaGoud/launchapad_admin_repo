@@ -33,7 +33,6 @@ const AppSidebar = (props) => {
       if (showSetting) {
         store.dispatch(showSettings(false));
       }
-      onAppSelect("launchpad");
       navigate(`/${menuItem}`);
     }
     else {

@@ -16,28 +16,29 @@ const MarketplaceMenu = (props) => {
         </Tooltip>
     );
  
-    const { handleMenuNavigate } = props;
+    const { handleMenuNavigate ,app_name } = props;
     let locationSplit = location?.pathname?.split('/');
     return (
         <div className='marketplace-admin'>
-            <CNavItem className={locationSplit[2] == "dashboard" ? "active" : ""}>
+            {locationSplit[1]=="marketplace" && <CNavItem className={locationSplit[2] == "dashboard" ? "active" : ""}>
                 <OverlayTrigger
                     placement="right"
                     overlay={renderTooltipDashboard} >
-                    <CNavLink onClick={() => handleMenuNavigate('marketplace/dashboard')}><span className="icon menu" />
+                    <CNavLink onClick={() => handleMenuNavigate('marketplace/dashboard',false, app_name)}><span className="icon menu" />
                     </CNavLink>
                 </OverlayTrigger>
             </CNavItem>
-            <CNavItem className={locationSplit[2] == "customers" ? "active" : ""}>
+            }
+            {locationSplit[1]=="marketplace" && <CNavItem className={locationSplit[2] == "customers" ? "active" : ""}>
                 <OverlayTrigger
                     placement="right"
                     overlay={renderTooltipCustomers}
                 >
-                    <CNavLink className='customer' onClick={() => handleMenuNavigate('marketplace/customers')}><span className="icon customer" />
+                    <CNavLink className='customer' onClick={() => handleMenuNavigate('marketplace/customers',false, app_name)}><span className="icon customer" />
                     </CNavLink>
                 </OverlayTrigger>
             </CNavItem>
-           
+        }
             
         </div>
     )

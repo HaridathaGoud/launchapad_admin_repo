@@ -56,7 +56,7 @@ function LaunchPadMenu(props){
         </Popover>
       );
  
-  const { handleMenuNavigate } = props;
+  const { handleMenuNavigate,app_name } = props;
   let locationSplit = location?.pathname?.split('/');
     if (isAdmin?.isAdmin) {
         return (
@@ -65,7 +65,7 @@ function LaunchPadMenu(props){
                     <OverlayTrigger
                         placement="right"
                         overlay={renderTooltipDashboard} >
-                        <CNavLink onClick={() => handleMenuNavigate('launchpad/dashboard')}><span className="icon menu" />
+                        <CNavLink onClick={() => handleMenuNavigate('launchpad/dashboard',false,app_name)}><span className="icon menu" />
                         </CNavLink>
                     </OverlayTrigger>
                 </CNavItem>}
@@ -85,7 +85,7 @@ function LaunchPadMenu(props){
                         placement="right"
                         overlay={renderTooltipCustomers}
                     >
-                        <CNavLink className='customer' onClick={() => handleMenuNavigate('launchpad/customers')}><span className="icon customer" />
+                        <CNavLink className='customer' onClick={() => handleMenuNavigate('launchpad/customers',false,app_name)}><span className="icon customer" />
                         </CNavLink>
                     </OverlayTrigger>
                 </CNavItem>}
@@ -93,7 +93,7 @@ function LaunchPadMenu(props){
                     <OverlayTrigger
                         placement="right"
                         overlay={renderTooltipInvestorPage} >
-                        <CNavLink onClick={() => handleMenuNavigate('launchpad/investors')}
+                        <CNavLink onClick={() => handleMenuNavigate('launchpad/investors',false,app_name)}
                         ><span className="icon investers me-0" /></CNavLink>
                     </OverlayTrigger>
                 </CNavItem>}
@@ -101,7 +101,7 @@ function LaunchPadMenu(props){
                     <> <OverlayTrigger
                         placement="right"
                         overlay={renderTooltipIdoRequest} >
-                        <CNavLink onClick={() => handleMenuNavigate('launchpad/idorequest')}><span className="icon ido-request me-0" /></CNavLink>
+                        <CNavLink onClick={() => handleMenuNavigate('launchpad/idorequest',false,app_name)}><span className="icon ido-request me-0" /></CNavLink>
                     </OverlayTrigger>
                     </>
                 </CNavItem>}
@@ -109,7 +109,7 @@ function LaunchPadMenu(props){
                     <OverlayTrigger
                         placement="right"
                         overlay={renderTooltipTransactions} >
-                        <CNavLink onClick={() => handleMenuNavigate('launchpad/transactions')}><span className="icon transaction-list me-0" /></CNavLink>
+                        <CNavLink onClick={() => handleMenuNavigate('launchpad/transactions',false,app_name)}><span className="icon transaction-list me-0" /></CNavLink>
                     </OverlayTrigger>
                 </CNavItem>}
                 
@@ -122,7 +122,7 @@ function LaunchPadMenu(props){
             <OverlayTrigger
                         placement="right"
                         overlay={renderTooltipDashboard} >
-                        <CNavLink onClick={() => handleMenuNavigate('launchpad/dashboard')}><span className="icon menu" />
+                        <CNavLink onClick={() => handleMenuNavigate('launchpad/dashboard',false,app_name)}><span className="icon menu" />
                         </CNavLink>
                     </OverlayTrigger>
                     </CNavItem>}
@@ -130,7 +130,7 @@ function LaunchPadMenu(props){
             <OverlayTrigger
                 placement="right"
                 overlay={renderTooltipProjects} >
-                <CNavLink onClick={() => handleMenuNavigate(`launchpad/projects/${isAdmin.id}`)}><span className="icon ido-request me-0" /></CNavLink>
+                <CNavLink onClick={() => handleMenuNavigate(`launchpad/projects/${isAdmin.id}`,false,app_name)}><span className="icon ido-request me-0" /></CNavLink>
             </OverlayTrigger>
             </CNavItem>}
             </React.Fragment>

@@ -10,10 +10,10 @@ function AppMenu({handleMenuNavigate}) {
     const app_name = useSelector(state => state.application.app_name);
     const appMenus = {
         "kyc": <KycMenu handleMenuNavigate={handleMenuNavigate} />,
-        "launchpad": <LaunchPadMenu handleMenuNavigate={handleMenuNavigate} />,
-        "dao":<DaoMenu handleMenuNavigate={handleMenuNavigate} />,
+        "launchpad": <LaunchPadMenu handleMenuNavigate={handleMenuNavigate} app_name="launchpad"/>,
+        "dao":<DaoMenu handleMenuNavigate={handleMenuNavigate} app_name="launchpad"/>,
         "minting": <MintingMenu handleMenuNavigate={handleMenuNavigate} />,
-        "marketplace": <MarketplaceMenu handleMenuNavigate={handleMenuNavigate} />
+        "marketplace": <MarketplaceMenu handleMenuNavigate={handleMenuNavigate} app_name="marketplace"/>
     }
 
     return (

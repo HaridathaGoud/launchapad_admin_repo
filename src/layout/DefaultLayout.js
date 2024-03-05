@@ -10,7 +10,6 @@ import AppSidebar from 'src/components/AppSidebar';
 const DefaultLayout = () => {
   const navigate = useNavigate();
   const User = useSelector((state) => state.oidc.user);
-  const adminDetails = useSelector((state) => state.oidc.adminDetails);
   const appName = useSelector((state) => state.application.app_name);
   const dispatch = useDispatch()
 
