@@ -17,6 +17,7 @@ import { useAccount } from 'wagmi';
 import UseEthers from '../../utils/useEthers';
 import Moment from 'react-moment';
 import { ethers } from 'ethers/lib';
+import { waitForTransaction } from "wagmi/actions";
 import PropTypes from 'prop-types'
 
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
@@ -126,11 +127,13 @@ const publishProposal =  async(walletAddress) => {
     proposalOptionDetails:proposalDetails?.ProposalOptionDetails
   }
   try {
-        const response = await addQuestion(votingContractAddress,proposalDetails.TitleHash, optionVotingHashs, startDateEpoch, endDateEpoch);
+    debugger
+        const response = await addQuestion(votingContractAddress,proposalDetails?.TitleHash, optionVotingHashs, startDateEpoch, endDateEpoch);
         setTxHash(response.hash)
         const _connector = window?.ethereum;
         const provider = new ethers.providers.Web3Provider(_connector);
         const txResponse = await provider.waitForTransaction(response.hash);
+        // const txResponse = await waitForTransaction({ hash: response?.hash });
       if (txResponse && txResponse.status === 0) {
         setErrorMsg("Transaction failed");
         setBtnLoader(false)

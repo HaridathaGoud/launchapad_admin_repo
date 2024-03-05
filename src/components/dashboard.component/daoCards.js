@@ -84,39 +84,41 @@ const Dashboard = (props) => {
     )}
         <div><div className='dao-mt'>
             <h5 className='mb-1 back-text'>DAO’s</h5>
-            <Row>
-            
-                {daoCardDetails?.map((item) => (
-                    <Col lg={3} md={6} xs={12} className='mt-md-3' key={item?.daoId}>
-                        {<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={item?.daoId} >
-                            <Card.Img variant="top" src={item?.logo || profileavathar} onClick={() => goToProposalList(item)}/>
+                <Row>
+                    {daoCardDetails?.length > 0 ? (
+                        daoCardDetails?.map((item) => (
+                            <Col lg={3} md={6} xs={12} className='mt-md-3' key={item?.daoId}>
+                                {<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={item?.daoId} >
+                                    <Card.Img variant="top" src={item?.logo || profileavathar} onClick={() => goToProposalList(item)} />
+                                    <Card.Body>
+                                        <Card.Text className='mb-1'>
+                                            Name: {item.name}
+                                        </Card.Text>
+                                        <Card.Text className='card-description'>
+                                            members: {item?.members?.toLocaleString()}
+                                        </Card.Text>
+                                        {item?.status?.toLowerCase() == "approved" && <Button onClick={() => deployDAO(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) && <span><Spinner size='sm' /></span>}Deploy</Button>}
+                                        {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed") && <Button>{item?.status}</Button>}
+                                    </Card.Body>
+                                </Card>}
+                            </Col>
+                        ))
+                    ) : (
+                        loading && <Col lg={3} md={6} xs={12} className='mt-md-3'> <div><Placeholder as={Card.Title} animation="glow">
+                            <Placeholder xs={12} className='cardimg-placeholder' />
+                        </Placeholder>
                             <Card.Body>
-                                <Card.Text className='mb-1'>
-                                    Name: {item.name}
-                                </Card.Text>
-                                <Card.Text className='card-description'>
-                                    members: {item?.members?.toLocaleString()}
-                                </Card.Text>
-                                {item?.status?.toLowerCase() == "approved" && <Button onClick={()=>deployDAO(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) &&<span><Spinner size='sm'/></span> }Deploy</Button>}
-                                {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() ==  "deployed") && <Button>{item?.status}</Button>}
+                                <Placeholder as={Card.Title} animation="glow">
+                                    <Placeholder xs={6} />
+                                </Placeholder>
+                                <Placeholder as={Card.Text} animation="glow">
+                                    <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
+                                    <Placeholder xs={6} />
+                                </Placeholder>
                             </Card.Body>
-                        </Card>}                            
-                    </Col>))}
-                    {loading && <Col lg={3} md={6} xs={12} className='mt-md-3'> <div><Placeholder as={Card.Title} animation="glow">
-                                <Placeholder xs={12} className='cardimg-placeholder' />
-                            </Placeholder>
-                                <Card.Body>
-                                    <Placeholder as={Card.Title} animation="glow">
-                                        <Placeholder xs={6} />
-                                    </Placeholder>
-                                    <Placeholder as={Card.Text} animation="glow">
-                                        <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
-                                        <Placeholder xs={6} />
-                                    </Placeholder>
-                                </Card.Body>
-                            </div></Col>}
-
-            </Row>
+                        </div></Col>
+                    )}
+                </Row>
         </div>
         </div></>
     )
