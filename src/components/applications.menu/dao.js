@@ -26,7 +26,7 @@ const DaoMenu = (props) => {
                         <OverlayTrigger
                             placement="right"
                             overlay={renderTooltipDashboard} >
-                            <CNavLink onClick={() => handleMenuNavigate('launchpad/dashboard',false,app_name)}><span className="icon menu" />
+                            <CNavLink onClick={() => handleMenuNavigate('dao/dashboard',false,app_name)}><span className="icon menu" />
                             </CNavLink>
                         </OverlayTrigger>
                     </CNavItem>}
@@ -50,7 +50,7 @@ const DaoMenu = (props) => {
                         <OverlayTrigger
                             placement="right"
                             overlay={renderTooltipDashboard} >
-                            <CNavLink onClick={() => handleMenuNavigate('launchpad/dashboard',false,app_name)}><span className="icon menu" />
+                            <CNavLink onClick={() => handleMenuNavigate('dao/dashboard',false,app_name)}><span className="icon menu" />
                             </CNavLink>
                         </OverlayTrigger>
                     </CNavItem>}

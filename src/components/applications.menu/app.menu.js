@@ -11,7 +11,7 @@ function AppMenu({handleMenuNavigate}) {
     const appMenus = {
         "kyc": <KycMenu handleMenuNavigate={handleMenuNavigate} />,
         "launchpad": <LaunchPadMenu handleMenuNavigate={handleMenuNavigate} app_name="launchpad"/>,
-        "dao":<DaoMenu handleMenuNavigate={handleMenuNavigate} app_name="launchpad"/>,
+        "dao":<DaoMenu handleMenuNavigate={handleMenuNavigate} app_name="dao"/>,
         "minting": <MintingMenu handleMenuNavigate={handleMenuNavigate} />,
         "marketplace": <MarketplaceMenu handleMenuNavigate={handleMenuNavigate} app_name="marketplace"/>
     }
