@@ -26,7 +26,7 @@ const Dashboard = (props) => {
         if (isAdmin?.isInvestor === true) {
             props?.trackDaoWallet((callback) => {
                 setDaoCardDetails(callback);
-            })
+            },isAdmin?.id)
         } else {
             props?.trackWallet((callback) => {
                 setDaoCardDetails(callback);
@@ -128,13 +128,11 @@ Dashboard.propTypes = {
     trackDaoWallet: PropTypes.isRequired,
   };
 const connectDispatchToProps = (dispatch) => {
-    const isAdmin = useSelector(state => state.oidc?.adminDetails);
-    const inverstorId = isAdmin?.id;
     return {
         trackWallet: (callback) => {
             dispatch(daoCards(callback));
         },
-        trackDaoWallet: (callback) => {
+        trackDaoWallet: (callback,inverstorId) => {
             dispatch(InvestorDaoCards(callback, inverstorId));
         },
         dispatch,

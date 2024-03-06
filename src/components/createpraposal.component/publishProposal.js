@@ -127,7 +127,6 @@ const publishProposal =  async(walletAddress) => {
     proposalOptionDetails:proposalDetails?.ProposalOptionDetails
   }
   try {
-    debugger
         const response = await addQuestion(votingContractAddress,proposalDetails?.TitleHash, optionVotingHashs, startDateEpoch, endDateEpoch);
         setTxHash(response.hash)
         const _connector = window?.ethereum;

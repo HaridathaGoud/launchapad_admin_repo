@@ -82,7 +82,7 @@ function AppHeader(props){
   }
 
 
-  return (<>
+  return (
 
     <CHeader position="sticky" className="mb-4 custom-header herader-top">
       {url == "minting" ?
@@ -165,8 +165,6 @@ function AppHeader(props){
       </CHeaderNav>
     </CHeader>
 
-    
-  </>
   )
 }
 
@@ -174,7 +172,6 @@ AppHeader.propTypes = {
   periodsLuData: PropTypes.isRequired,
   oidc: PropTypes.string,
   userInfo: PropTypes.isRequired,
-  projectDetailsReducerData:PropTypes.isRequired,
 }
 const connectStateToProps = ({ auth, oidc }) => {
   return {
@@ -193,5 +190,4 @@ const connectDispatchToProps = dispatch => {
 }
 export default connect(connectStateToProps, connectDispatchToProps)(AppHeader);
 AppHeader.propTypes = {
-  auth: PropTypes.string
 };
