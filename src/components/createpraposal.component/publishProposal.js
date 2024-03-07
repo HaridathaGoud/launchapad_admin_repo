@@ -132,7 +132,6 @@ const publishProposal =  async(walletAddress) => {
         const _connector = window?.ethereum;
         const provider = new ethers.providers.Web3Provider(_connector);
         const txResponse = await provider.waitForTransaction(response.hash);
-        // const txResponse = await waitForTransaction({ hash: response?.hash });
       if (txResponse && txResponse.status === 0) {
         setErrorMsg("Transaction failed");
         setBtnLoader(false)
