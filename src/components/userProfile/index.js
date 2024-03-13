@@ -254,8 +254,8 @@ const UserProfile = (props) => {
               </Col>
 
               <Col xl={9} sm={12} className="px-lg-4">
-                <div className="profile-edit-btn text-end px-lg-3 my-2 mt-3 mt-xl-0 mb-2">
-                  <Button className="c-pointer" onClick={handleEdit} >
+                <div className=" text-end px-lg-3 my-2 mt-3 mt-xl-0 mb-2">
+                  <Button className="c-pointer button-secondary" onClick={handleEdit} >
                     <span className="icon edit me-1"></span>Edit Profile
                   </Button>
                 </div>
@@ -454,8 +454,8 @@ const UserProfile = (props) => {
 
                   </Modal.Body>
                   <Modal.Footer>
-                    <div className="text-end"><Button className="transparent-btn" onClick={() => { handleCancel() }}>Cancel</Button>
-                      <Button className="filled-btn ms-lg-3 ms-2" type="submit" disabled={loaderform}>
+                    <div className="text-end"><Button className="cancel-btn" onClick={() => { handleCancel() }}>Cancel</Button>
+                      <Button className="button-secondary ms-lg-3 ms-2" type="submit" disabled={loaderform}>
                         <span>{loaderform && <Spinner size="sm" />} </span>Save</Button></div>
                   </Modal.Footer>
                 </Form>

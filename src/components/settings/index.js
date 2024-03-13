@@ -280,8 +280,8 @@ const Settings = () => {
 
             </Modal.Body>
             <Modal.Footer>
-              <div className="text-end"><Button className="transparent-btn" onClick={() => handleCancel()}>Cancel</Button>
-                <Button className="filled-btn ms-lg-3 ms-2" type="submit" disabled={loaderform} >
+              <div className="text-end"><Button className="cancel-btn" onClick={() => handleCancel()}>Cancel</Button>
+                <Button className="button-secondary ms-lg-3 ms-2" type="submit" disabled={loaderform} >
                   <span>{loaderform && <Spinner size="sm" />} </span>Update</Button></div>
             </Modal.Footer>
           </Form>
