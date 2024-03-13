@@ -383,7 +383,7 @@ const Investors = () => {
               <Col style={{ width: 350 }}><label htmlFor="nameInput" className='project-text text-lightpurpl'>Name</label><p className='mb-0 about-label text-overflow text-white' >{items.name}</p></Col>
               <Col style={{ width: 350 }}><label htmlFor="mailIdInput" className='project-text text-lightpurpl'>Mail Id</label><p className='mb-0 about-label text-overflow text-white'>{items.mailId}</p></Col>
               <Col style={{ width: 350 }}><label htmlFor="phoneNumberInput" className='project-text text-lightpurpl'>Phone Number</label><p className='mb-0 about-label text-overflow text-white'>{items.phoneNumber}</p></Col>
-              <Col className='d-flex align-items-center justify-content-end'><Button onClick={() => handleProject(items)} className='button-style'>Projects</Button></Col>
+              <Col className='d-flex align-items-center justify-content-end'><Button onClick={() => handleProject(items)} className='button-secondary py-1'>Projects</Button></Col>
             </Row>
           ))}
           {state.loadeMessage && 
