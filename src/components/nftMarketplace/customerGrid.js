@@ -172,7 +172,7 @@ class MarketplaceCustomers extends Component {
                     </label>{" "}<p className="mx-1 mb-0">Include Pending KYC Customers</p>
 							</Form>	
                         </div>
-				<div className='profile-section'>
+				<div className=''>
 					<List
 						additionalParams={searchObj}
 						url={gridUrl}

@@ -182,7 +182,7 @@ class LaunchpadCustomers extends Component {
                         </div>
                 <div className=''>
                     <div className=''>
-                        <div className='profile-section'>
+                        <div className=''>
                             <List
                                 additionalParams={searchObj}
                                 url={gridUrl}

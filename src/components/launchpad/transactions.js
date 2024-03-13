@@ -172,7 +172,7 @@ class Transactions extends Component {
         </Form>
         </div>
 
-        <div className='profile-section'>
+        <div className=''>
           <List
             additionalParams={searchObj}
             url={gridUrl}
