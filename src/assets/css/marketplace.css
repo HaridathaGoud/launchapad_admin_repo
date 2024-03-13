@@ -3,17 +3,17 @@
 .page-title{font-weight: 600;
   font-size: 18px;color: #000;margin-bottom: 20px;}
 .dash-card{
-  background: linear-gradient(146.29deg, #1C262F 4.04%, #29323B 84.79%);
+  background: #fff;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.6);
+  box-shadow:0px 0px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 20px;min-height: 190px;}
 .bg-icon{background: linear-gradient(161.06deg, #343E48 37.31%, #0F222D 95.75%);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 100px;display: inline-block;padding: 12px 13px;}
 .card-lbl{font-weight: 500;
-  font-size: 16px;color: rgba(255, 255, 255, 0.49);margin-bottom: 2px;}
+  font-size: 16px;color: #d60000;margin-bottom: 2px;}
 .card-value{font-weight: 600;
-  font-size: 28px;color: #FFFFFF;}
+  font-size: 28px;color: #000;}
   .collect-card{
     background: url(../images/nft.png) #314150 no-repeat;
     background-position: bottom right;padding: 28px;background-size: 75%;}
@@ -23,6 +23,7 @@
 }
 .nft-title{font-weight: 500;
   font-size: 18px;color: #59A2E5;margin-bottom: 0;}
+  .nft-white{color: #fff;}
 .nft-name{font-weight: 500;
   font-size: 16px;color: #FFFFFF;margin-bottom: 0;}  
 /* dashboard end */
@@ -159,9 +160,9 @@
 .profile-section .Personal-Details:first-child{border-bottom: 1px solid rgba(255, 255, 255, 0.2);padding-bottom: 14px;margin-bottom: 4px;}
 /* profile tabs end */
 /*Sub Tabs start*/
-.sub-tabs .nav-link.active,  .sub-tabs .nav-item.show .nav-link{border: 0;border-bottom: 2px solid #55AEFF;color: #55AEFF; background-color: transparent; border-color: #55AEFF;}
+.sub-tabs .nav-link.active,  .sub-tabs .nav-item.show .nav-link{border: 0;border-bottom: 2px solid #d60000;color: #d60000; background-color: transparent; border-color: #d60000;}
 .nav-tabs .nav-link{color: #000;}
-.sub-tabs .nav-link:hover, .sub-tabs .nav-link:focus{border-color: transparent;border-bottom: 2px solid #55AEFF;color: #55AEFF; }
+.sub-tabs .nav-link:hover, .sub-tabs .nav-link:focus{border-color: transparent;border-bottom: 2px solid #d60000;color: #d60000; }
 .sub-override .page-title{display: none;}
 .sub-override .collection-bg{background-color: transparent;padding-left: 0;padding-right: 0;}
 /*Sub Tabs End*/
@@ -170,14 +171,14 @@
 .user-value{font-weight: 500;  font-size: 16px;color: #FFFFFF;margin-bottom: 0;}
 .user-table tr{background: linear-gradient(90.13deg, #2E3944 2.89%, #192A35 98.95%);  border-radius: 5px;height: 70px;}
 .icon.view-icon{background-position: -459px -599px}
-.view-link{font-weight: 500;  font-size: 14px;color: rgba(85, 174, 255, 1);cursor: pointer;}
+.view-link{font-weight: 500;  font-size: 14px;color: #d60000;cursor: pointer;}
 tr td:first-child{padding-left: 18px;  border-top-left-radius: 5px;border-bottom-left-radius: 5px;}
 tr th:first-child .k-link{margin-left: 6px;}
 .whitelist-grid tr th:first-child .k-link{margin-left: 0px;}
 tr td:last-child{padding-right: 18px;  border-top-right-radius: 5px;border-bottom-right-radius: 5px;text-align: right;}
 .user-table{border-collapse: separate;  border-spacing: 0 16px;}
 .user-table td img{border-radius: 5px;  width: 40px;  height: 40px;  object-fit: cover;}
-.dropdown button,.dropdown button:hover,.dropdown .btn.show,.dropdown .btn:first-child:active{background: transparent;  color: #0068ff;font-weight: 500;  font-size: 16px;padding: 6px 10px;border-color: rgba(0, 0, 0, 0.43);}
+.dropdown button,.dropdown button:hover,.dropdown .btn.show,.dropdown .btn:first-child:active{background: transparent;  color: #000;font-weight: 500;  font-size: 16px;padding: 6px 10px;border-color: rgba(0, 0, 0, 0.43);}
 .section-custom.dropdown .dropdown-toggle::after{display: none;}
 .filter-icon{background-position: -496px -599px}
 .icon.toggole-icon{background-position: -572px -596px;}

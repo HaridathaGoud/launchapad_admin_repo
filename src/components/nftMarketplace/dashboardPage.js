@@ -107,7 +107,7 @@ function MarketplaceDashboard() {
                     <div className="dash-card collect-card">
                         <div>
                             <p className="nft-title">NFTs Collection</p>
-                            <p className="card-value">{adminCustomerDetails?.totalCollections ? adminCustomerDetails?.totalCollections : 0}</p>
+                            <p className="card-value nft-white">{adminCustomerDetails?.totalCollections ? adminCustomerDetails?.totalCollections : 0}</p>
                         </div>
                     </div>
                 </div>
