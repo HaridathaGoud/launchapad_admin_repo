@@ -37,7 +37,7 @@ h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
 /* Icons End */
 /* Header Start */
 .header.header-sticky{background: #fff;border-bottom: 1px solid transparent;border-radius: 10px;margin-top: 0 !important;height: 78px;}
-.custom-header .header-nav .dropdown-menu,#popover-basic{transform: translate3d(-107.2px, 50px, 0px) ;background: #fff;}
+.custom-header .header-nav .dropdown-menu,#popover-basic{transform: translate3d(-107.2px, 50px, 0px) ;background: #fff;border: none;  box-shadow: 0 0 10px 3px #0000001a;  border-radius: 16px;}
 /* .custom-header .dropdown-toggle::after{display: none;} */
 .profile-rspace{margin-right: 8px;width: 96px;}
 .custom-header .btn-primary, .custom-header .btn:first-child:active{background: transparent;border: 0;}
@@ -47,9 +47,9 @@ h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
 .custom-header .nav-link{color: #fff;}
 .noti-count{background: #EB4747;width: 20px;height: 20px;position: absolute;top: -5px;right: 2px;border-radius: 30px;text-align: center;font-size: 10px;padding-top: 3px;}
 .p-relative{position: relative;}
-.section-custom{margin-left: 8px;border: 1px solid #D60000;border-radius: 30px;}
+.section-custom{margin-left: 8px;border: 1px solid #D60000;border-radius: 30px;background-color: #D60000;}
 .section-custom .dropdown-toggle{min-width: 162px;}
-.section-custom .dropdown-divider{border-top: 1px solid rgb(121 121 126 / 80%);}
+.section-custom .dropdown-divider{border-top: 1px solid rgb(121 121 126 / 13%);}
 .border-none{border: transparent !important;}
 .header-nav .nav-link:hover, .header-nav .nav-link:focus{color: #D60000;border-bottom: 2px solid #D60000;}
 .nav-border .nav-link,.nav-border .nav-link:hover{border-bottom: 0 !important;}
@@ -1035,7 +1035,7 @@ h1.heading{font-size: 24px;font-weight: 600;color:var(--textWhite);margin-bottom
   overflow: hidden;
   text-overflow: ellipsis;
   /* width: 100%; */
-  color: #000;
+  color: #fff;
   font-size: 16px;
   font-weight: 400;
   font-family: 'Roboto', sans-serif !important;
@@ -1336,7 +1336,7 @@ border-radius: 8px;
 .dropdown-menu.show .dropdwn-liststyle.dropdown-item.selected{background-color: #000000;}
 
 .loaderStyle{width: 20px;height:20px;vertical-align: middle;}
-.header-downarrow.icon.downarrow-white{position: absolute;right: 16px !important;z-index: -1;}
+.header-downarrow.icon.downarrow-white{position: absolute;right: 16px !important;z-index: 1;}
 
 
 /* .dropdown-menu.show .dropdwn-liststyle.dropdown-item{border-bottom: 1px solid #666666;} */

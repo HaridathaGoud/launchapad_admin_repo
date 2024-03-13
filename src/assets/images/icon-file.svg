@@ -999,7 +999,7 @@
 	
 		<circle id="circle240" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="208.204" cy="611.445" r="3.186"/>
 </g>
-<path id="path244" fill="none" stroke="#99999A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="
+<path id="path244" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="
 	M362.273,618.403l5,5l5-5"/>
 <path id="path246" fill="none" stroke="#99999A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="
 	M372.273,583.26l-5-5l-5,5"/>
