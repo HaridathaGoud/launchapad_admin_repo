@@ -1,4 +1,4 @@
-body {background-color: var(--bodyBg) !important;}
+body {background-color: #fff !important;}
 body,
 h1,
 h2,
@@ -11,7 +11,7 @@ p,
 div,
 input {
   font-family: 'Inter', sans-serif !important;
-  color: var(--textBlack);
+  color: #000;
 }
 /* icons start */
 .icon-dao {
@@ -25,8 +25,9 @@ input {
 /* main dashboard start */
 .card-lable{color:#9EA0A3;font-size: 16px;font-weight: 500;}
 .dashboard-card{
-  /* border: 1px solid rgba(0, 104, 255, 0.5) !important; */
-  min-height:348px;background-color: transparent !important;box-shadow: 0px 0px 10px 1px rgba(0, 104, 255, 0.25); transition: transform 0.5s ease;}
+  background: #FFF;
+box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+  min-height:348px;background-color: transparent !important; transition: transform 0.5s ease;}
 .dashboard-card:hover{transform: translateY(8px);}
 .card-description{ white-space: nowrap;
   overflow: hidden;
@@ -42,7 +43,7 @@ input {
 .dao-container{padding: 32px;}
 .left-bgcard{background-color: var(--dbcardbg);background-image: url(../images/bg-card-ab.png);padding: 10px 0px 10px 20px;border-radius: 15px;}
 .left-bgcard h4{font-size: 18px;font-weight: 700;}
-.main-title{color: var(--textBlack);}
+.main-title{color: #000;}
 .copy-code{font-size: 14px;font-weight: 600;color: #FFCE00;width: 300px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 .dao-safetest{font-size: 14px;font-weight: 400;color: rgba(255, 255, 255, 0.7);}
 .icon-dao.star{background-position:-174px -333px !important;width: 14px;height: 14px;}
@@ -64,7 +65,7 @@ input {
 /* .card-title{font-weight: 600;font-size: 18px;color: var(--textBlack);margin-top:30px;} */
 /* select.form-select{background:var(--inputbg) url(https://launchpadimg.blob.core.windows.net/images/down-arrow.svg) !important;background-position:right 16px center !important;background-repeat: no-repeat !important;background-size: 12px !important;padding-right: 2.5rem !important;border: 1px solid var(--inputbr);border-radius: 8px;color: #fff;} */
 .form-control{border: 1px solid #9fa2b4 !important;background-color: transparent !important;}
-option{background-color: #1A171D;border: 1px solid #9fa2b4;}
+option{background-color: #fff;border: 1px solid #9fa2b4; color: #000;}
 /* .form-control.form-select::-webkit-inner-spin-button, .form-control.form-select::-webkit-calendar-picker-indicator {
   opacity: 0;
   -webkit-appearance: none;
@@ -100,7 +101,7 @@ option{background-color: #1A171D;border: 1px solid #9fa2b4;}
 .card-pading{padding: 22px;border-radius: 8px;}
 .proposal-text{font-weight: 400 !important;font-size: 18px !important;color: var(--textBlack) !important;}
 .para-text{font-weight: 400;font-size: 16px;color: var(--textBlack);}
-.badge-style{background: rgba(0, 104, 255, 0.2);border-radius: 5px;padding:6px 12px;color: var(--badgecolor);font-size: 16px;font-weight: 400;}
+.badge-style{background: #fff;border-radius: 8px;padding:6px 12px;color: #000;font-size: 16px;font-weight: 400;box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.25);}
 .yes-text{font-size: 16px;font-weight: 400;color: var(--textBlack);display: inline-block;margin-right: 6px;}
 /* Proposal end */
 /* Header start  */
@@ -172,7 +173,7 @@ input[type=checkbox]:checked+span.icon-check{background-position: -693px -595px 
 
 /* testing proposal start */
 .icon-dao.back{background-position: -568px -267px !important;  height: 34px !important; width: 34px !important;}
-.back-text{font-weight: 600;  font-size: 24px;color: var(--textBlack);}
+.back-text{font-weight: 600;  font-size: 24px;color: #000;}
 .progress{height: 10px !important;background-color: var(--progress) !important;}
 .progress-bar{border-radius: 6px;}
 .icon-dao.success-icon{background-position: -626px -271px !important;}
@@ -260,7 +261,7 @@ input::-webkit-calendar-picker-indicator {cursor: pointer;}
   .voters-table tr th:last-child{background: #000B1C;    border-top-right-radius: 8px;color: var(--white);}
 .success-vote .success-icon{transform: scale(1.5);  flex: 0 30px;background-position: -625px -271px !important;}
 a{text-decoration: none !important;}
-.form-control{color: var(--textBlack) !important;}
+.form-control{color: #000 !important;}
 .icon-dao.block{background-position: -1183px -270px !important;height: 30px;  width: 30px;margin-left: 12px;}
 .yes-no li{flex: 200px;}
 .progress-bar{background-color: #69DD8A !important;}
@@ -286,7 +287,7 @@ input[type='date']:disabled{cursor: not-allowed !important;}
 .card-body{min-height: 124px;  padding-top: 38px;}
 .shimmer-icon{border-radius: 50%;  height: 24px;  width: 24px !important;}
 /* shimmers end */
-.praposal-left-card input::placeholder,.praposal-left-card textarea::placeholder,.add-block input::placeholder,.wallet-input input::placeholder,.nav-search input::placeholder{color: #8a93a2 !important;}
+.praposal-left-card input::placeholder,.praposal-left-card textarea::placeholder,.add-block input::placeholder,.wallet-input input::placeholder,.nav-search input::placeholder{color: #9AA0A6 !important;}
 /* media quiry start*/
 @media (min-width: 768px){
 .toaster-cust .toast{position: absolute;

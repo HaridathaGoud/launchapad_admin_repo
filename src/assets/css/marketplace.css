@@ -1,7 +1,7 @@
 /*  dashboard start  */ 
 .cust-alert-design.alert p{color: #ff2e2e !important;}
 .page-title{font-weight: 600;
-  font-size: 18px;color: hsl(0, 0%, 100%);margin-bottom: 20px;}
+  font-size: 18px;color: #000;margin-bottom: 20px;}
 .dash-card{
   background: linear-gradient(146.29deg, #1C262F 4.04%, #29323B 84.79%);
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -57,7 +57,7 @@
 /* .profile-section{padding:30px;background: linear-gradient(90.13deg, #2E3944 2.89%, #192A35 98.95%);border-radius: 5px;} */
 .activity-title{font-weight:400;font-size: 24px;}
 .text-lightblue{color: #22D7FF;}
-.text-white, .dropdown-item{color: #ffffff;}
+.text-white, .dropdown-item{color: #000;}
 .common-text{font-size: 16px;font-weight: 400;word-break: break-all;}
 .text-small{font-size: 14px;font-weight: 400;}
 .text-medium{font-size: 14px;font-weight: 500;}
@@ -153,14 +153,14 @@
 .profile-tabs li button{color: #ffffff;border-radius: 8px;width: 100%;}
 .profile-tabs .nav-fill > .nav-link, .nav-fill .nav-item{flex: unset;}
 .profile-tabs .nav-link.active,.profile-tabs .nav-item.show .nav-link,.profile-tabs .nav-link:hover{background: rgba(255, 255, 255, 0.2);color: #f1f1f1;border-color: transparent;border-radius: 8px !important;}
-.tab-label{font-weight: 400; font-size: 14px;color: rgba(255, 255, 255, 0.5);}
-.tab-val{font-weight: 500; font-size: 16px;color: #ffffff;word-break: break-all;}
+.tab-label{font-weight: 400; font-size: 14px;color: #000;}
+.tab-val{font-weight: 500; font-size: 16px;color: #000;word-break: break-all;}
 .tab-head1{font-weight: 600;  font-size: 18px;color: #ffffff;margin: 16px 0 12px 0;}
 .profile-section .Personal-Details:first-child{border-bottom: 1px solid rgba(255, 255, 255, 0.2);padding-bottom: 14px;margin-bottom: 4px;}
 /* profile tabs end */
 /*Sub Tabs start*/
 .sub-tabs .nav-link.active,  .sub-tabs .nav-item.show .nav-link{border: 0;border-bottom: 2px solid #55AEFF;color: #55AEFF; background-color: transparent; border-color: #55AEFF;}
-.nav-tabs .nav-link{color: rgba(255, 255, 255, 0.5);}
+.nav-tabs .nav-link{color: #000;}
 .sub-tabs .nav-link:hover, .sub-tabs .nav-link:focus{border-color: transparent;border-bottom: 2px solid #55AEFF;color: #55AEFF; }
 .sub-override .page-title{display: none;}
 .sub-override .collection-bg{background-color: transparent;padding-left: 0;padding-right: 0;}
@@ -177,11 +177,11 @@ tr th:first-child .k-link{margin-left: 6px;}
 tr td:last-child{padding-right: 18px;  border-top-right-radius: 5px;border-bottom-right-radius: 5px;text-align: right;}
 .user-table{border-collapse: separate;  border-spacing: 0 16px;}
 .user-table td img{border-radius: 5px;  width: 40px;  height: 40px;  object-fit: cover;}
-.dropdown button,.dropdown button:hover,.dropdown .btn.show,.dropdown .btn:first-child:active{background: transparent;  color: #0068ff;font-weight: 500;  font-size: 16px;padding: 6px 10px;border-color: rgb(255 255 255 / 43%);}
+.dropdown button,.dropdown button:hover,.dropdown .btn.show,.dropdown .btn:first-child:active{background: transparent;  color: #0068ff;font-weight: 500;  font-size: 16px;padding: 6px 10px;border-color: rgba(0, 0, 0, 0.43);}
 .section-custom.dropdown .dropdown-toggle::after{display: none;}
 .filter-icon{background-position: -496px -599px}
 .icon.toggole-icon{background-position: -572px -596px;}
-.dropdown-menu,.multiselecter ul{background-color: #242D36;}
+.dropdown-menu,.multiselecter ul{background-color: #ffffff;}
 .dropdown-item:hover,.dropdown-item.active, .dropdown-item:focus,.dropdown-item:active,.dropdown-item.active {
   color: var(--cui-dropdown-link-hover-color);
   background-color: var(--cui-dropdown-link-hover-bg);
@@ -260,7 +260,7 @@ padding-right: 2.5rem !important;
   font-weight: 400;
   font-size: 14px;
   margin-bottom: 4px;
-  color: #c9c7c7;
+  color: #000;
   text-transform: capitalize;
 }
 

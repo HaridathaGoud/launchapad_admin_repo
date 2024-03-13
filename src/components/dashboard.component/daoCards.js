@@ -97,8 +97,8 @@ const Dashboard = (props) => {
                                         <Card.Text className='card-description'>
                                             members: {item?.members?.toLocaleString()}
                                         </Card.Text>
-                                        {item?.status?.toLowerCase() == "approved" && <Button onClick={() => deployDAO(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) && <span><Spinner size='sm' /></span>}Deploy</Button>}
-                                        {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed") && <Button>{item?.status}</Button>}
+                                        {item?.status?.toLowerCase() == "approved" && <Button className='button-style' onClick={() => deployDAO(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) && <span><Spinner size='sm' /></span>}Deploy</Button>}
+                                        {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed") && <Button className='button-style'>{item?.status}</Button>}
                                     </Card.Body>
                                 </Card>}
                             </Col>

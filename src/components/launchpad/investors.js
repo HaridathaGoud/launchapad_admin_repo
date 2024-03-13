@@ -372,7 +372,7 @@ const Investors = () => {
             <i className="icon search-icon" onClick={handleSearchh}></i>
           </Form>
           <div className='d-flex align-items-center justify-content-end'>
-            <Button className='primary-btn mt-3 mt-md-0'
+            <Button className='primary-btn mt-3 mt-md-0 button-style'
               onClick={() => addInvestors()}><span className='icon add-icon'></span> Add Investor</Button>
           </div>
         </div>
@@ -628,8 +628,8 @@ const Investors = () => {
 
             </Modal.Body>
             <Modal.Footer>
-              <div className="text-end"><Button className="transparent-btn" disabled={loaderform} onClick={() => { handleCancel() }}>Cancel</Button>
-                <Button className="filled-btn ms-lg-3 ms-2" type="button" onClick={(e) => handleCreateInvestors(e)} disabled={loaderform}>
+              <div className="text-end"><Button className="cancel-btn" disabled={loaderform} onClick={() => { handleCancel() }}>Cancel</Button>
+                <Button className="button-secondary ms-lg-3 ms-2" type="button" onClick={(e) => handleCreateInvestors(e)} disabled={loaderform}>
                   <span>{loaderform && <Spinner size="sm" />} </span>Save</Button></div>
             </Modal.Footer>
           </Form>

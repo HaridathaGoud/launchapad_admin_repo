@@ -384,7 +384,7 @@ const ProjectCards = () => {
               <i className="icon search-icon" onClick={handleSearch}></i>
             </Form>
             <div className='add-project'>
-              <Button className='primary-btn mt-3 mt-md-0' onClick={redirectToProject}><span className='icon add-icon'></span> Add Project</Button>
+              <Button className='button-style mt-3 mt-md-0' onClick={redirectToProject}><span className='icon add-icon'></span> Add Project</Button>
             </div>
           </div>
           <div className="text-center">{state.loader && <Spinner></Spinner>}</div>

@@ -1154,7 +1154,7 @@ const Projects = (props) => {
             </div>
               <div className='d-flex justify-content-between align-items-center mb-2 mt-5'>
                 <h3 className='section-title '>Cast And Crew</h3>
-                <Button className='primary-btn mt-3 mt-md-0' onClick={()=>handleEdit()} ><span className='icon add-icon'></span> Add </Button>
+                <Button className='button-style mt-3 mt-md-0' onClick={()=>handleEdit()} ><span className='icon add-icon'></span> Add </Button>
               </div>
               <Row className='mb-4'>
                 { state?.castCrewDataList?.map((item,index)=>(
@@ -1202,7 +1202,7 @@ const Projects = (props) => {
               <div className='text-end mt-xl-5 mb-5'>
                 <Button className='cancel-btn me-2' onClick={() => handleCancel()} >
                   Cancel</Button>{' '}
-                <Button className='primary-btn' type="submit" projectTokenData={props?.projectTokenData}
+                <Button className='button-secondary' type="submit" projectTokenData={props?.projectTokenData}
 
                 >
                   <span>{state.buttonLoader && <Spinner size="sm" />} </span>
@@ -1389,8 +1389,8 @@ const Projects = (props) => {
 
                       </Modal.Body>
                       <Modal.Footer>
-                        <div className="text-end"><Button className="transparent-btn" onClick={() => { handleCancell() }}>Cancel</Button>
-                          <Button className="filled-btn ms-lg-3 ms-2" type="submit" onClick={(e) => handleCastCrewDataSave(e)} >
+                        <div className="text-end"><Button className="cancel-btn" onClick={() => { handleCancell() }}>Cancel</Button>
+                          <Button className="button-secondary ms-lg-3 ms-2" type="submit" onClick={(e) => handleCastCrewDataSave(e)} >
                             Save</Button></div>
                       </Modal.Footer>
                     </Form>
