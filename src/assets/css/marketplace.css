@@ -186,7 +186,7 @@ tr td:last-child{padding-right: 18px;  border-top-right-radius: 5px;border-botto
 .dropdown-item:hover,.dropdown-item.active, .dropdown-item:focus,.dropdown-item:active,.dropdown-item.active {
   color: var(--cui-dropdown-link-hover-color);
   background-color: var(--cui-dropdown-link-hover-bg);
-}.tooltip-inner {background-color: #334351;padding: 10px 20px;}
+}.tooltip-inner {background-color: #000;padding: 10px 20px;}
 .search-input input,.search-input input:focus{background: #29333D;  border: 1px solid rgba(255, 255, 255, 0.14);  border-radius: 5px;color: #ffffff ;}
 .icon.search{position: absolute;right: 14px;}
 .search-input input{width: 286px;}

@@ -4,7 +4,7 @@
   vertical-align: middle !important;
   width: 30px !important;
   height: 30px !important;}/* left ment start  */
-.superadmin-leftmenu.menu-left,.superadmin-leftmenu .sidebar{width: 77px;background-color: #fff;border-radius: 10px;}
+.superadmin-leftmenu.menu-left,.superadmin-leftmenu .sidebar{width: 77px;background-color: #fff;border-radius: 10px;filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.15));}
 .superadmin-leftmenu.sidebar:not(.sidebar-end) ~ * { --cui-sidebar-occupy-start: 6.3125rem;}
 .icon.menu{background-position: -16px -176px;width: 28px !important;height: 28px !important;}
 .icon.toggole-icon{background-position: -288px -1px;}
