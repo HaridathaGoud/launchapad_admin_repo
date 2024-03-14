@@ -489,7 +489,7 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 .join-badge{ padding: 5px 20px; font-weight: 600;font-size: 16px; border-radius: 4px; background: #D60000; border: 1px solid #D60000;}
 .whitelist-rowcard {
   align-items: start;
-  background: rgba(217, 217, 217, 0.1);
+  background: #fff;
   border: 1px solid #bbbdc61c;
   border-radius: 8px;
   box-shadow: 0 2px 2px 0 #00000029;
@@ -530,7 +530,7 @@ input[type='datetime-local'],input[type='date']{color-scheme: dark;}
   font-weight: 700!important;
 }
 .label-type, .label-value {
-  color: #fff;
+  color: #000;
   font-size: 16px;
   margin: 0;
 }
