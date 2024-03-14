@@ -172,7 +172,7 @@
 .user-table tr{background: linear-gradient(90.13deg, #2E3944 2.89%, #192A35 98.95%);  border-radius: 5px;height: 70px;}
 .icon.view-icon{background-position: -459px -599px}
 .view-link{font-weight: 500;  font-size: 14px;color: #d60000;cursor: pointer;}
-tr td:first-child{padding-left: 18px;  border-top-left-radius: 5px;border-bottom-left-radius: 5px;}
+tr td:first-child{padding-left: 18px;}
 tr th:first-child .k-link{margin-left: 6px;}
 .whitelist-grid tr th:first-child .k-link{margin-left: 0px;}
 tr td:last-child{padding-right: 18px;  border-top-right-radius: 5px;border-bottom-right-radius: 5px;text-align: right;}

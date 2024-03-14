@@ -392,7 +392,7 @@ const Dao = (props) => {
                                     <div className='kpi-list'>
                                         <Row className='align-items-center'>
                                             <Col sm={12} xs={12} md={2} lg={2} xl={2} xxl={2} className='col-mobile-p'>
-                                                <Form.Select aria-label="Default select example" className='c-pointer text-white' onChange={(e) => getApprovedProposalData(e)} >
+                                                <Form.Select aria-label="Default select example" className='c-pointer text-white bg-white' onChange={(e) => getApprovedProposalData(e)} >
                                                     
                                                     {state?.statusLu?.map((item) => (
                                                         <option value={item?.name} key={item?.id}>{item?.name}</option>

@@ -19,7 +19,7 @@ import Image from 'react-bootstrap/Image';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { getDaoCardDetailsLu } from 'src/reducers/authReducer';
 import Spinner from 'react-bootstrap/esm/Spinner';
-import navBrand from "../assets/images/Minnapad-Logo.svg";
+import navBrand from "../assets/images/YB-Logo.svg";
 
 function AppHeader(props){
   const [open, setOpen] = useState(false);
@@ -113,7 +113,7 @@ function AppHeader(props){
       <CHeaderToggler className='mb-show icon toggole-icon d-md-none' onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
         aria-expanded={open} />
-        <Image className='mobile-nav' src={navBrand} alt="" onClick={() => {
+        <Image width={72} className='mobile-nav' src={navBrand} alt="" onClick={() => {
             // onAppSelect("kyc");
             // navigate('/kyc/customers');
             onAppSelect("launchpad");
@@ -151,7 +151,7 @@ function AppHeader(props){
               </span>
             </div>
             <div className='mb-hide '>
-              <div className='user-head profile-value'>{UserProfile?.name}</div>
+              <div className='user-head profile-value text-light'>{UserProfile?.name}</div>
             </div>
           </div>}
           id="dropdown-menu-align-end">

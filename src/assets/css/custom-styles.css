@@ -108,7 +108,7 @@ h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
 /* profie end  */
 
 /* profile tabs start */
-.profile-tabs{background-color: #F0F1F2 !important;border-bottom: 0 !important;padding: 8px !important;border-radius: 8px !important;gap: 8px !important;}
+.profile-tabs{background-color: #d0d0d05c !important;border-bottom: 0 !important;padding: 8px !important;border-radius: 8px !important;gap: 8px !important;}
 .profile-tabs li{min-width: 109px !important;border-radius: 8px !important;}
 .profile-tabs li button{color: #ffffff;border-radius: 8px;}
 .profile-tabs .nav-fill > .nav-link, .nav-fill .nav-item{flex: unset !important;}
@@ -1037,7 +1037,7 @@ h1.heading{font-size: 24px;font-weight: 600;color:var(--textWhite);margin-bottom
   overflow: hidden;
   text-overflow: ellipsis;
   /* width: 100%; */
-  color: #fff;
+  color: #000;
   font-size: 16px;
   font-weight: 400;
   font-family: 'Roboto', sans-serif !important;
