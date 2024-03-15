@@ -323,41 +323,34 @@ const UserProfile = (props) => {
                         <Row className="mt-3 mt-xl-0">
                           <Col xl={6} className="mb-3">
                             <label className="user-label">User Name</label>
-                            <p className="mb-2 profile-value">{adminDetails?.userName ? adminDetails?.userName : "--"}</p>
+                            <p className="mb-0 profile-value">{adminDetails?.userName ? adminDetails?.userName : "--"}</p>
                           </Col>
                           <Col xl={6} className="mb-3">
                             <label className="user-label">Email</label>
-                            <p className="mb-2 profile-value">{adminDetails?.email ? adminDetails?.email : "--"}</p>
+                            <p className="mb-0 profile-value">{adminDetails?.email ? adminDetails?.email : "--"}</p>
                           </Col>
                           <Col xl={6} className="mb-3">
-                            <FloatingLabel
-                              controlId="floatingInput"
-                              label="First Name*"
-                              className="mb-1 input-style mt-2"
-                            >
-                                <Form.Control
-                      type="text"
-                      name="firstName"
-                      value={form?.firstName}
-                      defaultValue={form?.firstName || adminDetails?.firstName}
-                      autoComplete="off"
-                      onChange={(e) => { setField('firstName', e.currentTarget.value) }}
-                      isInvalid={!!errors.firstName}
-                      required
-                      placeholder="First Name *"
-                      maxLength={50}
-                    />
-                             <Form.Control.Feedback type="invalid">{errors.firstName}</Form.Control.Feedback>
-                            </FloatingLabel>
+                            <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">
+                              <Form.Label >First Name*</Form.Label>
+                              <Form.Control
+                                type="text"
+                                name="firstName"
+                                value={form?.firstName}
+                                defaultValue={form?.firstName || adminDetails?.firstName}
+                                autoComplete="off"
+                                onChange={(e) => { setField('firstName', e.currentTarget.value) }}
+                                isInvalid={!!errors.firstName}
+                                required
+                                placeholder="First Name"
+                                maxLength={50}
+                              />
+                              <Form.Control.Feedback type="invalid">{errors.firstName}</Form.Control.Feedback>
+                            </Form.Group>
                           </Col>
                           <Col xl={6} className="mb-3">
-                            <FloatingLabel
-                              controlId="floatingInput"
-                              label="Last Name*"
-                              className="mb-1 input-style mt-2"
-                            >
-                             
-                                <Form.Control
+                          <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">
+                              <Form.Label >Last Name*</Form.Label>
+                              <Form.Control
                       type="text"
                       name="lastName"
                       value={form?.lastName}
@@ -365,17 +358,15 @@ const UserProfile = (props) => {
                       onChange={(e) => { setField('lastName', e.currentTarget.value) }}
                       isInvalid={!!errors.lastName}
                       required
-                      placeholder="Last Name *"
+                      placeholder="Last Name"
                       maxLength={50}
                     />
                                <Form.Control.Feedback type="invalid">{errors.lastName}</Form.Control.Feedback>
-                            </FloatingLabel>
+                            </Form.Group>
                           </Col>
-
-
-                          
                           <Col xl={6} className="mb-3">
-                          <FloatingLabel controlId="floatingInput" className="input-style">
+                          <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">
+                          <Form.Label >Phone No*</Form.Label>
                     <InputGroup className="mb-2 input-style no-wrap mobile-noinput">
 
                       <Form.Control
@@ -398,7 +389,7 @@ const UserProfile = (props) => {
                         
                       </Form.Control>
                       <Form.Control.Feedback type="invalid">{errors.countryCode}</Form.Control.Feedback>
-                      <label className="floatingInput-number cust-zindex">Phone No*</label>
+                     
                       <Form.Control
                         type="text"
                         className="form-number input-radius"
@@ -418,10 +409,12 @@ const UserProfile = (props) => {
                       />
                       <Form.Control.Feedback type="invalid">{errors.phoneNo}</Form.Control.Feedback>
                     </InputGroup>
-                  </FloatingLabel>
+                    </Form.Group>
                           </Col>
                           <Col xl={6} className="mb-3">
-                            <FloatingLabel controlId="floatingInput" className="mb-3 input-style" >
+                          <Form.Group className="" controlId="exampleForm.ControlInput1">
+                          
+                          <Form.Label >Country*</Form.Label>
                               <InputGroup className="mb-3 input-style no-wrap mobile-noinput country-code-style">
 
                                 <Form.Control
@@ -443,10 +436,10 @@ const UserProfile = (props) => {
                                   ))}
                                 </Form.Control>
                                 {/* <span className="icon downarrow-white"></span> */}
-                                <label className="floatingInput-number cust-zindex">Country*</label>
+                               
                                 <Form.Control.Feedback type="invalid">{errors.country}</Form.Control.Feedback>
                               </InputGroup>
-                            </FloatingLabel>
+                              </Form.Group>
                           </Col>
                           
                         </Row>
