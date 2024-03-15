@@ -528,6 +528,7 @@ input[type='datetime-local'],input[type='date']{color-scheme: dark;padding: 0 14
 .optionListContainer{z-index: 9 !important;}
 .mt-6{margin-top: 74px;}
 .search-style,.search-style.input:focus{text-overflow: ellipsis;}
+.camera.cam-position:active{background-color: transparent !important;padding: 0 !important;border: transparent !important;}
 @media (min-width: 768px) {
   table{width: 100% !important;}
 .token-listing .was-validated .form-control:invalid{padding-right: 16px !important;}
