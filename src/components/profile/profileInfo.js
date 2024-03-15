@@ -121,7 +121,7 @@ const handleTabChange = (tab) => {
         )}
         <div className="text-center">{loader && <Spinner></Spinner>}</div>
         {!loader &&
-          <div className='profile-section'>
+          <div className='profile-section bg-none'>
             <div className="custom-flex align-items-start mb-4 tab-block">
               <div className='no-hover customer-pfview mb-2 mb-lg-0' onClick={handleUpload} >
                 <span className='image-box'>
@@ -135,26 +135,21 @@ const handleTabChange = (tab) => {
                         {userDetails?.firstName ? userDetails?.firstName : "unnamed"}</h5>
                        
                         </div>
-                  <div className="custom-flex align-items-center flex-wrap"><div className="value-card"><span className="icon country"></span><label className="text-medium text-secondary ms-1">{userDetails.country ? userDetails.country : "--"}</label></div><div className="value-card"><span className="icon contact"></span><label className="text-medium text-secondary ms-1">{userDetails.countryCode ? userDetails.countryCode : "--"}{' '}{userDetails.phoneNo ? userDetails.phoneNo : "--"}</label></div>
-                  <div className="value-card"><span className="icon email"></span><label className="text-medium text-secondary ms-1 word-break">{userDetails.email ? userDetails.email : "--"}</label></div>
-                  <div className="value-card"><span className="icon wallet"></span><label className="text-medium text-secondary ms-1 discord-block">{userDetails.walletAddress ? userDetails.walletAddress : "--"}
-                  <CopyToClipboard 
-                      text={userDetails.walletAddress} 
-                      options={{ format: 'text/plain' }}
-						        	onCopy={() => handleCopy(userDetails.walletAddress)}
-              >
-							<span className={(copied && selection === userDetails.walletAddress) ? "icon copied-check ms-2" : "icon copy c-pointer"}></span>
-						</CopyToClipboard> </label> </div>
+                  <div className="custom-flex align-items-center flex-wrap row gap-4">
+                    <div className="value-card col-md-3"><span className="icon country"></span><label className="text-medium text-secondary ms-1">{userDetails.country ? userDetails.country : "--"}</label></div>
+                    <div className="value-card col-md-3"><span className="icon contact"></span><label className="text-medium text-secondary ms-1">{userDetails.countryCode ? userDetails.countryCode : "--"}{' '}{userDetails.phoneNo ? userDetails.phoneNo : "--"}</label></div>
+                  <div className="value-card col-md-3"><span className="icon email"></span><label className="text-medium text-secondary ms-1 word-break">{userDetails.email ? userDetails.email : "--"}</label></div>
+                  
            
              
-            <div className="value-card"><span className="icon discord"></span><label className="text-medium text-secondary ms-1">{userDetails.discordId?userDetails.discordId:"-"}</label></div>
-            <div className="d-flex align-items-center value-card">                  
+            <div className="value-card col-md-3"><span className="icon discord"></span><label className="text-medium text-secondary ms-1">{userDetails.discordId?userDetails.discordId:"-"}</label></div>
+            <div className="d-flex align-items-center value-card col-md-3">                  
                     <span className="icon small-referral"></span>                  
                     <span className="text-medium text-secondary ms-1">{userDetails?.referralCode || "--"}
                   
                     </span>
                   </div>
-                  <div className="d-flex align-items-center value-card">                  
+                  <div className="d-flex align-items-center value-card col-md-3">                  
                   <span className="icon small-referral"></span>                   
                     <span className="text-medium text-secondary ms-1">{userDetails?.customerReferralCode || "--"}
                    {userDetails?.customerReferralCode && ( <CopyToClipboard 
@@ -166,7 +161,17 @@ const handleTabChange = (tab) => {
 						</CopyToClipboard> )}
                     </span>
                   </div>
+                  <div className="value-card "><span className="icon wallet"></span><label className="text-medium text-secondary ms-1 discord-block">{userDetails.walletAddress ? userDetails.walletAddress : "--"}
+                  <CopyToClipboard 
+                      text={userDetails.walletAddress} 
+                      options={{ format: 'text/plain' }}
+						        	onCopy={() => handleCopy(userDetails.walletAddress)}
+              >
+							<span className={(copied && selection === userDetails.walletAddress) ? "icon copied-check ms-2" : "icon copy c-pointer"}></span>
+						</CopyToClipboard> </label> </div>
                   </div>
+
+
                   <div>
                
                 <div className="align-items-center custom-flex mt-3 justify-content-between">
@@ -190,7 +195,7 @@ const handleTabChange = (tab) => {
               </div>
             </div>
 
-            <div className="content-green-bg">
+            <div className="content-green-bg px-0">
           
                <Tabs
                 activeKey={activeTab} onSelect={handleTabChange}

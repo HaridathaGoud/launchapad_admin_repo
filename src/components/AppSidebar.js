@@ -85,17 +85,17 @@ const AppSidebar = (props) => {
       <CSidebar
 
         position="fixed"
-        className='menu-left superadmin-leftmenu bg-none'
+        className='menu-left superadmin-leftmenu sidebar-menu'
         unfoldable={unfoldable}
         visible={true}
         onVisibleChange={(visible) => {
           dispatch({ type: 'set', visible })
         }}
       >
-        <div className='nav-brand menu-left superadmin-leftmenu d-flex align-items-center justify-content-center py-4 c-pointer h-78'>
+        <div className='nav-brand d-flex align-items-center justify-content-center py-4 c-pointer h-78'>
           <Image src={navBrand} alt="" onClick={() =>  logoRedirection()} width={70} />
         </div>
-        <div className='menu-left superadmin-leftmenu screen-height mt-2'>
+        <div className=' screen-height pt-2'>
           <CSidebarNav>
             <SimpleBar className='simplebar-height'>
               {app_name === null && <Applications handleMenuNavigate={handleMenuNavigate} />}

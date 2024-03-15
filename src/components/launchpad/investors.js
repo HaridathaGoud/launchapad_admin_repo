@@ -440,94 +440,84 @@ const Investors = () => {
                 <Col xl={12}>
                   <Row className="mt-3 mt-xl-0">
 
-                    <Col xl={6} className="mb-2">
-                      <FloatingLabel
-                        controlId="floatingInput"
-                        label="First Name*"
-                        className="mb-1 input-style mt-2"
-                      >
-                        <Form.Control
-                          type="text"
-                          name="firstName"
-                          value={form?.firstName}
-                          defaultValue={form?.firstName}
-                          autoComplete="off"
-                          onChange={(e) => { setField('firstName', e.currentTarget.value) }}
-                          isInvalid={!!errors.firstName}
-                          required
-                          placeholder="First Name *"
-                          maxLength={50}
+                    <Col xl={6} className="mb-3">
+                      <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                        <Form.Label >First Name*</Form.Label>
+                        <Form.Control 
+                        type="text"
+                        name="firstName"
+                        value={form?.firstName}
+                        defaultValue={form?.firstName}
+                        autoComplete="off"
+                        onChange={(e) => { setField('firstName', e.currentTarget.value) }}
+                        isInvalid={!!errors.firstName}
+                        required
+                        placeholder="First Name"
+                        maxLength={50}
+                        className=""
                         />
-                        <Form.Control.Feedback type="invalid">{errors.firstName}</Form.Control.Feedback>
-                      </FloatingLabel>
+                         <Form.Control.Feedback type="invalid">{errors.firstName}</Form.Control.Feedback>
+                      </Form.Group>
+                     
                     </Col>
-                    <Col xl={6} className="mb-2">
-                      <FloatingLabel
-                        controlId="floatingInput"
-                        label="Last Name*"
-                        className="mb-1 input-style mt-2"
-                      >
-
-                        <Form.Control
-                          type="text"
-                          name="lastName"
-                          value={form?.lastName}
-                          defaultValue={form?.lastName}
-                          onChange={(e) => { setField('lastName', e.currentTarget.value) }}
-                          isInvalid={!!errors.lastName}
-                          required
-                          placeholder="Last Name *"
-                          maxLength={50}
+                    <Col xl={6} className="mb-3">
+                    <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                        <Form.Label >Last Name*</Form.Label>
+                        <Form.Control 
+                        type="text"
+                        name="lastName"
+                        value={form?.lastName}
+                        defaultValue={form?.lastName}
+                        onChange={(e) => { setField('lastName', e.currentTarget.value) }}
+                        isInvalid={!!errors.lastName}
+                        required
+                        placeholder="Last Name *"
+                        maxLength={50}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.lastName}</Form.Control.Feedback>
-                      </FloatingLabel>
+                         <Form.Control.Feedback type="invalid">{errors.lastName}</Form.Control.Feedback>
+                      </Form.Group>                     
                     </Col>
-                    <Col xl={6} className="mb-2">
-                      <FloatingLabel
-                        controlId="floatingInput"
-                        label="User Name*"
-                        className="input-style"
-                      >
-
-                        <Form.Control
-                          type="text"
-                          name="userName"
-                          value={form?.userName}
-                          defaultValue={form?.userName}
-                          onChange={(e) => { setField('userName', e.currentTarget.value) }}
-                          isInvalid={!!errors.userName}
-                          required
-                          placeholder="Username *"
-                          maxLength={50}
+                    <Col xl={6} className="mb-3">
+                    <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                        <Form.Label >User Name*</Form.Label>
+                        <Form.Control 
+                        type="text"
+                        name="userName"
+                        value={form?.userName}
+                        defaultValue={form?.userName}
+                        onChange={(e) => { setField('userName', e.currentTarget.value) }}
+                        isInvalid={!!errors.userName}
+                        required
+                        placeholder="Username *"
+                        maxLength={50}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.userName}</Form.Control.Feedback>
-                      </FloatingLabel>
+                         <Form.Control.Feedback type="invalid">{errors.userName}</Form.Control.Feedback>
+                      </Form.Group>   
+                     
                     </Col>
-                    <Col xl={6} className="mb-2">
-                      <FloatingLabel
-                        controlId="floatingInput"
-                        label="Email*"
-                        className="input-style"
-                      >
-
-                        <Form.Control
-                          type="text"
-                          name="email"
-                          value={form?.email}
-                          defaultValue={form?.email}
-                          onChange={(e) => { setField('email', e.currentTarget.value) }}
-                          isInvalid={!!errors.email}
-                          required
-                          placeholder="Email *"
-                          maxLength={50}
+                    <Col xl={6} className="mb-3">
+                    <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                        <Form.Label >Email*</Form.Label>
+                        <Form.Control 
+                        type="text"
+                        name="email"
+                        value={form?.email}
+                        defaultValue={form?.email}
+                        onChange={(e) => { setField('email', e.currentTarget.value) }}
+                        isInvalid={!!errors.email}
+                        required
+                        placeholder="Email *"
+                        maxLength={50}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
-                      </FloatingLabel>
+                         <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                      </Form.Group>
+                     
                     </Col>
-                    <Col xl={6} className="mb-2">
-                      <FloatingLabel controlId="floatingInput" className="input-style">
+                    <Col xl={6} className="mb-3">
+                      <Form.Group >
+                      <Form.Label >Phone No*</Form.Label>
                         <InputGroup className="mb-2 input-style no-wrap mobile-noinput">
-
+                       
                           <Form.Control
                             required
                             as="select"
@@ -547,7 +537,7 @@ const Investors = () => {
 
                           </Form.Control>
 
-                          <label htmlFor="phoneNumberInput" className="floatingInput-number cust-zindex">Phone No*</label>
+                        
                           <Form.Control
                             type="text"
                             className="form-number input-radius"
@@ -568,11 +558,12 @@ const Investors = () => {
                           <Form.Control.Feedback type="invalid">{errors.phoneNo}</Form.Control.Feedback>
                           
                         </InputGroup>
-                      </FloatingLabel>
+                      </Form.Group>
                     </Col>
-                    <Col xl={6} className="mb-2">
-                      <FloatingLabel controlId="floatingInput" className="mb-3 input-style" >
-                        <InputGroup className="mb-3 input-style no-wrap mobile-noinput country-code-style">
+                    <Col xl={6} className="mb-3">
+                      <Form.Group controlId="floatingInput"  >
+                      <Form.Label >Country*</Form.Label>
+                        <InputGroup className="  input-style no-wrap mobile-noinput country-code-style">
 
                           <Form.Control
                             required
@@ -593,32 +584,29 @@ const Investors = () => {
                             ))}
                           </Form.Control>
                          
-                          <label htmlFor='country' className="floatingInput-number cust-zindex">Country*</label>
+                         
                           <Form.Control.Feedback type="invalid">{errors.country}</Form.Control.Feedback>
                         </InputGroup>
-                      </FloatingLabel>
+                      </Form.Group>
                     </Col>
 
-                    <Col xl={6} className="mb-2">
-                      <FloatingLabel
-                        controlId="floatingInput"
-                        label="Password*"
-                        className="input-style"
-                      >
-
-                        <Form.Control
-                          type="text"
-                          name="password"
-                          value={form?.password}
-                          defaultValue={form?.password}
-                          onChange={(e) => { setField('password', e.currentTarget.value) }}
-                          isInvalid={!!errors.password}
-                          required
-                          placeholder="Password *"
-                          maxLength={50}
+                    <Col xl={6} className="mb-3">
+                     
+                      <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                        <Form.Label >Password*</Form.Label>
+                        <Form.Control 
+                        type="text"
+                        name="password"
+                        value={form?.password}
+                        defaultValue={form?.password}
+                        onChange={(e) => { setField('password', e.currentTarget.value) }}
+                        isInvalid={!!errors.password}
+                        required
+                        placeholder="Password *"
+                        maxLength={50}
                         />
-                        <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
-                      </FloatingLabel>
+                         <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+                      </Form.Group>
                     </Col>
 
 

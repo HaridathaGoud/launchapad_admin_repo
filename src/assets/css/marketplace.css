@@ -63,7 +63,7 @@
 .text-small{font-size: 14px;font-weight: 400;}
 .text-medium{font-size: 14px;font-weight: 500;}
 .text-secondary{color: rgba(255, 255, 255, 0.54);}
-.value-card{display: flex;margin-right: 24px;align-items: center;word-break: break-all;margin-bottom: 8px;}
+.value-card{display: flex;align-items: center;word-break: break-all;}
 .icon.camera{background-position: -114px -652px;height: 26px !important;width: 28px !important;}
 .icon.email{background-position: -382px -12px;width: 18px !important;height: 18px !important;}
 .icon.country{background-position: -464px -11px;width: 18px !important;height: 18px !important;}
@@ -294,7 +294,7 @@ padding-right: 2.5rem !important;
 }
 .creator-bg{background-color: transparent;border: 1px solid rgba(255, 255, 255, 0.14);}
 /* nft cards end */
-.modal-title{font-size: 18px;}
+.modal-title{font-size: 20px;font-weight: 600;}
 .modal-body{padding: 36px 14px;}
 .detail-image-card {
   background: rgba(255, 255, 255, 0.06);

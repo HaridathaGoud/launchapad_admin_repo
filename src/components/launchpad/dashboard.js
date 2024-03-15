@@ -39,7 +39,7 @@ const DashboardPage = (props) => {
     {loader ? <div className="text-center"><Spinner ></Spinner></div> : 
     <>
      <CBreadcrumb>
-        <CBreadcrumbItem>
+        <CBreadcrumbItem className='text-opacity-50'>
           Launchpad
         </CBreadcrumbItem>
         <CBreadcrumbItem active>Dashboard</CBreadcrumbItem>
@@ -60,7 +60,7 @@ const DashboardPage = (props) => {
             <h3 className='page-title mb-4'>Dashboard</h3>
            {SuperAdminDetail.loader && <div className="text-center"><Spinner ></Spinner></div> }
            { !SuperAdminDetail.loader &&<Row className='card-row'>
-              <Col xl={2}><div className='status-card '
+              <Col xl={2} className='ps-0'><div className='status-card '
                ><div><span className='icon user-count'></span></div><h6 className='status-text mt-4'>Users</h6><h3 className='status-value'>{SuperAdminDetail?.data?.users}</h3></div></Col>
               <Col xl={2}><div className='status-card ' 
                ><div><span className='icon stakers-count'></span></div><h6 className='status-text mt-4'>Stakers</h6><h3 className='status-value'>{SuperAdminDetail?.data?.stakers}</h3></div></Col>

@@ -415,29 +415,29 @@ const ProjectCards = () => {
                         </div>
                         <div className='card-footer px-0 d-flex justify-content-between project-card'>
                           {val?.projectstatus?.toLowerCase() === 'rejected' && 
-                          <Button className='' onClick={() => getOnePersonDetailsBasedOnId(val)} >
+                          <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >
                               Rejected</Button>}
 
                           {val?.projectstatus?.toLowerCase() === 'deployed' &&
-                            <Button className='' onClick={() => getOnePersonDetailsBasedOnId(val)} >
+                            <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >
                               Deployed</Button>
                           }
                           
                           {val?.projectstatus?.toLowerCase() === 'deploying' && 
-                            <Button className='' onClick={() => getOnePersonDetailsBasedOnId(val.id)} >
+                            <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val.id)} >
                             Deploying</Button>
                           }
 
                           {val?.projectstatus?.toLowerCase() === 'approved' && 
-                            <Button className='' onClick={() => getProjectDetails(val.id)} >
+                            <Button className='button-secondary' onClick={() => getProjectDetails(val.id)} >
                               Deploy</Button>
                           }
 
                           {val?.projectstatus?.toLowerCase() === 'draft' && 
-                            <Button className='' onClick={() => getOnePersonDetailsBasedOnId(val)} >Draft</Button>
+                            <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >Draft</Button>
                           }
 
-                          {val?.projectstatus?.toLowerCase() === 'submitted' && <><Button className='' onClick={() => getOnePersonDetailsBasedOnId(val)} >View</Button> </>}
+                          {val?.projectstatus?.toLowerCase() === 'submitted' && <><Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >View</Button> </>}
                         </div>
                       </div>
                     </div>
@@ -582,10 +582,10 @@ const ProjectCards = () => {
 
             </Modal.Body>
             <Modal.Footer>
-              <div className='text-end'> <Button variant="primary" className='primary-btn px-4'
+              <div className='text-end'> <Button variant="primary" className='button-secondary px-4'
                 disabled={state.btnLoader}
                 onClick={handleDeployContract}>
-                <span>{state.btnLoader && <Spinner className='loaderStyle'></Spinner>}</span> <span>Deploy </span>
+                <span>{state.btnLoader && <Spinner className='loaderStyle text-light'></Spinner>}</span> <span>Deploy </span>
               </Button></div>
             </Modal.Footer>
           </Modal>
