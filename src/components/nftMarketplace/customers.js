@@ -94,6 +94,7 @@ const CustomersInfo = () => {
 }
   return (
     <div className=''>
+       <h5 className="mt-3 page-title mb-4">Personal info</h5>
       <div className='profile-container'>
       <CBreadcrumb>
           <CBreadcrumbItem className="c-pointer">
@@ -101,7 +102,7 @@ const CustomersInfo = () => {
           </CBreadcrumbItem>
           <CBreadcrumbItem>Personal info</CBreadcrumbItem>
         </CBreadcrumb>
-        <h5 className="mt-3">Personal info</h5>
+       
         {errorMessage && (
           <Alert variant="danger">
             <div className='d-flex align-items-center'>
@@ -113,7 +114,7 @@ const CustomersInfo = () => {
         )}
          <div className="text-center">{loader && <Spinner></Spinner>}</div>
          {!loader &&
-          <div className='profile-section'>
+          <div className='profile-section bg-none'>
             
             <div className="custom-flex align-items-start mb-4">
               <div className='profile-size no-hover' onClick={handleUpload} >
@@ -127,10 +128,30 @@ const CustomersInfo = () => {
                         {userDetails.firstName ? userDetails.firstName : "unnamed"}</h5>
                        
                         </div>
-                <div className="custom-flex align-items-center flex-wrap">
-                  <div className="value-card"><span className="icon country"></span><label className="text-medium text-secondary ms-1">{userDetails.country ? userDetails.country : "--"}</label></div>
-                  <div className="value-card"><span className="icon contact"></span><label className="text-medium text-secondary ms-1">{userDetails.countryCode ? userDetails.countryCode : "--"}{' '}{userDetails.phoneNo ? userDetails.phoneNo : "--"}</label></div>
-                  <div className="value-card"><span className="icon email"></span><label className="text-medium text-secondary ms-1">{userDetails.email ? userDetails.email : "--"}</label></div>
+                <div className="custom-flex align-items-center flex-wrap row gap-4">
+                  <div className="value-card col-md-3 "><span className="icon country"></span><label className="text-medium text-secondary ms-1">{userDetails.country ? userDetails.country : "--"}</label></div>
+                  <div className="value-card col-md-3 "><span className="icon contact"></span><label className="text-medium text-secondary ms-1">{userDetails.countryCode ? userDetails.countryCode : "--"}{' '}{userDetails.phoneNo ? userDetails.phoneNo : "--"}</label></div>
+                  <div className="value-card col-md-3 "><span className="icon email"></span><label className="text-medium text-secondary ms-1">{userDetails.email ? userDetails.email : "--"}</label></div>
+                  
+                  <div className="value-card col-md-3 "><span className="icon discord"></span><label className="text-medium text-secondary ms-1">{userDetails.discordId?userDetails.discordId:"-"}</label></div>
+                  <div className="d-flex align-items-center value-card col-md-3 ">                  
+                    <span className="icon small-referral"></span>                  
+                    <span className="text-medium text-secondary ms-1">{userDetails?.referralCode || "--"}
+                  
+                    </span>
+                  </div>
+                  <div className="d-flex align-items-center value-card col-md-3 ">                  
+                  <span className="icon small-referral"></span>                   
+                    <span className="text-medium text-secondary ms-1">{userDetails?.customerReferralCode || "--"}
+                   {userDetails?.customerReferralCode && ( <CopyToClipboard 
+                      text={userDetails.customerReferralCode } 
+                      options={{ format: 'text/plain' }}
+						        	onCopy={() => handleCopy(userDetails.customerReferralCode)}
+              >
+							<span className={(copied && selection === userDetails.customerReferralCode) ? "icon copied-check ms-2" : "icon copy c-pointer"}></span>
+						</CopyToClipboard> )}
+                    </span>
+                  </div>
                   <div className="value-card"><span className="icon wallet"></span>
                   <label className="text-medium text-secondary ms-1 text-ellipsis">{userDetails.walletAddress ? userDetails.walletAddress : "--"}
                
@@ -143,26 +164,8 @@ const CustomersInfo = () => {
 							<span className={(copied && selection === userDetails.walletAddress) ? "icon copied-check ms-2" : "icon copy c-pointer"}></span>
 						</CopyToClipboard></label>
                   </div>
-                  <div className="value-card"><span className="icon discord"></span><label className="text-medium text-secondary ms-1">{userDetails.discordId?userDetails.discordId:"-"}</label></div>
-                  <div className="d-flex align-items-center value-card">                  
-                    <span className="icon small-referral"></span>                  
-                    <span className="text-medium text-secondary ms-1">{userDetails?.referralCode || "--"}
-                  
-                    </span>
-                  </div>
-                  <div className="d-flex align-items-center value-card">                  
-                  <span className="icon small-referral"></span>                   
-                    <span className="text-medium text-secondary ms-1">{userDetails?.customerReferralCode || "--"}
-                   {userDetails?.customerReferralCode && ( <CopyToClipboard 
-                      text={userDetails.customerReferralCode } 
-                      options={{ format: 'text/plain' }}
-						        	onCopy={() => handleCopy(userDetails.customerReferralCode)}
-              >
-							<span className={(copied && selection === userDetails.customerReferralCode) ? "icon copied-check ms-2" : "icon copy c-pointer"}></span>
-						</CopyToClipboard> )}
-                    </span>
-                  </div>
-                  </div>                 
+                  </div>  
+                                 
                   <div className="align-items-center custom-flex justify-content-between mt-3">
                   <div className="d-flex align-items-center">{userDetails?.kycStatus&&<h6 className="mb-0">KYC Status </h6>}{"  "}
                   {userDetails?.kycStatus &&<span className={`${userDetails?.kycStatus == "Rejected"&& "complitedRed kyc-badge ms-2"||userDetails?.kycStatus !="Completed" && "kyc-badge ms-2" || userDetails?.kycStatus =="Completed" && "kyc-badge completedGreen ms-2"}`}>{userDetails?.kycStatus}</span>}
@@ -174,7 +177,7 @@ const CustomersInfo = () => {
 
               </div>
             </div>
-            <div className="content-green-bg">
+            <div className="content-green-bg px-0">
               <Tabs
                 activeKey={activeTab} onSelect={handleTabChange}
                 id="fill-tab-example"

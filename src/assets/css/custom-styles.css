@@ -56,7 +56,7 @@ h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
 .header-nav .nav-link{border-bottom: 2px solid transparent;}
 /* Header End */
 /* profileinfo start  */
-.profile-size{ height: 106px; position: relative;overflow: hidden;border-radius: 8px;width: 106px;border: 1px solid #ccc;}
+.profile-size{ height: 106px; position: relative;overflow: hidden;border-radius: 8px;width: 106px;}
 .image-box{ box-sizing: border-box;display: inline-block; overflow: hidden;width: initial; height: initial; background: none;opacity: 1;border: 0px; margin: 0px; padding: 0px; max-width: 100%;}
 .image-setup{position: absolute;  inset: 0px; box-sizing: border-box;  padding: 0px; border: none; margin: auto; display: block;  width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%;  max-height: 100%;object-fit: cover;}
 .profile-section{padding:30px;border-radius: 8px;background: #F0F1F2;}
@@ -485,7 +485,7 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 .upload-img:hover:hover .onhover-upload::after { content: ''; display: block; position: absolute; z-index: 1; width: 100%; height: 100%; background: #0d0729; opacity: 0.5; top: 0;left: 0; bottom: 0; right: 0; box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1); border-radius: 5px;cursor: pointer;}
 .upload-img:hover:hover .c-notallowed.onhover-upload::after{cursor: not-allowed !important;}
 .bring-front{z-index: 999;}
-.icon.small-referral{background-position: -784px -562px;}
+.icon.small-referral{background-position: -787px -563px;width: 24px !important;height: 24px !important;}
 .error-absolute{position: absolute;bottom: -24px;}
 .w-fit{width: 100%;}
 .join-badge{ padding: 5px 20px; font-weight: 600;font-size: 16px; border-radius: 4px; background: #D60000; border: 1px solid #D60000;}
