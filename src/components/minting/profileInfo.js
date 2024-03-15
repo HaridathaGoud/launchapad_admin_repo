@@ -85,7 +85,7 @@ const ProfileInfo = () => {
 
   return (
     <div className=''>
-      <div className='profile-aontainer'>
+      <div className='profile-container'>
         <CBreadcrumb>
           <CBreadcrumbItem>
             <CLink href="#" onClick={() => navigate('/home')}>Customers</CLink>

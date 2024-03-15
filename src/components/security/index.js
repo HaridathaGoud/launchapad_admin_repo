@@ -159,7 +159,7 @@ const Security = () => {
 
   return (
     <div className='container'>
-      <div className='profile-aontainer'>
+      <div className='profile-container'>
    
         <h5 className="mt-3">Security</h5>
         <div className='profile-section mb-5'>

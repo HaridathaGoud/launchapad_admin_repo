@@ -84,7 +84,7 @@ const MintCustomersInfo = () => {
 }
   return (
     <div className=''>
-      <div className='profile-aontainer'>
+      <div className='profile-container'>
       <CBreadcrumb>
           <CBreadcrumbItem>
             <CLink  onClick={() => navigate('/minting/customers')} className="c-pointer">Customers</CLink>

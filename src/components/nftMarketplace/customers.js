@@ -94,7 +94,7 @@ const CustomersInfo = () => {
 }
   return (
     <div className=''>
-      <div className='profile-aontainer'>
+      <div className='profile-container'>
       <CBreadcrumb>
           <CBreadcrumbItem className="c-pointer">
             <CLink  onClick={() => navigate('/marketplace/customers')}>Customers</CLink>
