@@ -102,7 +102,7 @@ const handleTabChange = (tab) => {
 };
   return (
     <div className=''>
-      <div className='profile-aontainer'>
+      <div className='profile-container'>
       <CBreadcrumb>
           <CBreadcrumbItem>
           {window.location.pathname.includes('launchpad') ?

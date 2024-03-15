@@ -613,13 +613,13 @@ html:not([dir=rtl]) .sidebar.hide:not(.sidebar-end){ margin-left: 0 !important  
 @media (min-width: 1200px) {
   .status-card{margin-bottom: 0px;}
   .image-outerbg{min-height: 460px !important;}
-  /* .profile-aontainer{width: 1180px;margin: 0 auto;} */
+  /* .profile-container{width: 1180px;margin: 0 auto;} */
   /* .custom-grid.marketplace-grid .k-grid-table, .custom-grid.marketplace-grid .k-grid-header-table{width: 1344px;} */
 }
 @media (min-width: 1400px) {
   /* .custom-grid.mint-grid .k-grid-table, .custom-grid.mint-grid .k-grid-header-table{width:1224px !important;} */
   .dashboard-text{padding: 60px 0px;}
-  /* .profile-aontainer{width: 1358px;margin: 0 auto;} */
+  /* .profile-container{width: 1358px;margin: 0 auto;} */
   /* .customer-info.customer-table table{width:1200px;max-height: 500px;} */
   .customer-info.customer-table table{width: 100%;}
   .project-detail-view .detail-card.detal-viewcards {

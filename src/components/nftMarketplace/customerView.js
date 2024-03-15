@@ -197,7 +197,7 @@ const ProfileView = () => {
     }
    
     return (
-        <div className="profile-aontainer">
+        <div className="profile-container">
             {errorMsg && (
         <Alert variant="danger">
           <div className='d-flex align-items-center'>

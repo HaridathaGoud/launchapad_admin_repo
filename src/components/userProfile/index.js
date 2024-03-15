@@ -220,7 +220,7 @@ const UserProfile = (props) => {
 
   return (
     <div className='container'>
-      <div className='profile-aontainer'>
+      <div className='profile-container'>
         {errorMessage && (
           <Alert variant="danger">
             <div className='d-flex align-items-center'>
