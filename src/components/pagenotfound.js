@@ -24,7 +24,7 @@ const Pageerror = () => {
      <p className='mt-5 text-white'>We can't find the page that you're  <br/>looking for</p>
      </div>
      <div className='text-center'>
-     <Button className='custom-btn' onClick={()=>goToDashBoard()}>Back</Button>
+     <Button className='button-secondary' onClick={()=>goToDashBoard()}>Back</Button>
      </div>
     </div>
     </div>
