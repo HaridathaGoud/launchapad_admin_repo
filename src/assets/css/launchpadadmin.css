@@ -3,8 +3,8 @@
   display: inline-block !important;
   vertical-align: middle !important;
   width: 30px !important;
-  height: 30px !important;}/* left ment start  */
-.superadmin-leftmenu.menu-left,.superadmin-leftmenu .sidebar{width: 77px;background-color: #fff;border-radius: 10px;filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.15));}
+  height: 30px !important;flex-shrink: 0;}/* left ment start  */
+.sidebar-menu{width: 77px;background-color: #fff !important;filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.15));border-radius: 8px;}
 .superadmin-leftmenu.sidebar:not(.sidebar-end) ~ * { --cui-sidebar-occupy-start: 6.3125rem;}
 .icon.menu{background-position: -16px -176px;width: 28px !important;height: 28px !important;}
 .icon.toggole-icon{background-position: -288px -1px;}
@@ -244,7 +244,7 @@ line-height: 15px;
 /*Project card End*/
   /* investor start  */
 .investor-avathar{height: 50px;position: relative;overflow: hidden;border-radius: 12px;width: 50px;border-radius: 50%;cursor: pointer;}
-.button-style{ padding: 5px 20px;font-weight: 600;font-size: 16px;border-radius: 18px; background: #d60000 ;border: 1px solid #d60000;color: #fff;}
+.button-style{ padding: 8px 20px;font-weight: 600;font-size: 16px;border-radius: 28px; background: #d60000 ;border: 1px solid #d60000;color: #fff;}
 .button-style:hover,.button-style:active{background: #d60000 !important;border: 1px solid #d60000 !important;}
 .c-pointer{cursor: pointer;}
 .name-overflow{width: 100px;}
@@ -299,7 +299,7 @@ line-height: 15px;
 .preview-modal .modal-content{background-color: #2E3944;}
 .preview-modal .modal-header{background-color: #192229;border-bottom: 0;}
 .preview-modal .modal-header{border-bottom: 0;}
-.about-label{font-size: 16px;color: #fff;}
+.about-label{font-size: 16px;color: #000;}
 .icon.info{background-position: -484px -685px;cursor: pointer;}
 .image-crop{ height: 183.21px; position: relative;}
 .profile-image { border-radius: 50%; height: 88px; position: relative; width: 88px;}
@@ -308,7 +308,7 @@ line-height: 15px;
 .icon.expand{background-position: -519px -685px;cursor: pointer;}
 /* investors end   .*/
 .launchpad-labels .form-label{color: #000 !important;margin-bottom: 0;font-size: 14px;  font-weight: 400;}
-.launchpad-labels .form-control, .launchpad-labels .form-select{height: 54px !important;}
+.launchpad-labels .form-control, .launchpad-labels .form-select{height: 36px !important;}
 .launchpad-labels .col-lg-6{margin-bottom: 16px;}
 .form-floating > .form-control:focus ~ label::after, .form-floating > .form-control:not(:placeholder-shown) ~ label::after, .form-floating > .form-control-plaintext ~ label::after, .form-floating > .form-select ~ label::after{inset: auto;}
 body.mceContentBody { 
@@ -340,10 +340,10 @@ body.mceContentBody {
 .cust-toaster .toster-component{position: absolute;  bottom: 18px;z-index: 9;}
 .header-toggler-icon{display: none;}
 .matic-dropdown button,.matic-dropdown .dropdown-menu{width: 100%;color: #000 !important;text-align: left;}
-.matic-dropdown .dropdown-toggle::after{position: absolute;right: 16px;top: 26px;}
-.matic-icon{background-position: -369px -3px;}
+.matic-dropdown .dropdown-toggle::after{position: absolute;right: 16px;top: 16px;}
+.matic-icon{background-position: -370px -7px;  width: 22px !important;  height: 22px !important;}
 .eth-icon{background-position: -397px -3px;}
-.matic-dropdown button{height: 54px;}
+.matic-dropdown button{height: 36px;border-radius: 28px;}
 .matic-dropdown button.btn:disabled{background: transparent;}
 .black-bg td{background-color: #192229 !important;color: #fff;border-bottom-color:#ffffff1b ;}
 .launchpad-labels .form-control.is-invalid { padding-right: 12px !important;}

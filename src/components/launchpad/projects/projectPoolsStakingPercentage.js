@@ -355,7 +355,7 @@ const ProjectsPoolsStaking = (props) => {
            
            {' '}</div>
           <div>
-            <Button className='primary-btn' type='submit'
+            <Button className='button-secondary' type='submit'
             disabled={state.stakingloader}
             >
               <span>{state.stakingloader && <Spinner size="sm" />} </span>

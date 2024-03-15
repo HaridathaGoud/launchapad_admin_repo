@@ -145,7 +145,7 @@ function AppHeader(props){
         <DropdownButton className='section-custom'
           align="end"
           title={<div className='d-flex align-items-center'>
-            <div className='border-none profile-size no-hover header-profile-size profile-rspace' >
+            <div className='profile-size no-hover header-profile-size profile-rspace' >
               <span className='image-box'>
                 <img className='image-setup' src={adminProfileImg ||props?.oidc?.custUser?.profilePicUrl || props?.oidc?.profilePicUrl || adminDetails?.profilePicUrl || defaultAvathar} alt="profile img" />
               </span>

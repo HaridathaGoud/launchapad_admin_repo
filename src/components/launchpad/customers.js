@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import List from "../grid.component";
 import { Link } from "react-router-dom";
-import { CBreadcrumb, CBreadcrumbItem,  } from '@coreui/react'
+import { CBreadcrumb, CBreadcrumbItem, } from '@coreui/react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import moment from 'moment';
@@ -13,14 +13,14 @@ class LaunchpadCustomers extends Component {
             gridUrl: process.env.REACT_APP_API_END_POINT_KYCINFO + "/api/v1" + "/Projects/AllCustomersData",
             searchObj: {
                 searchBy: null,
-                  isKYC:false
+                isKYC: false
             },
             value: '',
         };
         this.gridRef = React.createRef();
     }
 
-   
+
 
     gridColumns = [
         {
@@ -48,7 +48,7 @@ class LaunchpadCustomers extends Component {
                         <span className="gridLink batch-filename d-flex justify-content-between">
                             <Link to={`/launchpad/customers/profileInfo/ProfileInfo/${props?.dataItem?.walletAddress}`}>{props?.dataItem?.walletAddress}</Link>
                         </span>
-                    
+
                     </div>
                 </td>
             ),
@@ -77,7 +77,7 @@ class LaunchpadCustomers extends Component {
             title: "Phone Number",
             filter: true,
             width: 210,
-        }, 
+        },
         {
             field: "country",
             title: "Country",
@@ -91,47 +91,47 @@ class LaunchpadCustomers extends Component {
             width: 200,
         },
     ];
-  
+
     handleChange = (e) => {
-        if(e.target.value == ""){
+        if (e.target.value == "") {
             let { searchObj } = this.state;
             searchObj.searchBy = null;
-            this.gridRef?.current?.refreshGrid();                    
-        }else{
-        let value = e.target.value          
-        let { searchObj } = this.state;
-        if (value == "") {
-            searchObj.searchBy = null;
+            this.gridRef?.current?.refreshGrid();
         } else {
-            let data=value.trim();
-            searchObj.searchBy = data;
+            let value = e.target.value
+            let { searchObj } = this.state;
+            if (value == "") {
+                searchObj.searchBy = null;
+            } else {
+                let data = value.trim();
+                searchObj.searchBy = data;
+            }
+            this.setState({ ...this.state, searchObj });
+            e.preventDefault();
         }
-        this.setState({ ...this.state, searchObj });
-        e.preventDefault();
-    }
     };
- 
+
     handleSearch = () => {
         let { searchObj } = this.state;
         this.setState({ ...this.state, searchObj }, () => {
-          this.gridRef.current.refreshGrid();
+            this.gridRef.current.refreshGrid();
         });
-      };
-      handleEnterSearch = async (e) => {    
-        let data=e.target.value.trim();
-            if (e.key == 'Enter') {
-                if(data == ""){            
+    };
+    handleEnterSearch = async (e) => {
+        let data = e.target.value.trim();
+        if (e.key == 'Enter') {
+            if (data == "") {
                 e.preventDefault();
-                }else{
-                    this.gridRef?.current?.refreshGrid();
-                    e.preventDefault();
-               }    
+            } else {
+                this.gridRef?.current?.refreshGrid();
+                e.preventDefault();
             }
+        }
     }
 
-      handleKYCCustomer=(e)=>{
+    handleKYCCustomer = (e) => {
         let { searchObj } = this.state;
-        searchObj.isKYC= e.target.checked;
+        searchObj.isKYC = e.target.checked;
         this.setState({ ...this.state, searchObj }, () => {
             this.gridRef.current.refreshGrid();
         });
@@ -150,9 +150,9 @@ class LaunchpadCustomers extends Component {
                     </CBreadcrumbItem>
                     <CBreadcrumbItem>Customers</CBreadcrumbItem>
                 </CBreadcrumb>
-                
-                	<div className='custom-flex pb-4 pt-2 justify-content-between'>
-							<Form className="d-lg-flex grid-search mobile-block sm-text-right" >
+
+                <div className='custom-flex pb-4 pt-2 justify-content-between'>
+                    {/* <Form className="d-lg-flex grid-search mobile-block sm-text-right" >
 								<Form.Control 
 								    style={{width:"450px"}}
 								    name='searchBy'
@@ -166,20 +166,35 @@ class LaunchpadCustomers extends Component {
 									placeholder="Search by Name, Email and Wallet Address" />
 								<Button className="filled-btn ms-lg-3 " type="button" onClick={this.handleSearch} >
 									Search</Button>
-							</Form>	
-							<Form className="d-flex grid-search mobile-block" >
-							
-						
-									  <label className='check-input-style  c-pointer d-flex align-items-center'>
-                      <input className=""
-                        name='isCheck'
-                        type="checkbox"
-						onClick={(e)=>this.handleKYCCustomer(e)}
-                      />
-                      <span></span>
-                    </label>{" "}<p className="ms-1 me-2 mb-0">Include Pending KYC Customers</p>
-							</Form>					
-                        </div>
+							</Form>	 */}
+                    <Form className="d-flex grid-search">
+                        <Form.Control
+                            style={{width:"450px"}}
+                            name='searchBy'
+                            type="text"
+                            autoComplete="off"
+                            className="search-style my-3 my-lg-0"
+                            aria-label="Search"
+                            onChange={(e) => this.handleChange(e)}
+                            onKeyDown={(e) => this.handleEnterSearch(e)}
+                            maxLength={250}
+                            placeholder="Search by Name, Email and Wallet Address"
+                        />
+                        <i className="icon search-icon" onClick={this.handleSearch}></i>
+                    </Form>
+                    <Form className="d-flex grid-search mobile-block" >
+
+
+                        <label className='check-input-style  c-pointer d-flex align-items-center'>
+                            <input className=""
+                                name='isCheck'
+                                type="checkbox"
+                                onClick={(e) => this.handleKYCCustomer(e)}
+                            />
+                            <span></span>
+                        </label>{" "}<p className="ms-1 me-2 mb-0">Include Pending KYC Customers</p>
+                    </Form>
+                </div>
                 <div className=''>
                     <div className=''>
                         <div className=''>

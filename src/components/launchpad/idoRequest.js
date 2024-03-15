@@ -401,7 +401,7 @@ const IDORequest = () => {
                     <div style={{ width: 150 }}><label htmlFor='status' className='project-text text-lightpurpl'>Status</label>
                       <p className='mb-0'>{item?.status ? item.status : "-"}</p>
                     </div>
-                    <div style={{ width: 150 }} className='d-flex align-items-center justify-content-end'><Button onClick={() => getOnePersonDetailsBasedOnId(item)} className="button-style d-flex align-items-center justify-content-left c-pointer"><span className='icon view c-pointer'></span><div className='ps-2'><p className='mb-0 about-label text-overflow c-pointer'>View</p></div></Button></div>
+                    <div style={{ width: 150 }} className='d-flex align-items-center justify-content-end'><Button onClick={() => getOnePersonDetailsBasedOnId(item)} className="button-secondary d-flex align-items-center justify-content-left c-pointer"><span className='icon view c-pointer'></span><div className='ps-2'><p className='mb-0 text-light text-overflow c-pointer'>View</p></div></Button></div>
                   </div>
                 ))}
 

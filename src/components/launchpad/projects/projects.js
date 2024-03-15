@@ -1001,7 +1001,7 @@ const Projects = (props) => {
 
                 <Col lg={6} md={12} className='mb-0'>
                   <Row >
-                    <Col lg={12} md={12} className='mb-2'>
+                    <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
                         controlId="floatingInput"
                         label="Token Contract Address*"
@@ -1024,7 +1024,7 @@ const Projects = (props) => {
 
 
                     </Col>
-                    <Col lg={12} md={12} className='mb-2'>
+                    <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
                         controlId="floatingInput"
                         label="Token Name*"
@@ -1046,7 +1046,7 @@ const Projects = (props) => {
                       <Form.Control.Feedback type="invalid">{errors?.tokenName || state?.errors?.tokenName}</Form.Control.Feedback>
 
                     </Col>
-                    <Col lg={12} md={12} className='mb-2'>
+                    <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
                         controlId="floatingInput"
                         label="Token Symbol*"
@@ -1068,7 +1068,7 @@ const Projects = (props) => {
                       <Form.Control.Feedback type="invalid">{errors?.tokenSymbol || state?.errors?.tokenSymbol}</Form.Control.Feedback>
 
                     </Col>
-                    <Col lg={12} md={12} className='mb-2'>
+                    <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
                         controlId="floatingInput"
                         label="Token Decimals*"
@@ -1094,7 +1094,7 @@ const Projects = (props) => {
                       <Form.Control.Feedback type="invalid">{errors?.tokenDecimal || state?.errors?.tokenDecimal}</Form.Control.Feedback>
 
                     </Col>
-                    <Col lg={12} md={12} className='mb-2'>
+                    <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
                         controlId="floatingInput"
                         label="Total No Of Tokens*"
