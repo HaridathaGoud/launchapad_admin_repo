@@ -72,7 +72,7 @@ import { Placeholder } from 'react-bootstrap';
               <thead>
                 <tr>
                 <th>wallet address</th>
-                <th style={{width:'150px'}}>Vote Option</th></tr>
+                <th style={{width:'350px'}}>Vote Option</th></tr>
               </thead>
               <tbody>
                {proposarDetailas?.map((item)=>{

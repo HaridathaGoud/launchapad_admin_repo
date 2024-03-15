@@ -458,18 +458,18 @@ const IDORequest = () => {
 
                       </Col>
                     </Row>
-                    <div className='d-flex justify-content-end mt-3'><span></span><div>
+                    <div className='d-flex justify-content-end mt-5'><span></span><div>
                       <Button className='cancel-btn' onClick={handleClose}
                       >Cancel</Button>
 
                       {state.SelectData?.status != "Rejected" &&
-                        <Button className='button-style ms-3' onClick={() => idoStateChange()}
+                        <Button className='button-secondary ms-3' onClick={() => idoStateChange()}
                           disabled={state.btnLoader ||
                             (form?.status == null && state.SelectData?.status == "Submitted") ||
                             (form?.status == "Submitted" && state.SelectData?.status == "Submitted")
                           }
                         >
-                          <span>{state.btnLoader && <Spinner size="sm" />}</span>
+                          <span>{state.btnLoader && <Spinner size="sm" className='text-light' />}</span>
                           <span>Ok</span></Button>
                       }
                     </div></div>

@@ -526,6 +526,7 @@ input[type='datetime-local'],input[type='date']{color-scheme: dark;padding: 0 14
 .visibility-visible{visibility: visible !important;}
 .optionListContainer{z-index: 9 !important;}
 .mt-6{margin-top: 74px;}
+.search-style{text-overflow: ellipsis;}
 @media (min-width: 768px) {
   table{width: 100% !important;}
 .token-listing .was-validated .form-control:invalid{padding-right: 16px !important;}
@@ -1044,7 +1045,7 @@ h1.heading{font-size: 24px;font-weight: 600;color:var(--textWhite);margin-bottom
   /* width: 100%; */
   color: #000;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 600;
   font-family: 'Roboto', sans-serif !important;
   font-style: normal;text-transform: capitalize;
 }

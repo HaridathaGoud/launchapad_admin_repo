@@ -253,10 +253,11 @@ const UserProfile = (props) => {
                 </div>
               </Col>
 
-              <Col xl={9} sm={12} className="px-lg-4">
-                <div className=" text-end px-lg-3 my-2 mt-3 mt-xl-0 mb-2">
+              <Col xl={9} sm={12} className="">
+                <div className=" text-end my-2 mt-3 mt-xl-0 mb-2">
                   <Button className="c-pointer button-secondary" onClick={handleEdit} >
-                    <span className="icon edit me-1"></span>Edit Profile
+                    {/* <span className="icon edit me-1"></span> */}
+                    Edit Profile
                   </Button>
                 </div>
                 <Row className="px-lg-4 px-2">

@@ -169,7 +169,7 @@ class LaunchpadCustomers extends Component {
 							</Form>	 */}
                     <Form className="d-flex grid-search">
                         <Form.Control
-                            style={{width:"450px"}}
+                            // style={{width:"450px"}}
                             name='searchBy'
                             type="text"
                             autoComplete="off"
