@@ -102,6 +102,7 @@ const handleTabChange = (tab) => {
 };
   return (
     <div className=''>
+       <h5 className="mt-3 page-title mb-4">Personal info</h5>
       <div className='profile-container'>
       <CBreadcrumb>
           <CBreadcrumbItem>
@@ -110,7 +111,7 @@ const handleTabChange = (tab) => {
           </CBreadcrumbItem>
           <CBreadcrumbItem>Personal info</CBreadcrumbItem>
         </CBreadcrumb>
-        <h5 className="mt-3">Personal info</h5>
+       
         {errorMessage && (
           <Alert variant="danger">
             <div className='d-flex align-items-center'>

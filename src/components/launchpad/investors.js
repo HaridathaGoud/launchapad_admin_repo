@@ -342,6 +342,7 @@ const Investors = () => {
     <>
 
       {state.loader && <div className="text-center"><Spinner ></Spinner></div>}
+      <h3 className='page-title mb-4'>Investors</h3>
       {!state.loader && <>
         <CBreadcrumb>
           <CBreadcrumbItem>

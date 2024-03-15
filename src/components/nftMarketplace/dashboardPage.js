@@ -46,6 +46,7 @@ function MarketplaceDashboard() {
         }
     }
     return <>
+     <h3 className="page-title"> Dashboard</h3>
      <CBreadcrumb>
         <CBreadcrumbItem>
           Marketplace
@@ -60,8 +61,8 @@ function MarketplaceDashboard() {
                 </div>
             </Alert>
         )}
-        <div className="dashboard-page">
-            <h3 className="page-title"> Dashboard</h3>
+        <div className="dashboard-page mt-5">
+           
             <div className="text-center">{loader && <Spinner fallback={loader}></Spinner>}</div>
             {!loader && adminCustomerDetails && <div className="row">
                 <div className="col-md-6 col-lg-2">

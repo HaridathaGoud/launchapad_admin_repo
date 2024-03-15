@@ -158,7 +158,7 @@ td {
 .profile-edit-btn:hover .icon.edit{background-position: -134px -80px;}
 .icon.back-arrow {  height: 20px !important;background-position: -250px -106px; width: 25px !important;}
 .search-style{width: 309px;border-radius: 6px;background: #1C1D1D;height: 47px;color: #fff;border: 1px solid #2F2D2D !important;}
-.search-style:focus,.search-style:hover,.search-style:focus-visible{background: #29333D;height: 47px;color: #fff;border: 1px solid #9fa2b4 !important;box-shadow: none;}
+.search-style:focus,.search-style:hover,.search-style:focus-visible{background: #29333D;height: 36px;color: #fff;border: 1px solid #9fa2b4 !important;box-shadow: none;}
 .devider-line {
   border: 0.5px solid rgba(255, 255, 255, 0.24);
   width: fit-content;
@@ -501,7 +501,7 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 .token-listing .form-control::placeholder{color: #9AA0A6;}
 .token-listing .form-control{font-size: 18px;font-weight: 500;height: 47px;}
 .zindex1{z-index: 1 !important;}
-.launchpadadmin-modal .form-floating > .form-control,.form-control{min-height: 36px;border-radius: 28px;}
+.launchpadadmin-modal .form-floating > .form-control,.form-control{height: 36px;border-radius: 28px;}
 .change-passwordmodal .input-style input::-ms-reveal { display: none; }
 .change-passwordmodal .col-xl-12{margin-bottom: 16px;}
 /* admin start new styles  */
@@ -526,7 +526,7 @@ input[type='datetime-local'],input[type='date']{color-scheme: dark;padding: 0 14
 .visibility-visible{visibility: visible !important;}
 .optionListContainer{z-index: 9 !important;}
 .mt-6{margin-top: 74px;}
-.search-style{text-overflow: ellipsis;}
+.search-style,.search-style.input:focus{text-overflow: ellipsis;}
 @media (min-width: 768px) {
   table{width: 100% !important;}
 .token-listing .was-validated .form-control:invalid{padding-right: 16px !important;}

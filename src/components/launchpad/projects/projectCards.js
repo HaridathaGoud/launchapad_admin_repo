@@ -346,7 +346,10 @@ const ProjectCards = () => {
     <div>
         {state.loader && <div className="text-center"><Spinner ></Spinner></div>}
         {!state.loader && <div className='Container'>
+        <div className=''>
+            <h2 className='page-title'>{window.location.pathname.includes('/investors') ? "Projects" : "My Projects"}</h2>
 
+          </div>
           {isAdmin && <CBreadcrumb>
             <CBreadcrumbItem>
               <CLink href="#" onClick={() => navigate(`/launchpad/investors`)} className='c-pointer'>Investors</CLink>
@@ -368,11 +371,8 @@ const ProjectCards = () => {
               </div>
             </Alert>
           )}
-          <div className=''>
-            <h2 className='page-title'>{window.location.pathname.includes('/investors') ? "Projects" : "My Projects"}</h2>
-
-          </div>
-          <div className='d-md-flex justify-content-between'>
+          
+          <div className='d-md-flex mt-4 justify-content-between'>
             <Form className="d-flex grid-search">
               <Form.Control
                 placeholder="Search"

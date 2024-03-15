@@ -67,7 +67,7 @@
 .search-style{background: #29333D; border-radius: 30px;color: #ffffff !important;padding: 8px 17px !important;border:  1px solid rgba(255, 255, 255, 0.14) !important;
   background-origin: border-box !important; padding-right: 42px !important; font-size: 18px !important;position: relative;}
 .icon.search-icon{ background-position: -43px -425px;width: 22px !important; height: 22px !important;}
-.grid-search .search-icon{position: absolute;right: 16px;top: 13px;cursor: pointer;}
+.grid-search .search-icon{position: absolute;right: 16px;top: 8px;cursor: pointer;}
 .grid-search{position: relative;}
 .custom-flex-launchpad{display: flex;justify-content: space-between;align-items: center;margin-bottom: 18px;}
 .text-purple{color: #fff !important;}

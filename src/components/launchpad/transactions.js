@@ -148,6 +148,7 @@ class Transactions extends Component {
     
     return (
       <>
+      <h3 className='page-title mb-4'>Transactions</h3>
         <CBreadcrumb>
           <CBreadcrumbItem>
            

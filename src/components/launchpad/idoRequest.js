@@ -313,6 +313,8 @@ const IDORequest = () => {
   return (
     <>
       {state.loader && <div className="text-center"><Spinner ></Spinner></div>}
+      <h3 className='page-title mb-4'>IDO Request</h3>
+
       {!state.loader && <>
         <CBreadcrumb>
           <CBreadcrumbItem>
