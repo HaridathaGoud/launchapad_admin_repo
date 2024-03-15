@@ -524,12 +524,12 @@ const timeDate=(timeString)=>{
             </Row>
             <div className='footer-btns mt-xl-5 mb-5 d-flex justify-content-end'>
               <div className='d-flex align-items-center'>
-                <Button className='cancel-btn me-4' onClick={props?.goBackToPoolsStaking}>
-                  <span className='icon back-arrow me-1' ></span> Back</Button>
+                <Button className='cancel-btn me-3' onClick={props?.goBackToPoolsStaking}>
+                   Back</Button>
                
                 {' '}</div>
               <div>
-                <Button className='primary-btn' type='submit'
+                <Button className='button-secondary' type='submit'
                
                 >
                   {

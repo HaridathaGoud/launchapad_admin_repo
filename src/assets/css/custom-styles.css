@@ -510,7 +510,7 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
   top: -18px !important;background-color: #fff !important;padding: 0;left: 9px !important;height: auto;
 }
 .role-select .searchWrapper input{border: transparent !important;}
-.role-select .searchWrapper{padding: 3px 5px;}
+.role-select .searchWrapper{padding: 3px 12px;}
 .castcrew-loader{position: absolute;right: 45%;top: 45%;}
 .k-svg-icon > svg{fill: #fff;}
 .cancel-btn{border: 1px solid #000;color: #000;border-radius: 28px;padding: 8px 20px;font-size: 18px;  font-weight: 600;}
@@ -522,6 +522,9 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 .chip{background-color: #000 !important;}
 input[type='datetime-local'],input[type='date']{color-scheme: dark;padding: 0 14px }
 .form-label{font-size: 14px;   font-weight: 400;margin-left: 15px !important;  margin-bottom: 8px !important;}
+.visibility-visible{visibility: visible !important;}
+.optionListContainer{z-index: 9 !important;}
+.mt-6{margin-top: 74px;}
 @media (min-width: 768px) {
   table{width: 100% !important;}
 .token-listing .was-validated .form-control:invalid{padding-right: 16px !important;}

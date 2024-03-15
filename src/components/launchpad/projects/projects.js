@@ -922,7 +922,7 @@ const Projects = (props) => {
                         'bold italic backcolor | alignleft aligncenter ' +
                         'alignright alignjustify | bullist numlist outdent indent | ' +
                         'removeformat | help',
-                      content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; color:#fff;  }'
+                      content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; color:#000;background:#fff;  }'
                     }}
                   />
                 </div>
@@ -1152,7 +1152,7 @@ const Projects = (props) => {
               </Row>
               
             </div>
-              <div className='d-flex justify-content-between align-items-center mb-2 mt-5'>
+              <div className='d-flex justify-content-between profile-section align-items-center mb-2 mt-5'>
                 <h3 className='section-title '>Cast And Crew</h3>
                 <Button className='button-style mt-3 mt-md-0' onClick={()=>handleEdit()} ><span className='icon add-icon'></span> Add </Button>
               </div>
@@ -1205,7 +1205,7 @@ const Projects = (props) => {
                 <Button className='button-secondary' type="submit" projectTokenData={props?.projectTokenData}
 
                 >
-                  <span>{state.buttonLoader && <Spinner size="sm" />} </span>
+                  <span>{state.buttonLoader && <Spinner size="sm" className='text-light' />} </span>
                   {(state.projectSaveDetails?.projectStatus == "Deployed"
                     || state.projectSaveDetails?.projectStatus == "Rejected"
                     || state.projectSaveDetails?.projectStatus == "Approved"
@@ -1234,12 +1234,12 @@ const Projects = (props) => {
                             <Row>
                             <Col xl={4} className="mb-4">
                         <Form.Group>
-                          <div className='profile-size identification-image  no-hover' >
+                          <div className='profile-size identification-image bg-none upload-img no-hover' >
                             <span className='image-box' >
                               {state.castImgLoader && <Spinner className='castcrew-loader' fallback={state.castImgLoader}></Spinner>}
                               {!state.castImgLoader &&
                                 <span className='imgupload-span'>
-                                  <Image className='image-setup' age src={state?.cast_CrewsFormDeatils?.image || 'data:image/jpeg;base64,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'} width="100" height="100" alt="" />
+                                  <Image className='image-setup' age src={state?.cast_CrewsFormDeatils?.image} width="100" height="100" alt="" />
                                 </span>
                                 }
                               { !state.castImgLoader &&
@@ -1252,42 +1252,39 @@ const Projects = (props) => {
                                     onChange={(e) => uploadToClient(e, 'image')}
                                     className="d-none"
                                   />
-                                  <Button onClick={()=>inputRef3.current?.click()} className="icon camera cam-position upload-transparent"></Button>
+                                  <span onClick={()=>inputRef3.current?.click()} className="icon camera cam-position upload-transparent visibility-visible"></span>
+                                  <p className="mt-6">Jpg, Jpeg, Png, Gif, Webp</p>
                                 </span>
+                                 
                               }
+                              
                             </span>
-
+                            
                           </div>
                         </Form.Group>
                             </Col>
                             <Col xl={8}>
                             <Row>
-                            <Col xl={6} className="mb-3">
-                                <FloatingLabel
-                                  controlId="floatingInput"
-                                  label="Name*"
-                                  className="mb-1 input-style mt-2"
-                                >
-                                  <Form.Control
-                                    defaultValue={state?.cast_CrewsFormDeatils?.name || ''}
-                                    type="text"
-                                    name="name"
-                                    autoComplete="off"
-                                    onChange={handlecastCrewData}
-                                    isInvalid={!!errors.name }
-                                    required
-                                    placeholder="First Name *"
-                                    maxLength={50}
-                                  />
-                                  <Form.Control.Feedback type="invalid">{errors?.name || state?.errors?.name}</Form.Control.Feedback>
-                                </FloatingLabel>
+                            <Col xl={12} className="mb-3">
+                              <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                                <Form.Label >Name*</Form.Label>
+                                <Form.Control
+                                  defaultValue={state?.cast_CrewsFormDeatils?.name || ''}
+                                  type="text"
+                                  name="name"
+                                  autoComplete="off"
+                                  onChange={handlecastCrewData}
+                                  isInvalid={!!errors.name}
+                                  required
+                                  placeholder="Name"
+                                  maxLength={50}
+                                />
+                                <Form.Control.Feedback type="invalid">{errors?.name || state?.errors?.name}</Form.Control.Feedback>
+                              </Form.Group>                              
                               </Col>
-                              <Col lg={6} md={12}>
-                              <FloatingLabel
-                                controlId="floatingInput"
-                                label="Role"
-                                className="mb-1 input-style role mt-2"
-                              >
+                              <Col lg={12} md={12} className="mb-3">
+                              <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                                <Form.Label >Role</Form.Label>
                                 <Multiselect
                                   className='multiselecter role-select'
                                   options={castCrewRolesLu}
@@ -1298,16 +1295,13 @@ const Projects = (props) => {
                                   isInvalid={!!errors.role}
                                 />
                                 <Form.Control.Feedback type="invalid" className={`${errors?.role ? 'error-role': ''}`}>{errors?.role || state?.errors?.role} </Form.Control.Feedback>
-                              </FloatingLabel>
+                              </Form.Group>
+                              
                               </Col>
                               <Col xl={12} className="mb-3">
-                                <FloatingLabel
-                                  controlId="floatingInput"
-                                  label="Bio"
-                                  className="mb-1 input-style mt-2"
-                                >
-
-                          <Form.Control
+                              <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                                <Form.Label >Bio</Form.Label>
+                                <Form.Control
                             value={state?.cast_CrewsFormDeatils?.bio || ''}
                             as="textarea"
                             name='bio'
@@ -1318,64 +1312,56 @@ const Projects = (props) => {
                             maxLength={50}
                           />
                                   <Form.Control.Feedback type="invalid">{errors?.bio || state?.errors?.bio}</Form.Control.Feedback>
-                                </FloatingLabel>
+                              </Form.Group>                                
                               </Col>
                               <Col xl={6} className="mb-3">
-                                <FloatingLabel
-                                  controlId="floatingInput"
-                                  label="Website URL"
-                                  className="mb-1 input-style mt-2"
-                                >
-                                  <Form.Control
+                              <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                                <Form.Label >Website URL</Form.Label>
+                                <Form.Control
                                   value={state?.cast_CrewsFormDeatils?.webisite||''}
                                     type="text"
                                     name="webisite"
                                     autoComplete="off"
                                     onChange={handlecastCrewData}
                                     isInvalid={!!errors.webisite}
-                                    placeholder="First Name *"
+                                    placeholder="Website URL"
                                     maxLength={50}
                                   />
                                   <Form.Control.Feedback type="invalid">{errors?.webisite || state?.errors?.webisite}</Form.Control.Feedback>
-                                </FloatingLabel>
+                              </Form.Group>                                
                               </Col>
                               <Col xl={6} className="mb-3">
-                                <FloatingLabel
-                                  controlId="floatingInput"
-                                  label="Insta URL"
-                                  className="mb-1 input-style mt-2"
-                                >
-                                  <Form.Control
+                              <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                                <Form.Label >Insta URL</Form.Label>
+                                <Form.Control
                                   value={state?.cast_CrewsFormDeatils?.instagram||''}
                                     type="text"
                                     name="instagram"
                                     autoComplete="off"
                                     onChange={handlecastCrewData}
                                     isInvalid={!!errors.instagram}
-                                    placeholder="First Name *"
+                                    placeholder="Insta URL"
                                     maxLength={50}
                                   />
                                   <Form.Control.Feedback type="invalid">{errors?.instagram || state?.errors?.instagram}</Form.Control.Feedback>
-                                </FloatingLabel>
+                              </Form.Group>           
+                               
                               </Col>
                               <Col xl={6} className="mb-3">
-                                <FloatingLabel
-                                  controlId="floatingInput"
-                                  label="FB URL"
-                                  className="mb-1 input-style mt-2"
-                                >
-                                  <Form.Control
+                              <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                                <Form.Label >FB URL</Form.Label>
+                                <Form.Control
                                   value={state?.cast_CrewsFormDeatils?.facebook||''}
                                     type="text"
                                     name="facebook"
                                     autoComplete="off"
                                     onChange={handlecastCrewData}
                                     isInvalid={!!errors.facebook}
-                                    placeholder="First Name *"
+                                    placeholder="FB URL"
                                     maxLength={50}
                                   />
                                   <Form.Control.Feedback type="invalid">{errors?.facebook || state?.errors?.facebook}</Form.Control.Feedback>
-                                </FloatingLabel>
+                              </Form.Group>                                  
                               </Col>
                              
                             </Row>

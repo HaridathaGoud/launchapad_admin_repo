@@ -307,10 +307,10 @@ const ProjectTokenDetails = (props) => {
            
 
 <Button className='cancel-btn me-2' onClick={props.onBack}>
-              <span className='icon back-arrow me-1'></span> Back</Button>
+             Back</Button>
               {' '}</div>
           <div>
-            <Button className='primary-btn' type='submit'
+            <Button className='button-secondary' type='submit'
             disabled={state.tokenloader}
             >
               <span>{state.tokenloader && <Spinner size="sm" />} </span>
