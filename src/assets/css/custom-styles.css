@@ -504,6 +504,7 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 .launchpadadmin-modal .form-floating > .form-control,.form-control{min-height: 36px;border-radius: 28px;}
 .change-passwordmodal .input-style input::-ms-reveal { display: none; }
 .change-passwordmodal .col-xl-12{margin-bottom: 16px;}
+.change-passwordmodal input.form-control:focus{box-shadow: none;}
 /* admin start new styles  */
 .h-78{height: 78px;}
 .role-select.multiselecter .searchWrapper, .role-select input{height: 46px !important;}
