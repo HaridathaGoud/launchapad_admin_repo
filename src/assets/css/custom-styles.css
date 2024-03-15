@@ -218,6 +218,7 @@ td {
 .profile-edit-btn button:hover,.profile-edit-btn button:active{color: #4F8CC3;background-color: transparent !important;}
 .profile-edit-btn .btn:first-child:active{background-color: transparent !important;}
 .profile-modal .identification-image{height: 200px;}
+.error-alignment{margin-left: 14px;}
 /* settings modal end  */
 .header-profile-size{border: 1px solid #fff;width: 35px;height: 35px;border-radius: 50%;}
 .mobile-noinput .form-number{flex: 1 !important;}
@@ -231,8 +232,8 @@ td {
 .dropdownIndicator{color: red;}
 .icon.add-icon{background-position: -304px -78px;width: 22px !important; height: 22px !important;cursor: pointer;}
 .icon.state-change{background-position: -335px -78px;width: 22px !important; height: 22px !important;cursor: pointer;}
-.icon.password-view{background-position: -228px -497.5px;width: 22px !important; height: 22px !important;cursor: pointer;position: absolute;right: 12px;top: 12px;}
-.icon.password-hide{background-position: -261px -498px;position: absolute;right: 12px;top: 12px;width: 22px !important; height: 22px !important;cursor: pointer;}
+.icon.password-view{background-position: -228px -497.5px;width: 22px !important; height: 22px !important;cursor: pointer;position: absolute;right: 12px;top: 38px;}
+.icon.password-hide{background-position: -261px -498px;position: absolute;right: 12px;top: 38px;width: 22px !important; height: 22px !important;cursor: pointer;}
 .breadcrumb-item a{text-decoration: none;color: #000;font-size: 16px;font-weight: 400;}
 .breadcrumb-item.active{letter-spacing: 0.4px;color: #4F8CC3;font-weight: 600;}
 .breadcrumb-item.active,.breadcrumb li:last-child{color: #D60000;font-weight: 600;}
@@ -502,7 +503,7 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 .zindex1{z-index: 1 !important;}
 .launchpadadmin-modal .form-floating > .form-control,.form-control{min-height: 36px;border-radius: 28px;}
 .change-passwordmodal .input-style input::-ms-reveal { display: none; }
-
+.change-passwordmodal .col-xl-12{margin-bottom: 16px;}
 /* admin start new styles  */
 .h-78{height: 78px;}
 .role-select.multiselecter .searchWrapper, .role-select input{height: 46px !important;}

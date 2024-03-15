@@ -222,12 +222,9 @@ const Settings = () => {
               )}
               <Row className="change-passwordmodal">
                 <Col xl={12}>
-                  <FloatingLabel
-                    controlId="floatingInput"
-                    label="Current Password*"
-                    className="mb-1 input-style mt-2  change-password"
-                  >
-                    <Form.Control name='currentPassword'
+                <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">
+                        <Form.Label >Current Password*</Form.Label>
+                        <Form.Control name='currentPassword'
                       type={currentPasswordType}
                       autoComplete="off"
                       maxLength={15}
@@ -236,17 +233,15 @@ const Settings = () => {
                       onChange={(e) => { setField('currentPassword', e.currentTarget.value) }}
                       isInvalid={!!errors.currentPassword}
                       required />
-                    <span className={`${currentPasswordType === "password" ? "icon password-view" : "icon password-hide"}`} onClick={() => showHidePassword('currentpassword')}></span>
-                    <Form.Control.Feedback type="invalid">{errors?.currentPassword}</Form.Control.Feedback>
-                  </FloatingLabel>
+                      <span className={`${currentPasswordType === "password" ? "icon password-view" : "icon password-hide"}`} onClick={() => showHidePassword('currentpassword')}></span>
+                      <Form.Control.Feedback type="invalid" className="error-alignment" >{errors?.currentPassword}</Form.Control.Feedback>
+                      </Form.Group>
+
                 </Col>
                 <Col xl={12}>
-                  <FloatingLabel
-                    controlId="floatingInput"
-                    label="New Password*"
-                    className="mb-1 input-style mt-2 change-password"
-                  >
-                    <Form.Control name='password' type={passwordType}
+                <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">
+                        <Form.Label >New Password*</Form.Label>
+                        <Form.Control name='password' type={passwordType}
                       autoComplete="off"
                       maxLength={15}
                       onChange={(e) => { setField('password', e.currentTarget.value) }}
@@ -256,17 +251,14 @@ const Settings = () => {
                       required
 
                     />
-                    <span className={`${passwordType === "password" ? "icon password-view" : "icon password-hide"}`} onClick={() => showHidePassword('password')}></span>
-                    <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
-                  </FloatingLabel>
+                      <span className={`${passwordType === "password" ? "icon password-view" : "icon password-hide"}`} onClick={() => showHidePassword('password')}></span>
+                      <Form.Control.Feedback type="invalid" className="error-alignment" >{errors.password}</Form.Control.Feedback>
+                      </Form.Group>
                 </Col>
                 <Col xl={12}>
-                  <FloatingLabel
-                    controlId="floatingInput"
-                    label="Confirm Password*"
-                    className="mb-1 input-style mt-2 change-password"
-                  >
-                    <Form.Control name='confirmPassword' type={confirmPasswordType}
+                <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">
+                        <Form.Label >Confirm Password*</Form.Label>
+                        <Form.Control name='confirmPassword' type={confirmPasswordType}
                       autoComplete="off"
                       maxLength={15}
                       placeholder="Re-type your new password"
@@ -274,9 +266,9 @@ const Settings = () => {
                       onChange={(e) => { setField('confirmPassword', e.currentTarget.value) }}
                       isInvalid={!!errors.confirmPassword}
                       required />
-                    <Form.Control.Feedback type="invalid">{errors.confirmPassword}</Form.Control.Feedback>
-                    <span className={`${confirmPasswordType === "password" ? "icon password-view" : "icon password-hide"}`} onClick={() => showHidePassword('confirmpassword')}></span>
-                  </FloatingLabel>
+                      <span className={`${confirmPasswordType === "password" ? "icon password-view" : "icon password-hide"}`} onClick={() => showHidePassword('confirmpassword')}></span>
+                      <Form.Control.Feedback type="invalid" className="error-alignment" >{errors.confirmPassword}</Form.Control.Feedback>
+                      </Form.Group>
                 </Col>
               </Row>
 
