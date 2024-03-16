@@ -507,7 +507,7 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 .change-passwordmodal input.form-control:focus{box-shadow: none;}
 /* admin start new styles  */
 .h-78{height: 78px;}
-.role-select.multiselecter .searchWrapper, .role-select input{height: 46px !important;}
+.role-select.multiselecter .searchWrapper, .role-select input{height: 36px !important;}
 .form-floating.role > label {
   top: -18px !important;background-color: #fff !important;padding: 0;left: 9px !important;height: auto;
 }
@@ -529,6 +529,9 @@ input[type='datetime-local'],input[type='date']{color-scheme: dark;padding: 0 14
 .mt-6{margin-top: 74px;}
 .search-style,.search-style.input:focus{text-overflow: ellipsis;}
 .camera.cam-position:active{background-color: transparent !important;padding: 0 !important;border: transparent !important;}
+.bg-user{background-color: #F6EBFE;}
+.bg-staker{background-color: #EAF2EF;}
+.bg-investor{background-color: #EDF9FF;}
 @media (min-width: 768px) {
   table{width: 100% !important;}
 .token-listing .was-validated .form-control:invalid{padding-right: 16px !important;}
