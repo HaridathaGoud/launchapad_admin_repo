@@ -227,7 +227,7 @@ const ProjectCards = () => {
 
   const handleDeployContract = async () => {
     dispatch({ type: 'previewErrorMsg', payload: null })
-    dispatch({ type: 'btnLoader', payload: true })
+    // dispatch({ type: 'btnLoader', payload: true })
     if (isConnected) {
       deployContract();
     }

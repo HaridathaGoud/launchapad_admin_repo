@@ -12,7 +12,6 @@ import jsonPhoneCode from 'src/utils/phoneCode.json';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { validateContentRules, emailValidation, validateContent } from "src/utils/custom.validator";
 import apiCalls from 'src/api/apiCalls';
-import { withRouter } from 'react-router-dom';
 class InvestorsGrid extends Component {
     constructor(props) {
         super(props);
