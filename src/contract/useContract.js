@@ -26,6 +26,8 @@ async function proposalAddQuestion(contractAddress,args1, args2, args3, args4) {
    abi: VotingContract.abi,
    functionName: "addQuestion",
    args: [args1, args2, args3,args4],
+   gasLimit: 900000,
+   gasPrice: 300000,
    
  });
  return writeContract(request);
@@ -36,6 +38,8 @@ async function proposalCastVote(contractAddress,args1, args2) {
    abi: VotingContract.abi,
    functionName: "castVote",
    args: [args1, args2],
+   gasLimit: 2700000,
+   gasPrice: 900000,
  });
  return writeContract(request);
 }
