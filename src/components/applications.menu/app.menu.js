@@ -4,6 +4,8 @@ import LaunchPadMenu from "./launchpad";
 import MintingMenu from "./minting";
 import MarketplaceMenu from "./marketplace";
 import DaoMenu from "./dao";
+import UserMenu from './userMenu';
+import SettingsMenu from "./settingsMenu";
 
 
 function AppMenu({handleMenuNavigate}) {
@@ -13,7 +15,9 @@ function AppMenu({handleMenuNavigate}) {
         "launchpad": <LaunchPadMenu handleMenuNavigate={handleMenuNavigate} app_name="launchpad"/>,
         "dao":<DaoMenu handleMenuNavigate={handleMenuNavigate} app_name="dao"/>,
         "minting": <MintingMenu handleMenuNavigate={handleMenuNavigate} />,
-        "marketplace": <MarketplaceMenu handleMenuNavigate={handleMenuNavigate} app_name="marketplace"/>
+        "marketplace": <MarketplaceMenu handleMenuNavigate={handleMenuNavigate} app_name="marketplace"/>,
+        "userprofile":<UserMenu handleMenuNavigate={handleMenuNavigate} app_name="launchpad" />,
+        "Settings":<SettingsMenu handleMenuNavigate={handleMenuNavigate} app_name="launchpad"/>,
     }
 
     return (
