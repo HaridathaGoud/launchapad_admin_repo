@@ -66,7 +66,7 @@ function MarketplaceDashboard() {
             <div className="text-center">{loader && <Spinner fallback={loader}></Spinner>}</div>
             {!loader && adminCustomerDetails && <div className="row">
                 <div className="col-md-6 col-lg-2">
-                    <div className="dash-card">
+                    <div className="dash-card bg-user">
                         <div className="text-center my-4">
                             <span className="bg-icon">
                                 <img src={dashicon}></img>
@@ -79,7 +79,7 @@ function MarketplaceDashboard() {
                     </div>
                 </div>
                 <div className="col-md-6  col-lg-2">
-                    <div className="dash-card">
+                    <div className="dash-card bg-staker">
                         <div className="text-center my-4">
                             <span className="bg-icon">
                                 <img src={sale}></img>
@@ -92,7 +92,7 @@ function MarketplaceDashboard() {
                     </div>
                 </div>
                 <div className="col-md-6  col-lg-2">
-                    <div className="dash-card">
+                    <div className="dash-card bg-investor">
                         <div className="text-center my-4">
                             <span className="bg-icon">
                                 <img src={auction}></img>
