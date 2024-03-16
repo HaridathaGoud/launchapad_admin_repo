@@ -450,7 +450,7 @@ const UserProfile = (props) => {
                   <Modal.Footer>
                     <div className="text-end"><Button className="cancel-btn" onClick={() => { handleCancel() }}>Cancel</Button>
                       <Button className="button-secondary ms-lg-3 ms-2" type="submit" disabled={loaderform}>
-                        <span>{loaderform && <Spinner size="sm" />} </span>Save</Button></div>
+                        <span>{loaderform && <Spinner size="sm" className="text-light" />} </span>Save</Button></div>
                   </Modal.Footer>
                 </Form>
               </Modal>

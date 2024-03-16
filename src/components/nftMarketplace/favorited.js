@@ -127,19 +127,19 @@ const favorited = (props) => {
       )}
       <div className="items-tab">
       <div className=" d-flex justify-content-between mobile-show mobile-flex d-sm-bloc">
-          <div className="d-flex mb-3 align-items-center mt-2">
+          <div className="d-flex mb-3 align-items-center">
            
-            <div className="" style={{ width: '100%' }}>
-            <Form className="d-flex nav-search position-relative">
-                <Form.Control
-                  placeholder="Search"
-                  className=" header-search search-width"
-                  aria-label="Search"
-                  onKeyUp={(e) => handleChange(e)}
-                  onKeyDown ={(e)=>handleEnterSearch(e)}
-                />
-                <span className="icon search c-pointer"  onClick={handleSearch}></span>
-              </Form>
+            <div className='d-flex grid-search'>
+            <Form.Control
+                          
+                          placeholder="Search"
+                          className=" search-style my-3 my-lg-0"
+                          aria-label="Search"
+                          onKeyUp={(e) => handleChange(e)}
+                          onKeyDown ={(e)=>handleEnterSearch(e)}
+                        />
+                        <i className="icon search-icon" onClick={handleSearch}></i>
+           
             </div>
           </div>
           <div className="cust-dropdown me-0">
@@ -164,7 +164,7 @@ const favorited = (props) => {
           <div className="row mt-4">
             <div className="col-md-12">
               <div className="row creator-card create-by-row">
-                <div className="text-center">{loader && <Spinner></Spinner>}</div>
+                              <div className="text-center">{loader && <Spinner></Spinner>}</div>
                 {!loader && (
                   <>
                     {favouritecollections?.length > 0 ? (

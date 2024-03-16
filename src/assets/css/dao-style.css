@@ -115,7 +115,7 @@ option{background-color: #fff;border: 1px solid #9fa2b4; color: #000;}
 .cust-head-active .nav-item.active:after{content: '';background: url(../images/head-bg.svg)no-repeat;display: inline-block;height: 28px;width: 28px;position: absolute;bottom:-19.3px;left: 36px;}
 .cust-head-active .nav-item:hover .nav-link,.nav-item.active .nav-link{color: #b4b4ff !important;}
 .icon-dao.search{background-position: -520px -272px !important;height: 24px;width: 24px;position: absolute;top: 10px;right: 8px;}
-.profile-section .form-control,.profile-section .form-control:focus{background: #fff !important;  border: 1px solid #A5A5A5 !important;  border-radius: 6px;height: 44px;color: #000 !important;padding-right: 38px;}
+.profile-section .form-control,.profile-section .form-control:focus{background: #fff !important;  border: 1px solid #A5A5A5 !important;  border-radius: 28px;height: 36px;color: #000 !important;padding-right: 38px;}
 .btn-dao-cust .head-btn{color: #ffffff !important;border-radius: 5px !important;font-family: 'Do Hyeon' !important;font-weight: 400 !important;font-size: 16px !important;padding: 8px 16px !important;}
 /* Header end */
 

@@ -169,7 +169,7 @@ const Settings = () => {
     <div className=''>
       <div className='profile-container'>
 
-        <h5 className="mt-3">Settings</h5>
+        <h5 className="page-title mb-4 mt-3">Settings</h5>
         {errorMessage && (
           <Alert variant="danger">
             <div className='d-flex align-items-center'>

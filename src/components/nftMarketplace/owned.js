@@ -140,15 +140,16 @@ const owned = (props) => {
          
           <div className="d-flex justify-content-between w-search d-sm-bloc">
             <div className="">
-            <Form className="d-flex nav-search position-relative">
-                <Form.Control
-                  placeholder="Search"
-                  className=" header-search search-width"
-                  aria-label="Search"
-                  onKeyUp={(e) => handleChange(e)}
-                  onKeyDown ={(e)=>handleEnterSearch(e)}
-                />
-                <span className="icon search c-pointer"  onClick={handleSearch}></span>
+            <Form className="d-flex grid-search">
+            <Form.Control
+                          
+                          placeholder="Search"
+                          className=" search-style my-3 my-lg-0"
+                          aria-label="Search"
+                          onKeyUp={(e) => handleChange(e)}
+                          onKeyDown ={(e)=>handleEnterSearch(e)}
+                        />
+                        <i className="icon search-icon" onClick={handleSearch}></i>
               </Form>
             </div>
             <div className="cust-dropdown me-0">

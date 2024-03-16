@@ -133,17 +133,20 @@ const CreatedList = (props) => {
         <div className=" align-items-center mobile-hide accounts-tabs">
           
           <div className="d-flex justify-content-between w-search d-sm-bloc">
-            <div className="">
-              <Form className="d-flex nav-search position-relative">
-                <Form.Control
-                  placeholder="Search"
-                  className=" header-search search-width"
-                  aria-label="Search"
-                  onKeyUp={(e) => handleChange(e)}
-                  onKeyDown ={(e)=>handleEnterSearch(e)}
-                />
-                <span className="icon search c-pointer"  onClick={handleSearch}></span>
-              </Form>
+            <div className="">              
+              <Form className="d-flex grid-search">
+                        <Form.Control                          
+                            name='searchBy'
+                            type="text"
+                            autoComplete="off"
+                            className="search-style my-3 my-lg-0"
+                            aria-label="Search"
+                            onKeyUp={(e) => handleChange(e)}
+                            onKeyDown ={(e)=>handleEnterSearch(e)}
+                            placeholder="Search"
+                        />
+                        <i className="icon search-icon" onClick={handleSearch}></i>
+                    </Form>
             </div>
             <div className="cust-dropdown me-0">
               <Dropdown onSelect={handlePriceRangeSelection}>
@@ -170,7 +173,7 @@ const CreatedList = (props) => {
           <div className="row mt-4">
             <div className="col-md-12">
               <div className="row creator-card create-by-row">
-                <div className="text-center">{loader && <Spinner></Spinner>}</div>
+                              <div className="text-center">{loader && <Spinner></Spinner>}</div>
                 {!loader && (
                   <>
                     {nftcollections?.length > 0 ? (
@@ -187,9 +190,7 @@ const CreatedList = (props) => {
                                 item?.image && !item?.image?.includes('null')
                                   ? item.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                                   : defaultLogo
-                              }
-                              width={200}
-                              height={200}
+                              }                              
                               alt=""
                               style={{ cursor: 'pointer' }}
 
@@ -204,8 +205,8 @@ const CreatedList = (props) => {
                         </div>
                         <div>
                           <div className="card-body card-bg-body pb-0">
-                            {item.creator && <label className="card-text">{item.creator}</label>}
-                            <Card.Title className="card-title text-white mt-1">
+                            {item.creator && <label className="card-text mt-2">{item.creator}</label>}
+                            <Card.Title className="card-title text-white mt-0">
                               {item.name}
                             </Card.Title>
                           </div>
