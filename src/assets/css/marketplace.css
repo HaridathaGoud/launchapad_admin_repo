@@ -64,7 +64,7 @@
 .text-medium{font-size: 14px;font-weight: 500;}
 .text-secondary{color: rgba(255, 255, 255, 0.54);}
 .value-card{display: flex;align-items: center;word-break: break-all;}
-.icon.camera{background-position: -114px -652px;height: 26px !important;width: 28px !important;}
+.icon.camera{background-position: -113px -647px;height: 32px !important;width: 32px !important;}
 .icon.email{background-position: -382px -12px;width: 18px !important;height: 18px !important;}
 .icon.country{background-position: -464px -11px;width: 18px !important;height: 18px !important;}
 .icon.contact{background-position: -435px -12px;width: 18px !important;height: 18px !important;}'

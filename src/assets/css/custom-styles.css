@@ -97,7 +97,7 @@ h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
 .customer-info table tbody tr:hover{background-color: rgb(255,255,255, 0.1);}
 .content-green-bg{padding: 30px 20px;}
 .identification-image{ border-radius: 8px;overflow: hidden;position: relative;height: 250px; border: 1px solid #999393;width: 100%;}
-.identification-image .cam-position{top: 45%;right: 45%;transform: scale(1.5);}
+.identification-image .cam-position{top: 45%;right: 45%;}
 .castandcre-profile{position: relative;height: 100px;width: 100px;border-radius: 100%;}
 /* customer info end  */
 /* crypto tabs start  */
@@ -203,7 +203,7 @@ td {
 .filled-btn:active,.filled-btn:focus,.filled-btn:hover{background: #D60000;color: #fff;border: 1px solid #23c0e3;}
 .settings-text{font-weight: 500;font-size: 18px;color: #000;}
 .settings-label{font-weight: 400;font-size: 14px;color: #000;}
-:not(.btn-check) + .btn.filled-btn:active{background: #D60000;color: #fff;}
+:not(.btn-check) + .btn.filled-btn:active{background: #D60000 !important;color: #fff;border-color: #d60000 !important}
 .transparent-btn.btn:first-child:active{border: 1px solid #D60000;background-color: transparent;}
 /* input style end  */
 /* settings modal start  */
@@ -526,7 +526,7 @@ input[type='datetime-local'],input[type='date']{color-scheme: dark;padding: 0 14
 .form-label{font-size: 14px;   font-weight: 400;margin-left: 15px !important;  margin-bottom: 8px !important;}
 .visibility-visible{visibility: visible !important;}
 .optionListContainer{z-index: 9 !important;}
-.mt-6{margin-top: 74px;}
+.mt-6{margin-top: 84px;}
 .search-style,.search-style.input:focus{text-overflow: ellipsis;}
 .camera.cam-position:active{background-color: transparent !important;padding: 0 !important;border: transparent !important;}
 .bg-user{background-color: #F6EBFE;}
