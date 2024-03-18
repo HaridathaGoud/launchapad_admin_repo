@@ -1,16 +1,16 @@
 import { Card } from 'react-bootstrap';
 import Placeholder from 'react-bootstrap/Placeholder';
 import Col from 'react-bootstrap/Col';
-const DaoCardShimmer = (count) => {
+const DaoCardShimmer = ({count}) => {
     let countList = [0];
     if (count) {
         for (let i = 1; i < count; i++) {
             countList.push(i)
         }
     }
-    const html = <div style={{width:300,height: 60, borderRadius: 8 }} >
+    const html = <div style={{display:"flex",flexWrap:"wrap",gap:"30px"}}>
         {countList.map((item) => (
-                < div key={item}>
+                < div key={item} className='dao-shimmer'>
                 <Placeholder as={Card.Title} animation="glow">
                     <Placeholder xs={12} className='cardimg-placeholder' />
                 </Placeholder>

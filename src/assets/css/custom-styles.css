@@ -533,6 +533,7 @@ input[type='datetime-local'],input[type='date']{color-scheme: dark;padding: 0 14
 .bg-staker{background-color: #EAF2EF;}
 .bg-investor{background-color: #EDF9FF;}
 @media (min-width: 768px) {
+  .dao-shimmer{width: 23%;}
   table{width: 100% !important;}
 .token-listing .was-validated .form-control:invalid{padding-right: 16px !important;}
   .allocation-error{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 700px;}
@@ -698,6 +699,7 @@ html:not([dir=rtl]) .sidebar.hide:not(.sidebar-end){margin-left: 0;}
 /* select[disabled]{cursor: not-allowed;} */
 select[type='select']:disabled{cursor: not-allowed;}
 @media (max-width: 767.98px) {
+  .dao-shimmer{width: 100%;}
   .settings-popover{left: -100px !important;}
   .unauthorized-Error.page-notfound{height: 100vh !important;}
   .whitelist-rowcard .flex-width { flex-basis: 0;  flex-grow: 1;padding: 0 12px;}

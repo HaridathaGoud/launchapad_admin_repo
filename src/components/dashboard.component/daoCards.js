@@ -13,7 +13,7 @@ import votingFactory from '../../contract/votingFactory.json';
 import { ethers } from 'ethers';
 import apiCalls from 'src/api/apiCalls';
 import PropTypes from 'prop-types'
-
+import shimmers from '../shimmers/shimmers';
 const Dashboard = (props) => {
     const [daoCardDetails, setDaoCardDetails] = useState([]);
     const loading = useSelector((state) => state?.proposal?.daoCards?.isLoading)
@@ -85,8 +85,8 @@ const Dashboard = (props) => {
         <div><div className='dao-mt'>
             <h5 className='mb-1 back-text'>DAO’s</h5>
                 <Row>
-                    {daoCardDetails?.length > 0 ? (
-                        daoCardDetails?.map((item) => (
+                    {!loading && <>
+                        { daoCardDetails?.map((item) => (
                             <Col lg={3} md={6} xs={12} className='mt-md-3' key={item?.daoId}>
                                 {<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={item?.daoId} >
                                     <Card.Img variant="top" src={item?.logo || profileavathar} onClick={() => goToProposalList(item)} />
@@ -102,23 +102,16 @@ const Dashboard = (props) => {
                                     </Card.Body>
                                 </Card>}
                             </Col>
-                        ))
-                    ) : (
-                        loading && <Col lg={3} md={6} xs={12} className='mt-md-3'> <div><Placeholder as={Card.Title} animation="glow">
-                            <Placeholder xs={12} className='cardimg-placeholder' />
-                        </Placeholder>
-                            <Card.Body>
-                                <Placeholder as={Card.Title} animation="glow">
-                                    <Placeholder xs={6} />
-                                </Placeholder>
-                                <Placeholder as={Card.Text} animation="glow">
-                                    <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
-                                    <Placeholder xs={6} />
-                                </Placeholder>
-                            </Card.Body>
-                        </div></Col>
-                    )}
+                        ))}
+                    </>
+                    }
                 </Row>
+                      
+                {loading &&
+                 <div className='mt-4 mb-4'>
+                    <shimmers.DaoCardShimmer count={8} />
+                    </div>
+                }
         </div>
         </div></>
     )

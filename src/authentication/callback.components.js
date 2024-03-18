@@ -12,7 +12,7 @@ const CallbackPage = () => {
     const handleRedirect = (user) => {
         store.dispatch(profileSuccess(user));
         store.dispatch(getAdminDetails(user?.profile?.sub));
-        if(user?.profile.isInvestor){
+        if(user?.profile?.isInvestor){
             return   navigate("/launchpad/dashboard");
             // navigate("/minting/dashboard")
         }
