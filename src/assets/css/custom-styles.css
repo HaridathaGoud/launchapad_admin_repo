@@ -534,6 +534,9 @@ input[type='datetime-local'],input[type='date']{color-scheme: dark;padding: 0 14
 .bg-investor{background-color: #EDF9FF;}
 button:disabled{background-color: #d0d0d0 !important;color: #000 !important;border-color: #d0d0d0 !important;}
 .btn-width button{min-width: 100px;}
+.k-grid th{border-right-width: 1px !important;}
+.customer-list tr td:last-child{text-align: start;}
+.k-grid tr.k-alt{background-color: #d0d0d017 !important;}
 @media (min-width: 768px) {
   .dao-shimmer{width: 23%;}
   table{width: 100% !important;}
@@ -895,7 +898,7 @@ h1.heading{font-size: 24px;font-weight: 600;color:var(--textWhite);margin-bottom
 .k-grid-header .k-grid-filter:hover, .k-grid-header .k-header-column-menu:hover, .k-grid-header .k-grid-header-menu:hover, .k-grid-header .k-hierarchy-cell .k-icon:hover, .k-grid-header .k-hierarchy-cell .k-svg-icon:hover{background-color: transparent !important;}
 .custom-grid .k-grid-header .k-grid-header-wrap, .custom-grid {border-top-left-radius: 8px;border-top-right-radius: 8px;}
 .k-pager, .custom-grid{border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;}
-.k-i-more-vertical::before{color: #fff;}
+.k-i-more-vertical::before{color: #000;}
 .k-pager-numbers .k-button{width:30px;height:30px;}
 .k-column-list-item, .k-columnmenu-item, .k-list-item{color: #000;}
 .k-list-item:hover, .k-list-optionlabel:hover, .k-list-item,.k-hover, .k-hover.k-list-optionlabel{color:#424242;background-color:#f0f0f0;}

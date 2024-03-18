@@ -205,7 +205,7 @@ class LaunchpadCustomers extends Component {
                                 ref={this.gridRef}
                                 columns={this.gridColumns}
                                 pSize={10}
-                                className="custom-grid"
+                                className="custom-grid customer-list"
                             />
                         </div>
                     </div>

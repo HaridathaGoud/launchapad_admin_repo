@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useReducer } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
@@ -14,7 +14,28 @@ import { ethers } from 'ethers';
 import apiCalls from 'src/api/apiCalls';
 import PropTypes from 'prop-types'
 import shimmers from '../shimmers/shimmers';
+const reducer = (state, action) => {
+    switch (action.type) {
+      case "loadMore":
+        return { ...state, loadMore: action.payload };
+      case "hide":
+        return { ...state, hide: action.payload };
+    case "daoCardDetails":
+        return {...state, daoCardDetails:action.payload}
+
+      default:
+        return state;
+    }
+  }
+  const initialState = {
+    daoCardDetails:[],
+    loadMore: false,
+    hide: false,
+
+  };
 const Dashboard = (props) => {
+    const [state, dispatch] = useReducer(reducer, initialState);
+
     const [daoCardDetails, setDaoCardDetails] = useState([]);
     const loading = useSelector((state) => state?.proposal?.daoCards?.isLoading)
     const isAdmin = useSelector(state => state.oidc?.adminDetails);
@@ -25,11 +46,13 @@ const Dashboard = (props) => {
     useEffect(() => {
         if (isAdmin?.isInvestor === true) {
             props?.trackDaoWallet((callback) => {
-                setDaoCardDetails(callback);
+                // setDaoCardDetails(callback);
+                dispatch({ type: 'daoCardDetails', payload: callback })
             },isAdmin?.id)
         } else {
             props?.trackWallet((callback) => {
-                setDaoCardDetails(callback);
+                // setDaoCardDetails(callback);
+                dispatch({ type: 'daoCardDetails', payload: callback })
             })
         }
 
@@ -55,7 +78,8 @@ const Dashboard = (props) => {
               let res=  await apiCalls.updateVotingContractAddress(updateProject);
               if(res.ok){
                 props?.trackWallet((callback) => {
-                    setDaoCardDetails(callback);
+                    // setDaoCardDetails(callback);
+                    dispatch({ type: 'daoCardDetails', payload: callback })
                 })
                     setDeployContractLoader(false);
                     setSelectedDaoId(null)
@@ -86,7 +110,7 @@ const Dashboard = (props) => {
             <h5 className='mb-1 back-text'>DAO’s</h5>
                 <Row className='gap-4 gap-md-0'>
                     {!loading && <>
-                        { daoCardDetails?.map((item) => (
+                        { state?.daoCardDetails?.map((item) => (
                             <Col lg={3} md={6} xs={12} className='mt-md-3' key={item?.daoId}>
                                 {<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={item?.daoId} >
                                     <Card.Img variant="top" src={item?.logo || profileavathar} onClick={() => goToProposalList(item)} />
@@ -112,6 +136,14 @@ const Dashboard = (props) => {
                     <shimmers.DaoCardShimmer count={8} />
                     </div>
                 }
+                {/* {!loading&&<>
+              <div className='text-center'>{state.loadMore && <Spinner size="sm" className='text-white text-center' />} </div>
+              <div className='addmore-title' >
+                {!state.hide && <>
+                  <span className='d-block'><span  role="button" className='c-pointer'>See More</span></span>  <span className='icon blue-doublearrow c-pointer' ></span>
+                </>}
+              </div>
+              </>} */}
         </div>
         </div></>
     )
