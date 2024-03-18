@@ -1152,11 +1152,12 @@ const Projects = (props) => {
               </Row>
               
             </div>
-              <div className='d-flex justify-content-between profile-section align-items-center mb-2 mt-5'>
+            <div className='profile-section'>
+              <div className='d-flex justify-content-between  align-items-center mb-2'>
                 <h3 className='section-title '>Cast And Crew</h3>
                 <Button className='button-style mt-3 mt-md-0' onClick={()=>handleEdit()} ><span className='icon add-icon'></span> Add </Button>
               </div>
-              <Row className='mb-4'>
+              <Row className='mb-4 mt-4'>
                 { state?.castCrewDataList?.map((item,index)=>(
                 <Col className="" lg={3} key={item.id}>
                   <div className='profile-panel mb-4 card-style home-card p-lg-3 p-2' key={index}onClick={() => handleEdit(index)} >
@@ -1198,7 +1199,7 @@ const Projects = (props) => {
                 </Col>
                  ))}
               </Row>
-
+              </div>
               <div className='text-end mt-xl-5 mb-5'>
                 <Button className='cancel-btn me-2' onClick={() => handleCancel()} >
                   Cancel</Button>{' '}
