@@ -96,7 +96,7 @@ const Settings = () => {
         newErrors.currentPassword = "Please enter current password";
       }
       if (!password || password === '') {
-        newErrors.password = "Please enter new password";
+        newErrors.password = "Please enter your password";
       }
       else if (password && !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&_]).{8,15}$/.test(password))) {
         newErrors.password =
