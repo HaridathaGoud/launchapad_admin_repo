@@ -159,7 +159,7 @@ class LaunchpadCustomers extends Component {
 								    name='searchBy'
 								    type="text"
 								    autoComplete="off"
-								    className="search-style my-3 my-lg-0"
+								    className="search-style mb-3 my-lg-0"
 									aria-label="Search"
 									onChange={(e) => this.handleChange(e)}
 									onKeyDown ={(e)=>this.handleEnterSearch(e)}
@@ -174,7 +174,7 @@ class LaunchpadCustomers extends Component {
                             name='searchBy'
                             type="text"
                             autoComplete="off"
-                            className="search-style my-3 my-lg-0"
+                            className="search-style mb-3 my-lg-0"
                             aria-label="Search"
                             onChange={(e) => this.handleChange(e)}
                             onKeyDown={(e) => this.handleEnterSearch(e)}

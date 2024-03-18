@@ -144,7 +144,7 @@ const owned = (props) => {
             <Form.Control
                           
                           placeholder="Search"
-                          className=" search-style my-3 my-lg-0"
+                          className=" search-style mb-3 my-lg-0"
                           aria-label="Search"
                           onKeyUp={(e) => handleChange(e)}
                           onKeyDown ={(e)=>handleEnterSearch(e)}

@@ -48,7 +48,7 @@ class IdoRequestGrid extends Component {
             field: "",
             title: "",
             filter: false,
-            width: 20,
+            width: 60,
             customCell: (props) => (
 				<>
                     <td>
@@ -70,7 +70,7 @@ class IdoRequestGrid extends Component {
             field: "createdAt",
             title: "Created At",
             filter: true,
-            width: 70,
+            width: 200,
             customCell: (props) => (
 				<td>
 					<div>
@@ -85,43 +85,43 @@ class IdoRequestGrid extends Component {
             field: "emailId",
             title: "Email Id",
             filter: true,
-            width: 70,
+            width: 200,
         },
         {
             field: "projectName",
             title: "Project Name",
             filter: true,
-            width: 70,
+            width: 200,
         },
         {
             field: "initialSupply",
             title: "Initial Supply",
             filter: true,
-            width: 50,
+            width: 200,
         },
         {
             field: "totalSupply",
             title: "Total Supply",
             filter: true,
-            width: 50,
+            width: 200,
         },
         {
             field: "status",
             title: "Status",
             filter: false,
-            width: 30,
+            width: 200,
         },
         {
             field: "",
             title: "",
             filter: false,
-            width: 40,
+            width: 140,
             customCell: (props) => (
                 <td>
-                    <div style={{ width: 150 }} className='d-flex align-items-center justify-content-end'>
+                    <div className='d-flex align-items-center justify-content-end'>
                         <Button onClick={() => this.getOnePersonDetailsBasedOnId(props.dataItem)} className="button-secondary d-flex align-items-center justify-content-left c-pointer">
                             {/* <span className='icon view c-pointer'></span> */}
-                            <div className='ps-2'><p className='mb-0 text-light text-overflow c-pointer'>View</p>
+                            <div className=''><p className='mb-0 text-light text-overflow c-pointer'>View</p>
                             </div>
                         </Button>
                     </div>
@@ -296,11 +296,11 @@ class IdoRequestGrid extends Component {
             <div className='custom-flex-launchpad statechange-sm'>
                     <Form className="d-flex grid-search">
                         <Form.Control
-                            style={{width:"450px"}}
+                            
                             name='searchBy'
                             type="text"
                             autoComplete="off"
-                            className="search-style my-3 my-lg-0"
+                            className="search-style mb-3 my-lg-0"
                             aria-label="Search"
                             onChange={(e) => this.handleChange(e)}
                             onKeyDown={(e) => this.handleEnterSearch(e)}
@@ -310,7 +310,7 @@ class IdoRequestGrid extends Component {
                         <i className="icon search-icon" onClick={this.handleSearch}></i>
                     </Form>
                     <div className='d-flex align-items-center justify-content-end'>
-                    <div className='d-flex align-items-center filter-style c-pointer' onClick={this.handleShow} >
+                    <div className='d-flex align-items-center filter-style c-pointer mb-2 mb-md-0' onClick={this.handleShow} >
               <span className='icon state-change'></span><p className='ms-2 mb-0 project-text text-purple'>State Change</p></div>
           </div>
              </div>
@@ -374,7 +374,7 @@ class IdoRequestGrid extends Component {
 
                       </Col>
                     </Row>
-                    <div className='d-flex justify-content-end mt-5'><span></span><div>
+                    <div className='d-flex justify-content-end mt-5 btn-width'><span></span><div>
                       <Button className='cancel-btn' onClick={this.handleClose}
                       >Cancel</Button>
 

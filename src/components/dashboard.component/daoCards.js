@@ -84,7 +84,7 @@ const Dashboard = (props) => {
     )}
         <div><div className='dao-mt'>
             <h5 className='mb-1 back-text'>DAO’s</h5>
-                <Row>
+                <Row className='gap-4 gap-md-0'>
                     {!loading && <>
                         { daoCardDetails?.map((item) => (
                             <Col lg={3} md={6} xs={12} className='mt-md-3' key={item?.daoId}>

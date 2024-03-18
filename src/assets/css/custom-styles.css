@@ -532,6 +532,8 @@ input[type='datetime-local'],input[type='date']{color-scheme: dark;padding: 0 14
 .bg-user{background-color: #F6EBFE;}
 .bg-staker{background-color: #EAF2EF;}
 .bg-investor{background-color: #EDF9FF;}
+button:disabled{background-color: #d0d0d0 !important;color: #000 !important;border-color: #d0d0d0 !important;}
+.btn-width button{min-width: 100px;}
 @media (min-width: 768px) {
   .dao-shimmer{width: 23%;}
   table{width: 100% !important;}

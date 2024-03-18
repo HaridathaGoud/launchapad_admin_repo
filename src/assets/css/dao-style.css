@@ -36,7 +36,7 @@ box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
     /* border:1px solid #0068FF !important; */
     max-width: 100%;}
   .dao-mt{margin-top: 32px;}
-  .firstpraposal-card{width: 790px;height: 458px;background: #F0F1F2;border-radius: 10px;display: flex;justify-content: center;text-align: center;padding:50px;}
+  .firstpraposal-card{width: 790px;height: 458px;background: #F5f5f5;border-radius: 10px;display: flex;justify-content: center;text-align: center;padding:50px;}
   .pra-description{color:#000;font-size:14px;font-weight: 400;}
 /* main dashboard start */
 /* Dashboard start */

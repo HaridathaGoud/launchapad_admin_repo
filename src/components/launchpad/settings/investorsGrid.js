@@ -38,24 +38,24 @@ class InvestorsGrid extends Component {
             field: "name",
             title: "Name",
             filter: true,
-            width: 100,
+            width: 200,
         },
         {
             field: "mailId",
             title: "Mail Id",
             filter: true,
-            width: 100,
+            width: 200,
         },
         {
             field: "phoneNumber",
             title: "Phone Number",
             filter: true,
-            width: 100,
+            width: 200,
         },{
             field: "",
             title: "",
             filter: false,
-            width: 30,
+            width: 150,
             customCell: (props) => (
                 <td>
                     <div>
@@ -259,11 +259,11 @@ class InvestorsGrid extends Component {
                 <div className='custom-flex pb-4 pt-2 justify-content-between'>
                     <Form className="d-flex grid-search">
                         <Form.Control
-                            style={{width:"450px"}}
+                            
                             name='searchBy'
                             type="text"
                             autoComplete="off"
-                            className="search-style my-3 my-lg-0"
+                            className="search-style mb-3 my-lg-0"
                             aria-label="Search"
                             onChange={(e) => this.handleChange(e)}
                             onKeyDown={(e) => this.handleEnterSearch(e)}
@@ -499,7 +499,7 @@ class InvestorsGrid extends Component {
 
                         </Modal.Body>
                         <Modal.Footer>
-                            <div className="text-end"><Button className="cancel-btn" disabled={this.state.loaderform} onClick={() => { this.handleCancel() }}>Cancel</Button>
+                            <div className="text-end btn-width"><Button className="cancel-btn" disabled={this.state.loaderform} onClick={() => { this.handleCancel() }}>Cancel</Button>
                                 <Button className="button-secondary ms-lg-3 ms-2" type="button" onClick={(e) => this.handleCreateInvestors(e)} disabled={this.state.loaderform}>
                                     <span>{this.state.loaderform && <Spinner size="sm" />} </span>Save</Button></div>
                         </Modal.Footer>
