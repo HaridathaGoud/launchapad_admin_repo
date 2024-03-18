@@ -194,21 +194,20 @@ class IdoRequestGrid extends Component {
             show: false,
         });
       }
-     closeProject = (data, projectFlag) => {
+      closeProject = (data, projectFlag) => {
         this.setState({
             success: projectFlag,
-            showProjectInformationView: data
+            showProjectInformationView: false,
+            show: false,
         });
         if (projectFlag) {
             this.setState({
-                success: `Project saved successfully`,
-                showProjectInformationView: data
+                successMessage: `Project saved successfully`,
+                success: true
             });
-          setTimeout(function () {
-            this.setState({
-                success: null,
-            });
-          }, 2000);
+            setTimeout(() => {
+                this.setState({ success: data });
+            }, 2000);
         }
       }
       handleShow = () => {
@@ -394,7 +393,7 @@ class IdoRequestGrid extends Component {
            </div>
         <Modal
           show={this.state.showProjectInformationView}
-          onHide={() => this.setShowProjectInformationView(false)}
+          onHide={() => this.handleCloseProjectInformationView()}
           className="project-detailview"
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"

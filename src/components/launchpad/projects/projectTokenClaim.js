@@ -274,7 +274,7 @@ const timeDate=(timeString)=>{
             dispatch({ type: 'success', payload: false })
             store.dispatch(projectedSaved(false));
            
-          }, 5000);
+          }, 3000);
           if (window.location.pathname.includes('idorequest')) {
             setFlagInParent(false)
           }
