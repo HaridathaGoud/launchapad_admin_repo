@@ -197,7 +197,7 @@ td {
    background: #1e1e1e !important;
 }
 .upload-transparent,.upload-transparent:hover,.upload-transparent:active{background-color: transparent !important;color: transparent !important;border: none !important;}
-.filled-btn,.filled-btn.btn:first-child:active{font-weight: 500 !important;font-size: 16px !important;color: #fff !important;background: #D60000 !important;border-radius: 24px !important;box-shadow: 1px 1px 4px rgba(255, 255, 255, 0.13) !important;border: 1px solid #D60000 !important;padding: 8px 20px !important;}
+.filled-btn,.filled-btn.btn:first-child:active{font-weight: 600 !important;font-size: 16px !important;color: #fff !important;background: #D60000 !important;border-radius: 24px !important;box-shadow: 1px 1px 4px rgba(255, 255, 255, 0.13) !important;border: 1px solid #D60000 !important;padding: 8px 20px !important;}
 .transparent-btn{font-weight: 600;font-size: 16px !important;color: #fff !important;background: transparent !important;border-radius: 8px !important;box-shadow: 1px 1px 4px rgba(255, 255, 255, 0.13) !important;border: 1px solid #D60000 !important;padding: 8px 16px !important;}
 .transparent-btn:hover,.transparent-btn:active,.transparent-btn:focus{background-color: transparent;border: 1px solid #D60000;}
 .filled-btn:active,.filled-btn:focus,.filled-btn:hover{background: #D60000;color: #fff;border: 1px solid #23c0e3;}

@@ -13,7 +13,7 @@ const SettingsMenu = (props) => {
 
     return (
         <React.Fragment>
-            {locationSplit[1] == "Settings" && <CNavItem className={locationSplit[2] == "dashboard" ? "active" : ""}>
+            {locationSplit[1] == "Settings" && <CNavItem className={locationSplit[2] == "dashboard" ? "active" : " active"}>
                 <OverlayTrigger
                     placement="right"
                     overlay={renderTooltipDashboard} >
