@@ -639,7 +639,7 @@ const Projects = (props) => {
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
-                    onClick={() => inputRef.current?.click()}
+                    // onClick={() => inputRef.current?.click()}
                     >
                     {state.loading && <Spinner fallback={state.loading} className='position-absolute'></Spinner>}
                     {state.projectLogoImages && !state.loading && <span className='imgupload-span'>
@@ -661,6 +661,7 @@ const Projects = (props) => {
                           />
                           <span
                             className="icon camera"
+                            onClick={() => inputRef.current?.click()}
                           ></span>
 
                           <p className="c-pointer pt-3">
@@ -693,6 +694,7 @@ const Projects = (props) => {
                           />
                           <span
                             className="icon camera"
+                            onClick={() => inputRef.current?.click()}
                           ></span>
                           <Form.Control.Feedback type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback>
                         </div>
@@ -708,7 +710,7 @@ const Projects = (props) => {
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
-                    onClick={() => inputRef1.current?.click()}
+                    // onClick={() => inputRef1.current?.click()}
                     role="button"
                   >
                     {state.bannerImgLoader && <Spinner fallback={state.bannerImgLoader} className='position-absolute'></Spinner>}
@@ -731,6 +733,7 @@ const Projects = (props) => {
                           />
                           <span
                             className="icon camera"
+                            onClick={() => inputRef1.current?.click()}
                           ></span>
                           <p className="c-pointer pt-3">
                             Jpg, Jpeg, Png, Gif, Webp
@@ -761,6 +764,7 @@ const Projects = (props) => {
                           />
                           <span
                             className="icon camera"
+                            onClick={() => inputRef1.current?.click()}
                           ></span>
                           <Form.Control.Feedback type="invalid">{state.errors.bannerImage}</Form.Control.Feedback>
                         </div>
@@ -862,6 +866,7 @@ const Projects = (props) => {
                       isInvalid={!!errors?.tokenListingDate}
                       onChange={(e) => handleChange("tokenListingDate", e)}
                       min={currentDate}
+                      max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                       disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                         || state.projectSaveDetails?.projectStatus == "Rejected"
                         || state.projectSaveDetails?.projectStatus == "Approved"
@@ -936,7 +941,8 @@ const Projects = (props) => {
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
                       'upload-img token-upload mb-2 c-notallowed' :
                       'upload-img token-upload mb-2'}`}
-                    onClick={() => inputRef2.current?.click()}>
+                    // onClick={() => inputRef2.current?.click()}
+                    >
                     {state.cardImgLoader && <Spinner fallback={state.cardImgLoader}></Spinner>}
                     {state.projectCardImages && !state.cardImgLoader &&
                       <span className='imgupload-span'>
@@ -959,6 +965,7 @@ const Projects = (props) => {
                           />
                           <span
                             className="icon camera"
+                            onClick={() => inputRef2.current?.click()}
                           ></span>
                           <p className="c-pointer pt-3">
                             Jpg, Jpeg, Png, Gif, Webp
@@ -989,6 +996,7 @@ const Projects = (props) => {
                           />
                           <span
                             className="icon camera"
+                            onClick={() => inputRef2.current?.click()}
                           ></span>
                           <Form.Control.Feedback type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
                         </div>
