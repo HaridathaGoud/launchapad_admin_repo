@@ -10,7 +10,7 @@ body{
   }
 h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
   ::-webkit-scrollbar-thumb {
-    background-color: #D60000;
+    background-color: #000;
     border-radius: 20px;
 }
 ::-webkit-scrollbar {
@@ -537,6 +537,7 @@ button:disabled{background-color: #d0d0d0 !important;color: #000 !important;bord
 .k-grid th{border-right-width: 1px !important;}
 .customer-list tr td:last-child{text-align: start;}
 .k-grid tr.k-alt{background-color: #d0d0d017 !important;}
+.k-grid-header .k-header{background-color: #F0EEEE;}
 @media (min-width: 768px) {
   .dao-shimmer{width: 23%;}
   table{width: 100% !important;}

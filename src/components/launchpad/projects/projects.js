@@ -1298,7 +1298,7 @@ const Projects = (props) => {
                               </Col>
                               <Col lg={12} md={12} className="mb-3">
                               <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                <Form.Label >Role</Form.Label>
+                                <Form.Label >Role*</Form.Label>
                                 <Multiselect
                                   className='multiselecter role-select'
                                   options={castCrewRolesLu}
