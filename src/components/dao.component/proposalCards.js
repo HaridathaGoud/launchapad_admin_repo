@@ -38,6 +38,8 @@ const reducers = (state, action) => {
             return { ...state, status: action.payload };
         case 'dateStatus':
             return { ...state, dateStatus: action.payload };
+        case 'votingContractAddress':
+            return { ...state, votingContractAddress: action.payload };
     }
 }
 const Dao = (props) => {
@@ -55,7 +57,8 @@ const Dao = (props) => {
     const loadData = useSelector((reducerState) => reducerState.proposal?.isCheckSeeMore);
     const UserInfo = useSelector(reducerState => reducerState.oidc?.profile?.profile)
     const [loading, setLoading]=useState(false)
-    const [state, dispatch] = useReducer(reducers, { modalShow: false, status: "all", statusLu: [], date: null, dateStatus: false })
+    const [state, dispatch] = useReducer(reducers, { modalShow: false, status: "all", statusLu: [],
+     date: null, dateStatus: false,votingContractAddress:'' })
         const [votingOwner,setVotingOwner]=useState(false)
     const { voteCalculation } = useContract();
     const [proposalCardList,setProposalCardList]=useState([])
@@ -67,7 +70,6 @@ const Dao = (props) => {
     const [daoName,setDaoName]=useState(null)
     const [selection, setSelection]=useState(null);
     const  DaoDetail = useSelector((state)=>state?.proposal?.daoCards.data)
-    const [votingContractAddress,setVotingContractAddress]=useState()
     const votingSeicheContractAddress = process.env.REACT_APP_VOTING_CONTRACTOR;
     const votingKeijiContractAddress = process.env.REACT_APP_VOTING_KEIJI_CONTRACTOR;
         const { address, isConnected } = useAccount()
@@ -82,7 +84,7 @@ const Dao = (props) => {
         getVotingOwner()
         window.scrollTo(0,0)
         let daoData=DaoDetail?.find((item)=>item?.daoId==params.id?.toLocaleLowerCase())
-        setVotingContractAddress(daoData?.votingContractAddress)
+      dispatch({type:'votingContractAddress',payload:daoData?.contractAddress})
 
     },[address])
 
@@ -116,7 +118,7 @@ const Dao = (props) => {
     
     
     async function getVotingOwner() {
-      let contractAddress=daoName?.name=="SEIICHI ISHII"?votingSeicheContractAddress:votingKeijiContractAddress
+      let contractAddress=state.votingContractAddress;
         try {
             const _connector = window?.ethereum;
             const _provider = new ethers.providers.Web3Provider(_connector);
@@ -276,7 +278,7 @@ const Dao = (props) => {
         setSuccess(null);
         setErrorMsg(null)
         setTxHash(null)
-        let contractAddress=daoName.name=="SEIICHI ISHII"?votingSeicheContractAddress:votingKeijiContractAddress
+        let contractAddress=state.votingContractAddress;
         try {
         const response = await voteCalculation(contractAddress,item.titleHash);
         const _connector = window?.ethereum;

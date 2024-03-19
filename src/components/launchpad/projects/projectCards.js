@@ -375,7 +375,7 @@ const ProjectCards = () => {
           <div className='d-md-flex mt-4 justify-content-between'>
             <Form className="d-flex grid-search">
               <Form.Control
-                placeholder="Search"
+                placeholder="Search by Project Name"
                 className="search-style"
                 aria-label="Search"
                 onKeyUp={(e) => handleChange(e)}
