@@ -1155,7 +1155,12 @@ const Projects = (props) => {
             <div className='profile-section'>
               <div className='d-flex justify-content-between  align-items-center mb-2'>
                 <h3 className='section-title '>Cast And Crew</h3>
-                <Button className='button-style mt-3 mt-md-0' onClick={()=>handleEdit()} ><span className='icon add-icon'></span> Add </Button>
+                <Button className='button-style mt-3 mt-md-0' onClick={()=>handleEdit()}
+                disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                || state.projectSaveDetails?.projectStatus == "Rejected"
+                || state.projectSaveDetails?.projectStatus == "Approved"
+              )}
+                ><span className='icon add-icon'></span> Add </Button>
               </div>
               <Row className='mb-4 mt-4'>
                 { state?.castCrewDataList?.map((item,index)=>(
