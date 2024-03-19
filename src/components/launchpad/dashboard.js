@@ -40,7 +40,7 @@ const DashboardPage = (props) => {
     <div className='bg-dashboard'>
     <div className='text-center pt-5'>
     <h3 className='page-title mb-3 fs-3'>Welcome to <br/>launchpad Dashboard</h3>
-    <p className='text-secondary'>The Launchpad dashboard provides users with a comprehensive <br/>
+    <p className='db-content'>The Launchpad dashboard provides users with a comprehensive <br/>
        overview of various projects, tasks, and activities within an organization.</p>
     </div>
      

@@ -49,7 +49,7 @@ function MarketplaceDashboard() {
     <div className="bg-dashboard">
     <div className="text-center pt-5">
     <h3 className="page-title fs-3"> Welcome to <br/> Marketplace Dashboard</h3>
-     <p>The Marketplace dashboard provides users with a comprehensive <br/>
+     <p className="db-content">The Marketplace dashboard provides users with a comprehensive <br/>
           overview of various projects, tasks, and activities within an organization.</p>
     </div>
     
