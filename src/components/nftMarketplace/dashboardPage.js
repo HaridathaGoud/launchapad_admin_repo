@@ -46,13 +46,13 @@ function MarketplaceDashboard() {
         }
     }
     return <>
-     <h3 className="page-title"> Dashboard</h3>
-     <CBreadcrumb>
-        <CBreadcrumbItem>
-          Marketplace
-        </CBreadcrumbItem>
-        <CBreadcrumbItem active>Dashboard</CBreadcrumbItem>
-      </CBreadcrumb>
+    <div className="bg-dashboard">
+    <div className="text-center pt-5">
+    <h3 className="page-title fs-3"> Welcome to <br/> Marketplace Dashboard</h3>
+     <p>The Marketplace dashboard provides users with a comprehensive <br/>
+          overview of various projects, tasks, and activities within an organization.</p>
+    </div>
+    
         {errorMsg && (
             <Alert variant="danger">
                 <div className='d-flex align-items-center'>
@@ -61,18 +61,18 @@ function MarketplaceDashboard() {
                 </div>
             </Alert>
         )}
-        <div className="dashboard-page mt-5">
+        <div className="dashboard-page mt-3">
            
             <div className="text-center">{loader && <Spinner fallback={loader}></Spinner>}</div>
-            {!loader && adminCustomerDetails && <div className="row">
+            {!loader && adminCustomerDetails && <div className="row justify-content-center">
                 <div className="col-md-6 col-lg-2">
                     <div className="dash-card bg-user">
-                        <div className="text-center my-4">
-                            <span className="bg-icon">
+                        <div className=" mb-3">
+                            <span className=" ">
                                 <img src={dashicon}></img>
                             </span>
                         </div>
-                        <div className="text-center">
+                        <div className="">
                             <p className="card-lbl">Minters</p>
                             <p className="card-value">{adminCustomerDetails?.minters ? adminCustomerDetails?.minters : 0}</p>
                         </div>
@@ -80,12 +80,12 @@ function MarketplaceDashboard() {
                 </div>
                 <div className="col-md-6  col-lg-2">
                     <div className="dash-card bg-staker">
-                        <div className="text-center my-4">
-                            <span className="bg-icon">
+                        <div className="mb-3">
+                            <span className=" ">
                                 <img src={sale}></img>
                             </span>
                         </div>
-                        <div className="text-center">
+                        <div className="">
                             <p className="card-lbl">On Sale</p>
                             <p className="card-value">{adminCustomerDetails?.totalSaleNFTs ? adminCustomerDetails?.totalSaleNFTs : 0}</p>
                         </div>
@@ -93,12 +93,12 @@ function MarketplaceDashboard() {
                 </div>
                 <div className="col-md-6  col-lg-2">
                     <div className="dash-card bg-investor">
-                        <div className="text-center my-4">
-                            <span className="bg-icon">
+                        <div className="mb-3">
+                            <span className=" ">
                                 <img src={auction}></img>
                             </span>
                         </div>
-                        <div className="text-center">
+                        <div className="">
                             <p className="card-lbl">On Auction</p>
                             <p className="card-value">{adminCustomerDetails?.totalAuctionNFTs ? adminCustomerDetails?.totalAuctionNFTs : 0}</p>
                         </div>
@@ -114,6 +114,7 @@ function MarketplaceDashboard() {
                 </div>
 
             </div>}
+        </div>
         </div>
 
     </>

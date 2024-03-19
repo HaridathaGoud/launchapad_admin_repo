@@ -37,14 +37,13 @@ const DashboardPage = (props) => {
   return (
     <>
     {loader ? <div className="text-center"><Spinner ></Spinner></div> : 
-    <>
-    <h3 className='page-title mb-3'>Dashboard</h3>
-     <CBreadcrumb>
-        <CBreadcrumbItem className='text-opacity-50'>
-          Launchpad
-        </CBreadcrumbItem>
-        <CBreadcrumbItem active>Dashboard</CBreadcrumbItem>
-      </CBreadcrumb>
+    <div className='bg-dashboard'>
+    <div className='text-center pt-5'>
+    <h3 className='page-title mb-3 fs-3'>Welcome to <br/>launchpad Dashboard</h3>
+    <p className='text-secondary'>The Launchpad dashboard provides users with a comprehensive <br/>
+       overview of various projects, tasks, and activities within an organization.</p>
+    </div>
+     
       {(SuperAdminDetail.errorMsg||adminDashboard.errorMsg) && (
         <Alert variant="danger">
           <div className='d-flex align-items-center'>
@@ -60,26 +59,26 @@ const DashboardPage = (props) => {
           {isAdmin && <>
             
            {SuperAdminDetail.loader && <div className="text-center"><Spinner ></Spinner></div> }
-           { !SuperAdminDetail.loader &&<Row className='card-row mt-5'>
+           { !SuperAdminDetail.loader &&<Row className='card-row mt-3 justify-content-center'>
               <Col xl={2} className='ps-0'><div className='status-card bg-user'
-               ><div><span className='icon user-count'></span></div><h6 className='status-text mt-4'>Users</h6><h3 className='status-value'>{SuperAdminDetail?.data?.users}</h3></div></Col>
+               ><div><span className='icon user-count'></span></div><h6 className='status-text mt-3'>Users</h6><h3 className='status-value'>{SuperAdminDetail?.data?.users}</h3></div></Col>
               <Col xl={2}><div className='status-card bg-staker' 
-               ><div><span className='icon stakers-count'></span></div><h6 className='status-text mt-4'>Stakers</h6><h3 className='status-value'>{SuperAdminDetail?.data?.stakers}</h3></div></Col>
+               ><div><span className='icon stakers-count'></span></div><h6 className='status-text mt-3'>Stakers</h6><h3 className='status-value'>{SuperAdminDetail?.data?.stakers}</h3></div></Col>
               <Col xl={2}><div className='status-card bg-investor' 
-              ><div><span className='icon investers-count'></span></div><h6 className='status-text mt-4'>Investors</h6><h3 className='status-value'>{SuperAdminDetail?.data?.investors}</h3></div></Col>
+              ><div><span className='icon investers-count'></span></div><h6 className='status-text mt-3'>Investors</h6><h3 className='status-value'>{SuperAdminDetail?.data?.investors}</h3></div></Col>
             </Row>}</>}
 
           {!isAdmin && <>
           {adminDashboard.loader && <div className="text-center"><Spinner ></Spinner></div> }
             {!adminDashboard.loader &&<Row className='card-row'>
               <Col xl={2}><div className='status-card ' ><div><span className='icon closed'></span></div><h6 className='status-text  mt-4'>Closed Projects</h6><h3 className='status-value'>{adminDashboard?.data?.closedProjects}</h3></div></Col>
-              <Col xl={2}><div className='status-card '><div><span className='icon ongoing'></span></div><h6 className='status-text mt-4'>Ongoing Projects</h6><h3 className='status-value'>{adminDashboard?.data?.ongoingProjects}</h3></div></Col>
-              <Col xl={2}><div className='status-card ' ><div><span className='icon total'></span></div><h6 className='status-text mt-4'>Total Projects</h6><h3 className='status-value'>{adminDashboard?.data?.totalProjects}</h3></div></Col>
-              <Col xl={2}><div className='status-card ' ><div><span className='icon upcoming'></span></div><h6 className='status-text mt-4'>Upcoming Projects</h6><h3 className='status-value'>{adminDashboard?.data?.upcomingProjects}</h3></div></Col>
+              <Col xl={2}><div className='status-card '><div><span className='icon ongoing'></span></div><h6 className='status-text mt-3'>Ongoing Projects</h6><h3 className='status-value'>{adminDashboard?.data?.ongoingProjects}</h3></div></Col>
+              <Col xl={2}><div className='status-card ' ><div><span className='icon total'></span></div><h6 className='status-text mt-3'>Total Projects</h6><h3 className='status-value'>{adminDashboard?.data?.totalProjects}</h3></div></Col>
+              <Col xl={2}><div className='status-card ' ><div><span className='icon upcoming'></span></div><h6 className='status-text mt-3'>Upcoming Projects</h6><h3 className='status-value'>{adminDashboard?.data?.upcomingProjects}</h3></div></Col>
 
             </Row>}</>}
         </>)}
-    </> }
+    </div> }
     </>
   )
 }

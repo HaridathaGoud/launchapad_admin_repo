@@ -1,4 +1,23 @@
-<svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13 7.77518C12 6.85218 9.333 6.54518 9.333 8.39118C9.333 10.2372 13 9.31418 13 11.1592C13 13.0042 10 13.0052 9 11.7742M11 12.6312V13.9292M11 7.04218V5.92918M1 5.92918L10.732 1.06318C10.8152 1.02163 10.907 1 11 1C11.093 1 11.1848 1.02163 11.268 1.06318L21 5.92918" stroke="#FF9900" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M19 8.9292V16.9292C19 17.4596 18.7893 17.9683 18.4142 18.3434C18.0391 18.7185 17.5304 18.9292 17 18.9292H5C4.46957 18.9292 3.96086 18.7185 3.58579 18.3434C3.21071 17.9683 3 17.4596 3 16.9292V8.9292" stroke="#FF9900" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="45px" height="45px" viewBox="-11.5 -12.5 45 45" enable-background="new -11.5 -12.5 45 45" xml:space="preserve">
+<g>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="736.9915" y1="-3727.7539" x2="705.4632" y2="-3720.9995" gradientTransform="matrix(1 0 0 1 -708.6599 3734.041)">
+		<stop  offset="0" style="stop-color:#377868"/>
+		<stop  offset="1" style="stop-color:#199642"/>
+	</linearGradient>
+	<path fill="url(#SVGID_1_)" d="M11-12.5L11-12.5c12.426,0,22.5,10.074,22.5,22.5l0,0c0,12.426-10.074,22.5-22.5,22.5l0,0
+		c-12.426,0-22.5-10.074-22.5-22.5l0,0C-11.5-2.426-1.426-12.5,11-12.5z"/>
+	<g>
+		<path fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M11.801,7.675
+			c-1-0.923-3.667-1.23-3.667,0.616c0,1.846,3.667,0.923,3.667,2.768c0,1.845-3,1.846-4,0.615 M9.801,12.531v1.298 M9.801,6.942
+			V5.829 M-0.199,5.829l9.732-4.866C9.616,0.922,9.708,0.9,9.801,0.9s0.185,0.022,0.268,0.063l9.732,4.866"/>
+		<path fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M17.801,8.829v8
+			c0,0.53-0.211,1.039-0.586,1.414c-0.375,0.375-0.884,0.586-1.414,0.586h-12c-0.53,0-1.039-0.211-1.414-0.586
+			c-0.375-0.375-0.586-0.884-0.586-1.414v-8"/>
+	</g>
+</g>
 </svg>

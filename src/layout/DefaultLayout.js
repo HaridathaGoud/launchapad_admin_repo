@@ -44,8 +44,10 @@ const DefaultLayout = () => {
       {appName !== null && <AppSidebar />}
       <div className="wrapper d-flex flex-column min-vh-100 content-bg">
        <AppHeader />
-        <div className="body flex-grow-1 px-lg-3 px-2">
-           <Outlet />
+        <div className="body flex-grow-1 px-3">
+          <div>
+          <Outlet />
+          </div>
        </div>
        <AppFooter />
         </div> 

@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
 .icon.noti-icon{background-position: -35px 0;}
 /* Icons End */
 /* Header Start */
-.header.header-sticky{background: #fff;border-bottom: 1px solid transparent;border-radius: 10px;margin-top: 0 !important;height: 78px;}
+.header.header-sticky{background: #fff;border-bottom: 1px solid transparent;filter:drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.14));margin-top: 0 !important;height: 78px;}
 .custom-header .header-nav .dropdown-menu,#popover-basic{transform: translate3d(-107.2px, 50px, 0px) ;background: #fff;border: none;  box-shadow: 0 0 10px 3px #0000001a;  border-radius: 16px;}
 /* .custom-header .dropdown-toggle::after{display: none;} */
 .profile-rspace{width: 96px;}
@@ -529,9 +529,9 @@ input[type='datetime-local'],input[type='date']{color-scheme: dark;padding: 0 14
 .mt-6{margin-top: 84px;}
 .search-style,.search-style.input:focus{text-overflow: ellipsis;}
 .camera.cam-position:active{background-color: transparent !important;padding: 0 !important;border: transparent !important;}
-.bg-user{background-color: #F6EBFE;}
-.bg-staker{background-color: #EAF2EF;}
-.bg-investor{background-color: #EDF9FF;}
+.bg-user{background: #FAF4FF;  box-shadow: 0px 7px 9px 0px rgba(197, 117, 255, 0.47);background-image: url(../images/user-bg.png);background-repeat: no-repeat;background-size: cover;}
+.bg-staker{background: #F4FFF8;  box-shadow: 0px 7px 8px 0px rgba(55, 120, 104, 0.41);background-image: url(../images/user-bg.png);background-repeat: no-repeat;background-size: cover;}
+.bg-investor{background: #EDF5FF; box-shadow: 0px 7px 9px 0px rgba(92, 175, 253, 0.36);background-image: url(../images/user-bg.png);background-repeat: no-repeat;background-size: 100% 100%;}
 button:disabled{background-color: #d0d0d0 !important;color: #000 !important;border-color: #d0d0d0 !important;}
 .btn-width button{min-width: 100px;}
 .k-grid th{border-right-width: 1px !important;}
@@ -541,6 +541,7 @@ button:disabled{background-color: #d0d0d0 !important;color: #000 !important;bord
 .form-control:disabled{background-color: #F0EEEE !important; cursor: not-allowed;}
 .k-pager-numbers .k-link{border-radius: 50%;}
 .filter-none thead tr th:last-child .k-grid-filter{display: none;}
+.bg-dashboard{background: url(../images/bg-dashboard.png) no-repeat; background-size: cover;height: 100vh;}
 @media (min-width: 768px) {
   .dao-shimmer{width: 23%;}
   table{width: 100% !important;}

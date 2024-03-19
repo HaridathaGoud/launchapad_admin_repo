@@ -84,7 +84,7 @@ function AppHeader(props){
 
   return (
 
-    <CHeader position="sticky" className="mb-4 custom-header herader-top">
+    <CHeader position="sticky" className="custom-header herader-top">
       {url == "minting" ?
 
          <CSidebar className={`${daoLuData !=null &&  "bg-none" } menu-left superadmin-leftmenu cust-header-daopf`}>
