@@ -24,7 +24,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Multiselect from 'multiselect-react-dropdown';
 import { NumericFormat } from 'react-number-format';
 import profileavathar from "../../../assets/images/default-avatar.jpg";
-import { FloatingLabel, Modal } from 'react-bootstrap';
+import {  Modal } from 'react-bootstrap';
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMgs":
@@ -71,6 +71,8 @@ const reducer = (state, action) => {
       return { ...state, castImgLoader: action.payload };
     case "castCrewDataList":
       return { ...state, castCrewDataList: action.payload };
+    case "castCrewImageError":
+      return { ...state, castCrewImageError: action.payload };
     default:
       return state;
   }
@@ -104,6 +106,7 @@ const initialState = {
   },
   castImgLoader: false,
   castCrewDataList: [],
+  castCrewImageError:'',
 };
 const Projects = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -367,12 +370,18 @@ const Projects = (props) => {
 
   const uploadToClient = (event, type) => {
     setImageError(null)
+    dispatch({ type: 'castCrewImageError', payload: null })
     dispatch({ type: 'errorMgs', payload: null })
     if (event.target.files) {
       const file = event.target.files[0];
       if (!file.name.match(/\.(jpg|jpeg|png|gif|webp)$/)) {
-        setImageError("It is not permitted to upload a file. Only jpg,jpeg,png,gif,webp files can be uploaded.")
-        window.scroll(0, 0);
+        if (type !== 'image') {
+          setImageError("It is not permitted to upload a file. Only jpg,jpeg,png,gif,webp files can be uploaded.")
+          window.scroll(0, 0);
+        } else {
+          dispatch({ type: 'castCrewImageError', payload: "It is not permitted to upload a file. Only jpg,jpeg,png,gif,webp files can be uploaded." })
+          window.scroll(0, 0);
+        }
       } else {
         uploadToServer(file, type);
         if (type === 'banner') {
@@ -710,7 +719,6 @@ const Projects = (props) => {
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
-                    // onClick={() => inputRef1.current?.click()}
                     role="button"
                   >
                     {state.bannerImgLoader && <Spinner fallback={state.bannerImgLoader} className='position-absolute'></Spinner>}
@@ -1244,7 +1252,15 @@ const Projects = (props) => {
                         <span className="icon close" onClick={handleCancell} ></span>
 
                       </Modal.Header>
-                      <Modal.Body className="launchpadadmin-modal">            
+                      <Modal.Body className="launchpadadmin-modal">    
+                {state.castCrewImageError && (
+                  <Alert variant="danger">
+                    <div className='d-flex align-items-center'>
+                      <span className='icon error-alert'></span>
+                      <p className='m1-2' style={{ color: 'red' }}>{state.castCrewImageError}</p>
+                    </div>
+                  </Alert>
+                )}
                             <Row>
                             <Col xl={4} className="mb-4">
                         <Form.Group>
