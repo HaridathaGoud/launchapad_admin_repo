@@ -93,12 +93,14 @@ class Transactions extends Component {
       field: "name",
       title: "Name",
       filter: true,
+      sortable: true,
       width: 200,
     },
     {
       field: "type",
       title: "Transaction Type",
       filter: true,
+      sortable: true,
       width: 250,
       customCell: (props) => (
         <td>
@@ -118,6 +120,7 @@ class Transactions extends Component {
       title: "Transaction Date",
       filterType: "date",
       filter: true,
+      sortable: true,
       width: 250,
       customCell: (props) => (
         <td>
@@ -135,6 +138,8 @@ class Transactions extends Component {
       field: "amount",
       title: "Staking Token",
       width: 200,
+      filter: true,
+      sortable: true,
       dataType: "number",
 			filterType: "numeric"
     },

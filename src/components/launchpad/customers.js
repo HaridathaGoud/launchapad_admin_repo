@@ -27,6 +27,7 @@ class LaunchpadCustomers extends Component {
             field: "createdDate",
             title: "Date",
             filter: true,
+            sortable: true,
             width: 140,
             filterType: "date",
             customCell: (props) => (
@@ -41,6 +42,7 @@ class LaunchpadCustomers extends Component {
             field: "walletAddress",
             title: "Wallet Address",
             filter: true,
+            sortable: true,
             width: 450,
             customCell: (props) => (
                 <td className='copy-width'>
@@ -57,6 +59,7 @@ class LaunchpadCustomers extends Component {
             field: "firstName",
             title: "Name",
             filter: true,
+            sortable: true,
             width: 200,
             customCell: (props) => (
                 <td>
@@ -70,24 +73,28 @@ class LaunchpadCustomers extends Component {
             field: "email",
             title: "Email",
             filter: true,
+            sortable: true,
             width: 210,
         },
         {
             field: "phoneNumber",
             title: "Phone Number",
             filter: true,
+            sortable: true,
             width: 210,
         },
         {
             field: "country",
             title: "Country",
             filter: true,
+            sortable: true,
             width: 200,
         },
         {
             field: "kycStatus",
             title: "KYC Status",
             filter: true,
+            sortable: true,
             width: 200,
         },
     ];

@@ -38,23 +38,27 @@ class InvestorsGrid extends Component {
             field: "name",
             title: "Name",
             filter: true,
+            sortable: true,
             width: 200,
         },
         {
             field: "mailId",
             title: "Mail Id",
             filter: true,
+            sortable: true,
             width: 200,
         },
         {
             field: "phoneNumber",
             title: "Phone Number",
             filter: true,
+            sortable: true,
             width: 120,
         },{
             field: "",
             title: "",
             filter: false,
+            sortable: false,
             width: 150,
             customCell: (props) => (
                 <td>
