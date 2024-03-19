@@ -343,7 +343,7 @@ import InvestorsGrid from './settings/investorsGrid';
 //     <>
 
 //       {state.loader && <div className="text-center"><Spinner ></Spinner></div>}
-//       <h3 className='page-title mb-4'>Investors</h3>
+//       <h3 className='page-title mb-3'>Investors</h3>
 //       {!state.loader && <>
 //         <CBreadcrumb>
 //           <CBreadcrumbItem>

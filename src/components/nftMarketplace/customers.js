@@ -94,7 +94,7 @@ const CustomersInfo = () => {
 }
   return (
     <div className=''>
-       <h5 className="mt-3 page-title mb-4">Personal info</h5>
+       <h5 className="mt-3 page-title mb-3">Personal info</h5>
       <div className='profile-container'>
       <CBreadcrumb>
           <CBreadcrumbItem className="c-pointer">

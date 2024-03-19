@@ -93,7 +93,7 @@ const AppSidebar = (props) => {
         }}
       >
         <div className='nav-brand d-flex align-items-center justify-content-center py-4 c-pointer h-78'>
-          <Image src={navBrand} alt="" onClick={() =>  logoRedirection()} width={70} />
+          <Image src={navBrand} alt="" onClick={() =>  logoRedirection()} height={60} />
         </div>
         <div className=' screen-height pt-2'>
           <CSidebarNav>

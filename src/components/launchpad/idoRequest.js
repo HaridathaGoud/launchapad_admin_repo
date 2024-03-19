@@ -317,7 +317,7 @@ import PropTypes from 'prop-types'
 //   return (
 //     <>
 //       {state.loader && <div className="text-center"><Spinner ></Spinner></div>}
-//       <h3 className='page-title mb-4'>IDO Request</h3>
+//       <h3 className='page-title mb-3'>IDO Request</h3>
 
 //       {!state.loader && <>
 //         <CBreadcrumb>

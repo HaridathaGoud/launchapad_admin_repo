@@ -50,7 +50,7 @@ class InvestorsGrid extends Component {
             field: "phoneNumber",
             title: "Phone Number",
             filter: true,
-            width: 200,
+            width: 120,
         },{
             field: "",
             title: "",
@@ -58,9 +58,9 @@ class InvestorsGrid extends Component {
             width: 150,
             customCell: (props) => (
                 <td>
-                    <div>
+                   
                     <Button onClick={() => this.handleProject(props.dataItem)} className='button-secondary py-1'>Projects</Button>
-                    </div>
+                   
                 </td>
             )
         },
@@ -286,7 +286,7 @@ class InvestorsGrid extends Component {
                                 ref={this.gridRef}
                                 columns={this.gridColumns}
                                 pSize={10}
-                                className="custom-grid"
+                                className="custom-grid filter-none"
                             />
                         </div>
                     </div>

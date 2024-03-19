@@ -38,7 +38,7 @@ const DashboardPage = (props) => {
     <>
     {loader ? <div className="text-center"><Spinner ></Spinner></div> : 
     <>
-    <h3 className='page-title mb-4'>Dashboard</h3>
+    <h3 className='page-title mb-3'>Dashboard</h3>
      <CBreadcrumb>
         <CBreadcrumbItem className='text-opacity-50'>
           Launchpad

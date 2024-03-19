@@ -87,7 +87,7 @@ export default function Users() {
                 </CBreadcrumbItem>
                 <CBreadcrumbItem active>Users</CBreadcrumbItem>
             </CBreadcrumb>
-            <h3 className='page-title mb-4'>Users</h3>
+            <h3 className='page-title mb-3'>Users</h3>
 
             {errorMessage && (
                 <Alert variant="danger">

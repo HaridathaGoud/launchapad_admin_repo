@@ -115,16 +115,12 @@ class IdoRequestGrid extends Component {
             field: "",
             title: "",
             filter: false,
-            width: 140,
+            width: 150,
             customCell: (props) => (
-                <td>
-                    <div className='d-flex align-items-center justify-content-end'>
-                        <Button onClick={() => this.getOnePersonDetailsBasedOnId(props.dataItem)} className="button-secondary d-flex align-items-center justify-content-left c-pointer">
-                            {/* <span className='icon view c-pointer'></span> */}
-                            <div className=''><p className='mb-0 text-light text-overflow c-pointer'>View</p>
-                            </div>
-                        </Button>
-                    </div>
+                <td className='text-end'>                   
+                        <Button onClick={() => this.getOnePersonDetailsBasedOnId(props.dataItem)} className="button-secondary c-pointer" style={{minWidth:'112px',height:'36px',padding:'0'}}>                           
+                           View                          
+                        </Button>                   
                 </td>
             )
         },
@@ -322,7 +318,7 @@ class IdoRequestGrid extends Component {
                                 ref={this.gridRef}
                                 columns={this.gridColumns}
                                 pSize={10}
-                                className="custom-grid"
+                                className="custom-grid filter-none"
                             />
                         </div>
                     </div>

@@ -113,7 +113,7 @@ function AppHeader(props){
       <CHeaderToggler className='mb-show icon toggole-icon d-md-none' onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
         aria-expanded={open} />
-        <Image width={72} className='mobile-nav' src={navBrand} alt="" onClick={() => {
+        <Image width={25} className='mobile-nav' src={navBrand} alt="" onClick={() => {
             // onAppSelect("kyc");
             // navigate('/kyc/customers');
             onAppSelect("launchpad");

@@ -322,12 +322,22 @@ const UserProfile = (props) => {
                       <Col xl={12}>
                         <Row className="mt-3 mt-xl-0">
                           <Col xl={6} className="mb-3">
-                            <label className="user-label">User Name</label>
-                            <p className="mb-0 profile-value">{adminDetails?.userName ? adminDetails?.userName : "--"}</p>
+                          <Form.Label >User Name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="firstName"
+                                value={adminDetails?.userName ? adminDetails?.userName : "--"}
+                                readOnly disabled
+                              />                            
                           </Col>
                           <Col xl={6} className="mb-3">
-                            <label className="user-label">Email</label>
-                            <p className="mb-0 profile-value">{adminDetails?.email ? adminDetails?.email : "--"}</p>
+                          <Form.Label >Email</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="firstName"
+                                value={adminDetails?.email ? adminDetails?.email : "--"}
+                                readOnly disabled
+                              />
                           </Col>
                           <Col xl={6} className="mb-3">
                             <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">

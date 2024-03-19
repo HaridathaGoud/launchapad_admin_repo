@@ -107,7 +107,7 @@ const Dashboard = (props) => {
             </Alert>
     )}
         <div><div className='dao-mt'>
-            <h5 className='mb-1 back-text'>DAO’s</h5>
+            <h5 className='mb-1 page-title'>DAO’s</h5>
                 <Row className='gap-4 gap-md-0'>
                     {!loading && <>
                         { state?.daoCardDetails?.map((item) => (
@@ -115,11 +115,11 @@ const Dashboard = (props) => {
                                 {<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={item?.daoId} >
                                     <Card.Img variant="top" src={item?.logo || profileavathar} onClick={() => goToProposalList(item)} />
                                     <Card.Body>
-                                        <Card.Text className='mb-1'>
-                                            Name: {item.name}
+                                        <Card.Text className='mb-1 d-flex'>
+                                            <p className='m-0 col-3'>Name: </p><p className='m-0 '>{item.name}</p>
                                         </Card.Text>
-                                        <Card.Text className='card-description'>
-                                            members: {item?.members?.toLocaleString()}
+                                        <Card.Text className='card-description d-flex mb-1'>
+                                            <p className='m-0 col-3'>members:</p> <p className='m-0 '>{item?.members?.toLocaleString()}</p>
                                         </Card.Text>
                                         {item?.status?.toLowerCase() == "approved" && <Button className='button-secondary' onClick={() => deployDAO(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) && <span><Spinner size='sm' className='text-light mr-1' /></span>} Deploy</Button>}
                                         {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed") && <Button className='button-secondary'>{item?.status}</Button>}

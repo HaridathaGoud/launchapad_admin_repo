@@ -148,7 +148,7 @@ class Transactions extends Component {
     
     return (
       <>
-      <h3 className='page-title mb-4'>Transactions</h3>
+      <h3 className='page-title mb-3'>Transactions</h3>
         <CBreadcrumb>
           <CBreadcrumbItem>
            
@@ -162,7 +162,7 @@ class Transactions extends Component {
           <Form className="d-flex grid-search">
           <Form.Control name='searchBy'
             type="text"
-            placeholder="Search"
+            placeholder="Search Transaction"
             className="search-style"
             aria-label="Search"
             onChange={(e) => this.handleChange(e)}

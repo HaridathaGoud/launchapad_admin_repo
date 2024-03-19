@@ -141,7 +141,7 @@ class LaunchpadCustomers extends Component {
         const { searchObj, gridUrl } = this.state;
         return (
             <>
-            <h3 className='page-title mb-4'>Customers</h3>
+            <h3 className='page-title mb-3'>Customers</h3>
                 <CBreadcrumb>
                     <CBreadcrumbItem>
                         {/* <CLink >

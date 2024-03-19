@@ -175,7 +175,7 @@
 tr td:first-child{padding-left: 18px;}
 tr th:first-child .k-link{margin-left: 6px;}
 .whitelist-grid tr th:first-child .k-link{margin-left: 0px;}
-tr td:last-child{padding-right: 18px;  border-top-right-radius: 5px;border-bottom-right-radius: 5px;text-align: right;}
+tr td:last-child{padding-right: 18px; text-align: right;}
 .user-table{border-collapse: separate;  border-spacing: 0 16px;}
 .user-table td img{border-radius: 5px;  width: 40px;  height: 40px;  object-fit: cover;}
 .dropdown button,.dropdown button:hover,.dropdown .btn.show,.dropdown .btn:first-child:active{background: transparent;  color: #000;font-weight: 500;  font-size: 16px;padding: 6px 10px;border-color: rgba(0, 0, 0, 0.43);}
