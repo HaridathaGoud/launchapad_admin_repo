@@ -338,6 +338,12 @@ class InvestorsGrid extends Component {
                                                     placeholder="Enter First Name"
                                                     maxLength={50}
                                                     className=""
+                                                    onBlur={(e) => {
+                                                        this.setField(
+                                                          "firstName",
+                                                          e.target.value.trim().replace(/\s+/g, " ")
+                                                        );
+                                                      }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.firstName}</Form.Control.Feedback>
                                             </Form.Group>
@@ -356,6 +362,12 @@ class InvestorsGrid extends Component {
                                                     required
                                                     placeholder="Enter Last Name "
                                                     maxLength={50}
+                                                    onBlur={(e) => {
+                                                        this.setField(
+                                                          "lastName",
+                                                          e.target.value.trim().replace(/\s+/g, " ")
+                                                        );
+                                                      }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.lastName}</Form.Control.Feedback>
                                             </Form.Group>
@@ -373,6 +385,12 @@ class InvestorsGrid extends Component {
                                                     required
                                                     placeholder="Enter Username "
                                                     maxLength={50}
+                                                    onBlur={(e) => {
+                                                        this.setField(
+                                                          "userName",
+                                                          e.target.value.trim().replace(/\s+/g, " ")
+                                                        );
+                                                      }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.userName}</Form.Control.Feedback>
                                             </Form.Group>
@@ -391,6 +409,12 @@ class InvestorsGrid extends Component {
                                                     required
                                                     placeholder="Email "
                                                     maxLength={50}
+                                                    onBlur={(e) => {
+                                                        this.setField(
+                                                          "email",
+                                                          e.target.value.trim().replace(/\s+/g, " ")
+                                                        );
+                                                      }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.email}</Form.Control.Feedback>
                                             </Form.Group>
@@ -485,8 +509,15 @@ class InvestorsGrid extends Component {
                                                     onChange={(e) => { this.setField('password', e.currentTarget.value) }}
                                                     isInvalid={!!this.state.errors.password}
                                                     required
-                                                    placeholder="Password *"
+                                                    placeholder="Enter Password "
                                                     maxLength={50}
+                                                    email
+                                                    onBlur={(e) => {
+                                                        this.setField(
+                                                          "password",
+                                                          e.target.value.trim().replace(/\s+/g, " ")
+                                                        );
+                                                      }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.password}</Form.Control.Feedback>
                                             </Form.Group>
