@@ -7,7 +7,9 @@ import Alert from 'react-bootstrap/Alert';
 import { daoCards, InvestorDaoCards } from '../proposalReducer/proposalReducer';
 import { connect, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { Placeholder, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
+import nodata from '../../assets/images/no-data.png';
+
 import profileavathar from '../../assets/images/default-avatar.jpg';
 import votingFactory from '../../contract/votingFactory.json';
 import { ethers } from 'ethers';
@@ -35,8 +37,6 @@ const reducer = (state, action) => {
   };
 const Dashboard = (props) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-
-    const [daoCardDetails, setDaoCardDetails] = useState([]);
     const loading = useSelector((state) => state?.proposal?.daoCards?.isLoading)
     const isAdmin = useSelector(state => state.oidc?.adminDetails);
     const [deployContractLoader, setDeployContractLoader]=useState(false);
@@ -46,12 +46,10 @@ const Dashboard = (props) => {
     useEffect(() => {
         if (isAdmin?.isInvestor === true) {
             props?.trackDaoWallet((callback) => {
-                // setDaoCardDetails(callback);
                 dispatch({ type: 'daoCardDetails', payload: callback })
             },isAdmin?.id)
         } else {
             props?.trackWallet((callback) => {
-                // setDaoCardDetails(callback);
                 dispatch({ type: 'daoCardDetails', payload: callback })
             })
         }
@@ -78,7 +76,6 @@ const Dashboard = (props) => {
               let res=  await apiCalls.updateVotingContractAddress(updateProject);
               if(res.ok){
                 props?.trackWallet((callback) => {
-                    // setDaoCardDetails(callback);
                     dispatch({ type: 'daoCardDetails', payload: callback })
                 })
                     setDeployContractLoader(false);
@@ -135,6 +132,11 @@ const Dashboard = (props) => {
                  <div className='mt-4 mb-4'>
                     <shimmers.DaoCardShimmer count={8} />
                     </div>
+                }
+                { !loading && state?.daoCardDetails.length==0 &&  <div className='text-center'>
+                    <img src={nodata} width={80} alt='' />
+                    <h4 className="text-center no-data-text">No Data Found</h4>
+                </div>
                 }
                 {/* {!loading&&<>
               <div className='text-center'>{state.loadMore && <Spinner size="sm" className='text-white text-center' />} </div>

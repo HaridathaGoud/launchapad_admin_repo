@@ -321,6 +321,9 @@ const Projects = (props) => {
         "projectOwnerId": projectItem?.id ? projectItem.id : isAdmin?.id,
         "initialSupply": state.projectSaveDetails?.initialSupply,
         "cast_Crews":   state.castCrewDataList, 
+        // "category": "string",
+        // "tokenType": "string",
+        // "daoContractAddress": "string",
       }
       dispatch({ type: 'projectSaveDetails', payload: obj })
       if (window.location.pathname.includes('/launchpad/idorequest')) {

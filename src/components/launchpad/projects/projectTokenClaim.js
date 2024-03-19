@@ -312,6 +312,9 @@ const timeDate=(timeString)=>{
   }
 
   const convertUtcToLocal = (date) => {
+    if (!date) {
+      return '';
+    }
     const utcTime = date;
     const utcMoment = moment.utc(utcTime);
     const localMoment = utcMoment.local();
