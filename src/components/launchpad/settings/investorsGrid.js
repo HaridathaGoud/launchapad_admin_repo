@@ -169,9 +169,9 @@ class InvestorsGrid extends Component {
         if (!email || email == '') {
             newErrors.email = "Is required";
         } else if (emailValidation("", email)) {
-            newErrors.email = "Invalid Email";
+            newErrors.email = "Invalid email address";
         } else if (!emailReg) {
-            newErrors.email = "Invalid Email";
+            newErrors.email = "Invalid email address";
         }
 
 
@@ -335,9 +335,15 @@ class InvestorsGrid extends Component {
                                                     onChange={(e) => { this.setField('firstName', e.currentTarget.value) }}
                                                     isInvalid={!!this.state.errors.firstName}
                                                     required
-                                                    placeholder="First Name"
+                                                    placeholder="Enter First Name"
                                                     maxLength={50}
                                                     className=""
+                                                    onBlur={(e) => {
+                                                        this.setField(
+                                                          "firstName",
+                                                          e.target.value.trim().replace(/\s+/g, " ")
+                                                        );
+                                                      }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.firstName}</Form.Control.Feedback>
                                             </Form.Group>
@@ -354,8 +360,14 @@ class InvestorsGrid extends Component {
                                                     onChange={(e) => { this.setField('lastName', e.currentTarget.value) }}
                                                     isInvalid={!!this.state.errors.lastName}
                                                     required
-                                                    placeholder="Last Name *"
+                                                    placeholder="Enter Last Name "
                                                     maxLength={50}
+                                                    onBlur={(e) => {
+                                                        this.setField(
+                                                          "lastName",
+                                                          e.target.value.trim().replace(/\s+/g, " ")
+                                                        );
+                                                      }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.lastName}</Form.Control.Feedback>
                                             </Form.Group>
@@ -371,8 +383,14 @@ class InvestorsGrid extends Component {
                                                     onChange={(e) => { this.setField('userName', e.currentTarget.value) }}
                                                     isInvalid={!!this.state.errors.userName}
                                                     required
-                                                    placeholder="Username *"
+                                                    placeholder="Enter Username "
                                                     maxLength={50}
+                                                    onBlur={(e) => {
+                                                        this.setField(
+                                                          "userName",
+                                                          e.target.value.trim().replace(/\s+/g, " ")
+                                                        );
+                                                      }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.userName}</Form.Control.Feedback>
                                             </Form.Group>
@@ -389,8 +407,14 @@ class InvestorsGrid extends Component {
                                                     onChange={(e) => { this.setField('email', e.currentTarget.value) }}
                                                     isInvalid={!!this.state.errors.email}
                                                     required
-                                                    placeholder="Email *"
+                                                    placeholder="Email "
                                                     maxLength={50}
+                                                    onBlur={(e) => {
+                                                        this.setField(
+                                                          "email",
+                                                          e.target.value.trim().replace(/\s+/g, " ")
+                                                        );
+                                                      }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.email}</Form.Control.Feedback>
                                             </Form.Group>
@@ -485,8 +509,15 @@ class InvestorsGrid extends Component {
                                                     onChange={(e) => { this.setField('password', e.currentTarget.value) }}
                                                     isInvalid={!!this.state.errors.password}
                                                     required
-                                                    placeholder="Password *"
+                                                    placeholder="Enter Password "
                                                     maxLength={50}
+                                                    email
+                                                    onBlur={(e) => {
+                                                        this.setField(
+                                                          "password",
+                                                          e.target.value.trim().replace(/\s+/g, " ")
+                                                        );
+                                                      }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.password}</Form.Control.Feedback>
                                             </Form.Group>

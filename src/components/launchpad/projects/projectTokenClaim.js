@@ -437,6 +437,7 @@ const timeDate=(timeString)=>{
                     value={state.claimDetails?.privateStartDate}
                     onChange={(e) => handleChange("privateStartDate", e)}
                     min={currentDate}
+                    max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                     isInvalid={!!formErrors.privateStartDate}
                     disabled={
                       (props?.projectInfo?.projectStatus == "Deployed" ||
@@ -460,6 +461,7 @@ const timeDate=(timeString)=>{
                     value={state.claimDetails?.privateEndDate}
                     onChange={(e) => handleChange("privateEndDate", e)}
                     min={currentDate}
+                    max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                     isInvalid={!!formErrors.privateEndDate}
                     disabled={
                       (props?.projectInfo?.projectStatus == "Deployed" ||
@@ -483,6 +485,7 @@ const timeDate=(timeString)=>{
                     value={state.claimDetails?.publicStartDate}
                     onChange={(e) => handleChange("publicStartDate", e)}
                     min={currentDate}
+                    max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                     isInvalid={!!formErrors.publicStartDate}
                     disabled={
                       (props?.projectInfo?.projectStatus == "Deployed" ||
@@ -509,6 +512,7 @@ const timeDate=(timeString)=>{
                     value={state.claimDetails?.publicEndDate}
                     onChange={(e) => handleChange("publicEndDate", e)}
                     min={currentDate}
+                    max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                     isInvalid={!!formErrors.publicEndDate}
                     disabled={
                       (props?.projectInfo?.projectStatus == "Deployed" ||
