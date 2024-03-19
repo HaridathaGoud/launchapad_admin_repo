@@ -44,7 +44,7 @@ const DefaultLayout = () => {
       {appName !== null && <AppSidebar />}
       <div className="wrapper d-flex flex-column min-vh-100 content-bg">
        <AppHeader />
-        <div className="body flex-grow-1 px-3">
+        <div className={`body flex-grow-1 px-3 ${location.pathname === '/launchpad/dashboard' || location.pathname === '/marketplace/dashboard' ? '' : 'pt-4'}`}>
           <div>
           <Outlet />
           </div>
