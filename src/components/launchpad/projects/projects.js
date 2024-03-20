@@ -15,7 +15,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { setProjectDetail } from '../../../reducers/projectDetailsReducer';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { CBreadcrumb, CBreadcrumbItem, CLink } from '@coreui/react'
-import { projectDetailsData, projectDetailsSave, projectePayment,fetchCastCrewRolesData } from '../launchpadReducer/launchpadReducer';
+import { projectDetailsData, projectDetailsSave, projectePayment, fetchCastCrewRolesData } from '../launchpadReducer/launchpadReducer';
 import moment from 'moment';
 import { validateContentRules } from '../../../utils/custom.validator';
 import jsonCountryCode from '../../../utils/countryCode.json';
@@ -24,7 +24,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Multiselect from 'multiselect-react-dropdown';
 import { NumericFormat } from 'react-number-format';
 import profileavathar from "../../../assets/images/default-avatar.jpg";
-import {  Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMgs":
@@ -106,7 +106,7 @@ const initialState = {
   },
   castImgLoader: false,
   castCrewDataList: [],
-  castCrewImageError:'',
+  castCrewImageError: '',
 };
 const Projects = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -132,6 +132,7 @@ const Projects = (props) => {
   const [show, setShow] = useState(false);
   const castCrewRolesLu = useSelector(state => state.launchpad?.castCrewRolesLuData?.data);
   const [selectedroleValues, setSelectedroleValues] = useState([]);
+  const [castCrewLoader,setCastCrewLoader]=useState(false);
   useEffect(() => {
     dispatch({ type: 'loader', payload: true })
     dispatch({ type: 'loading', payload: true })
@@ -143,7 +144,7 @@ const Projects = (props) => {
       dispatch({ type: 'projectLogoImages', payload: callback.data?.projectsViewModel?.tokenLogo })
       dispatch({ type: 'projectBannerImages', payload: callback.data?.projectsViewModel?.bannerImage })
       dispatch({ type: 'projectCardImages', payload: callback.data?.projectsViewModel?.cardImage })
-      dispatch({ type: 'castCrewDataList', payload: callback.data?.projectsViewModel?.castCrews ? callback.data?.projectsViewModel?.castCrews:[] });
+      dispatch({ type: 'castCrewDataList', payload: callback.data?.projectsViewModel?.castCrews ? callback.data?.projectsViewModel?.castCrews : [] });
       dispatch({ type: 'projectDetails', payload: callback.data })
       dispatch({ type: 'loading', payload: false })
       dispatch({ type: 'bannerImgLoader', payload: false })
@@ -156,7 +157,7 @@ const Projects = (props) => {
       getClaimsandAllocations(callback.data?.projectsViewModel)
     })
     getWalletAddress();
-    }, []);
+  }, []);
   useEffect(() => {
     handledescription();
   }, [])
@@ -183,23 +184,23 @@ const Projects = (props) => {
     setShow(true)
     dispatch({ type: 'castImgLoader', payload: false })
     if (index !== null) {
-    const selectedItem = state.castCrewDataList[index];
-    setSelectedroleValues(selectedItem?.role?.map(role => ({ role })));
-    dispatch({ type: "cast_CrewsFormDeatils" ,payload: selectedItem });
-    }else{
+      const selectedItem = state.castCrewDataList[index];
+      setSelectedroleValues(selectedItem?.role?.map(role => ({ role })));
+      dispatch({ type: "cast_CrewsFormDeatils", payload: selectedItem });
+    } else {
       dispatch({ type: "cast_CrewsFormDeatils", payload: {} });
     }
   }
   const handleCancell = () => {
     setShow(false)
-    dispatch({ type: "cast_CrewsFormDeatils" ,payload:{} });
+    dispatch({ type: "cast_CrewsFormDeatils", payload: {} });
     setSelectedroleValues([])
     setErrors({});
   }
 
   const validateForm = (obj) => {
     const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, contractAddress,
-      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply} = obj;
+      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply } = obj;
     const newErrors = {};
     const emojiRejex =
       /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff]|[\u2010-\u2017])/;
@@ -320,7 +321,7 @@ const Projects = (props) => {
         "introductionHtml": state.introductionHtml || state.projectSaveDetails?.introductionHtml,
         "projectOwnerId": projectItem?.id ? projectItem.id : isAdmin?.id,
         "initialSupply": state.projectSaveDetails?.initialSupply,
-        "cast_Crews":   state.castCrewDataList, 
+        "cast_Crews": state.castCrewDataList,
         // "category": "string",
         // "tokenType": "string",
         // "daoContractAddress": "string",
@@ -397,7 +398,7 @@ const Projects = (props) => {
           if (errors[type]) {
             setErrors({ ...errors, [field]: null })
           }
-        }else if (type === 'image') {
+        } else if (type === 'image') {
           dispatch({ type: 'castImgLoader', payload: true })
           if (errors[type]) {
             setErrors({ ...errors, [field]: null })
@@ -412,7 +413,7 @@ const Projects = (props) => {
     }
   };
   const uploadToServer = async (file, type) => {
-    dispatch({ type: 'castImgLoader', payload: true }); 
+    dispatch({ type: 'castImgLoader', payload: true });
     const body = new FormData();
     body.append('file', file);
     try {
@@ -439,11 +440,11 @@ const Projects = (props) => {
           _obj.cardImage = data[0];
           dispatch({ type: 'cardImgLoader', payload: false })
           dispatch({ type: 'projectCardImages', payload: data[0] })
-        }else if (type == "image") {
+        } else if (type == "image") {
           _obj.cardImage = data[0];
           dispatch({ type: 'castImgLoader', payload: false })
           dispatch({ type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, image: data[0] } })
-       }
+        }
       }
     } catch (error) {
       dispatch({ type: 'bannerImgLoader', payload: false })
@@ -520,19 +521,20 @@ const Projects = (props) => {
 
   const handlecastCrewData = (event) => {
     const { name, value } = event.target;
-    dispatch({ type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, [name]: value} 
+    dispatch({
+      type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, [name]: value }
     });
   }
 
   const onRolsSelect = (selectedList) => {
     const selectedRoleNames = selectedList?.map(item => item.role).flat();
     setSelectedroleValues(selectedList);
-    dispatch({ type: 'cast_CrewsFormDeatils',payload: { ...state.cast_CrewsFormDeatils, role: selectedRoleNames } })
+    dispatch({ type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, role: selectedRoleNames } })
   };
   const validateCastCrewForm = () => {
     const validatingForm = { ...state.cast_CrewsFormDeatils };
     const newErrors = {};
-   const urlRegex = /^(?:(?:https?|ftp|file):\/\/|www\.)[^\s/$.?#].[^\s]*$/;
+    const urlRegex = /^(?:(?:https?|ftp|file):\/\/|www\.)[^\s/$.?#].[^\s]*$/;
     if (!validatingForm?.name || validatingForm?.name === '') {
       newErrors.name = 'Is required';
     } else if (!validateContentRules('', validatingForm?.name)) {
@@ -552,28 +554,32 @@ const Projects = (props) => {
     }
     return newErrors;
   }
-  
-  const handleCastCrewDataSave=async (event) => {
+
+  const handleCastCrewDataSave = async (event) => {
     event.preventDefault();
     const formErrors = validateCastCrewForm();
+    setCastCrewLoader(true)
     if (Object.keys(formErrors)?.length > 0) {
       setErrors(formErrors);
-  } else {
-    const formDetails = { ...state.cast_CrewsFormDeatils };
-    const existingIndex = state.castCrewDataList?.findIndex(item => item.id === formDetails.id);
-    if (existingIndex !== -1) {
-      const updatedList = [...state.castCrewDataList];
-      updatedList[existingIndex] = { ...formDetails, recordStatus: "modified" };
-      dispatch({ type: 'castCrewDataList', payload: updatedList });
-      setErrors({});
+      setCastCrewLoader(false);
     } else {
-      const formData  =  { ...state.cast_CrewsFormDeatils, id: '00000000-0000-0000-0000-000000000000' };
-      dispatch({ type: 'castCrewDataList', payload: [...state.castCrewDataList, { ...formData, recordStatus: "added" }] });
-      setErrors({});
+      const formDetails = { ...state.cast_CrewsFormDeatils };
+      const existingIndex = state.castCrewDataList?.findIndex(item => item.id === formDetails.id);
+      if (existingIndex !== -1) {
+        const updatedList = [...state.castCrewDataList];
+        updatedList[existingIndex] = { ...formDetails, recordStatus: "modified" };
+        dispatch({ type: 'castCrewDataList', payload: updatedList });
+        setErrors({});
+        setCastCrewLoader(false)
+      } else {
+        const formData = { ...state.cast_CrewsFormDeatils, id: '00000000-0000-0000-0000-000000000000' };
+        dispatch({ type: 'castCrewDataList', payload: [...state.castCrewDataList, { ...formData, recordStatus: "added" }] });
+        setErrors({});
+        setCastCrewLoader(false)
+      }
+      setShow(false)
+      setSelectedroleValues([])
     }
-    setShow(false)
-    setSelectedroleValues([])
-   }
   }
 
 
@@ -651,8 +657,8 @@ const Projects = (props) => {
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
-                    // onClick={() => inputRef.current?.click()}
-                    >
+                  // onClick={() => inputRef.current?.click()}
+                  >
                     {state.loading && <Spinner fallback={state.loading} className='position-absolute'></Spinner>}
                     {state.projectLogoImages && !state.loading && <span className='imgupload-span'>
                       <Image src={state.projectLogoImages} width="100" height="100" alt="" /></span>}
@@ -740,7 +746,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
-                            ) }
+                            )}
                           />
                           <span
                             className="icon camera"
@@ -771,7 +777,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
-                            ) }
+                            )}
                           />
                           <span
                             className="icon camera"
@@ -805,7 +811,7 @@ const Projects = (props) => {
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
-                    ) }
+                    )}
 
                   />
                   <Form.Control.Feedback type="invalid">{errors?.projectName || state?.errors?.projectName}</Form.Control.Feedback>
@@ -833,7 +839,7 @@ const Projects = (props) => {
                     disable={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
-                    ) }
+                    )}
                   />
 
                   {errors?.countryRestrictions == "Is required" && (
@@ -854,7 +860,7 @@ const Projects = (props) => {
                       disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                         || state.projectSaveDetails?.projectStatus == "Rejected"
                         || state.projectSaveDetails?.projectStatus == "Approved"
-                      ) }
+                      )}
                     >
                       <span className="icon md matic-icon" /> Matic
                     </Dropdown.Toggle>
@@ -881,7 +887,7 @@ const Projects = (props) => {
                       disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                         || state.projectSaveDetails?.projectStatus == "Rejected"
                         || state.projectSaveDetails?.projectStatus == "Approved"
-                      ) }
+                      )}
                     />
                     <Form.Control.Feedback type="invalid">{errors?.tokenListingDate || state?.errors?.tokenListingDate}</Form.Control.Feedback>
 
@@ -905,7 +911,7 @@ const Projects = (props) => {
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
-                    ) }
+                    )}
                     onChange={(e) => handleChange("description", e)} required
                   />
                   <Form.Control.Feedback type="invalid">{errors?.description || state?.errors?.description}</Form.Control.Feedback>
@@ -917,7 +923,7 @@ const Projects = (props) => {
                 <div><h6 className='input-label section-title mb-2 mt-2'>Project Feed</h6></div>
                 <div className='projects-editor'>
                   <Editor
-                  apiKey= 'sr9qzkyye574at479qfqi56rc3bprw5vols3fvpvmewh491f'
+                    apiKey='sr9qzkyye574at479qfqi56rc3bprw5vols3fvpvmewh491f'
                     // apiKey='myyg2t1wdqdsjfdk71z1cyy0ts5iwq5u638ze7ub8sccahbh'
                     onInit={(evt, editor) => editorRef.current = editor}
                     initialValue={state.projectSaveDetails?.introductionHtml}
@@ -925,7 +931,7 @@ const Projects = (props) => {
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
-                    ) }
+                    )}
                     init={{
                       height: 500,
                       menubar: false,
@@ -952,8 +958,8 @@ const Projects = (props) => {
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
                       'upload-img token-upload mb-2 c-notallowed' :
                       'upload-img token-upload mb-2'}`}
-                    // onClick={() => inputRef2.current?.click()}
-                    >
+                  // onClick={() => inputRef2.current?.click()}
+                  >
                     {state.cardImgLoader && <Spinner fallback={state.cardImgLoader}></Spinner>}
                     {state.projectCardImages && !state.cardImgLoader &&
                       <span className='imgupload-span'>
@@ -972,7 +978,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
-                            ) }
+                            )}
                           />
                           <span
                             className="icon camera"
@@ -1003,7 +1009,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
-                            ) }
+                            )}
                           />
                           <span
                             className="icon camera"
@@ -1037,7 +1043,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
-                        ) }
+                        )}
                       />
                       <Form.Control.Feedback type="invalid">{errors?.contractAddress || state?.errors?.contractAddress}</Form.Control.Feedback>
 
@@ -1060,7 +1066,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
-                        ) }
+                        )}
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenName || state?.errors?.tokenName}</Form.Control.Feedback>
 
@@ -1082,7 +1088,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
-                        ) }
+                        )}
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenSymbol || state?.errors?.tokenSymbol}</Form.Control.Feedback>
 
@@ -1108,7 +1114,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
-                        ) }
+                        )}
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenDecimal || state?.errors?.tokenDecimal}</Form.Control.Feedback>
 
@@ -1135,7 +1141,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
-                        ) }
+                        )}
                       />
 
                       <Form.Control.Feedback type="invalid">{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</Form.Control.Feedback>
@@ -1169,60 +1175,60 @@ const Projects = (props) => {
                   </Row>
                 </Col>
               </Row>
-              
+
             </div>
-            <div className='profile-section'>
-              <div className='d-flex justify-content-between  align-items-center mb-2'>
-                <h3 className='section-title '>Cast And Crew</h3>
-                <Button className='button-style mt-3 mt-md-0' onClick={()=>handleEdit()}
-                disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                || state.projectSaveDetails?.projectStatus == "Rejected"
-                || state.projectSaveDetails?.projectStatus == "Approved"
-              )}
-                ><span className='icon add-icon'></span> Add </Button>
-              </div>
-              <Row className='mb-4 mt-4'>
-                { state?.castCrewDataList?.map((item,index)=>(
-                <Col className="" lg={3} key={item.id}>
-                  <div className='profile-panel mb-4 card-style home-card p-lg-3 p-2' key={index}onClick={() => handleEdit(index)} >
-                  <div>
-                      <Form.Group >
-                        <div className='profile-size castandcre-profile  no-hover mx-auto' >
-                          <span className='image-box'>
-                            <img className='image-setup'
-                              src={item?.image  || profileavathar} alt="profile img"
-                            />
-                          </span>
+              <div className='profile-section'>
+                <div className='d-flex justify-content-between  align-items-center mb-2'>
+                  <h3 className='section-title '>Cast And Crew</h3>
+                  <Button className='button-style mt-3 mt-md-0' onClick={() => handleEdit()}
+                    disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                      || state.projectSaveDetails?.projectStatus == "Rejected"
+                      || state.projectSaveDetails?.projectStatus == "Approved"
+                    )}
+                  ><span className='icon add-icon'></span> Add </Button>
+                </div>
+                <Row className='mb-4 mt-4'>
+                  {state?.castCrewDataList?.map((item, index) => (
+                    <Col className="" lg={3} key={item.id}>
+                      <div className='profile-panel mb-4 card-style home-card p-lg-3 p-2' key={index} onClick={() => handleEdit(index)} >
+                        <div>
+                          <Form.Group >
+                            <div className='profile-size castandcre-profile  no-hover mx-auto' >
+                              <span className='image-box'>
+                                <img className='image-setup'
+                                  src={item?.image || profileavathar} alt="profile img"
+                                />
+                              </span>
+                            </div>
+                            <p className="profile-value mb-0 text-center mt-2">{item?.name}</p>
+                            <p className="profile-value mb-1 text-center">{item?.role?.join(', ')}</p>
+                            <p className="profile-label text-center ellipsis">{item?.bio}</p>
+                          </Form.Group>
                         </div>
-                        <p className="profile-value mb-0 text-center mt-2">{item?.name }</p>
-                          <p className="profile-value mb-1 text-center">{item?.role}</p>
-                        <p className="profile-label text-center ellipsis">{item?.bio }</p>
-                      </Form.Group>
+                        <hr />
+                        <Row className="">
+                          <Col md={12}>
+                            {item?.facebook &&
+                              <div className='d-flex gap-2 mb-2'>
+                                <span className='icon facebook shrink-0'></span>
+                                <p className="profile-value mb-0">{item?.facebook}</p>
+                              </div>}
+                            {item?.webisite &&
+                              <div className='d-flex gap-2 mb-2'>
+                                <span className='icon website shrink-0'></span>
+                                <p className="profile-value mb-0">{item?.webisite} </p>
+                              </div>}
+                            {item?.instagram &&
+                              <div className='d-flex gap-2'>
+                                <span className='icon instagram shrink-0'></span>
+                                <p className="profile-value mb-0">{item?.instagram} </p>
+                              </div>}
+                          </Col>
+                        </Row>
                       </div>
-                      <hr/>
-                      <Row className="">
-                      <Col md={12}>
-                        {item?.facebook && 
-                      <div className='d-flex gap-2 mb-2'>
-                        <span className='icon facebook shrink-0'></span>
-                        <p className="profile-value mb-0">{item?.facebook }</p>
-                      </div>}
-                      {item?.webisite && 
-                      <div className='d-flex gap-2 mb-2'>
-                      <span className='icon website shrink-0'></span>
-                        <p className="profile-value mb-0">{item?.webisite } </p>
-                      </div>}
-                      {item?.instagram && 
-                     <div className='d-flex gap-2'>
-                     <span className='icon instagram shrink-0'></span>
-                        <p className="profile-value mb-0">{item?.instagram } </p>
-                     </div>}
-                      </Col>
-                    </Row>
-                  </div>
-                </Col>
-                 ))}
-              </Row>
+                    </Col>
+                  ))}
+                </Row>
               </div>
               <div className='text-end mt-5 mb-5'>
                 <Button className='cancel-btn me-2' onClick={() => handleCancel()} >
@@ -1242,178 +1248,276 @@ const Projects = (props) => {
               </div>
             </>}
             <Modal className="settings-modal profile-modal modal-tabview"
-                    show={show}
-                    size="lg"
-                    aria-labelledby="contained-modal-title-vcenter"
-                    centered
-                  >
-                    <Form   >
-                      <Modal.Header className="d-flex justify-content-between">
-                        <Modal.Title id="example-custom-modal-styling-title">
-                          Add Cast and Crew
-                        </Modal.Title>
-                        <span className="icon close" onClick={handleCancell} ></span>
+              show={show}
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+            >
+              <Form   >
+                <Modal.Header className="d-flex justify-content-between">
+                  <Modal.Title id="example-custom-modal-styling-title">
+                    Add Cast and Crew
+                  </Modal.Title>
+                  <span className="icon close" onClick={handleCancell} ></span>
 
-                      </Modal.Header>
-                      <Modal.Body className="launchpadadmin-modal">    
-                {state.castCrewImageError && (
-                  <Alert variant="danger">
-                    <div className='d-flex align-items-center'>
-                      <span className='icon error-alert'></span>
-                      <p className='m1-2' style={{ color: 'red' }}>{state.castCrewImageError}</p>
-                    </div>
-                  </Alert>
-                )}
-                            <Row>
-                            <Col xl={4} className="mb-4">
-                        <Form.Group>
-                          <div className='profile-size identification-image bg-none upload-img no-hover' >
-                            <span className='image-box' >
-                              {state.castImgLoader && <Spinner className='castcrew-loader' fallback={state.castImgLoader}></Spinner>}
-                              {!state.castImgLoader &&
-                                <span className='imgupload-span'>
-                                  <Image className='image-setup' age src={state?.cast_CrewsFormDeatils?.image} width="100" height="100" alt="" />
-                                </span>
-                                }
-                              { !state.castImgLoader &&
-                                <span >
-                                  <Form.Control
-                                    ref={inputRef3}
-                                    type="file"
-                                    name="image"
-                                    id="input-file"
-                                    onChange={(e) => uploadToClient(e, 'image')}
-                                    className="d-none"
-                                  />
-                                  <span onClick={()=>inputRef3.current?.click()} className="icon camera cam-position upload-transparent visibility-visible"></span>
-                                  <p className="mt-6">Jpg, Jpeg, Png, Gif, Webp</p>
-                                </span>
-                                 
-                              }
-                              
-                            </span>
-                            
+                </Modal.Header>
+                <Modal.Body className="launchpadadmin-modal">
+                  {state.castCrewImageError && (
+                    <Alert variant="danger">
+                      <div className='d-flex align-items-center'>
+                        <span className='icon error-alert'></span>
+                        <p className='m1-2' style={{ color: 'red' }}>{state.castCrewImageError}</p>
+                      </div>
+                    </Alert>
+                  )}
+                  <Row>
+                    <Col xl={4} className="mb-4">
+                      <Form.Group>
+                        {/* <div className='profile-size identification-image bg-none upload-img no-hover' >
+                          <div className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
+                      || state.projectSaveDetails?.projectStatus == "Approved") ?
+                      'upload-img token-upload mb-2 c-notallowed' :
+                      'upload-img token-upload mb-2'}`}>
+                          <span className='image-box ' >
+                            {state.castImgLoader && <Spinner className='castcrew-loader' fallback={state.castImgLoader}></Spinner>}
+                            {!state.castImgLoader &&
+                              <span className='imgupload-span'>
+                                <Image className='image-setup' age src={state?.cast_CrewsFormDeatils?.image} width="100" height="100" alt="" />
+                              </span>
+                            }
+                            {!state.castImgLoader &&
+                              <span >
+                                <Form.Control
+                                  ref={inputRef3}
+                                  type="file"
+                                  name="image"
+                                  id="input-file"
+                                  onChange={(e) => uploadToClient(e, 'image')}
+                                  className="d-none"
+                                  disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                                    || state.projectSaveDetails?.projectStatus == "Rejected"
+                                    || state.projectSaveDetails?.projectStatus == "Approved"
+                                  )}
+                                />
+                                <span onClick={() => inputRef3.current?.click()} className="icon camera cam-position upload-transparent visibility-visible"></span>
+                                <p className="mt-6">Jpg, Jpeg, Png, Gif, Webp</p>
+                              </span>
+
+                            }
+
+                          </span>
                           </div>
-                        </Form.Group>
-                            </Col>
-                            <Col xl={8}>
-                            <Row>
-                            <Col xl={12} className="mb-3">
-                              <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                <Form.Label >Name<span className="text-danger">*</span></Form.Label>
-                                <Form.Control
-                                  defaultValue={state?.cast_CrewsFormDeatils?.name || ''}
-                                  type="text"
-                                  name="name"
-                                  autoComplete="off"
-                                  onChange={handlecastCrewData}
-                                  isInvalid={!!errors.name}
-                                  required
-                                  placeholder="Name"
-                                  maxLength={50}
-                                />
-                                <Form.Control.Feedback type="invalid">{errors?.name || state?.errors?.name}</Form.Control.Feedback>
-                              </Form.Group>                              
-                              </Col>
-                              <Col lg={12} md={12} className="mb-3">
-                              <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                <Form.Label >Role<span className="text-danger">*</span></Form.Label>
-                                <Multiselect
-                                  className='multiselecter role-select'
-                                  options={castCrewRolesLu}
-                                  selectedValues={selectedroleValues}
-                                  onSelect={onRolsSelect}
-                                  onRemove={onRolsSelect}
-                                  displayValue="role"
-                                  isInvalid={!!errors.role}
-                                />
-                                <Form.Control.Feedback type="invalid" className={`${errors?.role ? 'error-role': ''}`}>{errors?.role || state?.errors?.role} </Form.Control.Feedback>
-                              </Form.Group>
-                              
-                              </Col>
-                              <Col xl={12} className="mb-3">
-                              <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                <Form.Label >Bio</Form.Label>
-                                <Form.Control
-                            value={state?.cast_CrewsFormDeatils?.bio || ''}
-                            as="textarea"
-                            name='bio'
-                            placeholder="Enter Bio"
-                            style={{ height: '100px' }}
-                            onChange={handlecastCrewData}
-                            isInvalid={!!errors.bio}
-                            maxLength={50}
+                        </div> */}
+                        <div
+                    className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
+                      || state.projectSaveDetails?.projectStatus == "Approved") ?
+                      'upload-img mb-2 position-relative c-notallowed' :
+                      'upload-img mb-2 position-relative '}`}
+                    role="button"
+                  >
+                    {state.castImgLoader && <Spinner fallback={state.castImgLoader} className='position-absolute'></Spinner>}
+                    {state?.cast_CrewsFormDeatils?.image && !state.castImgLoader && <span className='imgupload-span'>
+                      <Image src={state?.cast_CrewsFormDeatils?.image} width="100" height="100" alt="" /></span>}
+                    {!state?.cast_CrewsFormDeatils?.image && !state.castImgLoader &&
+                      <div className="choose-image">
+                        <div>
+                          <Form.Control
+                            required
+                            className="d-none custom-btn active btn"
+                            type="file"
+                            ref={inputRef3}
+                            // isInvalid={!!state.errors.bannerImage}
+                            onChange={(e) => uploadToClient(e, 'image')}
+                            disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                              || state.projectSaveDetails?.projectStatus == "Rejected"
+                              || state.projectSaveDetails?.projectStatus == "Approved"
+                            )}
                           />
-                                  <Form.Control.Feedback type="invalid">{errors?.bio || state?.errors?.bio}</Form.Control.Feedback>
-                              </Form.Group>                                
-                              </Col>
-                              <Col xl={6} className="mb-3">
-                              <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                <Form.Label >Website URL</Form.Label>
-                                <Form.Control
-                                  value={state?.cast_CrewsFormDeatils?.webisite||''}
-                                    type="text"
-                                    name="webisite"
-                                    autoComplete="off"
-                                    onChange={handlecastCrewData}
-                                    isInvalid={!!errors.webisite}
-                                    placeholder="Website URL"
-                                    maxLength={50}
-                                  />
-                                  <Form.Control.Feedback type="invalid">{errors?.webisite || state?.errors?.webisite}</Form.Control.Feedback>
-                              </Form.Group>                                
-                              </Col>
-                              <Col xl={6} className="mb-3">
-                              <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                <Form.Label >Insta URL</Form.Label>
-                                <Form.Control
-                                  value={state?.cast_CrewsFormDeatils?.instagram||''}
-                                    type="text"
-                                    name="instagram"
-                                    autoComplete="off"
-                                    onChange={handlecastCrewData}
-                                    isInvalid={!!errors.instagram}
-                                    placeholder="Insta URL"
-                                    maxLength={50}
-                                  />
-                                  <Form.Control.Feedback type="invalid">{errors?.instagram || state?.errors?.instagram}</Form.Control.Feedback>
-                              </Form.Group>           
-                               
-                              </Col>
-                              <Col xl={6} className="mb-3">
-                              <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                <Form.Label >FB URL</Form.Label>
-                                <Form.Control
-                                  value={state?.cast_CrewsFormDeatils?.facebook||''}
-                                    type="text"
-                                    name="facebook"
-                                    autoComplete="off"
-                                    onChange={handlecastCrewData}
-                                    isInvalid={!!errors.facebook}
-                                    placeholder="FB URL"
-                                    maxLength={50}
-                                  />
-                                  <Form.Control.Feedback type="invalid">{errors?.facebook || state?.errors?.facebook}</Form.Control.Feedback>
-                              </Form.Group>                                  
-                              </Col>
-                             
-                            </Row>
-                            </Col>
-                            </Row>
-                        
+                          <span
+                            className="icon camera"
+                            onClick={() => inputRef3.current?.click()}
+                          ></span>
+                          <p className="c-pointer pt-3">
+                            Jpg, Jpeg, Png, Gif, Webp
 
-                              
-                            
-                          
+                          </p>
+                          <Form.Control.Feedback type="invalid">{state.errors.bannerImage}</Form.Control.Feedback>
+                        </div>
+                      </div>
+                    }
+                    {state?.cast_CrewsFormDeatils?.image && !state.castImgLoader &&
+                      <div
+                        className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
+                          || state.projectSaveDetails?.projectStatus == "Approved") ?
+                          'onhover-upload c-notallowed' :
+                          'onhover-upload'}`}>
+                        <div className='bring-front'>
+                          <Form.Control
+                            required
+                            className="d-none custom-btn active btn"
+                            type="file"
+                            ref={inputRef3}
+                            // isInvalid={!!state.errors.bannerImage}
+                            onChange={(e) => uploadToClient(e, 'image')}
+                            disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                              || state.projectSaveDetails?.projectStatus == "Rejected"
+                              || state.projectSaveDetails?.projectStatus == "Approved"
+                            )}
+                          />
+                          <span
+                            className="icon camera"
+                            onClick={() => inputRef3.current?.click()}
+                          ></span>
+                          <Form.Control.Feedback type="invalid">{state.errors.bannerImage}</Form.Control.Feedback>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                      </Form.Group>
+                    </Col>
+                    <Col xl={8}>
+                      <Row>
+                        <Col xl={12} className="mb-3">
+                          <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                            <Form.Label >Name<span className="text-danger">*</span></Form.Label>
+                            <Form.Control
+                              defaultValue={state?.cast_CrewsFormDeatils?.name || ''}
+                              type="text"
+                              name="name"
+                              autoComplete="off"
+                              onChange={handlecastCrewData}
+                              isInvalid={!!errors.name}
+                              required
+                              placeholder="Name"
+                              maxLength={50}
+                              disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                                || state.projectSaveDetails?.projectStatus == "Rejected"
+                                || state.projectSaveDetails?.projectStatus == "Approved"
+                              )}
+                            />
+                            <Form.Control.Feedback type="invalid">{errors?.name || state?.errors?.name}</Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col lg={12} md={12} className="mb-3">
+                          <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                            <Form.Label >Role<span className="text-danger">*</span></Form.Label>
+                            <Multiselect
+                              className='multiselecter role-select'
+                              options={castCrewRolesLu}
+                              selectedValues={selectedroleValues}
+                              onSelect={onRolsSelect}
+                              onRemove={onRolsSelect}
+                              displayValue="role"
+                              isInvalid={!!errors.role}
+                              disable={(state.projectSaveDetails?.projectStatus == "Deployed"
+                                || state.projectSaveDetails?.projectStatus == "Rejected"
+                                || state.projectSaveDetails?.projectStatus == "Approved"
+                              )}
+                            />
+                            <Form.Control.Feedback type="invalid" className={`${errors?.role ? 'error-role' : ''}`}>{errors?.role || state?.errors?.role} </Form.Control.Feedback>
+                          </Form.Group>
 
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <div className="text-end"><Button className="cancel-btn" onClick={() => { handleCancell() }}>Cancel</Button>
-                          <Button className="button-secondary ms-lg-3 ms-2" type="submit" onClick={(e) => handleCastCrewDataSave(e)} >
-                            Save</Button></div>
-                      </Modal.Footer>
-                    </Form>
-                  </Modal>
+                        </Col>
+                        <Col xl={12} className="mb-3">
+                          <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                            <Form.Label >Bio</Form.Label>
+                            <Form.Control
+                              value={state?.cast_CrewsFormDeatils?.bio || ''}
+                              as="textarea"
+                              name='bio'
+                              placeholder="Enter Bio"
+                              style={{ height: '100px' }}
+                              onChange={handlecastCrewData}
+                              isInvalid={!!errors.bio}
+                              maxLength={50}
+                              disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                                || state.projectSaveDetails?.projectStatus == "Rejected"
+                                || state.projectSaveDetails?.projectStatus == "Approved"
+                              )}
+                            />
+                            <Form.Control.Feedback type="invalid">{errors?.bio || state?.errors?.bio}</Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col xl={6} className="mb-3">
+                          <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                            <Form.Label >Website URL</Form.Label>
+                            <Form.Control
+                              value={state?.cast_CrewsFormDeatils?.webisite || ''}
+                              type="text"
+                              name="webisite"
+                              autoComplete="off"
+                              onChange={handlecastCrewData}
+                              isInvalid={!!errors.webisite}
+                              placeholder="Website URL"
+                              maxLength={50}
+                              disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                                || state.projectSaveDetails?.projectStatus == "Rejected"
+                                || state.projectSaveDetails?.projectStatus == "Approved"
+                              )}
+                            />
+                            <Form.Control.Feedback type="invalid">{errors?.webisite || state?.errors?.webisite}</Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+                        <Col xl={6} className="mb-3">
+                          <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                            <Form.Label >Insta URL</Form.Label>
+                            <Form.Control
+                              value={state?.cast_CrewsFormDeatils?.instagram || ''}
+                              type="text"
+                              name="instagram"
+                              autoComplete="off"
+                              onChange={handlecastCrewData}
+                              isInvalid={!!errors.instagram}
+                              placeholder="Insta URL"
+                              maxLength={50}
+                              disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                                || state.projectSaveDetails?.projectStatus == "Rejected"
+                                || state.projectSaveDetails?.projectStatus == "Approved"
+                              )}
+                            />
+                            <Form.Control.Feedback type="invalid">{errors?.instagram || state?.errors?.instagram}</Form.Control.Feedback>
+                          </Form.Group>
+
+                        </Col>
+                        <Col xl={6} className="mb-3">
+                          <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                            <Form.Label >FB URL</Form.Label>
+                            <Form.Control
+                              value={state?.cast_CrewsFormDeatils?.facebook || ''}
+                              type="text"
+                              name="facebook"
+                              autoComplete="off"
+                              onChange={handlecastCrewData}
+                              isInvalid={!!errors.facebook}
+                              placeholder="FB URL"
+                              maxLength={50}
+                              disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                                || state.projectSaveDetails?.projectStatus == "Rejected"
+                                || state.projectSaveDetails?.projectStatus == "Approved"
+                              )}
+                            />
+                            <Form.Control.Feedback type="invalid">{errors?.facebook || state?.errors?.facebook}</Form.Control.Feedback>
+                          </Form.Group>
+                        </Col>
+
+                      </Row>
+                    </Col>
+                  </Row>
+
+                </Modal.Body>
+                <Modal.Footer>
+                <div className="text-end"><Button className="cancel-btn" onClick={() => { handleCancell() }}>Cancel</Button>
+                  {!(state.projectSaveDetails?.projectStatus === "Deployed" ||
+                    state.projectSaveDetails?.projectStatus === "Rejected" ||
+                    state.projectSaveDetails?.projectStatus === "Approved") && (
+                      <Button className="button-secondary ms-lg-3 ms-2" type="submit" onClick={(e) => handleCastCrewDataSave(e)}>
+                        <span>{ castCrewLoader && <Spinner size="sm" className='text-light'/>} </span>Save
+                      </Button>
+                    )}
+                    </div>
+                </Modal.Footer>
+              </Form>
+            </Modal>
           </Form>
         </>
       }
@@ -1425,7 +1529,7 @@ Projects.propTypes = {
   projectTokenData: PropTypes.isRequired,
   informationProjectView: PropTypes.string,
   closeProject: PropTypes.isRequired,
-  projectDetailsReducerData:PropTypes.isRequired,
+  projectDetailsReducerData: PropTypes.isRequired,
 }
 
 

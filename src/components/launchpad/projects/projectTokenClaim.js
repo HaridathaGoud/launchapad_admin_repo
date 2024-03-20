@@ -78,7 +78,6 @@ const ProjectsTokenClaim = (props) => {
   }
 
   const validateForm = (obj) => {
-    debugger
     const { noofSlots, vestingDays, publicStartDate, publicEndDate, privateStartDate, privateEndDate } = obj || state?.claimDetails || {};
     const newErrors = {};
     const dateRegex = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/;
@@ -144,7 +143,6 @@ const timeDate=(timeString)=>{
 }
 
   const handleClaimAndAllocation = async (event) => {
-    debugger
     event.preventDefault();
     dispatch({ type: 'claimloader', payload: true })
     dispatch({ type: 'scuess', payload: false })
@@ -162,8 +160,6 @@ const timeDate=(timeString)=>{
           navigate(`/launchpad/investors/projects/${investorsDetails?.project?.id}`);
         }
     } else {
-      debugger
-
       const privateEndingTimeInSeconds = parseTime(state.claimDetails?.privateEndDate);
       const privateStartingTimeInSeconds = parseTime( state.claimDetails?.privateStartDate);
       const publicEndingTimeInSeconds = parseTime(state.claimDetails?.publicEndDate);
@@ -260,7 +256,6 @@ const timeDate=(timeString)=>{
         dispatch({ type: 'errors', payload: formError })
         dispatch({ type: 'claimloader', payload: false })
       } else {
-        debugger
         let res = await apiCalls.UpdateClaimsAndAllocation(obj);
         if (res.ok) {
           dispatch({ type: 'claimloader', payload: false })
@@ -296,8 +291,6 @@ const timeDate=(timeString)=>{
     }
   };
 
-console.log(state.claimDetails?.privateStartDate,'private date')
-  console.log(state.errorMsg,'error ')
 
   const getClaimsandAllocations = () => {
     dispatch({ type: 'claimloader', payload: false })

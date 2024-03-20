@@ -109,7 +109,7 @@ const proposalViewData = (proposalId) => {
 const daoCards = (callback) => {
   return async (dispatch) => {
     dispatch(setDaoCards({ key: 'daoCards', loading: true, data: {} }));
-    const res = await apiCalls.getDaoDetails(10, 0);
+    const res = await apiCalls.getDaoDetails(8, 0);
     if (res) {
       dispatch(setDaoCards({ key: 'daoCards', loading: false, data: res.data, error: null }));
       callback ? callback(res.data) : "";
@@ -130,7 +130,7 @@ const daoCards = (callback) => {
 const InvestorDaoCards = (callback,inverstorId ) => {
   return async (dispatch) => {
     dispatch(setDaoCards({ key: 'daoCards', loading: true, data: {} }));
-    const res = await apiCalls.getInvestorDaoDetails(inverstorId,10, 0);
+    const res = await apiCalls.getInvestorDaoDetails(inverstorId,8, 0);
     if (res) {
       dispatch(setDaoCards({ key: 'daoCards', loading: false, data: res.data, error: null }));
       callback ? callback(res.data) : "";

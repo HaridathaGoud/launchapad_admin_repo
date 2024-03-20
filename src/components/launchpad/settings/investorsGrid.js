@@ -257,8 +257,6 @@ class InvestorsGrid extends Component {
         const { searchObj, gridUrl } = this.state;
         return (
             <>
-             {/* {state.loader && <div className="text-center"><Spinner ></Spinner></div>} */}
-             {/* {!state.loader && <>  </> } */}
              
                 <div className='custom-flex pb-4 pt-2 justify-content-between'>
                     <Form className="d-flex grid-search">
@@ -536,7 +534,7 @@ class InvestorsGrid extends Component {
                         <Modal.Footer>
                             <div className="text-end btn-width"><Button className="cancel-btn" disabled={this.state.loaderform} onClick={() => { this.handleCancel() }}>Cancel</Button>
                                 <Button className="button-secondary ms-lg-3 ms-2" type="button" onClick={(e) => this.handleCreateInvestors(e)} disabled={this.state.loaderform}>
-                                    <span>{this.state.loaderform && <Spinner size="sm" />} </span>Save</Button></div>
+                                    <span>{this.state.loaderform && <Spinner size="sm" className="text-light"/>} </span>Save</Button></div>
                         </Modal.Footer>
                     </Form>
                 </Modal>

@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate,useParams,Link } from 'react-router-dom';
-import { daoCards, getCardsProposalList, getLookUp } from '../proposalReducer/proposalReducer';
+import { daoCards,InvestorDaoCards, getCardsProposalList, getLookUp } from '../proposalReducer/proposalReducer';
 import { connect, useSelector } from "react-redux";
 import { Placeholder,Spinner } from 'react-bootstrap';
 import FirstPraposal from '../firstpraposal.component/firstpraposal';
@@ -69,9 +69,6 @@ const Dao = (props) => {
     const [hide,setHide] = useState(false)
     const [daoName,setDaoName]=useState(null)
     const [selection, setSelection]=useState(null);
-    const  DaoDetail = useSelector((state)=>state?.proposal?.daoCards.data)
-    const votingSeicheContractAddress = process.env.REACT_APP_VOTING_CONTRACTOR;
-    const votingKeijiContractAddress = process.env.REACT_APP_VOTING_KEIJI_CONTRACTOR;
         const { address, isConnected } = useAccount()
     const [shimmerLoading,setShimmerLoading] = useState(true)
     const { connect } = useConnect({
@@ -81,27 +78,32 @@ const Dao = (props) => {
         if(UserInfo?.role=="Admin" && !isAdmin.isInvestor){
             connect()
         }      
-        getVotingOwner()
         window.scrollTo(0,0)
-        let daoData=DaoDetail?.find((item)=>item?.daoId==params.id?.toLocaleLowerCase())
-      dispatch({type:'votingContractAddress',payload:daoData?.contractAddress})
-
     },[address])
-
 
     useEffect(() => {
         getApprovedProposalData(status)
-                setLoading(true)
+        setLoading(true)
         props?.lookUp((callback) => {
-            
             dispatch({ type: 'statusLu', payload: callback })
             setLoading(false)
             window.scrollTo(0,0)
         })
-        props?.trackWallet((callback)=>{
-            let daoData=callback?.find((item)=>item?.daoId==params.id?.toLocaleLowerCase())
-            setDaoName(daoData);
-        })
+        if (isAdmin?.isInvestor === true) {
+            props?.trackWalletDao((callback)=>{
+                let daoData=callback?.find((item)=>item?.daoId==params.id?.toLocaleLowerCase())
+                setDaoName(daoData);
+                dispatch({type:'votingContractAddress',payload:daoData?.contractAddress})
+            },isAdmin?.id)
+            getVotingOwner()
+         }else{
+            props?.trackWallet((callback)=>{
+                let daoData=callback?.find((item)=>item?.daoId==params.id?.toLocaleLowerCase())
+                setDaoName(daoData);
+                dispatch({type:'votingContractAddress',payload:daoData?.contractAddress})
+            })
+            getVotingOwner()
+        }
     }, [address,txHash])
 
     useEffect(() => {
@@ -263,7 +265,7 @@ const Dao = (props) => {
         }
         else {
             try {
-                              handleVote(item);
+                handleVote(item);
                 setBtnLoader(false)
                 setErrorMsg(null)
             } catch (error) {
@@ -289,7 +291,7 @@ const Dao = (props) => {
                 setErrorMsg('Transaction failed');
                 setBtnLoader(false)
             } else {
-                                 setSuccess("Vote calculated successfully");
+                setSuccess("Vote calculated successfully");
                  setBtnLoader(false)
                  window.scroll(0,0);
                  props.proposalDetailsList(1, pageSize, params.id, status?.toLowerCase(), search, startDate, endDate,
@@ -522,7 +524,9 @@ const Dao = (props) => {
 Dao.propTypes = {
     lookUp: PropTypes.isRequired,
     trackWallet: PropTypes.isRequired,
+    trackWalletDao: PropTypes.isRequired,
     proposalDetailsList: PropTypes.isRequired,
+
   }
 
 const connectDispatchToProps = (dispatch) => {
@@ -535,6 +539,9 @@ const connectDispatchToProps = (dispatch) => {
         },
         trackWallet: (callback) => {
             dispatch(daoCards(callback));
+        },
+        trackWalletDao: (callback,inverstorId) => {
+            dispatch(InvestorDaoCards(callback,inverstorId));
         },
     }
 }

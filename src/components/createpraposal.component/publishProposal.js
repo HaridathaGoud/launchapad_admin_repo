@@ -67,7 +67,7 @@ function PublishProposal(props) {
     setTxHash(null)
     let daoData=DaoDetail?.find((item)=>item?.daoId==params.id?.toLocaleLowerCase())
     setDaoLogo(daoData?.logo)
-    setVotingContractAddress(daoData?.votingContractAddress)
+    setVotingContractAddress(daoData?.contractAddress)
   }
   
   const getOptionHashes=()=>{
