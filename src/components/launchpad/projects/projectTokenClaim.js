@@ -15,8 +15,8 @@ import store from 'src/store/index';
 import { projectedSaved } from "src/components/launchpad/launchpadReducer/launchpadReducer"
 const reducer = (state, action) => {
   switch (action.type) {
-    case "errorMgs":
-      return { ...state, errorMgs: action.payload };
+    case "errorMsg":
+      return { ...state, errorMsg: action.payload };
     case "claimloader":
       return { ...state, claimloader: action.payload };
     case "claimDetails":
@@ -36,7 +36,7 @@ const reducer = (state, action) => {
   }
 }
 const initialState = {
-  errorMgs: null,
+  errorMsg:null,
   claimloader: false,
   claimDetails: {},
   scuess: false,
@@ -78,6 +78,7 @@ const ProjectsTokenClaim = (props) => {
   }
 
   const validateForm = (obj) => {
+    debugger
     const { noofSlots, vestingDays, publicStartDate, publicEndDate, privateStartDate, privateEndDate } = obj || state?.claimDetails || {};
     const newErrors = {};
     const dateRegex = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/;
@@ -143,6 +144,7 @@ const timeDate=(timeString)=>{
 }
 
   const handleClaimAndAllocation = async (event) => {
+    debugger
     event.preventDefault();
     dispatch({ type: 'claimloader', payload: true })
     dispatch({ type: 'scuess', payload: false })
@@ -160,6 +162,8 @@ const timeDate=(timeString)=>{
           navigate(`/launchpad/investors/projects/${investorsDetails?.project?.id}`);
         }
     } else {
+      debugger
+
       const privateEndingTimeInSeconds = parseTime(state.claimDetails?.privateEndDate);
       const privateStartingTimeInSeconds = parseTime( state.claimDetails?.privateStartDate);
       const publicEndingTimeInSeconds = parseTime(state.claimDetails?.publicEndDate);
@@ -167,26 +171,27 @@ const timeDate=(timeString)=>{
 
 
       if (state.claimDetails?.noofSlots == 0) {
-        dispatch({ type: 'errorMgs', payload: 'claim slots should be greater than zero.' })
+        dispatch({ type: 'errorMsg', payload: 'claim slots should be greater than zero.' })
         window.scroll(0, 0);
         dispatch({ type: 'claimloader', payload: false })
         return
       }
       if (state.claimDetails?.vestingDays==0) {
-        dispatch({ type: 'errorMgs', payload: 'claim vesting time should be greater than zero.' })
+        dispatch({ type: 'errorMsg', payload: 'claim vesting time should be greater than zero.' })
         window.scroll(0, 0);
         dispatch({ type: 'claimloader', payload: false })
         return
       }
       if (!state.claimDetails?.privateStartDate || !state.claimDetails?.privateEndDate || !state.claimDetails?.publicStartDate || !state.claimDetails?.publicEndDate) {
-        dispatch({ type: 'errorMgs', payload: 'Please selectdates.' })
+        dispatch({ type: 'errorMsg', payload: 'Please select dates.' })
+
         window.scroll(0, 0);
         dispatch({ type: 'claimloader', payload: false })
 
       } 
 
       else if (timeDate(state.claimDetails?.privateStartDate) && (timeDate(state.claimDetails?.privateEndDate) < timeDate(state.claimDetails?.privateStartDate))) {
-        dispatch({ type: 'errorMgs', payload: 'Private Start date cannot be greater than the end date.' })
+        dispatch({ type: 'errorMsg', payload: 'Private Start date cannot be greater than the end date.' })
         window.scroll(0, 0);
         dispatch({ type: 'claimloader', payload: false })
         return
@@ -194,14 +199,14 @@ const timeDate=(timeString)=>{
 
       else if ((timeDate(state.claimDetails?.privateStartDate) == timeDate(state.claimDetails?.privateEndDate)) && 
       (time(state.claimDetails?.privateEndDate)==time(state.claimDetails?.privateStartDate))) {
-        dispatch({ type: 'errorMgs', payload: 'Private Start time and end time cannot be the same.' })
+        dispatch({ type: 'errorMsg', payload: 'Private Start time and end time cannot be the same.' })
         window.scroll(0, 0);
         dispatch({ type: 'claimloader', payload: false })
         return
       }
 
       else if((timeDate(state.claimDetails?.privateStartDate) == timeDate(state.claimDetails?.privateEndDate))&& privateEndingTimeInSeconds <privateStartingTimeInSeconds){
-        dispatch({ type: 'errorMgs', payload: 'Private Start time cannot be greater than the end time.' })
+        dispatch({ type: 'errorMsg', payload: 'Private Start time cannot be greater than the end time.' })
         window.scroll(0, 0);
         dispatch({ type: 'claimloader', payload: false })
         return
@@ -209,7 +214,7 @@ const timeDate=(timeString)=>{
     
 
       else if (timeDate(state.claimDetails?.publicStartDate) && (timeDate(state.claimDetails?.publicEndDate) < timeDate(state.claimDetails?.publicStartDate))) {
-        dispatch({ type: 'errorMgs', payload: 'Public Start date cannot be greater than the end date.' })
+        dispatch({ type: 'errorMsg', payload: 'Public Start date cannot be greater than the end date.' })
         window.scroll(0, 0);
         dispatch({ type: 'claimloader', payload: false })
         return
@@ -217,20 +222,20 @@ const timeDate=(timeString)=>{
 
       else if ((timeDate(state.claimDetails?.publicStartDate) == timeDate(state.claimDetails?.publicEndDate)) && 
       (time(state.claimDetails?.publicEndDate)==time(state.claimDetails?.publicStartDate))) {
-        dispatch({ type: 'errorMgs', payload: 'Public Start time and end time cannot be the same.' })
+        dispatch({ type: 'errorMsg', payload: 'Public Start time and end time cannot be the same.' })
         window.scroll(0, 0);
         dispatch({ type: 'claimloader', payload: false })
         return
       }
 
       else if((timeDate(state.claimDetails?.publicStartDate) == timeDate(state.claimDetails?.publicEndDate))&& publicEndingTimeInSeconds <publicStartingTimeInSeconds){
-        dispatch({ type: 'errorMgs', payload: 'Public Start time cannot be greater than the end time.' })
+        dispatch({ type: 'errorMsg', payload: 'Public Start time cannot be greater than the end time.' })
         window.scroll(0, 0);
         dispatch({ type: 'claimloader', payload: false })
         return
       }
      
-      dispatch({ type: 'errorMgs', payload: null })
+      dispatch({ type: 'errorMsg', payload: null })
 
       let publicStartDate
       let publicEndDate
@@ -255,10 +260,11 @@ const timeDate=(timeString)=>{
         dispatch({ type: 'errors', payload: formError })
         dispatch({ type: 'claimloader', payload: false })
       } else {
+        debugger
         let res = await apiCalls.UpdateClaimsAndAllocation(obj);
         if (res.ok) {
           dispatch({ type: 'claimloader', payload: false })
-          dispatch({ type: 'errorMgs', payload: null })
+          dispatch({ type: 'errorMsg', payload: null })
           dispatch({ type: 'success', payload: true })
           if (window.location.pathname.includes('idorequest')) {
             dispatch({ type: 'successMessage', payload: "Project saved successfully" })
@@ -281,7 +287,7 @@ const timeDate=(timeString)=>{
         }
         else {
           dispatch({ type: 'claimloader', payload: false })
-          dispatch({ type: 'errorMgs', payload: apiCalls.isErrorDispaly(res) })
+          dispatch({ type: 'errorMsg', payload: apiCalls.isErrorDispaly(res) })
           window.scroll(0, 0);
           dispatch({ type: 'validated', payload: false })
         }
@@ -289,6 +295,9 @@ const timeDate=(timeString)=>{
       dispatch({ type: 'claimloader', payload: false })
     }
   };
+
+console.log(state.claimDetails?.privateStartDate,'private date')
+  console.log(state.errorMsg,'error ')
 
   const getClaimsandAllocations = () => {
     dispatch({ type: 'claimloader', payload: false })
@@ -337,11 +346,11 @@ const timeDate=(timeString)=>{
       {!state.claimloader && <div>
         <Form noValidate validated={state?.validated} onSubmit={(e) => handleClaimAndAllocation(e)} className='launchpad-labels'>
           <>
-            {state.errorMgs && (
+            {state.errorMsg && (
               <Alert variant="danger">
                 <div className='d-flex align-items-center'>
                   <span className='icon error-alert'></span>
-                  <p className='m1-2' style={{ color: 'red' }}>{state.errorMgs}</p>
+                  <p className='m1-2' style={{ color: 'red' }}>{state.errorMsg}</p>
                 </div>
               </Alert>
             )}

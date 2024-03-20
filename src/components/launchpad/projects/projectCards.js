@@ -424,7 +424,7 @@ const ProjectCards = () => {
                           }
                           
                           {val?.projectstatus?.toLowerCase() === 'deploying' && 
-                            <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val.id)} >
+                            <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >
                             Deploying</Button>
                           }
 
@@ -509,7 +509,7 @@ const ProjectCards = () => {
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="totalSupplyInput" className='profile-label'>Total Supply</label>
-                        <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.totalSupply || '-'}</h6>
+                        <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.totalSupply?.toLocaleString() || '-'}</h6>
                       </div>
                     </Col>
                     {/* <Col lg={4} md={12}>

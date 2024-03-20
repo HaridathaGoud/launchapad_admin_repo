@@ -51,24 +51,26 @@ class IdoRequestGrid extends Component {
             sortable: false,
             width: 60,
             customCell: (props) => (
-                <td>
-                    <label className="check-input-style">
-                        <input
-                            className={this.state.currentCheckBox === props.dataItem.id ? 'active' : 'inactive'}
-                            id={props.dataItem.id}
-                            name="check"
-                            type="checkbox"
-                            checked={this.state.selection.indexOf(props.dataItem.id) > -1}
-                            onChange={(e) => this.handleInputChange(props, e)}
-                        />
-                        <span></span>{" "}
-                    </label>
-                </td>)
+                <td className="text-center">
+                  <label className="check-input-style">
+                    <input
+                     className={this.state.currentCheckBox === props.dataItem.id ? 'active' : 'inactive'}
+                      id={props.dataItem.id}
+                      name="check"
+                      type="checkbox"
+                      checked={this.state.selection.indexOf(props.dataItem.id) > -1}
+                      onChange={(e) => this.handleInputChange(props, e)}
+                    />
+                    <span></span>
+                  </label>
+                </td>
+              )
         },
         {
             field: "createdAt",
             title: "Created At",
             filter: true,
+			filterType: "date",
             sortable: true,
             width: 200,
             customCell: (props) => (
@@ -100,13 +102,15 @@ class IdoRequestGrid extends Component {
             title: "Initial Supply",
             filter: true,
             sortable: true,
+            filterType: "numeric",
             width: 200,
         },
         {
             field: "totalSupply",
-            title: "Total Supply",
+            title: "Total No Of Tokens",
             filter: true,
             sortable: true,
+            filterType: "numeric",
             width: 200,
         },
         {
@@ -170,18 +174,25 @@ class IdoRequestGrid extends Component {
 
     handleInputChange = (prop, e) => {
         const rowObj = prop.dataItem;
-        const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+        const value =
+            e.target.type === "checkbox" ? e.target.checked : e.target.value;
         const name = e.target.name;
-        let { selection, selectedObj } = this.state;
+        let { selection,selectedObj } = this.state;
         let idx = selection.indexOf(rowObj.id);
+        if (selection) {
+            selection = [];
+        }
         if (idx > -1) {
             selection.splice(idx, 1);
-            selectedObj.splice(idx, 1);
         } else {
             selection.push(rowObj.id);
-            selectedObj.push(rowObj);
         }
-        this.setState({ ...this.state, [name]: value, SelectData: rowObj, stateChange: rowObj, selectedObj, selection, errorMsg: null });
+        this.setState({
+            ...this.state,
+            [name]: value,
+            SelectData: rowObj,
+            stateChange: rowObj, selectedObj, selection, errorMsg: null
+        });
     };
 
     getOnePersonDetailsBasedOnId = (item) => {
@@ -216,9 +227,9 @@ class IdoRequestGrid extends Component {
         this.setState({
             errorMsg: null,
         });
-        if (this.state.selection.length === 0) {
+        if (!this.state.SelectData.id) {
             this.setState({
-                errorMsg: "Please select at least one record.",
+                errorMsg: "Please select a record.",
             });
         } else {
             this.setState({
@@ -324,7 +335,7 @@ class IdoRequestGrid extends Component {
                                 ref={this.gridRef}
                                 columns={this.gridColumns}
                                 pSize={10}
-                                className="custom-grid filter-none"
+                                className="custom-grid filter-none ido-grid"
                             />
                         </div>
                     </div>

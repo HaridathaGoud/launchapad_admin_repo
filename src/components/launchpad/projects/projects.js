@@ -725,9 +725,9 @@ const Projects = (props) => {
                     role="button"
                   >
                     {state.bannerImgLoader && <Spinner fallback={state.bannerImgLoader} className='position-absolute'></Spinner>}
-                    {state.projectBannerImages && <span className='imgupload-span'>
+                    {state.projectBannerImages && !state.bannerImgLoader && <span className='imgupload-span'>
                       <Image src={state.projectBannerImages} width="100" height="100" alt="" /></span>}
-                    {!state.projectBannerImages &&
+                    {!state.projectBannerImages && !state.bannerImgLoader &&
                       <div className="choose-image">
                         <div>
                           <Form.Control
