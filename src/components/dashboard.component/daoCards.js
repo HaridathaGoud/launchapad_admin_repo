@@ -96,7 +96,7 @@ const Dashboard = (props) => {
     }
     return (
         <> {errorMsg && (
-            <Alert variant="danger" className='mt-3 ms-md-4'>
+            <Alert variant="danger" className='mt-3'>
               <div className='d-flex align-items-center'>
                 <span className='icon error-alert'></span>
                 <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>

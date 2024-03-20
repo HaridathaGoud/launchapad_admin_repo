@@ -49,8 +49,7 @@ function MarketplaceDashboard() {
     <div className="bg-dashboard">
     <div className="text-center pt-5">
     <h3 className="page-title fs-3"> Welcome to <br/> Marketplace Dashboard</h3>
-     <p className="db-content">The Marketplace dashboard provides users with a comprehensive <br/>
-          overview of various projects, tasks, and activities within an organization.</p>
+     <p className="db-content">The Marketplace dashboard is a pivotal tool for businesses, offering a <br/> comprehensive snapshot of sales, customer behavior, and product performance.</p>
     </div>
     
         {errorMsg && (

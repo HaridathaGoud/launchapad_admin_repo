@@ -13,17 +13,17 @@
 .card-value{font-weight: 600;
   font-size: 28px;color: #000;}
   .collect-card{
-    background: url(../images/nft.png) #314150 no-repeat;
+    background: url(../images/nft.png) no-repeat,#ffa6db73  ;    box-shadow: 0px 7px 9px 0px rgba(255, 195, 211, 0.66);
     background-position: bottom right;padding: 28px;background-size: 75%;}
   .dashboard-page .col-lg-2,.col-lg-4{padding: 0px 8px 12px !important;}
   .sidebar:not(.sidebar-end) ~ * {
     --cui-sidebar-occupy-start: 10rem;
 }
 .nft-title{font-weight: 500;
-  font-size: 18px;color: #fff;margin-bottom: 0;}
-  .nft-white{color: #fff;}
+  font-size: 18px;color: #000;margin-bottom: 0;}
+  .nft-white{color: #000;}
 .nft-name{font-weight: 500;
-  font-size: 16px;color: #FFFFFF;margin-bottom: 0;}  
+  font-size: 16px;color: #000;margin-bottom: 0;}  
 /* dashboard end */
 /* Collections Start */
 .collection-bg{background: #242C35;border-radius: 10px;padding: 24px;}
