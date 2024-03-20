@@ -645,7 +645,7 @@ const Projects = (props) => {
               <div className='d-lg-flex align-items-center justify-content-between mb-2'><h3 className='section-title mb-1 mt-2'>Project Details</h3><p className='mb-0 page-number'><span className='active-number'>1</span> of 3</p></div>
               <Row className='mb-4'>
                 <Col lg={3} md={12}>
-                  <Form.Label className="input-label upload-file">Upload Image*</Form.Label>
+                  <Form.Label className="input-label upload-file">Upload Image<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
@@ -716,7 +716,7 @@ const Projects = (props) => {
 
                 </Col>
                 <Col lg={9} md={12}>
-                  <Form.Label className="input-label upload-file">Upload Banner Image*</Form.Label>
+                  <Form.Label className="input-label upload-file">Upload Banner Image<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
@@ -793,7 +793,7 @@ const Projects = (props) => {
                     controlId="floatingInput"
                     label="Project Name*"
                     className=""
-                  >Project Name* </Form.Label>
+                  >Project Name<span className="text-danger">*</span></Form.Label>
                   <Form.Control
                     value={state.projectSaveDetails?.projectName}
                     name='projectName'
@@ -820,7 +820,7 @@ const Projects = (props) => {
                     controlId="floatingInput"
                     label="Country Restriction*"
                     className=""
-                  > Country Restriction*</Form.Label >
+                  > Country Restriction<span className="text-danger">*</span></Form.Label >
 
 
                   <Multiselect
@@ -848,7 +848,7 @@ const Projects = (props) => {
 
                 <Col lg={6} md={12}>
 
-                  <Form.Label className='input-label'>Network Symbol*</Form.Label>
+                  <Form.Label className='input-label'>Network Symbol<span className="text-danger">*</span></Form.Label>
                   <Dropdown className='matic-dropdown' defaultValue={"Matic"} value="Matic">
                     <Dropdown.Toggle variant="secondary" id="dropdown-basic"
                       disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
@@ -869,7 +869,7 @@ const Projects = (props) => {
                 <Col lg={6} md={12}>
 
                   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label className='input-label'>Listing Time & Date*</Form.Label>
+                    <Form.Label className='input-label'>Listing Time & Date<span className="text-danger">*</span></Form.Label>
                     <Form.Control type="datetime-local" placeholder='Listing Time&Date'
                       id="meeting-time"
                       name="tokenListingDate"
@@ -946,7 +946,7 @@ const Projects = (props) => {
               <h3 className='section-title mb-2 mt-5'>Token Details</h3>
               <Row className='mb-4 Token-Details'>
                 <Col lg={6} md={12} className='mb-0'>
-                  <Form.Label className="input-label upload-file">Upload Token Image*</Form.Label>
+                  <Form.Label className="input-label upload-file">Upload Token Image<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
@@ -1025,7 +1025,7 @@ const Projects = (props) => {
                         controlId="floatingInput"
                         label="Token Contract Address*"
                         className=""
-                      >Token Contract Address*</Form.Label>
+                      >Token Contract Address<span className="text-danger">*</span></Form.Label>
                       <Form.Control
                         value={state.projectSaveDetails?.contractAddress}
                         name='contractAddress'
@@ -1048,7 +1048,7 @@ const Projects = (props) => {
                         controlId="floatingInput"
                         label="Token Name*"
                         className=""
-                      >Token Name*</Form.Label>
+                      >Token Name<span className="text-danger">*</span></Form.Label>
                       <Form.Control
                         value={state.projectSaveDetails?.tokenName}
                         name='tokenName'
@@ -1070,7 +1070,7 @@ const Projects = (props) => {
                         controlId="floatingInput"
                         label="Token Symbol*"
                         className=""
-                      >Token Symbol*</Form.Label>
+                      >Token Symbol<span className="text-danger">*</span></Form.Label>
                       <Form.Control
                         value={state.projectSaveDetails?.tokenSymbol}
                         name='tokenSymbol'
@@ -1092,7 +1092,7 @@ const Projects = (props) => {
                         controlId="floatingInput"
                         label="Token Decimals*"
                         className=""
-                      >Token Decimals*</Form.Label>
+                      >Token Decimals<span className="text-danger">*</span></Form.Label>
                       <Form.Control value={state.projectSaveDetails?.tokenDecimal}
                         name='tokenDecimal'
                         onKeyPress={(event) => {
@@ -1118,7 +1118,7 @@ const Projects = (props) => {
                         controlId="floatingInput"
                         label="Total No Of Tokens*"
                         className=""
-                      >Total No Of Tokens*</Form.Label>
+                      >Total No Of Tokens<span className="text-danger">*</span></Form.Label>
 
 
 
@@ -1146,7 +1146,7 @@ const Projects = (props) => {
                         controlId="floatingInput"
                         label="Initial Supply*"
                         className=""
-                      >Initial Supply* </Form.Label>
+                      >Initial Supply<span className="text-danger">*</span> </Form.Label>
 
                       <NumericFormat
                         value={state.projectSaveDetails?.initialSupply}
@@ -1300,7 +1300,7 @@ const Projects = (props) => {
                             <Row>
                             <Col xl={12} className="mb-3">
                               <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                <Form.Label >Name*</Form.Label>
+                                <Form.Label >Name<span className="text-danger">*</span></Form.Label>
                                 <Form.Control
                                   defaultValue={state?.cast_CrewsFormDeatils?.name || ''}
                                   type="text"
@@ -1317,7 +1317,7 @@ const Projects = (props) => {
                               </Col>
                               <Col lg={12} md={12} className="mb-3">
                               <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                <Form.Label >Role*</Form.Label>
+                                <Form.Label >Role<span className="text-danger">*</span></Form.Label>
                                 <Multiselect
                                   className='multiselecter role-select'
                                   options={castCrewRolesLu}

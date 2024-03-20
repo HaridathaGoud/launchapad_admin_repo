@@ -223,7 +223,7 @@ const Settings = () => {
               <Row className="change-passwordmodal">
                 <Col xl={12}>
                 <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">
-                        <Form.Label >Current Password*</Form.Label>
+                        <Form.Label >Current Password<span className="text-danger">*</span></Form.Label>
                         <Form.Control name='currentPassword'
                       type={currentPasswordType}
                       autoComplete="off"
@@ -240,7 +240,7 @@ const Settings = () => {
                 </Col>
                 <Col xl={12}>
                 <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">
-                        <Form.Label >New Password*</Form.Label>
+                        <Form.Label >New Password<span className="text-danger">*</span></Form.Label>
                         <Form.Control name='password' type={passwordType}
                       autoComplete="off"
                       maxLength={15}
@@ -257,7 +257,7 @@ const Settings = () => {
                 </Col>
                 <Col xl={12}>
                 <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">
-                        <Form.Label >Confirm Password*</Form.Label>
+                        <Form.Label >Confirm Password<span className="text-danger">*</span></Form.Label>
                         <Form.Control name='confirmPassword' type={confirmPasswordType}
                       autoComplete="off"
                       maxLength={15}

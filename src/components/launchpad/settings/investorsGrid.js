@@ -329,7 +329,7 @@ class InvestorsGrid extends Component {
 
                                         <Col xl={6} className="mb-3">
                                             <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                                <Form.Label >First Name*</Form.Label>
+                                                <Form.Label >First Name<span className="text-danger">*</span></Form.Label>
                                                 <Form.Control
                                                     type="text"
                                                     name="firstName"
@@ -355,7 +355,7 @@ class InvestorsGrid extends Component {
                                         </Col>
                                         <Col xl={6} className="mb-3">
                                             <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                                <Form.Label >Last Name*</Form.Label>
+                                                <Form.Label >Last Name<span className="text-danger">*</span></Form.Label>
                                                 <Form.Control
                                                     type="text"
                                                     name="lastName"
@@ -378,7 +378,7 @@ class InvestorsGrid extends Component {
                                         </Col>
                                         <Col xl={6} className="mb-3">
                                             <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                                <Form.Label >User Name*</Form.Label>
+                                                <Form.Label >User Name<span className="text-danger">*</span></Form.Label>
                                                 <Form.Control
                                                     type="text"
                                                     name="userName"
@@ -402,7 +402,7 @@ class InvestorsGrid extends Component {
                                         </Col>
                                         <Col xl={6} className="mb-3">
                                             <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                                <Form.Label >Email*</Form.Label>
+                                                <Form.Label >Email<span className="text-danger">*</span></Form.Label>
                                                 <Form.Control
                                                     type="text"
                                                     name="email"
@@ -426,7 +426,7 @@ class InvestorsGrid extends Component {
                                         </Col>
                                         <Col xl={6} className="mb-3">
                                             <Form.Group >
-                                                <Form.Label >Phone No*</Form.Label>
+                                                <Form.Label >Phone No<span className="text-danger">*</span></Form.Label>
                                                 <InputGroup className="mb-2 input-style no-wrap mobile-noinput">
 
                                                     <Form.Control
@@ -473,7 +473,7 @@ class InvestorsGrid extends Component {
                                         </Col>
                                         <Col xl={6} className="mb-3">
                                             <Form.Group controlId="floatingInput"  >
-                                                <Form.Label >Country*</Form.Label>
+                                                <Form.Label >Country<span className="text-danger">*</span></Form.Label>
                                                 <InputGroup className="  input-style no-wrap mobile-noinput country-code-style">
 
                                                     <Form.Control
@@ -504,7 +504,7 @@ class InvestorsGrid extends Component {
                                         <Col xl={6} className="mb-3">
 
                                             <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                                <Form.Label >Password*</Form.Label>
+                                                <Form.Label >Password<span className="text-danger">*</span></Form.Label>
                                                 <Form.Control
                                                     type="text"
                                                     name="password"

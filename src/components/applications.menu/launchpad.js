@@ -75,7 +75,7 @@ function LaunchPadMenu(props){
                             placement="right"
                             trigger="focus"
                             overlay={popover} >
-                            <Button variant="" className='setting-space' ><span className="icon nav-settings" /></Button>
+                            <Button variant="" className='setting-space' ><span className="icon nav-settings ms-1" /></Button>
                         </OverlayTrigger>
                     </CNavItem>}</>
                 }
