@@ -200,7 +200,7 @@ const SettingsComponent = (props) => {
          
 
           <Col lg={6} md={12} className='d-flex align-items-end btnalign-mobile'>
-            <Button type="button" onClick={() => updateData()} className="btn primary-btn"
+            <Button type="button" onClick={() => updateData()} className="filled-btn"
              disabled={btnLoader}>{btnLoader && <Spinner size='sm' />} Update</Button>{" "}
           </Col>
          
