@@ -540,7 +540,7 @@ button:disabled{background-color: #d0d0d0 !important;color: #000 !important;bord
 .k-grid-header .k-header{background-color: #F0EEEE !important;}
 .form-control:disabled{background-color: #F0EEEE !important; cursor: not-allowed;}
 .k-pager-numbers .k-link{border-radius: 50%;}
-.filter-none thead tr th:last-child .k-grid-filter{display: none;}
+.filter-none thead tr th:last-child .k-grid-filter,.filter-none thead tr th:last-child .k-icon,.ido-grid.filter-none thead tr th:first-child .k-icon{display: none;}
 .bg-dashboard{background: url(../images/bg-dashboard.png) no-repeat; background-size: cover;height: 100vh;}
 .db-content{color: #666;}
 @media (min-width: 768px) {
