@@ -710,6 +710,7 @@ html:not([dir=rtl]) .sidebar.hide:not(.sidebar-end){margin-left: 0;}
 /* select[disabled]{cursor: not-allowed;} */
 select[type='select']:disabled{cursor: not-allowed;}
 @media (max-width: 767.98px) {
+  .cust-dropdown.me-0 .dropdown-toggle{display: flex;justify-content: space-between;align-items: center;}
   .dao-shimmer{width: 100%;}
   .settings-popover{left: -100px !important;}
   .unauthorized-Error.page-notfound{height: 100vh !important;}

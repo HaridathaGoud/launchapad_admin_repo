@@ -8,7 +8,7 @@ function FirstPraposal(props) {
     const UserInfo = useSelector(state => state.oidc?.profile?.profile)
 
     return (<>
-        <Container className='dao-container d-flex justify-content-center align-items-center'>
+        <div className='md-d-flex justify-content-center align-items-center'>
 
             <div className='firstpraposal-card'>
                 <div>
@@ -18,7 +18,7 @@ function FirstPraposal(props) {
                   {(UserInfo?.role=="Admin" && props?.votingOwner) && <Button variant="primary mt-4" onClick={props.handleRedirect}>Create Your First Proposal</Button>}
                 </div>
             </div>
-        </Container>
+        </div>
     </>)
 }
 export default FirstPraposal;

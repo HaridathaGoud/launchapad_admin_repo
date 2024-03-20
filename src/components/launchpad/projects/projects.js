@@ -1224,7 +1224,7 @@ const Projects = (props) => {
                  ))}
               </Row>
               </div>
-              <div className='text-end mt-xl-5 mb-5'>
+              <div className='text-end mt-5 mb-5'>
                 <Button className='cancel-btn me-2' onClick={() => handleCancel()} >
                   Cancel</Button>{' '}
                 <Button className='button-secondary' type="submit" projectTokenData={props?.projectTokenData}
