@@ -208,12 +208,15 @@ const Projects = (props) => {
     const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, contractAddress,
       tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply } = obj;
     const newErrors = {};
+    const whiteSpace = /\s/;
+    const numbersOnly = /^\d+$/;
+    const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
     const emojiRejex =
       /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff]|[\u2010-\u2017])/;
 
     if (!projectName || projectName === '') {
       newErrors.projectName = 'Is required';
-    } else if (!validateContentRules('', projectName)) {
+    } else if (!validateContentRules('', projectName) || projectName?.match(whiteSpace) || projectName?.match(numbersOnly) || projectName?.match(specialCharsOnly)) {
       newErrors.projectName = 'Please provide valid content.';
     }
 
@@ -240,6 +243,8 @@ const Projects = (props) => {
     }
     if (!description || description == '') {
       newErrors.description = 'Is required';
+    }else if (!validateContentRules('', description) || description?.match(whiteSpace) || description?.match(numbersOnly) || description?.match(specialCharsOnly)) {
+      newErrors.description = 'Please provide valid content.';
     }
     if (!contractAddress || contractAddress == '') {
       newErrors.tokenContractAddress = 'Is required';
@@ -419,7 +424,6 @@ const Projects = (props) => {
     }
   };
   const uploadToServer = async (file, type) => {
-    dispatch({ type: 'castImgLoader', payload: true });
     const body = new FormData();
     body.append('file', file);
     try {
@@ -525,6 +529,11 @@ const Projects = (props) => {
 
   };
 
+const handleBlur = (e) => {
+  let value = e.target.value.trim();
+  e.target.value = value;
+};
+ 
   const handlecastCrewData = (event) => {
     const { name, value } = event.target;
     dispatch({
@@ -541,13 +550,18 @@ const Projects = (props) => {
     const validatingForm = { ...state.cast_CrewsFormDeatils };
     const newErrors = {};
     const urlRegex = /^(?:(?:https?|ftp|file):\/\/|www\.)[^\s/$.?#].[^\s]*$/;
+    const numbersOnly = /^\d+$/;
+        const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
     if (!validatingForm?.name || validatingForm?.name === '') {
       newErrors.name = 'Is required';
-    } else if (!validateContentRules('', validatingForm?.name)) {
+    } else if (!validateContentRules('', validatingForm?.name)  || validatingForm?.name?.match(numbersOnly) || validatingForm?.name?.match(specialCharsOnly)) {
       newErrors.name = 'Please provide valid content for the name.';
     }
     if (!validatingForm?.role || validatingForm?.role === '') {
       newErrors.role = 'Is required';
+    }
+    if (!validateContentRules('', validatingForm?.bio)  || validatingForm?.bio?.match(numbersOnly) || validatingForm?.bio?.match(specialCharsOnly)) {
+      newErrors.bio = 'Please provide valid content for the bio.';
     }
     if (validatingForm?.instagram && !urlRegex.test(validatingForm?.instagram)) {
       newErrors.instagram = 'Please provide a valid Instagram URL';
@@ -818,6 +832,7 @@ const Projects = (props) => {
                     type="text"
                     placeholder="Name"
                     onChange={(e) => handleChange('projectName', e)}
+                    onBlur={(e)=>handleBlur(e)}
                     required
                     maxLength={100}
                     isInvalid={!!errors?.projectName}
@@ -919,6 +934,7 @@ const Projects = (props) => {
                     name='description' className='project-description'
                     as="textarea"
                     placeholder="Description"
+                    onBlur={(e)=>handleBlur(e)}
                     maxLength={1000}
                     isInvalid={errors?.description}
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
@@ -1051,6 +1067,7 @@ const Projects = (props) => {
                         placeholder="Contract Address"
                         onChange={(e) => handleChange("contractAddress", e)}
                         isInvalid={!!errors?.contractAddress}
+                        onBlur={(e)=>handleBlur(e)}
                         required
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -1074,6 +1091,7 @@ const Projects = (props) => {
                         placeholder="Token Name"
                         onChange={(e) => handleChange("tokenName", e)}
                         isInvalid={!!errors?.tokenName}
+                        onBlur={(e)=>handleBlur(e)}
                         required
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -1096,6 +1114,7 @@ const Projects = (props) => {
                         placeholder="Token Symbol"
                         onChange={(e) => handleChange("tokenSymbol", e)}
                         isInvalid={!!errors?.tokenSymbol}
+                        onBlur={(e)=>handleBlur(e)}
                         required
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -1109,16 +1128,14 @@ const Projects = (props) => {
                       <Form.Label
                         controlId="floatingInput"
                         label="Token Decimals*"
-                        className=""
+                        className="d-block"
                       >Token Decimals<span className="text-danger">*</span></Form.Label>
-                      <Form.Control value={state.projectSaveDetails?.tokenDecimal}
+                      <NumericFormat
+                      className='form-control'
+                       value={state.projectSaveDetails?.tokenDecimal}
                         name='tokenDecimal'
-                        onKeyPress={(event) => {
-                          const allowedKeys = /[0-9\b.]/;
-                          if (!allowedKeys.test(event.key)) {
-                            event.preventDefault();
-                          }
-                        }}
+                        allowNegative={false}
+                        thousandSeparator={true}
                         type="text" placeholder="Token Decimal"
                         isInvalid={!!errors?.tokenDecimal}
                         onChange={(e) => handleChange("tokenDecimal", e)}
@@ -1137,8 +1154,6 @@ const Projects = (props) => {
                         label="Total No Of Tokens*"
                         className=""
                       >Total No Of Tokens<span className="text-danger">*</span></Form.Label>
-
-
 
                       <NumericFormat
                         value={state.projectSaveDetails?.totalNumberOfTokens}
@@ -1318,7 +1333,6 @@ const Projects = (props) => {
                             Jpg, Jpeg, Png, Gif, Webp
 
                           </p>
-                          <Form.Control.Feedback type="invalid">{state.errors.bannerImage}</Form.Control.Feedback>
                         </div>
                       </div>
                     }
@@ -1344,7 +1358,6 @@ const Projects = (props) => {
                             className="icon camera"
                             onClick={() => inputRef3.current?.click()}
                           ></span>
-                          <Form.Control.Feedback type="invalid">{state.errors.bannerImage}</Form.Control.Feedback>
                         </div>
                       </div>
                     }
@@ -1363,6 +1376,7 @@ const Projects = (props) => {
                               autoComplete="off"
                               onChange={handlecastCrewData}
                               isInvalid={!!errors.name}
+                              onBlur={handleBlur}
                               required
                               placeholder="Name"
                               maxLength={50}
@@ -1404,6 +1418,7 @@ const Projects = (props) => {
                               placeholder="Enter Bio"
                               style={{ height: '100px' }}
                               onChange={handlecastCrewData}
+                              onBlur={handleBlur}
                               isInvalid={!!errors.bio}
                               maxLength={50}
                               disabled={(state.projectSaveDetails?.projectStatus == "Deployed"

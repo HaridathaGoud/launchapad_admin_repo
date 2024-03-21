@@ -89,16 +89,19 @@ const UserProfile = (props) => {
   const validateForm = (obj, isChange) => {
     const { firstName, lastName, phoneNo,countryCode, country } = isChange ? obj : form
     const newErrors = {};
+    const numbersOnly = /^\d+$/;
+    const whiteSpace = /\s/;
+    const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
     if (!firstName || firstName === '') {
       newErrors.firstName = "Is required";
     } 
-    else if(!validateContentRules("",firstName)){
+    else if(!validateContentRules("",firstName)|| firstName?.match(whiteSpace) || firstName?.match(numbersOnly) || firstName?.match(specialCharsOnly)) {
       newErrors.firstName = "Invalid first name";
     }
     if (!lastName || lastName === '') {
       newErrors.lastName = "Is required";
     } 
-    else if(!validateContentRules("",lastName)){
+    else if(!validateContentRules("",lastName) || lastName?.match(whiteSpace) || lastName?.match(numbersOnly) || lastName?.match(specialCharsOnly)){
       newErrors.lastName = "Invalid last name";
     }
     if (!phoneNo || phoneNo === '') {

@@ -168,22 +168,24 @@ class InvestorsGrid extends Component {
         const whiteSpace = /\s/;
         const emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
         const newErrors = {};
+        const numbersOnly = /^\d+$/;
+        const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
         if (!firstName || firstName === '') {
             newErrors.firstName = "Is required";
         }
-        else if (!validateContentRules("", firstName) || firstName?.match(whiteSpace)) {
+        else if (!validateContentRules("", firstName) || firstName?.match(whiteSpace) || firstName?.match(numbersOnly) || firstName?.match(specialCharsOnly)) {
             newErrors.firstName = "Invalid first name";
         }
         if (!lastName || lastName === '') {
             newErrors.lastName = "Is required";
         }
-        else if (!validateContentRules("", lastName) || lastName?.match(whiteSpace)) {
+        else if (!validateContentRules("", lastName) || lastName?.match(whiteSpace)|| lastName?.match(numbersOnly) || lastName?.match(specialCharsOnly)) {
             newErrors.lastName = "Invalid last name";
         }
         if (!userName || userName === '') {
             newErrors.userName = "Is required";
         }
-        else if (!validateContentRules("", userName) || userName?.match(whiteSpace)) {
+        else if (!validateContentRules("", userName) || userName?.match(whiteSpace) || userName?.match(numbersOnly) || userName?.match(specialCharsOnly)) {
             newErrors.userName = "Invalid User name";
         }
 
@@ -202,8 +204,8 @@ class InvestorsGrid extends Component {
         else if (!validateContentRules("", phoneNo)) {
             newErrors.phoneNo = "Invalid phone number";
         }
-        if ((!phoneNoCountryCode || phoneNoCountryCode === " ")) {
-            newErrors.phoneNo = "Is required";
+        else if ((!phoneNoCountryCode || phoneNoCountryCode === " ")) {
+            newErrors.phoneNo = "Invalid phone code";
         }
         if (!country || country === "Select Country") {
             newErrors.country = "Is required";
