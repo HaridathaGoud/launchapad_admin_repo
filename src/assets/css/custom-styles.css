@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
   font-weight: 400;
   font-size: 16px;
   letter-spacing: 0.2px;padding: 16px;
-  color: #CED0DD !important;}
+  color: #000 !important;}
 .mr-8{margin-right: 8px;}
 /* Icons Start */
 .icon{background-image: url(../../assets/images/icon-file.svg)!important;background-repeat: no-repeat;
@@ -460,7 +460,7 @@ font-size: 12px;color: #FFFFFF;font-family: 'Roboto', sans-serif !important;}
 .input-style.text-area-input textarea{height: 72px !important;}
 /* .whitelist-count span{flex-basis: 0;flex-grow: 1;} */
 .subicon:active,.addicon:active{background-color: transparent !important;}
-.sidebar{background-color: #1e1e1e;}
+.sidebar{background-color: #fff;}
 .section-custom .dropdown-item:hover .icon.profile,.drop-item .icon.profile{background-position: -197px -602px !important;}
 .section-custom .dropdown-item:hover .icon.settings,.drop-item .icon.settings{background-position: -195px -560px !important;}
 .section-custom .dropdown-item:hover .icon.logout,.drop-item .icon.logout{background-position: -20px -562.5px !important;}
@@ -766,7 +766,7 @@ input[type="datetime-local"],input[type="date"] {
   .sm-mt-2{margin-top: 8px;margin-left: 0 !important;}
   .discord-block{overflow: hidden;word-wrap: break-word;}
   .mobile-active-menu .nav-item a.active{color: #D60000 !important;text-decoration: none !important;}
-  .mobile-active-menu .nav-item a{text-decoration: none !important;color: #ced0dd;padding: 0;}
+  .mobile-active-menu .nav-item a{text-decoration: none !important;color: #000;padding: 0;}
   .mobile-active-menu .nav-item{padding: 12px;}
   .whitelist-flex{display: block !important;align-items: center;}
   .d-md-flex.grid-search .filled-btn{margin-top: 8px;}
