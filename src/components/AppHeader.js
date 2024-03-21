@@ -284,7 +284,7 @@ function AppHeader(props){
       </CHeaderNav>
     </CHeader>
 
-<div className='mobile-nav'>
+<div className='mobile-nav menu-left'>
       <Collapse in={open} dimension="width" className='mobile-nav-content' >
         <div id="example-collapse-text">
           <div className='mobile-navitems'>

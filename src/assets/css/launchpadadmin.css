@@ -11,7 +11,7 @@
 .icon.notification-icon{ background-position: -288px -209px;}
 .icon.que-icon{ background-position: -248px -209px;}
 .icon.setting-arrow{background-position: -516px -150px;width: 12px !important;height: 15px !important;}
-.menu-left li:hover .icon.menu,.menu-left li.active .icon.menu,.icon.menu.active{background-position: -16px -208px;}
+.menu-left li:hover .icon.menu,.menu-left li.active .icon.menu,.icon.menu.active,.menu-left li:hover a.nav-link{background-position: -16px -208px;color: #d60000 !important;}
 .icon.user{background-position: -52px -176px;width: 28px !important;height: 28px !important;}
 .menu-left li:hover .icon.user,.menu-left li.active .icon.user,.icon.user.active{background-position: -52px -208px;}
 .icon.investers{background-position: -90px -180px;width: 28px !important;height: 28px !important;}
