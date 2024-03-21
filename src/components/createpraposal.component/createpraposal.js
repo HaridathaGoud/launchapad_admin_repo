@@ -431,7 +431,7 @@ if (isMobile) {
           className="settings-modal profile-modal add-option
           " >
             <Modal.Header>     
-            <Modal.Title><h4>Add Your Options</h4></Modal.Title> 
+            <Modal.Title>Add Your Options</Modal.Title> 
             <span className="icon close c-pointer" onClick={handleClose}></span>
           </Modal.Header>
           <Modal.Body> 
