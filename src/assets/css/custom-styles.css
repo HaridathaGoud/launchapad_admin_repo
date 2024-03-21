@@ -765,7 +765,7 @@ input[type="datetime-local"],input[type="date"] {
   .page-content{flex-direction: column-reverse; gap: 16px;}
   .sm-mt-2{margin-top: 8px;margin-left: 0 !important;}
   .discord-block{overflow: hidden;word-wrap: break-word;}
-  .mobile-active-menu .nav-item a.active{color: #D60000 !important;text-decoration: none !important;}
+  .mobile-active-menu .nav-item a.active,.mobile-active-menu a.active{color: #D60000 !important;text-decoration: none !important;}
   .mobile-active-menu .nav-item a{text-decoration: none !important;color: #000;padding: 0;}
   .mobile-active-menu .nav-item{padding: 12px;}
   .whitelist-flex{display: block !important;align-items: center;}

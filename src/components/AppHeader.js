@@ -316,11 +316,12 @@ function AppHeader(props){
                     
                   </CNavItem> */}
                   
-                  {window.location.pathname.includes('') && <> <CNavItem>
+                  {window.location.pathname.includes('') && <> <CNavItem  className='mobile-active-menu'>
                     <OverlayTrigger
+                   
                       placement="right"
                       overlay={renderTooltipLaunchPad} >
-                      <CNavLink className='' onClick={() => navigate('launchpad/dashboard')}>
+                      <CNavLink  onClick={() => navigate('launchpad/dashboard')} className={"underline" + (url === "launchpad" ? " active" : "")}>
                        
                         <span className=''>LaunchPad</span>
                       </CNavLink>
