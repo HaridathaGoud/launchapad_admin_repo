@@ -253,17 +253,17 @@ const Projects = (props) => {
     }
     if (!contractAddress || contractAddress == '') {
       newErrors.contractAddress = 'Is required';
-    } else if (contractAddress && (emojiRejex.test(contractAddress))) {
+    } else if (contractAddress && (emojiRejex.test(contractAddress)) || contractAddress?.match(whiteSpace) || contractAddress?.match(numbersOnly) || contractAddress?.match(specialCharsOnly)) {
       newErrors.contractAddress = 'Please provide valid content.';
     }
     if (!tokenName || tokenName == '') {
       newErrors.tokenName = 'Is required';
-    } else if (tokenName && (emojiRejex.test(tokenName))) {
+    } else if (tokenName && (emojiRejex.test(tokenName)) || tokenName?.match(whiteSpace) || tokenName?.match(numbersOnly) || tokenName?.match(specialCharsOnly)) {
       newErrors.tokenName = 'Please provide valid content.';
     }
     if (!tokenSymbol || tokenSymbol == '') {
       newErrors.tokenSymbol = 'Is required';
-    } else if (tokenSymbol && (emojiRejex.test(tokenSymbol))) {
+    } else if (tokenSymbol && (emojiRejex.test(tokenSymbol)) || tokenSymbol?.match(whiteSpace) || tokenSymbol?.match(numbersOnly) || tokenSymbol?.match(specialCharsOnly)) {
       newErrors.tokenSymbol = 'Please provide valid content.';
     }
     if (!tokenDecimal || tokenDecimal == '') {
@@ -1067,7 +1067,6 @@ const handleBlur = (e) => {
                         placeholder="Contract Address"
                         onChange={(e) => handleChange("contractAddress", e)}
                         isInvalid={!!errors?.contractAddress}
-                        onBlur={(e)=>handleBlur(e)}
                         required
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"

@@ -358,7 +358,7 @@ class InvestorsGrid extends Component {
                                                     isInvalid={!!this.state.errors.firstName}
                                                     required
                                                     placeholder="Enter First Name"
-                                                    maxLength={50}
+                                                    maxLength={49}
                                                     className=""
                                                     onBlur={(e) => {
                                                         this.setField(
@@ -383,7 +383,7 @@ class InvestorsGrid extends Component {
                                                     isInvalid={!!this.state.errors.lastName}
                                                     required
                                                     placeholder="Enter Last Name "
-                                                    maxLength={50}
+                                                    maxLength={49}
                                                     onBlur={(e) => {
                                                         this.setField(
                                                           "lastName",
@@ -406,7 +406,7 @@ class InvestorsGrid extends Component {
                                                     isInvalid={!!this.state.errors.userName}
                                                     required
                                                     placeholder="Enter Username "
-                                                    maxLength={50}
+                                                    maxLength={20}
                                                     onBlur={(e) => {
                                                         this.setField(
                                                           "userName",
