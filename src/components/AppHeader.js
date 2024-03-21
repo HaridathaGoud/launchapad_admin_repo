@@ -291,7 +291,7 @@ function AppHeader(props){
             <CSidebar style={{ top: '80px' }}>
               <CSidebarNav>
                 <SimpleBar className='simplebar-height'>
-                  {window.location.pathname.includes('home') && <> <CNavItem>
+                  {/* {window.location.pathname.includes('home') && <> <CNavItem>
                     <OverlayTrigger
                       placement="right"
                       overlay={renderTooltipKyc} >
@@ -299,8 +299,8 @@ function AppHeader(props){
                       </CNavLink>
                     </OverlayTrigger>
                   </CNavItem>
-                  </>}
-                  <CNavItem className='mobile-active-menu'> 
+                  </>} */}
+                  {/* <CNavItem className='mobile-active-menu'> 
                     <CNavItem><Link to="/kyc/customers" className={"underline" + (url === ("kyc") ? " active" : "")} onClick={() => dispatch(setApp("kyc"))}>KYC</Link></CNavItem>
                     {window.location.pathname.includes('kyc') && <>   <CNavItem className={"underline" + (menu === "customers" ? " customer active" : " ")}>
                     <OverlayTrigger
@@ -314,9 +314,88 @@ function AppHeader(props){
                   </CNavItem></>}
                     <CNavItem><Link to="/minting/dashboard" className={"underline" + (url === "minting" ? " active" : "")} onClick={() => gotoMinting()}>Minting</Link></CNavItem>
                     
-                  </CNavItem>
+                  </CNavItem> */}
                   
+                  {window.location.pathname.includes('') && <> <CNavItem>
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={renderTooltipLaunchPad} >
+                      <CNavLink className='' onClick={() => navigate('launchpad/dashboard')}>
+                       
+                        <span className=''>LaunchPad</span>
+                      </CNavLink>
+                    </OverlayTrigger>
+                  </CNavItem></>}
 
+                  {window.location.pathname.includes('launchpad') && <> <CNavItem className={"underline" + (menu=== "dashboard" ? " active" : "")}>
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={renderTooltipDashboard} >
+                      <CNavLink onClick={() => navigate('launchpad/dashboard')}><span className="icon menu" /><span className=' mx-1'>Dashboard</span>
+                      </CNavLink>
+                    </OverlayTrigger>
+                  </CNavItem></>}
+
+                  {window.location.pathname.includes('launchpad')&&
+                  isAdmin?.isAdmin && showSetting && viewedProject?.projectstatus=="Deployed"&& 
+                   <CNavItem className={"underline" + (menu=== "Settings" ? " active" : "")}>
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={popover} >
+                        <CNavLink className='customer' ><span className="icon nav-settings" /><span className=' mx-1'>Settings</span></CNavLink>
+                     
+                    </OverlayTrigger>
+                  </CNavItem>}
+
+                  {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Super Admin"&& <>   <CNavItem  className={"underline" + (menu=== "customers" ? " active" : "")}>
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={renderTooltipCustomers}
+                    >
+                      <CNavLink className='customer' onClick={() => navigate('launchpad/customers')}><span className="icon customer" /><span className=' mx-1'>Customers</span>
+                      </CNavLink>
+                    </OverlayTrigger>
+                  </CNavItem></>}
+
+                  {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Admin"&& <>   <CNavItem  className={"underline" + (menu=== "projects" ? " active" : "")}>
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={renderTooltipProjects}
+                    >
+                      <CNavLink className='projects' onClick={() => navigate(`launchpad/projects/${isAdmin.id}`)}><span className="icon customer" /><span className=' mx-1'>Projects</span>
+                      </CNavLink>
+                    </OverlayTrigger>
+                  </CNavItem></>}
+
+                  {window.location.pathname.includes('launchpad')  && props?.userInfo?.role=="Super Admin"&& <> <CNavItem className={"underline" + (menu=== "investors" ? " active" : "")}>
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={renderTooltipInvestorPage} >
+                      <CNavLink onClick={() => navigate('launchpad/investors')}
+                      ><span className="icon investers me-0" /><span className=' mx-1'>Investors</span></CNavLink>
+                    </OverlayTrigger>
+                  </CNavItem>
+                  </>}
+                  {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Super Admin"&&
+                    <CNavItem className={"underline" + (menu=== "idorequest" ? " active" : "")}>
+                      <> <OverlayTrigger
+                        placement="right"
+                        overlay={renderTooltipIdoRequest} >
+                        <CNavLink onClick={() => navigate('launchpad/idorequest')}><span className="icon ido-request me-0" /><span className=' mx-1'>IDO-request</span></CNavLink>
+                      </OverlayTrigger>
+                      </>
+                    </CNavItem>
+                  }
+
+                  {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Super Admin"&&
+                    <CNavItem className={"underline" + (menu=== "transactions" ? " active" : "")}>
+                      <OverlayTrigger
+                        placement="right"
+                        overlay={renderTooltipTransactions} >
+                        <CNavLink onClick={() => navigate('launchpad/transactions')}><span className="icon transaction-list me-0" /><span className=' mx-1'>Transactions</span></CNavLink>
+                      </OverlayTrigger>
+                    </CNavItem>
+                  }
                   {window.location.pathname.includes('home') && daoLuData !=null && <> <CNavItem className={"underline" + (menu === " dashboard" ? "customer active" : "")}>
                     <OverlayTrigger
                       placement="right"
@@ -327,7 +406,33 @@ function AppHeader(props){
                     </OverlayTrigger>
                   </CNavItem></>}
 
-                  {window.location.pathname.includes('minting') && daoLuData !=null && <>
+                  <CNavItem className='mobile-active-menu'>
+                    <CNavLink className='nav-item'>
+                      {props?.userInfo?.role=="Super Admin"&& <Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dao"))}>DAO</Link>}
+                      {props?.userInfo?.role=="Admin"&&<Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dao"))}>DAO</Link>}
+                     </CNavLink>
+                      </CNavItem>
+
+                  {window.location.pathname.includes('dao') &&    <CNavItem  className={"underline" + (menu=== "projects" ? " active" : "")}>
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={renderTooltipDashboard}
+                    >
+                      <CNavLink className='projects' onClick={() => navigate(`dao/dashboard`)}><span className="icon menu" /><span className=' mx-1'>Dashboard</span>
+                      </CNavLink>
+                    </OverlayTrigger>
+                  </CNavItem>}
+                  {props?.userInfo?.role=="Super Admin"&& window.location.pathname.includes('dao') &&    <CNavItem  className={"underline" + (menu=== "projects" ? " active" : "")}>
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={renderTooltipCustomers}
+                    >
+                      <CNavLink className='projects' onClick={() => navigate(`launchpad/customers`)}><span className="icon customer" /><span className=' mx-1'>Customers</span>
+                      </CNavLink>
+                    </OverlayTrigger>
+                  </CNavItem>}
+
+                  {/* {window.location.pathname.includes('minting') && daoLuData !=null && <>
                   {url == "minting" ? <div className="text-center">{loading && <Spinner></Spinner>}
                     {!loading && (<>
                       <NavDropdown className='dao-pf-style sm-dao'
@@ -391,8 +496,9 @@ function AppHeader(props){
                       <CNavLink className='referral-icon' onClick={() => navigate('minting/referral')}><span className="icon referral" /><span className=' mx-2'>Referral's Bonus</span>
                       </CNavLink>
                     </OverlayTrigger>
-                  </CNavItem></>}
+                  </CNavItem></>} */}
                   {/* <div className='marketplace-admin'> */}
+
                   <CNavItem className='mobile-active-menu'> 
                     
                     {props?.userInfo?.role=="Super Admin"&&<CNavItem><Link to="/marketplace/dashboard" className={"underline" + (url === "marketplace" ? " active" : "")} onClick={() => dispatch(setApp("marketplace"))}>Marketplace</Link></CNavItem>}
@@ -424,12 +530,8 @@ function AppHeader(props){
                         </CNavLink>
                       </OverlayTrigger>
                     </CNavItem></>}
-                    <CNavItem className='mobile-active-menu'>
-                    <CNavLink className='nav-item'>
-                      {props?.userInfo?.role=="Super Admin"&& <Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dao"))}>DAO</Link>}
-                      {props?.userInfo?.role=="Admin"&&<Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dao"))}>DAO</Link>}
-                     </CNavLink>
-                      </CNavItem>
+
+                    
                     
                   {window.location.pathname.includes('home') && <> <CNavItem>
                     <OverlayTrigger
@@ -439,107 +541,13 @@ function AppHeader(props){
                     </OverlayTrigger>
                   </CNavItem>
                   </>}
-                  {/* {window.location.pathname.includes('') && <> <CNavItem>
-                    <OverlayTrigger
-                      placement="right"
-                      overlay={renderTooltipLaunchPad} >
-                      <CNavLink className='' onClick={() => navigate('launchpad/dashboard')}>
-                       
-                        <span className=''>LaunchPad</span>
-                      </CNavLink>
-                    </OverlayTrigger>
-                  </CNavItem></>} */}
-
-                  {window.location.pathname.includes('launchpad') && <> <CNavItem className={"underline" + (menu=== "dashboard" ? " active" : "")}>
-                    <OverlayTrigger
-                      placement="right"
-                      overlay={renderTooltipDashboard} >
-                      <CNavLink onClick={() => navigate('launchpad/dashboard')}><span className="icon menu" /><span className=' mx-1'>Dashboard</span>
-                      </CNavLink>
-                    </OverlayTrigger>
-                  </CNavItem></>}
-
-                  {window.location.pathname.includes('dao') &&    <CNavItem  className={"underline" + (menu=== "projects" ? " active" : "")}>
-                    <OverlayTrigger
-                      placement="right"
-                      overlay={renderTooltipProjects}
-                    >
-                      <CNavLink className='projects' onClick={() => navigate(`launchpad/projects/${isAdmin.id}`)}><span className="icon customer" /><span className=' mx-1'>Projects</span>
-                      </CNavLink>
-                    </OverlayTrigger>
-                  </CNavItem>}
-
-                  {window.location.pathname.includes('dao') &&   <CNavItem  className={"underline" + (menu=== "projects" ? " active" : "")}>
-                    <OverlayTrigger
-                      placement="right"
-                      overlay={renderTooltipProjects}
-                    >
-                      <CNavLink className='projects' onClick={() => navigate(`launchpad/projects/${isAdmin.id}`)}><span className="icon customer" /><span className=' mx-1'>Projects</span>
-                      </CNavLink>
-                    </OverlayTrigger>
-                  </CNavItem>}
                   
-                  {window.location.pathname.includes('launchpad')&&
-                  isAdmin?.isAdmin && showSetting && viewedProject?.projectstatus=="Deployed"&& 
-                   <CNavItem className={"underline" + (menu=== "Settings" ? " active" : "")}>
-                    <OverlayTrigger
-                      placement="right"
-                      overlay={popover} >
-                        <CNavLink className='customer' ><span className="icon nav-settings" /><span className=' mx-1'>Settings</span></CNavLink>
-                     
-                    </OverlayTrigger>
-                  </CNavItem>}
 
+                  
 
-                  {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Super Admin"&& <>   <CNavItem  className={"underline" + (menu=== "customers" ? " active" : "")}>
-                    <OverlayTrigger
-                      placement="right"
-                      overlay={renderTooltipCustomers}
-                    >
-                      <CNavLink className='customer' onClick={() => navigate('launchpad/customers')}><span className="icon customer" /><span className=' mx-1'>Customers</span>
-                      </CNavLink>
-                    </OverlayTrigger>
-                  </CNavItem></>}
-
-                  {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Admin"&& <>   <CNavItem  className={"underline" + (menu=== "projects" ? " active" : "")}>
-                    <OverlayTrigger
-                      placement="right"
-                      overlay={renderTooltipProjects}
-                    >
-                      <CNavLink className='projects' onClick={() => navigate(`launchpad/projects/${isAdmin.id}`)}><span className="icon customer" /><span className=' mx-1'>Projects</span>
-                      </CNavLink>
-                    </OverlayTrigger>
-                  </CNavItem></>}
-
-                  {window.location.pathname.includes('launchpad')  && props?.userInfo?.role=="Super Admin"&& <> <CNavItem className={"underline" + (menu=== "investors" ? " active" : "")}>
-                    <OverlayTrigger
-                      placement="right"
-                      overlay={renderTooltipInvestorPage} >
-                      <CNavLink onClick={() => navigate('launchpad/investors')}
-                      ><span className="icon investers me-0" /><span className=' mx-1'>Investors</span></CNavLink>
-                    </OverlayTrigger>
-                  </CNavItem>
-                  </>}
-                  {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Super Admin"&&
-                    <CNavItem className={"underline" + (menu=== "idorequest" ? " active" : "")}>
-                      <> <OverlayTrigger
-                        placement="right"
-                        overlay={renderTooltipIdoRequest} >
-                        <CNavLink onClick={() => navigate('launchpad/idorequest')}><span className="icon ido-request me-0" /><span className=' mx-1'>IDO-request</span></CNavLink>
-                      </OverlayTrigger>
-                      </>
-                    </CNavItem>
-                  }
-
-                  {window.location.pathname.includes('launchpad') && props?.userInfo?.role=="Super Admin"&&
-                    <CNavItem className={"underline" + (menu=== "transactions" ? " active" : "")}>
-                      <OverlayTrigger
-                        placement="right"
-                        overlay={renderTooltipTransactions} >
-                        <CNavLink onClick={() => navigate('launchpad/transactions')}><span className="icon transaction-list me-0" /><span className=' mx-1'>Transactions</span></CNavLink>
-                      </OverlayTrigger>
-                    </CNavItem>
-                  }
+                 
+                  
+                  
 
                 </SimpleBar>
               </CSidebarNav>
