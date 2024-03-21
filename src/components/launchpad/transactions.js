@@ -60,12 +60,17 @@ class Transactions extends Component {
         }
 }
 
- handleSearchIcon() {
-  let { searchObj } = this.state;
-  this.setState({ ...this.state, searchObj }, () => {
-    this.gridRef.current.refreshGrid();
-  });
-  }
+  handleSearch = (data) => {
+    let { searchObj } = this.state;
+    if (data == "") {
+      searchObj.searchBy = null;
+    } else {
+      searchObj.searchBy = data;
+      this.setState({ ...this.state, searchObj }, () => {
+        this.gridRef.current.refreshGrid();
+      });
+    }
+  };
  
   iconClass = {
     "Stake": "icon receive",
@@ -184,7 +189,7 @@ class Transactions extends Component {
             onBlur={(e) => this.handleBlur(e)}
            
           />
-          <i className="icon search-icon" onClick={()=>this.handleSearchIcon()}></i>
+          <i className="icon search-icon" onClick={()=>this.handleSearch(this.state.searchObj.searchBy)}></i>
         </Form>
         </div>
 

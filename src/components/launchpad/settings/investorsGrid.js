@@ -95,11 +95,16 @@ class InvestorsGrid extends Component {
         }
     };
 
-    handleSearch = () => {
+    handleSearch = (data) => {
         let { searchObj } = this.state;
-        this.setState({ ...this.state, searchObj }, () => {
-            this.gridRef.current.refreshGrid();
-        });
+        if (data == "") {
+            searchObj.searchBy = null;
+        } else {
+            searchObj.searchBy = data;
+            this.setState({ ...this.state, searchObj }, () => {
+                this.gridRef.current.refreshGrid();
+            });
+        }
     };
     handleEnterSearch = async (e) => {
         let data = e.target.value.trim();
@@ -285,7 +290,7 @@ class InvestorsGrid extends Component {
                             maxLength={250}
                             placeholder="Search by Name "
                         />
-                        <i className="icon search-icon" onClick={this.handleSearch}></i>
+                        <i className="icon search-icon" onClick={()=>this.handleSearch(this.state.searchObj.searchBy)}></i>
                     </Form>
                     <div className='d-flex align-items-center justify-content-end'>
             <Button className='primary-btn mt-3 mt-md-0 button-style'

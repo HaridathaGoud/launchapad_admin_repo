@@ -121,11 +121,16 @@ class LaunchpadCustomers extends Component {
         }
     };
 
-    handleSearch = () => {
+    handleSearch = (data) => {
         let { searchObj } = this.state;
-        this.setState({ ...this.state, searchObj }, () => {
-            this.gridRef.current.refreshGrid();
-        });
+        if (data == "") {
+            searchObj.searchBy = null;
+        } else {
+            searchObj.searchBy = data;
+            this.setState({ ...this.state, searchObj }, () => {
+                this.gridRef.current.refreshGrid();
+            });
+        }
     };
     handleEnterSearch = (e) => {
         let data = e.target.value.trim();
@@ -182,7 +187,7 @@ class LaunchpadCustomers extends Component {
                             maxLength={250}
                             placeholder="Search by Name, Email and Wallet Address"
                         />
-                        <i className="icon search-icon" onClick={this.handleSearch}></i>
+                        <i className="icon search-icon" onClick={()=>this.handleSearch(this.state.searchObj.searchBy)}></i>
                     </Form>
                     <Form className="d-flex grid-search mobile-block" >
 

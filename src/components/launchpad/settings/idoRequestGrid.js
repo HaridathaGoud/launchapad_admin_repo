@@ -158,11 +158,16 @@ class IdoRequestGrid extends Component {
         }
     };
 
-    handleSearch = () => {
+    handleSearch = (data) => {
         let { searchObj } = this.state;
-        this.setState({ ...this.state, searchObj }, () => {
-            this.gridRef.current.refreshGrid();
-        });
+        if(data ==""){
+            searchObj.searchBy = null;
+        }else{
+            searchObj.searchBy = data;
+            this.setState({ ...this.state, searchObj }, () => {
+                this.gridRef.current.refreshGrid();
+            });
+        }
     };
     handleEnterSearch = async (e) => {
         let data = e.target.value.trim();
@@ -330,7 +335,7 @@ class IdoRequestGrid extends Component {
                             maxLength={250}
                             placeholder="Search by Project Name"
                         />
-                        <i className="icon search-icon" onClick={this.handleSearch}></i>
+                        <i className="icon search-icon" onClick={()=>this.handleSearch(this.state.searchObj.searchBy)}></i>
                     </Form>
                     <div className='d-flex align-items-center justify-content-end'>
                         <div className='d-flex align-items-center filter-style c-pointer mb-2 mb-md-0' onClick={this.handleShow} >
