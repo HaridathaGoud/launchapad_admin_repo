@@ -73,6 +73,8 @@ const reducer = (state, action) => {
       return { ...state, castCrewDataList: action.payload };
     case "castCrewImageError":
       return { ...state, castCrewImageError: action.payload };
+    case "castCrewFormLoader":
+      return { ...state, castCrewFormLoader: action.payload };
     default:
       return state;
   }
@@ -107,6 +109,7 @@ const initialState = {
   castImgLoader: false,
   castCrewDataList: [],
   castCrewImageError: '',
+  castCrewFormLoader:false,
 };
 const Projects = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -182,11 +185,14 @@ const Projects = (props) => {
 
   const handleEdit = (index) => {
     setShow(true)
-    dispatch({ type: 'castImgLoader', payload: false })
     if (index !== null) {
+      dispatch({ type: 'castCrewFormLoader', payload: true })
       const selectedItem = state.castCrewDataList[index];
       setSelectedroleValues(selectedItem?.role?.map(role => ({ role })));
       dispatch({ type: "cast_CrewsFormDeatils", payload: selectedItem });
+      setTimeout(() => {
+        dispatch({ type: 'castCrewFormLoader', payload: false })
+      }, 1000);
     } else {
       dispatch({ type: "cast_CrewsFormDeatils", payload: {} });
     }
@@ -570,15 +576,21 @@ const Projects = (props) => {
         updatedList[existingIndex] = { ...formDetails, recordStatus: "modified" };
         dispatch({ type: 'castCrewDataList', payload: updatedList });
         setErrors({});
-        setCastCrewLoader(false)
+        setTimeout(() => {
+          setCastCrewLoader(false)
+        }, 1000);
+        setShow(false)
+        setSelectedroleValues([])
       } else {
         const formData = { ...state.cast_CrewsFormDeatils, id: '00000000-0000-0000-0000-000000000000' };
         dispatch({ type: 'castCrewDataList', payload: [...state.castCrewDataList, { ...formData, recordStatus: "added" }] });
         setErrors({});
-        setCastCrewLoader(false)
-      }
-      setShow(false)
+        setTimeout(() => {
+          setCastCrewLoader(false)
+        }, 1000);
+        setShow(false)
       setSelectedroleValues([])
+      }
     }
   }
 
@@ -807,6 +819,7 @@ const Projects = (props) => {
                     placeholder="Name"
                     onChange={(e) => handleChange('projectName', e)}
                     required
+                    maxLength={100}
                     isInvalid={!!errors?.projectName}
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -901,7 +914,7 @@ const Projects = (props) => {
                     controlId="floatingTextarea"
                     label="Description*"
                     className="text-area-input"
-                  >Description*</Form.Label>
+                  >Description<span className="text-danger">*</span></Form.Label>
                   <Form.Control value={state.projectSaveDetails?.description}
                     name='description' className='project-description'
                     as="textarea"
@@ -958,7 +971,6 @@ const Projects = (props) => {
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
                       'upload-img token-upload mb-2 c-notallowed' :
                       'upload-img token-upload mb-2'}`}
-                  // onClick={() => inputRef2.current?.click()}
                   >
                     {state.cardImgLoader && <Spinner fallback={state.cardImgLoader}></Spinner>}
                     {state.projectCardImages && !state.cardImgLoader &&
@@ -1036,7 +1048,7 @@ const Projects = (props) => {
                         value={state.projectSaveDetails?.contractAddress}
                         name='contractAddress'
                         type="text"
-                        placeholder="Contract Address*"
+                        placeholder="Contract Address"
                         onChange={(e) => handleChange("contractAddress", e)}
                         isInvalid={!!errors?.contractAddress}
                         required
@@ -1180,7 +1192,7 @@ const Projects = (props) => {
               <div className='profile-section'>
                 <div className='d-flex justify-content-between  align-items-center mb-2'>
                   <h3 className='section-title '>Cast And Crew</h3>
-                  <Button className='button-style mt-3 mt-md-0' onClick={() => handleEdit()}
+                  <Button className='button-style mt-3 mt-md-0' onClick={() => handleEdit(null)}
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
@@ -1270,50 +1282,16 @@ const Projects = (props) => {
                       </div>
                     </Alert>
                   )}
+                  <div className="text-center">{state.castCrewFormLoader && <Spinner className='text-center'></Spinner>}</div>
+                  {!state.castCrewFormLoader &&
                   <Row>
                     <Col xl={4} className="mb-4">
                       <Form.Group>
-                        {/* <div className='profile-size identification-image bg-none upload-img no-hover' >
-                          <div className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
-                      || state.projectSaveDetails?.projectStatus == "Approved") ?
-                      'upload-img token-upload mb-2 c-notallowed' :
-                      'upload-img token-upload mb-2'}`}>
-                          <span className='image-box ' >
-                            {state.castImgLoader && <Spinner className='castcrew-loader' fallback={state.castImgLoader}></Spinner>}
-                            {!state.castImgLoader &&
-                              <span className='imgupload-span'>
-                                <Image className='image-setup' age src={state?.cast_CrewsFormDeatils?.image} width="100" height="100" alt="" />
-                              </span>
-                            }
-                            {!state.castImgLoader &&
-                              <span >
-                                <Form.Control
-                                  ref={inputRef3}
-                                  type="file"
-                                  name="image"
-                                  id="input-file"
-                                  onChange={(e) => uploadToClient(e, 'image')}
-                                  className="d-none"
-                                  disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                                    || state.projectSaveDetails?.projectStatus == "Rejected"
-                                    || state.projectSaveDetails?.projectStatus == "Approved"
-                                  )}
-                                />
-                                <span onClick={() => inputRef3.current?.click()} className="icon camera cam-position upload-transparent visibility-visible"></span>
-                                <p className="mt-6">Jpg, Jpeg, Png, Gif, Webp</p>
-                              </span>
-
-                            }
-
-                          </span>
-                          </div>
-                        </div> */}
                         <div
                     className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Approved") ?
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
-                    role="button"
                   >
                     {state.castImgLoader && <Spinner fallback={state.castImgLoader} className='position-absolute'></Spinner>}
                     {state?.cast_CrewsFormDeatils?.image && !state.castImgLoader && <span className='imgupload-span'>
@@ -1326,7 +1304,6 @@ const Projects = (props) => {
                             className="d-none custom-btn active btn"
                             type="file"
                             ref={inputRef3}
-                            // isInvalid={!!state.errors.bannerImage}
                             onChange={(e) => uploadToClient(e, 'image')}
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -1357,7 +1334,6 @@ const Projects = (props) => {
                             className="d-none custom-btn active btn"
                             type="file"
                             ref={inputRef3}
-                            // isInvalid={!!state.errors.bannerImage}
                             onChange={(e) => uploadToClient(e, 'image')}
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -1503,6 +1479,7 @@ const Projects = (props) => {
                       </Row>
                     </Col>
                   </Row>
+                  }
 
                 </Modal.Body>
                 <Modal.Footer>

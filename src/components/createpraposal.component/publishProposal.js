@@ -229,7 +229,7 @@ const publishProposal =  async(walletAddress) => {
               : <PlaceHolder contenthtml={PublishShimmers} />}
               <div className='d- justify-content-between mt-3'>
 
-                <Button variant="primary" disabled={btnLoader} className='float-end mb-4' onClick={publishProposalWalletCOnnect}>
+                <Button variant="primary" disabled={btnLoader} className='float-end mb-4 filled-btn' onClick={publishProposalWalletCOnnect}>
                 <span>{(saveProposal?.loading || btnLoader) && <Spinner size="sm" />} </span> Publish Proposal <span className='icon-dao btn-arrow'></span>
                 </Button>
               </div>

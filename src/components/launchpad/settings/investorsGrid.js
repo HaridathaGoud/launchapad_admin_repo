@@ -12,6 +12,8 @@ import jsonPhoneCode from 'src/utils/phoneCode.json';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { validateContentRules, emailValidation, validateContent } from "src/utils/custom.validator";
 import apiCalls from 'src/api/apiCalls';
+import Alert from 'react-bootstrap/Alert';
+
 class InvestorsGrid extends Component {
     constructor(props) {
         super(props);
@@ -196,7 +198,7 @@ class InvestorsGrid extends Component {
             newErrors.phoneNo = "Invalid phone number";
         }
         if ((!phoneNoCountryCode || phoneNoCountryCode === " ")) {
-            newErrors.phoneNoCountryCode = "Is required";
+            newErrors.phoneNo = "Is required";
         }
         if (!country || country === "Select Country") {
             newErrors.country = "Is required";

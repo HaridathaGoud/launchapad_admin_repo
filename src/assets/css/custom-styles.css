@@ -516,7 +516,7 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 .castcrew-loader{position: absolute;right: 45%;top: 45%;}
 .k-svg-icon > svg{fill: #fff;}
 .cancel-btn{border: 1px solid #000;color: #000;border-radius: 28px;padding: 8px 20px;font-size: 18px;  font-weight: 600;}
-.cancel-btn:hover,.button-secondary:hover,.button-secondary:focus-visible,.button-secondary:active,:not(.btn-check) + .btn:active,.button-secondary:active,.button-secondary.btn:focus-visible{background-color: #000 !important;border: 1px solid #000 !important;box-shadow: none;}
+.cancel-btn:hover,.button-secondary:hover,.button-secondary:focus-visible,.button-secondary:active,:not(.btn-check) + .btn:active,.button-secondary:active,.button-secondary.btn:focus-visible{background-color: #000 !important;border: 1px solid #000 !important;box-shadow: none;color: #fff;}
 .button-secondary{border: 1px solid #000 !important;background-color: #000 !important;border-radius: 28px;padding: 8px 20px;font-size: 18px;  font-weight: 600;color: #fff;}
 .text-secondary{color: #000 !important;}
 .highlightOption{background-color: #D60000 !important;}

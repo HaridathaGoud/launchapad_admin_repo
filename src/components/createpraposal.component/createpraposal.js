@@ -414,10 +414,10 @@ if (isMobile) {
                     />
                     <Form.Control.Feedback type="invalid">{errors.enddate}</Form.Control.Feedback></Form.Group>
                   </div>
-                  <div className='d-flex justify-content-end align-items-center'>
-                    <Link to={`/dao/proposal/${params.id}`} className=' me-3 mb-4'><span className=' c-pointer'>Cancel</span></Link>
-                    <Button variant="primary" type="submit" className='float-end mb-4' >
-                      Next <span className='icon-dao btn-arrow'></span>
+                  <div className='d-flex justify-content-end align-items-center mt-2 btn-width'>
+                    <Link to={`/dao/proposal/${params.id}`} className='cancel-btn me-3 mb-4'>Cancel</Link>
+                    <Button variant="primary" type="submit" className=' mb-4 button-secondary ' >
+                      Next
                     </Button>
                   </div>
                 </Form>
@@ -445,7 +445,7 @@ if (isMobile) {
         )}        
             <div >
             <Col sm={12} xs={12} md={12} lg={12} xl={12} xxl={12} className='text-end mb-4'>
-                <Button type="button" className="text-center fill-btn" onClick={addOption}>
+                <Button type="button" className="text-center filled-btn" onClick={addOption}>
                <span className='icon option-add'></span>Add new option
              </Button>
              </Col>
@@ -454,7 +454,7 @@ if (isMobile) {
             {options.map((option, index) => (
               <Col sm={12} xs={12} md={6} lg={6} xl={6} xxl={6} key={option?.Id}>
               <div className='d-flex align-items-center add-block' key={option?.Id}>
-                 <Form.Label className="mb-0">{index+1}</Form.Label>
+                 <label className="mb-0 ms-3">{index+1}</label>
                  <Form.Control
                  type="text"
                  className='border-none-modal'
@@ -472,11 +472,11 @@ if (isMobile) {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <div className="mt-4 text-end">
-              <Button   className="transparent-btn text-center" onClick={handleClose}>
+            <div className="mt-4 text-end btn-width">
+              <Button   className="cancel-btn text-center" onClick={handleClose}>
                 Cancel
               </Button>
-              <Button  className="filled-btn ms-lg-3 ms-2 submit-spinner" onClick={optionSave}>
+              <Button  className="button-secondary ms-lg-3 ms-2 " onClick={optionSave}>
                 Save
               </Button>
             </div>

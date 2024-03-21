@@ -93,10 +93,10 @@ option{background-color: #fff;border: 1px solid #9fa2b4; color: #000;}
 /* input {
   color-scheme: dark;
 } */
-.starlabel{color: rgba(255, 255, 255, 0.8);font-size: 14px;font-weight: 300;}
+.starlabel{color: #000;font-size: 14px;font-weight: 300;}
 /* Dashboard end */
 /* Proposal start */
-.proposal-type {border-radius: 5px;border: 1px solid rgba(159, 162, 180, 0.50);height: 60px;display: flex;align-items: center;padding-left: 18px;margin-bottom: 16px;}
+.proposal-type {border-radius: 28px;border: 1px solid rgba(159, 162, 180, 0.50);height: 36px;display: flex;align-items: center;padding-left: 18px;margin-bottom: 16px;}
 .kpi-list{background: #F5F5F5;box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);border-radius: 10px;padding: 22px;margin-top: 16px;}
 .card-pading{padding: 22px;border-radius: 8px;}
 .proposal-text{font-weight: 400 !important;font-size: 18px !important;color: var(--textBlack) !important;}
@@ -122,9 +122,8 @@ option{background-color: #fff;border: 1px solid #9fa2b4; color: #000;}
 /*create praposal */
 .add-block {
   border: 1px solid rgba(159, 162, 180, 0.50);
-  border-radius: 5px;
-  padding: 8px 16px;
-  margin-bottom: 16px;
+  border-radius: 28px;
+    margin-bottom: 16px;
 }
 .border-none-modal {
   border: 0 !important;
@@ -153,11 +152,11 @@ input[type=checkbox]:checked+span.icon-check{background-position: -693px -595px 
 .dao-label-color{color:rgba(255, 255, 255, 0.8);}
 .disable-text{font-weight: 400;font-size: 12px;}
 .disable-text-color{color: var(--textsecondary) ;opacity:0.5;}
-.steps-text{font-weight: 600;font-size: 16px;margin-bottom: 5px;color: var(--textBlack);}
+.steps-text{font-weight: 600;font-size: 16px;margin-bottom: 5px;color: #000;}
 .hr-progress{border: 4px solid;
     border-radius: 5px;margin: 5px 0;}
 /* .list-items{width:360px;} */
-.step-list.active{border:1px solid #0068FF;color:var(--textBlack);}
+.step-list.active{border:1px solid #d60000;color:#D60000;}
 .step-list{padding:20px;margin-top: 10px;border:1px solid #0068FF80;border-radius: 5px;}
 .login-user{border: 1px solid rgba(159, 162, 180, 0.5);border-radius: 5px;padding: 8px 15px;width:fit-content;}
 .starlabel:after {
@@ -165,7 +164,7 @@ input[type=checkbox]:checked+span.icon-check{background-position: -693px -595px 
     color: red;
   }
 .resource-border{border: 1px solid rgba(159, 162, 180, 0.5);border-radius: 5px;padding:20px;}
-.input-height{height:60px;color:#ffffff;}
+.input-height{height:36px;color:#ffffff;}
 .d-flex-1{flex:1;}
 .add-resource{width:170px;background: #373B3B;
     border: 1px solid #2F2D2D;
