@@ -246,7 +246,13 @@ class IdoRequestGrid extends Component {
             this.setState({
                 errorMsg: "Please select a record.",
             });
-        } else {
+        } else if (this.state.selection.length === 0) {
+            this.setState({
+                errorMsg: "Please select a record.",
+                show: false,
+            });
+        }
+        else {
             this.setState({
                 show: true,
             });

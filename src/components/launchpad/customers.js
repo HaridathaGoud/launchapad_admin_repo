@@ -3,7 +3,6 @@ import List from "../grid.component";
 import { Link } from "react-router-dom";
 import { CBreadcrumb, CBreadcrumbItem, } from '@coreui/react'
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import moment from 'moment';
 import Moment from "react-moment";
 class LaunchpadCustomers extends Component {
@@ -95,7 +94,7 @@ class LaunchpadCustomers extends Component {
             title: "KYC Status",
             filter: true,
             sortable: true,
-            width: 200,
+            width: 120,
         },
     ];
     handleBlur = (e) => {
