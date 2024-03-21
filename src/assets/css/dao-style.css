@@ -326,7 +326,7 @@ input[type='date']:disabled{cursor: not-allowed !important;}
   background: url(../images/date.svg) no-repeat;background-position: right 14px center !important;
  }
   .col-mobile-p {padding: 0!important;}
-  .text-word-br{margin-left: 0 !important;}
+  .text-word-br{margin-left: 0 !important;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
   .custom-datepicker .form-control.form-select.cust-br-style{border-bottom: 1px solid var(--inputbr) !important;border-right: 0 !important;border-bottom-left-radius: 0 !important;}
   .custom-datepicker, .mobile-d-block{display: block !important;}
   .mobile-mt{margin-top: 10px !important;}
@@ -345,7 +345,7 @@ input[type='date']:disabled{cursor: not-allowed !important;}
   .cust-head-active{padding: 12px 0px !important;}
   /* .container.dao-mt .back-text{margin-top: 84px;} */
   /* .sm-m-space{margin-top: 54px;} */
-  .login-user{width: auto;}
+  .login-user{width: auto;display: flex;align-items: center;}
   .sm-text-end{text-align: right;}
 
   .navbar-toggler{padding-right: 0 !important;}

@@ -56,7 +56,7 @@ h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
 .header-nav .nav-link{border-bottom: 2px solid transparent;}
 /* Header End */
 /* profileinfo start  */
-.profile-size{ height: 106px; position: relative;overflow: hidden;border-radius: 8px;width: 106px;}
+.profile-size{ height: 106px; position: relative;overflow: hidden;border-radius: 8px;}
 .image-box{ box-sizing: border-box;display: inline-block; overflow: hidden;width: initial; height: initial; background: none;opacity: 1;border: 0px; margin: 0px; padding: 0px; max-width: 100%;}
 .image-setup{position: absolute;  inset: 0px; box-sizing: border-box;  padding: 0px; border: none; margin: auto; display: block;  width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%;  max-height: 100%;object-fit: cover;}
 .profile-section{padding:30px;border-radius: 8px;background: #F0F1F2;}
@@ -78,7 +78,7 @@ h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
 .icon.location{background-position: -164px -6px;width: 18px !important;height: 22px !important;}
 .custom-flex{display: flex;align-items: center;}
 .no-hover:hover::after{background: none;}
-.profile-size, .customer-pfview{ height: 258px; position: relative;overflow: hidden;border-radius: 32px;width: 258px;}
+.profile-size, .customer-pfview{ height: 258px; position: relative;overflow: hidden;border-radius: 32px;}
 /* profileinfo end  */
 /* customer info start  */
 .customer-info table thead{background-color: #263238 !important;border-bottom: 0 !important;}
@@ -545,6 +545,8 @@ button:disabled{background-color: #d0d0d0 !important;color: #000 !important;bord
 .db-content{color: #666;}
 input::placeholder{font-size: 14px;}
 @media (min-width: 768px) {
+  .profile-size{ width: 106px;}
+  .profile-size, .customer-pfview{width: 258px;}
   .dao-shimmer{width: 23%;}
   table{width: 100% !important;}
 .token-listing .was-validated .form-control:invalid{padding-right: 16px !important;}

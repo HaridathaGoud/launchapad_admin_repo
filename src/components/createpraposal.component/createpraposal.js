@@ -321,7 +321,7 @@ if (isMobile) {
         <Container className='dao-mt'>
          <Link className=' title-width-fit' to={`/dao/proposal/${params.id}`}><div className='d-flex align-items-center'> <span className='icon-dao back mr-2 c-pointer'></span><span className='mb-0 ms-2 back-text'>Create Proposal</span></div></Link>
           
-          <Row className='mt-5'>
+          <Row className='mt-5 gap-4 gap-md-0'>
             <Col md={4}>
             <StartedSteps formSteps={33} stepsOne={1} number={1}/>
             </Col>
