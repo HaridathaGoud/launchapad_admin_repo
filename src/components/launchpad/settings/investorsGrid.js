@@ -70,6 +70,10 @@ class InvestorsGrid extends Component {
         },
     ];
 
+    handleBlur = (e) => {
+        let value = e.target.value.trim();
+        e.target.value = value;
+      };
     handleChange = (e) => {
         if (e.target.value == "") {
             let { searchObj } = this.state;
@@ -99,9 +103,15 @@ class InvestorsGrid extends Component {
         let data = e.target.value.trim();
         if (e.key == 'Enter') {
             if (data == "") {
+                e.target.value = data;
                 e.preventDefault();
             } else {
-                this.gridRef?.current?.refreshGrid();
+                let { searchObj } = this.state;
+                searchObj.searchBy = data;
+                this.setState({ ...this.state, searchObj }, () => {
+                    this.gridRef.current.refreshGrid();
+                });
+                e.target.value = data;
                 e.preventDefault();
             }
         }
@@ -269,6 +279,7 @@ class InvestorsGrid extends Component {
                             aria-label="Search"
                             onChange={(e) => this.handleChange(e)}
                             onKeyDown={(e) => this.handleEnterSearch(e)}
+                            onBlur={(e) => this.handleBlur(e)}
                             maxLength={250}
                             placeholder="Search by Name "
                         />

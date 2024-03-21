@@ -98,7 +98,10 @@ class LaunchpadCustomers extends Component {
             width: 200,
         },
     ];
-
+    handleBlur = (e) => {
+        let value = e.target.value.trim();
+        e.target.value = value;
+      };
     handleChange = (e) => {
         if (e.target.value == "") {
             let { searchObj } = this.state;
@@ -124,13 +127,19 @@ class LaunchpadCustomers extends Component {
             this.gridRef.current.refreshGrid();
         });
     };
-    handleEnterSearch = async (e) => {
+    handleEnterSearch = (e) => {
         let data = e.target.value.trim();
         if (e.key == 'Enter') {
             if (data == "") {
+                e.target.value = data;
                 e.preventDefault();
             } else {
-                this.gridRef?.current?.refreshGrid();
+                let { searchObj } = this.state;
+                searchObj.searchBy = data;
+                this.setState({ ...this.state, searchObj }, () => {
+                    this.gridRef.current.refreshGrid();
+                });
+                e.target.value = data;
                 e.preventDefault();
             }
         }
@@ -160,24 +169,8 @@ class LaunchpadCustomers extends Component {
                 </CBreadcrumb>
 
                 <div className='custom-flex pb-4 pt-2 justify-content-between'>
-                    {/* <Form className="d-lg-flex grid-search mobile-block sm-text-right" >
-								<Form.Control 
-								    style={{width:"450px"}}
-								    name='searchBy'
-								    type="text"
-								    autoComplete="off"
-								    className="search-style mb-3 my-lg-0"
-									aria-label="Search"
-									onChange={(e) => this.handleChange(e)}
-									onKeyDown ={(e)=>this.handleEnterSearch(e)}
-									maxLength={250}
-									placeholder="Search by Name, Email and Wallet Address" />
-								<Button className="filled-btn ms-lg-3 " type="button" onClick={this.handleSearch} >
-									Search</Button>
-							</Form>	 */}
                     <Form className="d-flex grid-search">
                         <Form.Control
-                            // style={{width:"450px"}}
                             name='searchBy'
                             type="text"
                             autoComplete="off"
@@ -185,6 +178,7 @@ class LaunchpadCustomers extends Component {
                             aria-label="Search"
                             onChange={(e) => this.handleChange(e)}
                             onKeyDown={(e) => this.handleEnterSearch(e)}
+                            onBlur={(e) => this.handleBlur(e)}
                             maxLength={250}
                             placeholder="Search by Name, Email and Wallet Address"
                         />

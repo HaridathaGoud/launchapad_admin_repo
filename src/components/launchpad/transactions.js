@@ -18,7 +18,10 @@ class Transactions extends Component {
     }
     this.gridRef = React.createRef();
   }
-
+  handleBlur = (e) => {
+    let value = e.target.value.trim();
+    e.target.value = value;
+  };
   handleChange = (e) => {
     if(e.target.value == ""){
         let { searchObj } = this.state;
@@ -42,12 +45,18 @@ class Transactions extends Component {
   handleEnterSearch = async (e) => {    
     let data=e.target.value.trim();
         if (e.key == 'Enter') {
-            if(data == ""){            
+            if(data == ""){   
+              e.target.value = data;         
             e.preventDefault();
-            }else{
-                this.gridRef?.current?.refreshGrid();
-                e.preventDefault();
-           }    
+            }else {
+              let { searchObj } = this.state;
+              searchObj.searchBy = data;
+              this.setState({ ...this.state, searchObj }, () => {
+                  this.gridRef.current.refreshGrid();
+              });
+              e.target.value = data;
+              e.preventDefault();
+          }  
         }
 }
 
@@ -172,6 +181,7 @@ class Transactions extends Component {
             aria-label="Search"
             onChange={(e) => this.handleChange(e)}
             onKeyDown ={(e)=>this.handleEnterSearch(e)}
+            onBlur={(e) => this.handleBlur(e)}
            
           />
           <i className="icon search-icon" onClick={()=>this.handleSearchIcon()}></i>
