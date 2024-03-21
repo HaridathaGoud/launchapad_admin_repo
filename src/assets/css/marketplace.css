@@ -13,8 +13,8 @@
 .card-value{font-weight: 600;
   font-size: 28px;color: #000;}
   .collect-card{
-    background: url(../images/nft.png) no-repeat,#ffa6db73  ;    box-shadow: 0px 7px 9px 0px rgba(255, 195, 211, 0.66);
-    background-position: bottom right;padding: 28px;background-size: 75%;}
+    background:url(../images/user-bg.png) no-repeat left top, linear-gradient(104deg, #9FFFEE -6.75%, #FF737B 114.53%);background-size: cover;
+  box-shadow: 0px 7px 9px 0px rgba(255, 195, 211, 0.66); background-size: cover; }
   .dashboard-page .col-lg-2,.col-lg-4{padding: 0px 8px 12px !important;}
   .sidebar:not(.sidebar-end) ~ * {
     --cui-sidebar-occupy-start: 10rem;

@@ -61,20 +61,20 @@ const DashboardPage = (props) => {
            {SuperAdminDetail.loader && <div className="text-center"><Spinner ></Spinner></div> }
            { !SuperAdminDetail.loader &&<Row className='card-row mt-3 justify-content-center'>
               <Col xl={2} className='ps-md-0'><div className='status-card bg-user'
-               ><div><span className='icon user-count'></span></div><h6 className='status-text mt-3'>Users</h6><h3 className='status-value'>{SuperAdminDetail?.data?.users}</h3></div></Col>
+               ><div><span className='icon user-count'></span></div><h6 className='status-text mt-4 mb-0'>Users</h6><h3 className='status-value'>{SuperAdminDetail?.data?.users}</h3></div></Col>
               <Col xl={2}><div className='status-card bg-staker' 
-               ><div><span className='icon stakers-count'></span></div><h6 className='status-text mt-3'>Stakers</h6><h3 className='status-value'>{SuperAdminDetail?.data?.stakers}</h3></div></Col>
+               ><div><span className='icon stakers-count'></span></div><h6 className='status-text mt-4 mb-0'>Stakers</h6><h3 className='status-value'>{SuperAdminDetail?.data?.stakers}</h3></div></Col>
               <Col xl={2}><div className='status-card bg-investor' 
-              ><div><span className='icon investers-count'></span></div><h6 className='status-text mt-3'>Investors</h6><h3 className='status-value'>{SuperAdminDetail?.data?.investors}</h3></div></Col>
+              ><div><span className='icon investers-count'></span></div><h6 className='status-text mt-4 mb-0'>Investors</h6><h3 className='status-value'>{SuperAdminDetail?.data?.investors}</h3></div></Col>
             </Row>}</>}
 
           {!isAdmin && <>
           {adminDashboard.loader && <div className="text-center"><Spinner ></Spinner></div> }
             {!adminDashboard.loader &&<Row className='card-row justify-content-center'>
               <Col xl={2}><div className='status-card bg-user' ><div><span className='icon closed'></span></div><h6 className='status-text  mt-3'>Closed Projects</h6><h3 className='status-value'>{adminDashboard?.data?.closedProjects}</h3></div></Col>
-              <Col xl={2}><div className='status-card bg-staker'><div><span className='icon ongoing'></span></div><h6 className='status-text mt-3'>Ongoing Projects</h6><h3 className='status-value'>{adminDashboard?.data?.ongoingProjects}</h3></div></Col>
-              <Col xl={2}><div className='status-card bg-investor' ><div><span className='icon total'></span></div><h6 className='status-text mt-3'>Total Projects</h6><h3 className='status-value'>{adminDashboard?.data?.totalProjects}</h3></div></Col>
-              <Col xl={2}><div className='status-card bg-user' ><div><span className='icon upcoming'></span></div><h6 className='status-text mt-3'>Upcoming Projects</h6><h3 className='status-value'>{adminDashboard?.data?.upcomingProjects}</h3></div></Col>
+              <Col xl={2}><div className='status-card bg-staker'><div><span className='icon ongoing'></span></div><h6 className='status-text mt-4 mb-0'>Ongoing Projects</h6><h3 className='status-value'>{adminDashboard?.data?.ongoingProjects}</h3></div></Col>
+              <Col xl={2}><div className='status-card bg-investor' ><div><span className='icon total'></span></div><h6 className='status-text mt-4 mb-0'>Total Projects</h6><h3 className='status-value'>{adminDashboard?.data?.totalProjects}</h3></div></Col>
+              <Col xl={2}><div className='status-card bg-user' ><div><span className='icon upcoming'></span></div><h6 className='status-text mt-4 mb-0'>Upcoming Projects</h6><h3 className='status-value'>{adminDashboard?.data?.upcomingProjects}</h3></div></Col>
 
             </Row>}</>}
         </>)}

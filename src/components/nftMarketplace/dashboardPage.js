@@ -7,6 +7,7 @@ import sale from '../../assets/images/sale.svg'
 import auction from '../../assets/images/auction.svg'
 import { connect, useSelector } from 'react-redux';
 import { CBreadcrumb, CBreadcrumbItem } from '@coreui/react'
+import nftimg from '../../assets/images/nft.png';
 function MarketplaceDashboard() {
     const [adminCustomerDetails, setAdminCustomerDetails] = useState({})
     const [errorMsg, setErrorMsg] = useState(null);
@@ -104,11 +105,13 @@ function MarketplaceDashboard() {
                     </div>
                 </div>
                 <div className="col-md-6 col-lg-4">
-                    <div className="dash-card collect-card">
-                        <div>
+                    <div className="dash-card collect-card border-none p-0 position-relative">
+                        <div className="p-4">
                             <p className="nft-title">NFTs Collection</p>
-                            <p className="card-value nft-white">{adminCustomerDetails?.totalCollections ? adminCustomerDetails?.totalCollections : 0}</p>
+                            <p className="card-value nft-white mb-0">{adminCustomerDetails?.totalCollections ? adminCustomerDetails?.totalCollections : 0}</p>
+                          
                         </div>
+                       <img src={nftimg} className="rounded-4 position-absolute bottom-0 end-0" />
                     </div>
                 </div>
 
