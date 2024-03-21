@@ -341,7 +341,7 @@ const UserProfile = (props) => {
                           </Col>
                           <Col xl={6} className="mb-3">
                             <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">
-                              <Form.Label >First Name*</Form.Label>
+                              <Form.Label >First Name<span className="text-danger">*</span></Form.Label>
                               <Form.Control
                                 type="text"
                                 name="firstName"
@@ -359,7 +359,7 @@ const UserProfile = (props) => {
                           </Col>
                           <Col xl={6} className="mb-3">
                           <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">
-                              <Form.Label >Last Name*</Form.Label>
+                              <Form.Label >Last Name<span className="text-danger">*</span></Form.Label>
                               <Form.Control
                       type="text"
                       name="lastName"
@@ -376,7 +376,7 @@ const UserProfile = (props) => {
                           </Col>
                           <Col xl={6} className="mb-3">
                           <Form.Group className="position-relative" controlId="exampleForm.ControlInput1">
-                          <Form.Label >Phone No*</Form.Label>
+                          <Form.Label >Phone No<span className="text-danger">*</span></Form.Label>
                     <InputGroup className="mb-2 input-style no-wrap mobile-noinput">
 
                       <Form.Control
@@ -424,7 +424,7 @@ const UserProfile = (props) => {
                           <Col xl={6} className="mb-3">
                           <Form.Group className="" controlId="exampleForm.ControlInput1">
                           
-                          <Form.Label >Country*</Form.Label>
+                          <Form.Label >Country<span className="text-danger">*</span></Form.Label>
                               <InputGroup className="mb-3 input-style no-wrap mobile-noinput country-code-style">
 
                                 <Form.Control

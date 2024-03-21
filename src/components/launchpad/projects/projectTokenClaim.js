@@ -385,7 +385,7 @@ const timeDate=(timeString)=>{
                   controlId="floatingInput"
                   label="Claim Slots*"
                   className=""
-                >Claim Slots*</Form.Label>
+                >Claim Slots<span className="text-danger">*</span></Form.Label>
                 <Form.Control value={state.claimDetails?.noofSlots} name='noofSlots'
                   onKeyPress={(event) => {
                     const allowedKeys = /[0-9]/;
@@ -409,7 +409,7 @@ const timeDate=(timeString)=>{
                   controlId="floatingInput"
                   label="Claim Vesting Time*"
                   className=""
-                >Claim Vesting Time*</Form.Label>
+                >Claim Vesting Time<span className="text-danger">*</span></Form.Label>
                 <Form.Control value={state.claimDetails?.vestingDays} name='vestingDays' type="text"
                   onKeyPress={(event) => {
                     const allowedKeys = /[0-9]/;
@@ -435,7 +435,7 @@ const timeDate=(timeString)=>{
 
 
                 <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
-                  <Form.Label className=''>Round One Start Time*</Form.Label>
+                  <Form.Label className=''>Round One Start Time<span className="text-danger">*</span></Form.Label>
                   <Form.Control type="datetime-local" placeholder='Round One Start Time'
                     id="meeting-time"
                     name="privateStartDate"
@@ -459,7 +459,7 @@ const timeDate=(timeString)=>{
 
 
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                  <Form.Label className=''>Round One End Time*</Form.Label>
+                  <Form.Label className=''>Round One End Time<span className="text-danger">*</span></Form.Label>
                   <Form.Control type="datetime-local" placeholder='Round One End Time'
                     id="meeting-time"
                     name="privateEndDate"
@@ -483,7 +483,7 @@ const timeDate=(timeString)=>{
 
 
                 <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
-                  <Form.Label className=''>Round Two Start Time*</Form.Label>
+                  <Form.Label className=''>Round Two Start Time<span className="text-danger">*</span></Form.Label>
                   <Form.Control type="datetime-local" placeholder='Round Two Start Time'
                     id="meeting-time"
                     name="publicStartDate"
@@ -510,7 +510,7 @@ const timeDate=(timeString)=>{
 
 
                 <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
-                  <Form.Label className=''>Round Two End Time*</Form.Label>
+                  <Form.Label className=''>Round Two End Time<span className="text-danger">*</span></Form.Label>
                   <Form.Control type="datetime-local" placeholder='Round Two End Time'
                     id="meeting-time"
                     name="publicEndDate"

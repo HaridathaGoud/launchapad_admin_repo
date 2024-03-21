@@ -255,7 +255,7 @@ const ProjectTokenDetails = (props) => {
               controlId="floatingInput"
               label="Private Token Equivalent to Payment Type*"
               className=""
-            >Private Token Equivalent to Payment Type*</Form.Label>
+            >Private Token Equivalent to Payment Type<span className="text-danger">*</span></Form.Label>
               <Form.Control 
               type="text" 
               value={state.paymentDetails?.privateTokenEquivalentToPaymentType}
@@ -283,7 +283,7 @@ const ProjectTokenDetails = (props) => {
               
               label="Public Token Equivalent to Payment Type*"
               className=""
-            >Public Token Equivalent to Payment Type*</Form.Label>
+            >Public Token Equivalent to Payment Type<span className="text-danger">*</span></Form.Label>
               <Form.Control type="text" value={state.paymentDetails?.publicTokenEquivalentToPaymentType} 
               name='publicTokenEquivalentToPaymentType'
               onKeyPress={handleNumericInput}
