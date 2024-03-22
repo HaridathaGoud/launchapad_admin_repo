@@ -144,6 +144,7 @@ const timeDate=(timeString)=>{
 
   const handleClaimAndAllocation = async (event) => {
     event.preventDefault();
+    dispatch({ type: 'errorMsg', payload: null })
     dispatch({ type: 'claimloader', payload: true })
     dispatch({ type: 'scuess', payload: false })
     if (

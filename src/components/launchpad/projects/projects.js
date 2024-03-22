@@ -216,7 +216,7 @@ const Projects = (props) => {
 
     if (!projectName || projectName === '') {
       newErrors.projectName = 'Is required';
-    } else if (!validateContentRules('', projectName) || projectName?.match(whiteSpace) || projectName?.match(numbersOnly) || projectName?.match(specialCharsOnly)) {
+    } else if (!validateContentRules('', projectName) || projectName?.match(numbersOnly) || projectName?.match(specialCharsOnly)) {
       newErrors.projectName = 'Please provide valid content.';
     }
 
@@ -243,7 +243,7 @@ const Projects = (props) => {
     }
     if (!description || description == '') {
       newErrors.description = 'Is required';
-    }else if (!validateContentRules('', description) || description?.match(whiteSpace) || description?.match(numbersOnly) || description?.match(specialCharsOnly)) {
+    }else if (!validateContentRules('', description) || description?.match(numbersOnly) || description?.match(specialCharsOnly)) {
       newErrors.description = 'Please provide valid content.';
     }
     if (!contractAddress || contractAddress == '') {
@@ -501,15 +501,20 @@ const Projects = (props) => {
   }
 
 
-  const handleChange = (field, event) => {
-    event.preventDefault()
-    let _data = { ...state.projectSaveDetails };
-    _data[event.target.name] = event.target.value;
-    dispatch({ type: 'projectSaveDetails', payload: _data })
+  const handleChange = (field, value) => {
+    dispatch({ type: 'projectSaveDetails', payload:{ ...state.projectSaveDetails,[field]: value }  })
     if (errors[field]) {
       setErrors({ ...errors, [field]: null })
     }
   }
+
+  const handlecastCrewData = (field,value) => {
+    dispatch({type: 'cast_CrewsFormDeatils', payload: {...state.cast_CrewsFormDeatils,[field]: value}  });
+    if (errors[field]) {
+      setErrors({ ...errors, [field]: null })
+    }
+  }
+
 
   const onSelect = (selectedList) => {
     let _data = { ...state.projectSaveDetails };
@@ -529,17 +534,9 @@ const Projects = (props) => {
 
   };
 
-const handleBlur = (e) => {
-  let value = e.target.value.trim();
-  e.target.value = value;
-};
+
  
-  const handlecastCrewData = (event) => {
-    const { name, value } = event.target;
-    dispatch({
-      type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, [name]: value }
-    });
-  }
+
 
   const onRolsSelect = (selectedList) => {
     const selectedRoleNames = selectedList?.map(item => item.role).flat();
@@ -550,8 +547,10 @@ const handleBlur = (e) => {
     const validatingForm = { ...state.cast_CrewsFormDeatils };
     const newErrors = {};
     const urlRegex = /^(?:(?:https?|ftp|file):\/\/|www\.)[^\s/$.?#].[^\s]*$/;
+    const emojiRegex = /\p{Emoji}/u;
     const numbersOnly = /^\d+$/;
-        const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+    const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+
     if (!validatingForm?.name || validatingForm?.name === '') {
       newErrors.name = 'Is required';
     } else if (!validateContentRules('', validatingForm?.name)  || validatingForm?.name?.match(numbersOnly) || validatingForm?.name?.match(specialCharsOnly)) {
@@ -563,14 +562,17 @@ const handleBlur = (e) => {
     if (!validateContentRules('', validatingForm?.bio)  || validatingForm?.bio?.match(numbersOnly) || validatingForm?.bio?.match(specialCharsOnly)) {
       newErrors.bio = 'Please provide valid content for the bio.';
     }
-    if (validatingForm?.instagram && !urlRegex.test(validatingForm?.instagram)) {
-      newErrors.instagram = 'Please provide a valid Instagram URL';
+    if (validatingForm?.webisite && (emojiRegex.test(validatingForm?.webisite) || !urlRegex.test(validatingForm?.webisite))) {
+      newErrors.webisite ='Please provide valid content for the Website';
+    }
+    if (validatingForm?.facebook && (emojiRegex.test(validatingForm?.facebook) || !urlRegex.test(validatingForm?.facebook))) {
+      newErrors.facebook ='Please provide valid content for the Website';
+    }
+    if (validatingForm?.instagram && (emojiRegex.test(validatingForm?.instagram) || !urlRegex.test(validatingForm?.instagram))) {
+      newErrors.instagram ='Please provide valid content for the Website';
     }
     if (validatingForm?.facebook && !urlRegex.test(validatingForm?.facebook)) {
       newErrors.facebook = 'Please provide a valid Facebook URL';
-    }
-    if (validatingForm?.webisite && !urlRegex.test(validatingForm?.webisite)) {
-      newErrors.webisite = 'Please provide a valid Website URL';
     }
     return newErrors;
   }
@@ -831,8 +833,8 @@ const handleBlur = (e) => {
                     name='projectName'
                     type="text"
                     placeholder="Name"
-                    onChange={(e) => handleChange('projectName', e)}
-                    onBlur={(e)=>handleBlur(e)}
+                    onChange={(e)=>handleChange('projectName',e.currentTarget.value)}
+                    onBlur={(e) => handleChange('projectName',e.target.value.trim().replace(/\s+/g, " "))}
                     required
                     maxLength={100}
                     isInvalid={!!errors?.projectName}
@@ -909,7 +911,7 @@ const handleBlur = (e) => {
                       name="tokenListingDate"
                       value={state.projectSaveDetails != null ? state.projectSaveDetails?.tokenListingDate : null}
                       isInvalid={!!errors?.tokenListingDate}
-                      onChange={(e) => handleChange("tokenListingDate", e)}
+                      onChange={(e)=>handleChange('tokenListingDate',e.currentTarget.value)}
                       min={currentDate}
                       max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                       disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
@@ -934,14 +936,15 @@ const handleBlur = (e) => {
                     name='description' className='project-description'
                     as="textarea"
                     placeholder="Description"
-                    onBlur={(e)=>handleBlur(e)}
+                    onChange={(e)=>handleChange('description',e.currentTarget.value)}
+                    onBlur={(e) => handleChange('description',e.target.value.trim().replace(/\s+/g, " "))}
                     maxLength={1000}
                     isInvalid={errors?.description}
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
                     )}
-                    onChange={(e) => handleChange("description", e)} required
+                    required
                   />
                   <Form.Control.Feedback type="invalid">{errors?.description || state?.errors?.description}</Form.Control.Feedback>
 
@@ -1065,7 +1068,8 @@ const handleBlur = (e) => {
                         name='contractAddress'
                         type="text"
                         placeholder="Contract Address"
-                        onChange={(e) => handleChange("contractAddress", e)}
+                        onChange={(e)=>handleChange('contractAddress',e.currentTarget.value)}
+                        onBlur={(e) => handleChange('contractAddress',e.target.value.trim().replace(/\s+/g, " "))}
                         isInvalid={!!errors?.contractAddress}
                         required
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
@@ -1088,9 +1092,9 @@ const handleBlur = (e) => {
                         name='tokenName'
                         type="text"
                         placeholder="Token Name"
-                        onChange={(e) => handleChange("tokenName", e)}
+                        onChange={(e)=>handleChange('tokenName',e.currentTarget.value)}
+                        onBlur={(e) => handleChange('tokenName',e.target.value.trim().replace(/\s+/g, " "))}
                         isInvalid={!!errors?.tokenName}
-                        onBlur={(e)=>handleBlur(e)}
                         required
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -1111,9 +1115,9 @@ const handleBlur = (e) => {
                         name='tokenSymbol'
                         type="text"
                         placeholder="Token Symbol"
-                        onChange={(e) => handleChange("tokenSymbol", e)}
+                        onChange={(e)=>handleChange('tokenSymbol',e.currentTarget.value)}
+                        onBlur={(e) => handleChange('tokenSymbol',e.target.value.trim().replace(/\s+/g, " "))}
                         isInvalid={!!errors?.tokenSymbol}
-                        onBlur={(e)=>handleBlur(e)}
                         required
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -1137,7 +1141,8 @@ const handleBlur = (e) => {
                         thousandSeparator={true}
                         type="text" placeholder="Token Decimal"
                         isInvalid={!!errors?.tokenDecimal}
-                        onChange={(e) => handleChange("tokenDecimal", e)}
+                        onChange={(e)=>handleChange('tokenDecimal',e.currentTarget.value)}
+                        onBlur={(e) => handleChange('tokenDecimal',e.target.value.trim().replace(/\s+/g, " "))}
                         required
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -1161,7 +1166,8 @@ const handleBlur = (e) => {
                         className='form-control'
                         thousandSeparator={true}
                         placeholder="Total No of Token"
-                        onChange={(e) => handleChange("totalNumberOfTokens", e)}
+                        onChange={(e)=>handleChange('totalNumberOfTokens',e.currentTarget.value)}
+                        onBlur={(e) => handleChange('totalNumberOfTokens',e.target.value.trim().replace(/\s+/g, " "))}
                         required
                         isInvalid={!!errors?.totalNumberOfTokens}
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
@@ -1187,7 +1193,8 @@ const handleBlur = (e) => {
                         className='form-control'
                         thousandSeparator={true}
                         placeholder="Initial Supply"
-                        onChange={(e) => handleChange('initialSupply', e)}
+                        onChange={(e)=>handleChange('initialSupply',e.currentTarget.value)}
+                        onBlur={(e) => handleChange('initialSupply',e.target.value.trim().replace(/\s+/g, " "))}
                         required
                         isInvalid={!!errors?.initialSupply}
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
@@ -1369,13 +1376,13 @@ const handleBlur = (e) => {
                           <Form.Group className=" " controlId="exampleForm.ControlInput1">
                             <Form.Label >Name<span className="text-danger">*</span></Form.Label>
                             <Form.Control
-                              defaultValue={state?.cast_CrewsFormDeatils?.name || ''}
+                              value={state?.cast_CrewsFormDeatils?.name || ''}
                               type="text"
                               name="name"
                               autoComplete="off"
-                              onChange={handlecastCrewData}
+                              onChange={(e)=>handlecastCrewData('name',e.currentTarget.value)}
+                              onBlur={(e) => handlecastCrewData('name',e.target.value.trim().replace(/\s+/g, " "))}
                               isInvalid={!!errors.name}
-                              onBlur={handleBlur}
                               required
                               placeholder="Name"
                               maxLength={50}
@@ -1416,8 +1423,8 @@ const handleBlur = (e) => {
                               name='bio'
                               placeholder="Enter Bio"
                               style={{ height: '100px' }}
-                              onChange={handlecastCrewData}
-                              onBlur={handleBlur}
+                              onChange={(e)=>handlecastCrewData('bio',e.currentTarget.value)}
+                              onBlur={(e) => handlecastCrewData('bio',e.target.value.trim().replace(/\s+/g, " "))}
                               isInvalid={!!errors.bio}
                               maxLength={50}
                               disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
@@ -1436,7 +1443,8 @@ const handleBlur = (e) => {
                               type="text"
                               name="webisite"
                               autoComplete="off"
-                              onChange={handlecastCrewData}
+                              onChange={(e)=>handlecastCrewData('webisite',e.currentTarget.value)}
+                              onBlur={(e) => handlecastCrewData('webisite',e.target.value.trim().replace(/\s+/g, " "))}
                               isInvalid={!!errors.webisite}
                               placeholder="Website URL"
                               maxLength={50}
@@ -1456,7 +1464,8 @@ const handleBlur = (e) => {
                               type="text"
                               name="instagram"
                               autoComplete="off"
-                              onChange={handlecastCrewData}
+                              onChange={(e)=>handlecastCrewData('instagram',e.currentTarget.value)}
+                              onBlur={(e) => handlecastCrewData('instagram',e.target.value.trim().replace(/\s+/g, " "))}
                               isInvalid={!!errors.instagram}
                               placeholder="Insta URL"
                               maxLength={50}
@@ -1477,7 +1486,8 @@ const handleBlur = (e) => {
                               type="text"
                               name="facebook"
                               autoComplete="off"
-                              onChange={handlecastCrewData}
+                              onChange={(e)=>handlecastCrewData('facebook',e.currentTarget.value)}
+                              onBlur={(e) => handlecastCrewData('facebook',e.target.value.trim().replace(/\s+/g, " "))}
                               isInvalid={!!errors.facebook}
                               placeholder="FB URL"
                               maxLength={50}

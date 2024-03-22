@@ -242,7 +242,12 @@ class IdoRequestGrid extends Component {
         this.setState({
             errorMsg: null,
         });
-        if (!this.state.SelectData.id) {
+        if (this.state.SelectData.status==='Rejected') {
+            this.setState({
+                errorMsg: "You cannot change the state of a Rejected record.",
+            });
+        }
+        else if (!this.state.SelectData.id) {
             this.setState({
                 errorMsg: "Please select a record.",
             });
