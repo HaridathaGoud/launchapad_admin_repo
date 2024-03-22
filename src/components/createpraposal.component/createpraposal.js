@@ -298,7 +298,7 @@ const optionSave = ()=>{
     setTimeout(() => setCopied(false), 1000);
   }
 
-  let inputStartClassName = "form-control form-select";
+  let inputStartClassName = "form-control form-select bg-none";
 
 if (isMobile && !state?.startingDate) {
   inputStartClassName += " mobile";
@@ -306,7 +306,7 @@ if (isMobile && !state?.startingDate) {
   inputStartClassName += " mobile-icon";
 }
 
-let inputEndClassName = "form-control form-select";
+let inputEndClassName = "form-control form-select bg-none";
 
 if (isMobile) {
   if (!state?.endingDate) {

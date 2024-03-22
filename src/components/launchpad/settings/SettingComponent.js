@@ -170,7 +170,7 @@ const SettingsComponent = (props) => {
               controlId="floatingInput"
               label={props?.label}
               className=""
-            >{props?.label}</Form.Label>
+            >{props?.label}<span className='text-danger'>*</span></Form.Label>
               <Form.Control min={currentDate} value={settingValue} name='settingValue' type="datetime-local" placeholder={props?.placeholder} onChange={(e) => handleChange(e)} required />
               <Form.Control.Feedback type="invalid" className='error-absolute'>Is required</Form.Control.Feedback>
               </div>

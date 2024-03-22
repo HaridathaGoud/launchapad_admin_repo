@@ -25,7 +25,7 @@ const TokenListing = () => {
       </CBreadcrumbItem>
       <CBreadcrumbItem active>Set Token Listing Time</CBreadcrumbItem>
     </CBreadcrumb>
-    <SettingsComponent title="Settings" label="Set Token Listing Time*" placeholder="Set Token Listing Time" funcName="setTokenListingTime"></SettingsComponent>
+    <SettingsComponent title="Settings" label="Set Token Listing Time" placeholder="Set Token Listing Time" funcName="setTokenListingTime"></SettingsComponent>
   </div>
   )
 

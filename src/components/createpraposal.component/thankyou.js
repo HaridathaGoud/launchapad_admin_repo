@@ -32,7 +32,7 @@ export default function Success() {
                       <img src={success} alt=''></img>
                       <h1 className='testing-title'>Thank You</h1>
                       <p>Your proposal is submitted successfully!</p>
-                      <Button variant="primary" type="submit"  onClick={handleRedirect}>
+                      <Button variant="primary" type="submit" className='filled-btn'  onClick={handleRedirect}>
                       Back to publish proposal summary
                     </Button>
                    </div>:<PlaceHolder contenthtml={PublishShimmers} />}

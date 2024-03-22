@@ -22,7 +22,7 @@ const Fcfsendtime = () => {
       </CBreadcrumbItem>
       <CBreadcrumbItem active>Set FCFS End Time</CBreadcrumbItem>
     </CBreadcrumb>
-    <SettingsComponent title="Settings" label="Set FCFS End Time*" placeholder="Set FCFS End Time" funcName="setFCFSEndTime"></SettingsComponent>
+    <SettingsComponent title="Settings" label="Set FCFS End Time" placeholder="Set FCFS End Time" funcName="setFCFSEndTime"></SettingsComponent>
   </div>
   )
 }

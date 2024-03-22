@@ -585,7 +585,7 @@ const ProjectCards = () => {
               <div className='text-end'> <Button variant="primary" className='button-secondary px-4'
                 disabled={state.btnLoader}
                 onClick={handleDeployContract}>
-                <span>{state.btnLoader && <Spinner className='loaderStyle text-light'></Spinner>}</span> <span>Deploy </span>
+                <span>{state.btnLoader && <Spinner className={`loaderStyle  ${state.btnLoader ? 'text-black':'text-light'}`}></Spinner>}</span> <span>Deploy </span>
               </Button></div>
             </Modal.Footer>
           </Modal>

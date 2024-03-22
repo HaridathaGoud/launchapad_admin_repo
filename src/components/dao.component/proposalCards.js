@@ -314,7 +314,7 @@ const Dao = (props) => {
         return recorderValues[recorder - 1];
       };
 
-    let startDateClass = "form-control form-select cust-br-style";
+    let startDateClass = "form-control form-select bg-none cust-br-style";
 
     if (isMobile) {
         if (!state?.date) {
@@ -323,7 +323,7 @@ const Dao = (props) => {
             startDateClass += " mobie-icon";
         } 
     }
-    let endDateClass = "form-control form-select";
+    let endDateClass = "form-control bg-none form-select";
 
         if (isMobile) {
             if (!state?.dateStatus) {
@@ -387,7 +387,7 @@ const Dao = (props) => {
                                             className={`mb-0 ms-2 back-text cursor-pointer ${UserInfo?.role == "Super Admin" && "c-pointer"}`}
                                              onClick={handledashboard}>Proposals</span></div>
 
-                                        {(UserInfo?.role == "Admin" ) && <Button className='custom-btn-primary cardbtnright-mt sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
+                                        {(UserInfo?.role == "Admin" ) && <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
                                     </div>
 
                                 </Col>
@@ -396,7 +396,7 @@ const Dao = (props) => {
                                     <div className='kpi-list'>
                                         <Row className='align-items-center'>
                                             <Col sm={12} xs={12} md={2} lg={2} xl={2} xxl={2} className='col-mobile-p'>
-                                                <Form.Select aria-label="Default select example" className='c-pointer text-white bg-white' onChange={(e) => getApprovedProposalData(e)} >
+                                                <Form.Select aria-label="Default select example" className='c-pointer text-white bg-select' onChange={(e) => getApprovedProposalData(e)} >
                                                     
                                                     {state?.statusLu?.map((item) => (
                                                         <option value={item?.name} key={item?.id}>{item?.name}</option>

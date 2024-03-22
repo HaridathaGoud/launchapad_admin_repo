@@ -23,7 +23,7 @@ const RoundOneEnd = () => {
       </CBreadcrumbItem>
       <CBreadcrumbItem active>Set Round One End Time</CBreadcrumbItem>
     </CBreadcrumb>
-    <SettingsComponent title="Settings" label="Set Round One End Time*" placeholder="Set Round One End Time" funcName="setroundOneEndTime"></SettingsComponent>
+    <SettingsComponent title="Settings" label="Set Round One End Time" placeholder="Set Round One End Time" funcName="setroundOneEndTime"></SettingsComponent>
   </div>
   )
 

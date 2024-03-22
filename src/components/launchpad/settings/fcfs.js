@@ -27,7 +27,7 @@ const FcfsStart = () => {
       </CBreadcrumbItem>
       <CBreadcrumbItem active>Set FCFS Start Time</CBreadcrumbItem>
     </CBreadcrumb>
-    <SettingsComponent title="Settings" label="Set FCFS Start Time*" placeholder="Set FCFS Start Time" funcName="setFCFSStartTime" ></SettingsComponent>
+    <SettingsComponent title="Settings" label="Set FCFS Start Time" placeholder="Set FCFS Start Time" funcName="setFCFSStartTime" ></SettingsComponent>
   </div>)
 
 }

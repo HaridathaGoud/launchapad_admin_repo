@@ -98,7 +98,7 @@ h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
 .content-green-bg{padding: 30px 20px;}
 .identification-image{ border-radius: 8px;overflow: hidden;position: relative;height: 250px; border: 1px solid #999393;width: 100%;}
 .identification-image .cam-position{top: 45%;right: 45%;}
-.castandcre-profile{position: relative;height: 100px;width: 100px;border-radius: 100%;}
+.castandcre-profile{position: relative;height: 100px;width: 100px !important;border-radius: 100%;}
 /* customer info end  */
 /* crypto tabs start  */
 .crypto-tabs .nav-tabs .nav-link.active,.crypto-tabs .nav-tabs .nav-link:hover{background-color: transparent;border-color:  #D60000;border-right: 0;border-left: 0;border-top: 0;color: #ffffff;}
@@ -590,6 +590,7 @@ table{width: 100% !important;}
 .text-error{color: #ff0000;}
 .errorbreak-all{word-break: break-all;}
 .mint-check-switcher .form-check-input:checked{background-color: #D60000;border-color: #D60000;}
+.bg-select{background-color: #F5F5F5;}
 /* @media (min-width: 768px) { */
   
   .lg-d-flex{display: flex;}

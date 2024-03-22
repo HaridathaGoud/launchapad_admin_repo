@@ -14,7 +14,7 @@ const TransferOwner = () => {
       </CBreadcrumbItem>
       <CBreadcrumbItem active>Transfer Ownership</CBreadcrumbItem>
     </CBreadcrumb>
-    <SettingsComponent title="Settings" label="Transfer Ownership*" placeholder="Transfer Ownership" funcName="setFCFSStartTime"></SettingsComponent>
+    <SettingsComponent title="Settings" label="Transfer Ownership" placeholder="Transfer Ownership" funcName="setFCFSStartTime"></SettingsComponent>
   </div>)
 }
 

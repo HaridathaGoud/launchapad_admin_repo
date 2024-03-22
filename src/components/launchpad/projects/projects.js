@@ -1507,7 +1507,7 @@ const Projects = (props) => {
 
                 </Modal.Body>
                 <Modal.Footer>
-                <div className="text-end"><Button className="cancel-btn" onClick={() => { handleCancell() }}>Cancel</Button>
+                <div className="text-end btn-width"><Button className="cancel-btn" onClick={() => { handleCancell() }}>Cancel</Button>
                   {!(state.projectSaveDetails?.projectStatus === "Deployed" ||
                     state.projectSaveDetails?.projectStatus === "Rejected" ||
                     state.projectSaveDetails?.projectStatus === "Approved") && (

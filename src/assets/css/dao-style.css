@@ -212,7 +212,7 @@ input[type=checkbox]:checked+span.icon-check{background-position: -693px -595px 
 
 /* thank you start  */
 .success-section{min-height: 400px;padding: 34px;}
-.success-section p{font-weight: 500;  font-size: 16px;color: var(--textthankyou);line-height: 24px;margin: 12px 0 30px 0;}
+.success-section p{font-weight: 500;  font-size: 16px;color: #000;line-height: 24px;margin: 12px 0 30px 0;}
 .resource-title{font-weight: 500;  font-size: 18px;}
 .resources .success-icon{transform: scale(0.7);width: 30px;height: 30px;background-position: -623px -270px !important;}
 .resources p{margin-bottom: 6px;}
@@ -274,7 +274,7 @@ a{text-decoration: none !important;}
   border: 1px solid #A5A5A5;
   border-radius: 8px;}
 .custom-datepicker .form-control.form-select.cust-br-style {border-top: 0 !important;border-left: 0 !important;border-right: 1px solid var(--inputbr) !important;border-bottom: 0 !important;border-top-right-radius: 0;border-bottom-right-radius: 0;}
-.input-style input, .input-style .form-control, .form-select {border-radius: 28px;font-weight: 400 !important;font-size: 16px !important;width: 100% !important;height: 36px !important;background: transparent !important;padding: 6px 16px !important;border: 1px solid #A5A5A5;}
+.input-style input, .input-style .form-control, .form-select {border-radius: 28px;font-weight: 400 !important;font-size: 16px !important;width: 100% !important;height: 36px !important;padding: 6px 16px !important;border: 1px solid #A5A5A5;}
 input[type='date']:disabled{cursor: not-allowed !important;}
 .custom-datepicker .form-control.form-select {border: 0 !important;}
 .proposal-text.text-primary{color: #000 !important;}
