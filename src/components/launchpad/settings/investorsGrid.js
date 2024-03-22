@@ -165,7 +165,6 @@ class InvestorsGrid extends Component {
 
     validateForm = (obj, isChange) => {
         const { firstName, lastName, phoneNo, email, userName, phoneNoCountryCode, country, password } = isChange ? obj : this.state.form;
-        const whiteSpace = /\s/;
         const emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
         const newErrors = {};
         const numbersOnly = /^\d+$/;
@@ -173,20 +172,20 @@ class InvestorsGrid extends Component {
         if (!firstName || firstName === '') {
             newErrors.firstName = "Is required";
         }
-        else if (!validateContentRules("", firstName) || firstName?.match(whiteSpace) || firstName?.match(numbersOnly) || firstName?.match(specialCharsOnly)) {
-            newErrors.firstName = "Invalid first name";
+        else if (!validateContentRules("", firstName) || firstName?.match(numbersOnly) || firstName?.match(specialCharsOnly)) {
+            newErrors.firstName = "Accepts alphanumeric and special chars.";
         }
         if (!lastName || lastName === '') {
             newErrors.lastName = "Is required";
         }
-        else if (!validateContentRules("", lastName) || lastName?.match(whiteSpace)|| lastName?.match(numbersOnly) || lastName?.match(specialCharsOnly)) {
-            newErrors.lastName = "Invalid last name";
+        else if (!validateContentRules("", lastName)|| lastName?.match(numbersOnly) || lastName?.match(specialCharsOnly)) {
+            newErrors.lastName = "Accepts alphanumeric and special chars.";
         }
         if (!userName || userName === '') {
             newErrors.userName = "Is required";
         }
-        else if (!validateContentRules("", userName) || userName?.match(whiteSpace) || userName?.match(numbersOnly) || userName?.match(specialCharsOnly)) {
-            newErrors.userName = "Invalid User name";
+        else if (!validateContentRules("", userName)  || userName?.match(numbersOnly) || userName?.match(specialCharsOnly)) {
+            newErrors.userName = "Accepts alphanumeric and special chars.";
         }
 
         if (!email || email == '') {
@@ -204,7 +203,7 @@ class InvestorsGrid extends Component {
         else if (!validateContentRules("", phoneNo)) {
             newErrors.phoneNo = "Invalid phone number";
         }
-        else if ((!phoneNoCountryCode || phoneNoCountryCode === " ")) {
+        if ((!phoneNoCountryCode || phoneNoCountryCode === " ") ||phoneNoCountryCode ==="Select" || phoneNoCountryCode===undefined) {
             newErrors.phoneNo = "Invalid phone code";
         }
         if (!country || country === "Select Country") {

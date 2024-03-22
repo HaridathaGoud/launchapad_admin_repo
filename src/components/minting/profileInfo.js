@@ -107,14 +107,14 @@ const ProfileInfo = () => {
             <div className="custom-flex align-items-center mb-4">
               <div className='profile-size no-hover' onClick={handleUpload} >
                 <span className='image-box'>
-                  <img className='image-setup' src={userDetails?.profilePicUrl ? userDetails?.profilePicUrl : defaultAvathar} alt="profile img" />
+                  <img className='image-setup' src={userDetails?.profilePicUrl || defaultAvathar} alt="profile img" />
                 </span>
               </div>
               <div className="align-items-center justify-content-between flex-1">
                 <div className="ms-lg-4 approve-kyc">
                     <div className="d-flex align-items-center mb-3">
                       <h5 className="activity-title mb-0">
-                        {userDetails.firstName ? userDetails.firstName : (!userDetails.firstName && "unnamed" ||"unnamed")}</h5>
+                        {userDetails?.firstName || "--"}</h5>
                         
                         </div>
                   <div className="custom-flex align-items-center"><div className="value-card"><span className="icon country"></span><label className="text-medium text-secondary ms-1">{userDetails.country ? userDetails.country : "--"}</label></div><div className="value-card"><span className="icon contact"></span><label className="text-medium text-secondary ms-1">{userDetails.countryCode ? userDetails.countryCode : "--"}{' '}{userDetails.phoneNo ? userDetails.phoneNo : "--"}</label></div><div className="value-card"><span className="icon email"></span><label className="text-medium text-secondary ms-1">{userDetails.email ? userDetails.email : "--"}</label></div></div>

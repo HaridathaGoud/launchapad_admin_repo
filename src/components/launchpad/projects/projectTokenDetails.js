@@ -13,6 +13,8 @@ import { connect, useSelector } from 'react-redux';
 import {  projectDetailsData, projectePayment } from '../launchpadReducer/launchpadReducer';
 import store from 'src/store';
 import ProjectsTokenClaim from './projectTokenClaim';
+import { NumericFormat } from 'react-number-format';
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "errors":
@@ -77,14 +79,13 @@ const ProjectTokenDetails = (props) => {
     
   }, []);
 
-  const handleChange = (field,event) => {
-    let _data = { ...state.paymentDetails };
-    _data[event.target.name] = event.target.value;
-    dispatch({type:'paymentDetails',payload:_data}) 
+  const handleChange = (field,value) => {
+    dispatch({ type: 'paymentDetails', payload:{ ...state.paymentDetails,[field]: value }  })
     if (errors[field]) {
       setErrors({ ...errors, [field]: null })
     }
   }
+
   const goBackToTokenDetails = () => {
     dispatch({type:'projectsPoolsStaking',payload:false})
   }
@@ -256,7 +257,7 @@ const ProjectTokenDetails = (props) => {
               label="Private Token Equivalent to Payment Type*"
               className=""
             >Private Token Equivalent to Payment Type<span className="text-danger">*</span></Form.Label>
-              <Form.Control 
+              {/* <Form.Control 
               type="text" 
               value={state.paymentDetails?.privateTokenEquivalentToPaymentType}
                name='privateTokenEquivalentToPaymentType'
@@ -269,9 +270,22 @@ const ProjectTokenDetails = (props) => {
                  (props?.projectDetails?.projectsViewModel?.projectStatus=="Deployed" ||
                   props?.projectDetails?.projectsViewModel?.projectStatus=="Rejected" ||
                   props?.projectDetails?.projectsViewModel?.projectStatus=="Approved")}
-
-                  
-
+              /> */}
+               <NumericFormat
+                value={state.paymentDetails?.privateTokenEquivalentToPaymentType}
+                name='privateTokenEquivalentToPaymentType'
+                allowNegative={false}
+                className='form-control'
+                thousandSeparator={true}
+                placeholder="Private Token Equivalent to Payment Type"
+                onChange={(e) => handleChange('privateTokenEquivalentToPaymentType', e.currentTarget.value)}
+                onBlur={(e) => handleChange('privateTokenEquivalentToPaymentType', e.target.value.trim().replace(/\s+/g, " "))}
+                required
+                isInvalid={!!errors?.privateTokenEquivalentToPaymentType}
+                disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                  || state.projectSaveDetails?.projectStatus == "Rejected"
+                  || state.projectSaveDetails?.projectStatus == "Approved"
+                )}
               />
               {/* <Form.Control.Feedback type="invalid">Is required</Form.Control.Feedback> */}
               <Form.Control.Feedback type="invalid">{errors?.privateTokenEquivalentToPaymentType ||
@@ -284,7 +298,8 @@ const ProjectTokenDetails = (props) => {
               label="Public Token Equivalent to Payment Type*"
               className=""
             >Public Token Equivalent to Payment Type<span className="text-danger">*</span></Form.Label>
-              <Form.Control type="text" value={state.paymentDetails?.publicTokenEquivalentToPaymentType} 
+              {/* <Form.Control type="text" 
+              value={state.paymentDetails?.publicTokenEquivalentToPaymentType} 
               name='publicTokenEquivalentToPaymentType'
               onKeyPress={handleNumericInput}
                 placeholder="Public Token Equivalent to Payment Type" 
@@ -295,6 +310,22 @@ const ProjectTokenDetails = (props) => {
                   (props?.projectDetails?.projectsViewModel?.projectStatus=="Deployed" ||
                    props?.projectDetails?.projectsViewModel?.projectStatus=="Rejected" ||
                    props?.projectDetails?.projectsViewModel?.projectStatus=="Approved")}
+              /> */}
+              <NumericFormat
+                value={state.paymentDetails?.publicTokenEquivalentToPaymentType}
+                name='publicTokenEquivalentToPaymentType'
+                allowNegative={false}
+                className='form-control'
+                thousandSeparator={true}
+                placeholder="Public Token Equivalent to Payment Type"
+                onChange={(e) => handleChange('publicTokenEquivalentToPaymentType', e.currentTarget.value)}
+                onBlur={(e) => handleChange('publicTokenEquivalentToPaymentType', e.target.value.trim().replace(/\s+/g, " "))}
+                required
+                isInvalid={!!errors?.publicTokenEquivalentToPaymentType}
+                disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                  || state.projectSaveDetails?.projectStatus == "Rejected"
+                  || state.projectSaveDetails?.projectStatus == "Approved"
+                )}
               />
               {/* <Form.Control.Feedback type="invalid">Is required</Form.Control.Feedback> */}
               <Form.Control.Feedback type="invalid">{errors?.publicTokenEquivalentToPaymentType ||
@@ -313,7 +344,7 @@ const ProjectTokenDetails = (props) => {
             <Button className='button-secondary' type='submit'
             disabled={state.tokenloader}
             >
-              <span>{state.tokenloader && <Spinner size="sm" />} </span>
+              <span>{state.tokenloader && <Spinner size="sm" className='text-light'/>} </span>
               
 
 {(props?.projectDetails?.projectsViewModel?.projectStatus=="Deployed"

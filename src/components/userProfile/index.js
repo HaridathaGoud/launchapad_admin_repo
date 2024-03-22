@@ -286,7 +286,7 @@ const UserProfile = (props) => {
                   <Col xl={4} sm={12} md={6}>
                     <label className="profile-label">Phone No</label>
                     <p className="profile-value">
-                      {adminDetails?.countryCode}{" "}{adminDetails?.phoneNo ? adminDetails?.phoneNo : "--"}
+                      {adminDetails?.phoneNo ? adminDetails?.phoneNo : "--"}
                     </p>
                   </Col>
                   <Col xl={4} sm={12} md={6}>

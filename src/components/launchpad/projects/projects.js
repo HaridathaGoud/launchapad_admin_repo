@@ -208,7 +208,6 @@ const Projects = (props) => {
     const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, contractAddress,
       tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply } = obj;
     const newErrors = {};
-    const whiteSpace = /\s/;
     const numbersOnly = /^\d+$/;
     const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
     const emojiRejex =
@@ -243,27 +242,22 @@ const Projects = (props) => {
     }
     if (!description || description == '') {
       newErrors.description = 'Is required';
-    }else if (!validateContentRules('', description) || description?.match(numbersOnly) || description?.match(specialCharsOnly)) {
+    }else if (!validateContentRules('', description)|| description?.match(specialCharsOnly) || description?.match(numbersOnly) ) {
       newErrors.description = 'Please provide valid content.';
     }
     if (!contractAddress || contractAddress == '') {
-      newErrors.tokenContractAddress = 'Is required';
-    } else if (contractAddress && (emojiRejex.test(contractAddress))) {
-      newErrors.contractAddress = 'Please provide valid content.';
-    }
-    if (!contractAddress || contractAddress == '') {
       newErrors.contractAddress = 'Is required';
-    } else if (contractAddress && (emojiRejex.test(contractAddress)) || contractAddress?.match(whiteSpace) || contractAddress?.match(numbersOnly) || contractAddress?.match(specialCharsOnly)) {
+    } else if (!validateContentRules("", contractAddress) || (emojiRejex.test(contractAddress))|| contractAddress?.match(specialCharsOnly) || contractAddress?.match(numbersOnly) ) {
       newErrors.contractAddress = 'Please provide valid content.';
     }
     if (!tokenName || tokenName == '') {
       newErrors.tokenName = 'Is required';
-    } else if (tokenName && (emojiRejex.test(tokenName)) || tokenName?.match(whiteSpace) || tokenName?.match(numbersOnly) || tokenName?.match(specialCharsOnly)) {
+    } else if (!validateContentRules("", tokenName) || (emojiRejex.test(tokenName))|| tokenName?.match(specialCharsOnly) || tokenName?.match(numbersOnly) ) {
       newErrors.tokenName = 'Please provide valid content.';
     }
     if (!tokenSymbol || tokenSymbol == '') {
       newErrors.tokenSymbol = 'Is required';
-    } else if (tokenSymbol && (emojiRejex.test(tokenSymbol)) || tokenSymbol?.match(whiteSpace) || tokenSymbol?.match(numbersOnly) || tokenSymbol?.match(specialCharsOnly)) {
+    } else if (!validateContentRules("", tokenSymbol) || (emojiRejex.test(tokenSymbol))|| tokenSymbol?.match(specialCharsOnly) || tokenSymbol?.match(numbersOnly) ) {
       newErrors.tokenSymbol = 'Please provide valid content.';
     }
     if (!tokenDecimal || tokenDecimal == '') {

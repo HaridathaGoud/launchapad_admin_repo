@@ -139,7 +139,11 @@ const time=(timeString)=>{
 }
 
 const timeDate=(timeString)=>{
-  return timeString.slice(0,10);
+  if(timeString){
+    return timeString.slice(0,10);
+  }else{
+    return '';
+  }
 }
 
   const handleClaimAndAllocation = async (event) => {
@@ -162,10 +166,9 @@ const timeDate=(timeString)=>{
         }
     } else {
       const privateEndingTimeInSeconds = parseTime(state.claimDetails?.privateEndDate);
-      const privateStartingTimeInSeconds = parseTime( state.claimDetails?.privateStartDate);
-      const publicEndingTimeInSeconds = parseTime(state.claimDetails?.publicEndDate);
-      const publicStartingTimeInSeconds = parseTime( state.claimDetails?.publicStartDate);
-
+      const privateStartingTimeInSeconds = parseTime(state.claimDetails?.privateStartDate);
+     const publicEndingTimeInSeconds = parseTime(state.claimDetails?.publicEndDate);
+     const publicStartingTimeInSeconds = parseTime(state.claimDetails?.publicStartDate);
 
       if (state.claimDetails?.noofSlots == 0) {
         dispatch({ type: 'errorMsg', payload: 'claim slots should be greater than zero.' })
@@ -179,58 +182,86 @@ const timeDate=(timeString)=>{
         dispatch({ type: 'claimloader', payload: false })
         return
       }
-      if (!state.claimDetails?.privateStartDate || !state.claimDetails?.privateEndDate || !state.claimDetails?.publicStartDate || !state.claimDetails?.publicEndDate) {
-        dispatch({ type: 'errorMsg', payload: 'Please select dates.' })
 
+      // if (!state.claimDetails?.privateStartDate || !state.claimDetails?.privateEndDate || !state.claimDetails?.publicStartDate || !state.claimDetails?.publicEndDate) {
+      //   dispatch({ type: 'errorMsg', payload: 'Please select dates.' })
+
+      //   window.scroll(0, 0);
+      //   dispatch({ type: 'claimloader', payload: false })
+
+      // } 
+
+      // else if (timeDate(state.claimDetails?.privateStartDate) && (timeDate(state.claimDetails?.privateEndDate) < timeDate(state.claimDetails?.privateStartDate))) {
+      //   dispatch({ type: 'errorMsg', payload: 'Private Start date cannot be greater than the end date.' })
+      //   window.scroll(0, 0);
+      //   dispatch({ type: 'claimloader', payload: false })
+      //   return
+      // }
+
+      // else if ((timeDate(state.claimDetails?.privateStartDate) == timeDate(state.claimDetails?.privateEndDate)) && 
+      // (time(state.claimDetails?.privateEndDate)==time(state.claimDetails?.privateStartDate))) {
+      //   dispatch({ type: 'errorMsg', payload: 'Private Start time and end time cannot be the same.' })
+      //   window.scroll(0, 0);
+      //   dispatch({ type: 'claimloader', payload: false })
+      //   return
+      // }
+
+      // else if((timeDate(state.claimDetails?.privateStartDate) == timeDate(state.claimDetails?.privateEndDate))&& privateEndingTimeInSeconds <privateStartingTimeInSeconds){
+      //   dispatch({ type: 'errorMsg', payload: 'Private Start time cannot be greater than the end time.' })
+      //   window.scroll(0, 0);
+      //   dispatch({ type: 'claimloader', payload: false })
+      //   return
+      // }
+      // else if (timeDate(state.claimDetails?.publicStartDate) && (timeDate(state.claimDetails?.publicEndDate) < timeDate(state.claimDetails?.publicStartDate))) {
+      //   dispatch({ type: 'errorMsg', payload: 'Public Start date cannot be greater than the end date.' })
+      //   window.scroll(0, 0);
+      //   dispatch({ type: 'claimloader', payload: false })
+      //   return
+      // }
+
+      // else if ((timeDate(state.claimDetails?.publicStartDate) == timeDate(state.claimDetails?.publicEndDate)) && 
+      // (time(state.claimDetails?.publicEndDate)==time(state.claimDetails?.publicStartDate))) {
+      //   dispatch({ type: 'errorMsg', payload: 'Public Start time and end time cannot be the same.' })
+      //   window.scroll(0, 0);
+      //   dispatch({ type: 'claimloader', payload: false })
+      //   return
+      // }
+
+      // else if((timeDate(state.claimDetails?.publicStartDate) == timeDate(state.claimDetails?.publicEndDate))&& publicEndingTimeInSeconds <publicStartingTimeInSeconds){
+      //   dispatch({ type: 'errorMsg', payload: 'Public Start time cannot be greater than the end time.' })
+      //   window.scroll(0, 0);
+      //   dispatch({ type: 'claimloader', payload: false })
+      //   return
+      // }
+      if (timeDate(state.claimDetails?.privateStartDate) > timeDate(state.claimDetails?.privateEndDate)) {
+        dispatch({ type: 'errorMsg', payload: 'Private Start date cannot be greater than the end date.' });
         window.scroll(0, 0);
-        dispatch({ type: 'claimloader', payload: false })
-
-      } 
-
-      else if (timeDate(state.claimDetails?.privateStartDate) && (timeDate(state.claimDetails?.privateEndDate) < timeDate(state.claimDetails?.privateStartDate))) {
-        dispatch({ type: 'errorMsg', payload: 'Private Start date cannot be greater than the end date.' })
-        window.scroll(0, 0);
-        dispatch({ type: 'claimloader', payload: false })
-        return
+        dispatch({ type: 'claimloader', payload: false });
+        return;
+      } else if (timeDate(state.claimDetails?.privateStartDate) === timeDate(state.claimDetails?.privateEndDate)) {
+        if (privateStartingTimeInSeconds >= privateEndingTimeInSeconds) {
+          dispatch({ type: 'errorMsg', payload: 'Private Start time cannot be greater than or equal to the end time.' });
+          window.scroll(0, 0);
+          dispatch({ type: 'claimloader', payload: false });
+          return;
+        }
       }
 
-      else if ((timeDate(state.claimDetails?.privateStartDate) == timeDate(state.claimDetails?.privateEndDate)) && 
-      (time(state.claimDetails?.privateEndDate)==time(state.claimDetails?.privateStartDate))) {
-        dispatch({ type: 'errorMsg', payload: 'Private Start time and end time cannot be the same.' })
+      if (timeDate(state.claimDetails?.publicStartDate) > timeDate(state.claimDetails?.publicEndDate)) {
+        dispatch({ type: 'errorMsg', payload: 'Public Start date cannot be greater than the end date.' });
         window.scroll(0, 0);
-        dispatch({ type: 'claimloader', payload: false })
-        return
+        dispatch({ type: 'claimloader', payload: false });
+        return;
+      } else if (timeDate(state.claimDetails?.publicStartDate) === timeDate(state.claimDetails?.publicEndDate)) {
+        if (publicStartingTimeInSeconds >= publicEndingTimeInSeconds) {
+          dispatch({ type: 'errorMsg', payload: 'Public Start time cannot be greater than or equal to the end time.' });
+          window.scroll(0, 0);
+          dispatch({ type: 'claimloader', payload: false });
+          return;
+        }
       }
-
-      else if((timeDate(state.claimDetails?.privateStartDate) == timeDate(state.claimDetails?.privateEndDate))&& privateEndingTimeInSeconds <privateStartingTimeInSeconds){
-        dispatch({ type: 'errorMsg', payload: 'Private Start time cannot be greater than the end time.' })
-        window.scroll(0, 0);
-        dispatch({ type: 'claimloader', payload: false })
-        return
-      }
-    
-
-      else if (timeDate(state.claimDetails?.publicStartDate) && (timeDate(state.claimDetails?.publicEndDate) < timeDate(state.claimDetails?.publicStartDate))) {
-        dispatch({ type: 'errorMsg', payload: 'Public Start date cannot be greater than the end date.' })
-        window.scroll(0, 0);
-        dispatch({ type: 'claimloader', payload: false })
-        return
-      }
-
-      else if ((timeDate(state.claimDetails?.publicStartDate) == timeDate(state.claimDetails?.publicEndDate)) && 
-      (time(state.claimDetails?.publicEndDate)==time(state.claimDetails?.publicStartDate))) {
-        dispatch({ type: 'errorMsg', payload: 'Public Start time and end time cannot be the same.' })
-        window.scroll(0, 0);
-        dispatch({ type: 'claimloader', payload: false })
-        return
-      }
-
-      else if((timeDate(state.claimDetails?.publicStartDate) == timeDate(state.claimDetails?.publicEndDate))&& publicEndingTimeInSeconds <publicStartingTimeInSeconds){
-        dispatch({ type: 'errorMsg', payload: 'Public Start time cannot be greater than the end time.' })
-        window.scroll(0, 0);
-        dispatch({ type: 'claimloader', payload: false })
-        return
-      }
+      
+     
      
       dispatch({ type: 'errorMsg', payload: null })
 
@@ -276,7 +307,7 @@ const timeDate=(timeString)=>{
             dispatch({ type: 'success', payload: false })
             store.dispatch(projectedSaved(false));
            
-          }, 3000);
+          }, 2000);
           if (window.location.pathname.includes('idorequest')) {
             setFlagInParent(false)
           }
