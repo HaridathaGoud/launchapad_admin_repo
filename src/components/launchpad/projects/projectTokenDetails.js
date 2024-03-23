@@ -27,6 +27,8 @@ const reducer = (state, action) => {
       return { ...state, paymentDetails: action.payload };
     case "tokenloader":
       return { ...state, tokenloader: action.payload };
+      case "tokenBtnLoader":
+      return { ...state, tokenBtnLoader: action.payload };
     case "projetTokenData":
       return { ...state, projetTokenData: action.payload };
     case "validated":
@@ -45,6 +47,7 @@ const initialState = {
   paymentDetails:{},
   projetTokenData:null,
   tokenloader:false,
+  tokenBtnLoader:false,
   validated:false,
   scuess:false,
   errors: {}
@@ -103,6 +106,7 @@ const ProjectTokenDetails = (props) => {
   const handleSavePaymentDetails = async (event) => {
     dispatch({type:'validated',payload:true}) 
     dispatch({type:'scuess',payload:false}) 
+    dispatch({type:'tokenBtnLoader',payload:true}) 
     event.preventDefault();
     if (props?.projectDetails?.projectsViewModel?.projectStatus &&
       props?.projectDetails?.projectsViewModel?.projectStatus !== "Submitted" &&
@@ -142,21 +146,18 @@ const ProjectTokenDetails = (props) => {
         setErrors(formErrors)
         dispatch({ type: 'errors', payload: formErrors })
         dispatch({type:'projectsPoolsStaking',payload:false}) 
-        dispatch({type:'tokenloader',payload:false}) 
+        dispatch({type:'tokenBtnLoader',payload:false}) 
       } 
       else {
         
       // }
-      // if (form.checkValidity() === true) {
-        dispatch({type:'tokenloader',payload:true}) 
-        
+      // if (form.checkValidity() === true) {        
         let res = await apiCalls.UpdateProjectPayments(obj);
         if (res.ok) {
           store.dispatch(projectePayment(res.data));
-          dispatch({type:'tokenloader',payload:false}) 
+          dispatch({type:'tokenBtnLoader',payload:false}) 
           dispatch({type:'sucess',payload:true}) 
           dispatch({type:'errorMgs',payload:null}) 
-          dispatch({type:'tokenloader',payload:false}) 
           dispatch({type:'projectsPoolsStaking',payload:true}) 
           dispatch({type:'projetTokenData',payload:res.data}) 
           dispatch({type:'paymentDetails',payload:res.data}) 
@@ -167,7 +168,7 @@ const ProjectTokenDetails = (props) => {
         else {
           dispatch({type:'errorMgs',payload:apiCalls.isErrorDispaly(res.data)}) 
           dispatch({type:'validated',payload:false}) 
-          dispatch({type:'tokenloader',payload:false}) 
+          dispatch({type:'tokenBtnLoader',payload:false}) 
           window.scroll(0, 0);
           dispatch({type:'projectsPoolsStaking',payload:false}) 
         }
@@ -259,20 +260,6 @@ const ProjectTokenDetails = (props) => {
               label="Private Token Equivalent to Payment Type*"
               className=""
             >Private Token Equivalent to Payment Type<span className="text-danger">*</span></Form.Label>
-              {/* <Form.Control 
-              type="text" 
-              value={state.paymentDetails?.privateTokenEquivalentToPaymentType}
-               name='privateTokenEquivalentToPaymentType'
-                 onKeyPress={handleNumericInput}
-                placeholder="Private Token Equivalent to Payment Type" 
-                onChange={(e) => handleChange("privateTokenEquivalentToPaymentType",e)} 
-                isInvalid={!!errors?.privateTokenEquivalentToPaymentType}
-                required
-                disabled={
-                 (props?.projectDetails?.projectsViewModel?.projectStatus=="Deployed" ||
-                  props?.projectDetails?.projectsViewModel?.projectStatus=="Rejected" ||
-                  props?.projectDetails?.projectsViewModel?.projectStatus=="Approved")}
-              /> */}
                <NumericFormat
                 value={state.paymentDetails?.privateTokenEquivalentToPaymentType}
                 name='privateTokenEquivalentToPaymentType'
@@ -289,7 +276,6 @@ const ProjectTokenDetails = (props) => {
                   || state.projectSaveDetails?.projectStatus == "Approved"
                 )}
               />
-              {/* <Form.Control.Feedback type="invalid">Is required</Form.Control.Feedback> */}
               <Form.Control.Feedback type="invalid">{errors?.privateTokenEquivalentToPaymentType ||
                state?.errors?.privateTokenEquivalentToPaymentType}</Form.Control.Feedback>
 
@@ -300,19 +286,6 @@ const ProjectTokenDetails = (props) => {
               label="Public Token Equivalent to Payment Type*"
               className=""
             >Public Token Equivalent to Payment Type<span className="text-danger">*</span></Form.Label>
-              {/* <Form.Control type="text" 
-              value={state.paymentDetails?.publicTokenEquivalentToPaymentType} 
-              name='publicTokenEquivalentToPaymentType'
-              onKeyPress={handleNumericInput}
-                placeholder="Public Token Equivalent to Payment Type" 
-                onChange={(e) => handleChange("publicTokenEquivalentToPaymentType",e)}
-                 required
-                isInvalid={!!errors?.publicTokenEquivalentToPaymentType}
-                disabled={
-                  (props?.projectDetails?.projectsViewModel?.projectStatus=="Deployed" ||
-                   props?.projectDetails?.projectsViewModel?.projectStatus=="Rejected" ||
-                   props?.projectDetails?.projectsViewModel?.projectStatus=="Approved")}
-              /> */}
               <NumericFormat
                 value={state.paymentDetails?.publicTokenEquivalentToPaymentType}
                 name='publicTokenEquivalentToPaymentType'
@@ -329,7 +302,6 @@ const ProjectTokenDetails = (props) => {
                   || state.projectSaveDetails?.projectStatus == "Approved"
                 )}
               />
-              {/* <Form.Control.Feedback type="invalid">Is required</Form.Control.Feedback> */}
               <Form.Control.Feedback type="invalid">{errors?.publicTokenEquivalentToPaymentType ||
                state?.errors?.publicTokenEquivalentToPaymentType}</Form.Control.Feedback>
           </Col>
@@ -346,7 +318,7 @@ const ProjectTokenDetails = (props) => {
             <Button className='button-secondary' type='submit'
             disabled={state.tokenloader}
             >
-              <span>{state.tokenloader && <Spinner size="sm" className='text-light'/>} </span>
+              <span>{state.tokenBtnLoader && <Spinner size="sm" className='text-light'/>} </span>
               
 
 {(props?.projectDetails?.projectsViewModel?.projectStatus=="Deployed"

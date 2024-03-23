@@ -12,6 +12,7 @@ import { CBreadcrumb, CBreadcrumbItem, CLink } from '@coreui/react'
 import moment from 'moment';
 import ToasterMessage from "src/utils/toasterMessages";
 import store from 'src/store/index';
+import Spinner from 'react-bootstrap/esm/Spinner';
 import { projectedSaved } from "src/components/launchpad/launchpadReducer/launchpadReducer"
 const reducer = (state, action) => {
   switch (action.type) {
@@ -19,6 +20,8 @@ const reducer = (state, action) => {
       return { ...state, errorMsg: action.payload };
     case "claimloader":
       return { ...state, claimloader: action.payload };
+    case "claimBtnLoader":
+        return { ...state, claimBtnLoader: action.payload };
     case "claimDetails":
       return { ...state, claimDetails: action.payload };
     case "scuess":
@@ -38,6 +41,7 @@ const reducer = (state, action) => {
 const initialState = {
   errorMsg:null,
   claimloader: false,
+  claimBtnLoader:false,
   claimDetails: {},
   scuess: false,
   validated: false,
@@ -59,7 +63,11 @@ const ProjectsTokenClaim = (props) => {
 
 
   useEffect(() => {
+    dispatch({ type: 'claimloader', payload: true })
     getClaimsandAllocations();
+    setTimeout(() => {
+      dispatch({ type: 'claimloader', payload: false })
+    }, 1000);
   }, []);
   const currentDate = new Date().toISOString().slice(0, 16);
 
@@ -115,7 +123,6 @@ const ProjectsTokenClaim = (props) => {
   }
 
 
-
   const parseTime = (timeString ) => {
     const selectedDate =timeString
     const datetime = new Date(selectedDate);
@@ -140,18 +147,46 @@ const time=(timeString)=>{
   return  datetime.toLocaleTimeString();
 }
 
-const timeDate=(timeString)=>{
-  if(timeString){
-    return timeString.slice(0,10);
-  }else{
-    return '';
+  const timeDate = (timeString) => {
+    if (timeString) {
+      return timeString.slice(0, 10);
+    } else {
+      return '';
+    }
   }
-}
+  const convertUtcToLocal = (date) => {
+    if (!date) {
+      return '';
+    }
+    const utcTime = date;
+    const utcMoment = moment.utc(utcTime);
+    const localMoment = utcMoment.local();
+    return localMoment.format('YYYY-MM-DDTHH:mm');
+  }
+  const getClaimsandAllocations = () => {
+    let obj = {};
+    if (props?.projectInfo?.projectStatus == "Submitted" ||
+      props?.projectInfo?.projectStatus == "Approved" ||
+      props?.projectInfo?.projectStatus == "Rejected" ||
+      props?.projectInfo?.projectStatus == "Deployed") {
+      obj.id = projectDetails?.id
+      obj.privateStartDate = convertUtcToLocal(projectDetails?.privateStartDate)
+      obj.privateEndDate = convertUtcToLocal(projectDetails?.privateEndDate)
+      obj.publicStartDate = convertUtcToLocal(projectDetails?.publicStartDate)
+      obj.publicEndDate = convertUtcToLocal(projectDetails?.publicEndDate)
+      obj.vestingDays = projectDetails?.vestingDays
+      obj.noofSlots = projectDetails?.noofSlots
+    } else {
+      obj = projectDetails;
+    }
+    dispatch({ type: 'claimDetails', payload: obj })
+
+  }
 
   const handleClaimAndAllocation = async (event) => {
     event.preventDefault();
     dispatch({ type: 'errorMsg', payload: null })
-    dispatch({ type: 'claimloader', payload: true })
+    dispatch({ type: 'claimBtnLoader', payload: true })
     dispatch({ type: 'scuess', payload: false })
     if (
       props?.projectInfo?.projectStatus == "Deployed" ||
@@ -175,76 +210,25 @@ const timeDate=(timeString)=>{
       if (state.claimDetails?.noofSlots == 0) {
         dispatch({ type: 'errorMsg', payload: 'claim slots should be greater than zero.' })
         window.scroll(0, 0);
-        dispatch({ type: 'claimloader', payload: false })
+        dispatch({ type: 'claimBtnLoader', payload: false })
         return
       }
       if (state.claimDetails?.vestingDays==0) {
         dispatch({ type: 'errorMsg', payload: 'claim vesting time should be greater than zero.' })
         window.scroll(0, 0);
-        dispatch({ type: 'claimloader', payload: false })
+        dispatch({ type: 'claimBtnLoader', payload: false })
         return
       }
-
-      // if (!state.claimDetails?.privateStartDate || !state.claimDetails?.privateEndDate || !state.claimDetails?.publicStartDate || !state.claimDetails?.publicEndDate) {
-      //   dispatch({ type: 'errorMsg', payload: 'Please select dates.' })
-
-      //   window.scroll(0, 0);
-      //   dispatch({ type: 'claimloader', payload: false })
-
-      // } 
-
-      // else if (timeDate(state.claimDetails?.privateStartDate) && (timeDate(state.claimDetails?.privateEndDate) < timeDate(state.claimDetails?.privateStartDate))) {
-      //   dispatch({ type: 'errorMsg', payload: 'Private Start date cannot be greater than the end date.' })
-      //   window.scroll(0, 0);
-      //   dispatch({ type: 'claimloader', payload: false })
-      //   return
-      // }
-
-      // else if ((timeDate(state.claimDetails?.privateStartDate) == timeDate(state.claimDetails?.privateEndDate)) && 
-      // (time(state.claimDetails?.privateEndDate)==time(state.claimDetails?.privateStartDate))) {
-      //   dispatch({ type: 'errorMsg', payload: 'Private Start time and end time cannot be the same.' })
-      //   window.scroll(0, 0);
-      //   dispatch({ type: 'claimloader', payload: false })
-      //   return
-      // }
-
-      // else if((timeDate(state.claimDetails?.privateStartDate) == timeDate(state.claimDetails?.privateEndDate))&& privateEndingTimeInSeconds <privateStartingTimeInSeconds){
-      //   dispatch({ type: 'errorMsg', payload: 'Private Start time cannot be greater than the end time.' })
-      //   window.scroll(0, 0);
-      //   dispatch({ type: 'claimloader', payload: false })
-      //   return
-      // }
-      // else if (timeDate(state.claimDetails?.publicStartDate) && (timeDate(state.claimDetails?.publicEndDate) < timeDate(state.claimDetails?.publicStartDate))) {
-      //   dispatch({ type: 'errorMsg', payload: 'Public Start date cannot be greater than the end date.' })
-      //   window.scroll(0, 0);
-      //   dispatch({ type: 'claimloader', payload: false })
-      //   return
-      // }
-
-      // else if ((timeDate(state.claimDetails?.publicStartDate) == timeDate(state.claimDetails?.publicEndDate)) && 
-      // (time(state.claimDetails?.publicEndDate)==time(state.claimDetails?.publicStartDate))) {
-      //   dispatch({ type: 'errorMsg', payload: 'Public Start time and end time cannot be the same.' })
-      //   window.scroll(0, 0);
-      //   dispatch({ type: 'claimloader', payload: false })
-      //   return
-      // }
-
-      // else if((timeDate(state.claimDetails?.publicStartDate) == timeDate(state.claimDetails?.publicEndDate))&& publicEndingTimeInSeconds <publicStartingTimeInSeconds){
-      //   dispatch({ type: 'errorMsg', payload: 'Public Start time cannot be greater than the end time.' })
-      //   window.scroll(0, 0);
-      //   dispatch({ type: 'claimloader', payload: false })
-      //   return
-      // }
       if (timeDate(state.claimDetails?.privateStartDate) > timeDate(state.claimDetails?.privateEndDate)) {
         dispatch({ type: 'errorMsg', payload: 'Private Start date cannot be greater than the end date.' });
         window.scroll(0, 0);
-        dispatch({ type: 'claimloader', payload: false });
+        dispatch({ type: 'claimBtnLoader', payload: false });
         return;
       } else if (timeDate(state.claimDetails?.privateStartDate) === timeDate(state.claimDetails?.privateEndDate)) {
         if (privateStartingTimeInSeconds >= privateEndingTimeInSeconds) {
           dispatch({ type: 'errorMsg', payload: 'Private Start time cannot be greater than or equal to the end time.' });
           window.scroll(0, 0);
-          dispatch({ type: 'claimloader', payload: false });
+          dispatch({ type: 'claimBtnLoader', payload: false });
           return;
         }
       }
@@ -252,13 +236,13 @@ const timeDate=(timeString)=>{
       if (timeDate(state.claimDetails?.publicStartDate) > timeDate(state.claimDetails?.publicEndDate)) {
         dispatch({ type: 'errorMsg', payload: 'Public Start date cannot be greater than the end date.' });
         window.scroll(0, 0);
-        dispatch({ type: 'claimloader', payload: false });
+        dispatch({ type: 'claimBtnLoader', payload: false });
         return;
       } else if (timeDate(state.claimDetails?.publicStartDate) === timeDate(state.claimDetails?.publicEndDate)) {
         if (publicStartingTimeInSeconds >= publicEndingTimeInSeconds) {
           dispatch({ type: 'errorMsg', payload: 'Public Start time cannot be greater than or equal to the end time.' });
           window.scroll(0, 0);
-          dispatch({ type: 'claimloader', payload: false });
+          dispatch({ type: 'claimBtnLoader', payload: false });
           return;
         }
       }
@@ -326,39 +310,6 @@ const timeDate=(timeString)=>{
   };
 
 
-  const getClaimsandAllocations = () => {
-    dispatch({ type: 'claimloader', payload: false })
-    let obj={};
-    if(props?.projectInfo?.projectStatus=="Submitted" || 
-    props?.projectInfo?.projectStatus=="Approved"||
-    props?.projectInfo?.projectStatus=="Rejected"||
-    props?.projectInfo?.projectStatus=="Deployed"){
-      obj.id=projectDetails?.id
-      obj.privateStartDate=convertUtcToLocal(projectDetails?.privateStartDate)
-      obj.privateEndDate=convertUtcToLocal(projectDetails?.privateEndDate)
-      obj.publicStartDate=convertUtcToLocal(projectDetails?.publicStartDate)
-      obj.publicEndDate=convertUtcToLocal(projectDetails?.publicEndDate)
-      obj.vestingDays=projectDetails?.vestingDays
-      obj.noofSlots=projectDetails?.noofSlots
-    }else{
-      obj=projectDetails;
-    }
-    dispatch({ type: 'claimDetails', payload: obj })
-
-  }
-
-  const convertUtcToLocal = (date) => {
-    if (!date) {
-      return '';
-    }
-    const utcTime = date;
-    const utcMoment = moment.utc(utcTime);
-    const localMoment = utcMoment.local();
-    return localMoment.format('YYYY-MM-DDTHH:mm');
-   
-  }
-
-
   const idoRequestBredCrumd = () => {
     navigate(mode === "projectsDetails" ? `/launchpad/investors` : `/launchpad/idorequest`)
     if (isAdmin.isAdmin) {
@@ -369,6 +320,7 @@ const timeDate=(timeString)=>{
 
   return (
     <>
+     {state.claimloader&&<div className="text-center"><Spinner ></Spinner></div>}
       {!state.claimloader && <div>
         <Form noValidate validated={state?.validated} onSubmit={(e) => handleClaimAndAllocation(e)} className='launchpad-labels'>
           <>
@@ -576,7 +528,7 @@ const timeDate=(timeString)=>{
               <div>
                 <Button className='button-secondary' type='submit'
                
-                >
+                ><span>{state.claimBtnLoader && <Spinner size="sm" className='text-light'/>} </span>
                   {
                     (props?.projectInfo?.projectStatus == "Deployed" ||
                       props?.projectInfo?.projectStatus == "Rejected" ||

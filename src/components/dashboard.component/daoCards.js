@@ -83,9 +83,9 @@ const Dashboard = (props) => {
                     let res = await apiCalls.updateVotingContractAddress(updateProject);
                     if (res.ok) {
                         if (isAdmin?.isInvestor === true) {
-                            getInvestorDaosList();
+                            getInvestorDaosList(null,1);
                         } else {
-                            getDaosList();
+                            getDaosList(null,1);
                         }
                         setDeployContractLoader(false);
                         setSelectedDaoId(null)
@@ -127,8 +127,11 @@ const Dashboard = (props) => {
                                         <Card.Text className='card-description d-flex mb-1'>
                                             <p className='m-0 col-3'>members:</p> <p className='m-0 '>{item?.members?.toLocaleString()}</p>
                                         </Card.Text>
+                                        {!isAdmin.isInvestor&&<> 
                                         {item?.status?.toLowerCase() == "approved" && <Button className='button-secondary' onClick={() => deployDAO(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) && <span><Spinner size='sm' className='text-light mr-1' /></span>} Deploy</Button>}
-                                        {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed") && <Button className='button-secondary'>{item?.status}</Button>}
+                                        {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed") && <Button className='button-secondary' onClick={() => goToProposalList(item)}>{item?.status}</Button>}
+                                        </>}
+                                     { isAdmin.isInvestor && (item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed" || item?.status?.toLowerCase() == "approved" ) && <Button className='button-secondary' onClick={() => goToProposalList(item)}>{item?.status}</Button>}
                                     </Card.Body>
                                 </Card>}
                             </Col>

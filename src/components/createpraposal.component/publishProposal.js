@@ -61,15 +61,12 @@ const getInvestorDaosList = async () => {
 useEffect(() => {
   if (adminDetails?.isInvestor === true) {
       getInvestorDaosList();
-      return () => {
-          props.clearDaos();
-        };
   } else {
       getDaosList();
-      return () => {
-          props.clearDaos();
-        };
   }
+  return () => {
+    props.clearDaos();
+  };
 }, [])
   useEffect(() => {
     let localDate1 = new Date(proposalDetails?.startdate); 

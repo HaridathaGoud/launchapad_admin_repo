@@ -233,9 +233,12 @@ class IdoRequestGrid extends Component {
                 successMessage: `Project saved successfully`,
                 success: true
             });
+            this.gridRef.current.refreshGrid();
             setTimeout(() => {
                 this.setState({ success: data });
             }, 2000);
+        }else{
+            this.gridRef.current.refreshGrid();
         }
     }
     handleShow = () => {
@@ -263,7 +266,9 @@ class IdoRequestGrid extends Component {
             });
         }
     };
-
+    refreshGrid=()=>{
+        this.gridRef.current.refreshGrid();
+    }
     handleClose = () => {
         this.setState({
             show: false,
