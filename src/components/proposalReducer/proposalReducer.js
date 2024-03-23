@@ -106,42 +106,70 @@ const proposalViewData = (proposalId) => {
 
   }
 }
-const daoCards = (callback) => {
+const clearDaos = () => {
+  return (dispatch) => {
+    dispatch(setDaoCards({ loading: false, data: null, nextPage: 1 }))
+  }
+}
+const daoCards = (information) => {
+  const { take, page, data } = information;
+  const skip = take * (page) - take;
   return async (dispatch) => {
-    dispatch(setDaoCards({ key: 'daoCards', loading: true, data: {} }));
-    const res = await apiCalls.getDaoDetails(8, 0);
-    if (res) {
-      dispatch(setDaoCards({ key: 'daoCards', loading: false, data: res.data, error: null }));
-      callback ? callback(res.data) : "";
-
-    } else {
+    dispatch(setDaoCards({ key: 'daoCards', loading: true, data: data }));
+    try{
+      const res = await apiCalls.getDaoDetails(take, skip);
+      if (res.status === 200) {
+        dispatch(setDaoCards({ key: 'daoCards', loading: false, data: data ? [...data, ...res.data] : res.data, error: null, nextPage: page + 1 }));
+      } else {
+        dispatch(
+          setDaoCards({
+            key: 'daoCards',
+            loading: false,
+            data: data,
+            error: res,
+          }),
+        );
+      }
+    }catch(error){
       dispatch(
         setDaoCards({
           key: 'daoCards',
           loading: false,
-          data: {},
-          error: res,
+          data: data,
+          error: error,
         }),
       );
     }
+ 
   };
 }
 
-const InvestorDaoCards = (callback,inverstorId ) => {
+const InvestorDaoCards = (information, inverstorId) => {
+  const { take, page, data } = information;
+  const skip = take * (page) - take;
   return async (dispatch) => {
-    dispatch(setDaoCards({ key: 'daoCards', loading: true, data: {} }));
-    const res = await apiCalls.getInvestorDaoDetails(inverstorId,8, 0);
-    if (res) {
-      dispatch(setDaoCards({ key: 'daoCards', loading: false, data: res.data, error: null }));
-      callback ? callback(res.data) : "";
-
-    } else {
+    dispatch(setDaoCards({ key: 'daoCards', loading: true, data: data }));
+    try {
+      const res = await apiCalls.getInvestorDaoDetails(inverstorId, take, skip);
+      if (res.status === 200) {
+        dispatch(setDaoCards({ key: 'daoCards', loading: false, data: data ? [...data, ...res.data] : res.data, error: null, nextPage: page + 1 }));
+      } else {
+        dispatch(
+          setDaoCards({
+            key: 'daoCards',
+            loading: false,
+            data: data,
+            error: res,
+          }),
+        );
+      }
+    } catch (error) {
       dispatch(
         setDaoCards({
           key: 'daoCards',
           loading: false,
-          data: {},
-          error: res,
+          data: data,
+          error: error,
         }),
       );
     }
@@ -242,7 +270,7 @@ const proposalVotersData = (pageNo, pageSize,id,callback) => {
    }
 }
 let initialState = {
-  daoCards: {},
+  daoCards: { loading: true, data: null, nextPage: 1 },
   lookUp: {},
   contractDetails: {},
   proViewData: {},
@@ -267,10 +295,11 @@ const proposalReducer = (state, action) => {
   switch (action.type) {
     case DAO_CARDS:
       return {
-        ...state, [action?.payload.key]: {
-          data: action?.payload.data,
+        ...state, daoCards: {
+          data: action.payload.data,
           error: action.payload.error,
-          isLoading: action.payload.loading,
+          loading: action.payload.loading,
+          nextPage: action.payload.nextPage || state?.['daoCards'].nextPage
         },
       };
     case LOOKUP_CALL:
@@ -313,4 +342,4 @@ const proposalReducer = (state, action) => {
 
 
 export default proposalReducer;
-export { daoCards, setDaoCards,InvestorDaoCards, getLookUp, proposalViewData, contractDetailsData,getCardsProposalList,proposalData,getProposalViewData,fetchVotersData,proposalVotersData,saveProposalCall,isCheckSeeMore,proposalDetailsList };
+export { daoCards, setDaoCards,InvestorDaoCards,clearDaos, getLookUp, proposalViewData, contractDetailsData,getCardsProposalList,proposalData,getProposalViewData,fetchVotersData,proposalVotersData,saveProposalCall,isCheckSeeMore,proposalDetailsList };

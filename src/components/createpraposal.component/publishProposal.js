@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import { connect,useSelector } from "react-redux";
-import { contractDetailsData ,saveProposalCall} from '../proposalReducer/proposalReducer';
+import { contractDetailsData ,daoCards,clearDaos, InvestorDaoCards ,saveProposalCall} from '../proposalReducer/proposalReducer';
 import { useParams,useNavigate,Link} from 'react-router-dom';
 import shimmers from '../shimmers/shimmers';
 import PlaceHolder from '../shimmers/placeHolder';
@@ -21,7 +21,7 @@ import { waitForTransaction } from "wagmi/actions";
 import PropTypes from 'prop-types'
 
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
-
+const take=8;
 function PublishProposal(props) {
   const params = useParams()
   const { isConnected,address } = useAccount();
@@ -32,7 +32,7 @@ function PublishProposal(props) {
   const proposalDetails= useSelector((state) => state?.proposal?.proposalDetails)
   const getCustomerId = useSelector((state) => state?.oidc?.profile?.profile?.sub);
   const saveProposal = useSelector((state) => state?.proposal?.saveProposal)
-  const  DaoDetail = useSelector((state)=>state?.proposal?.daoCards.data)
+  const  DaoDetail =  useSelector((state) => state?.proposal?.daoCards?.data);
   const adminDetails = useSelector((state)=>state?.oidc?.adminDetails)
   const [errorMsg, setErrorMsg] = useState(null)
   const router = useNavigate();
@@ -43,6 +43,34 @@ function PublishProposal(props) {
  const [startDateEpoch,setStartDateEpoch] = useState()
  const [endDateEpoch,setEndDateEpoch] = useState()
  const [votingContractAddress,setVotingContractAddress] = useState();
+ const getDaosList = async () => {
+  await props.trackWallet({
+    page: DaoDetail?.nextPage || 1,
+    take: take,
+    data: DaoDetail?.data || null,
+  });
+};
+const getInvestorDaosList = async () => {
+  await props.trackDaoWallet({
+    page: DaoDetail?.nextPage || 1,
+    take: take,
+    data: DaoDetail?.data || null,
+  },adminDetails?.id);
+};
+
+useEffect(() => {
+  if (adminDetails?.isInvestor === true) {
+      getInvestorDaosList();
+      return () => {
+          props.clearDaos();
+        };
+  } else {
+      getDaosList();
+      return () => {
+          props.clearDaos();
+        };
+  }
+}, [])
   useEffect(() => {
     let localDate1 = new Date(proposalDetails?.startdate); 
     let utcDate = localDate1.toISOString();   
@@ -243,6 +271,9 @@ PublishProposal.propTypes = {
   proposal: PropTypes.string,
   contractDetails: PropTypes.isRequired,
   saveProposalData:PropTypes.isRequired,
+  trackWallet: PropTypes.isRequired,
+  trackDaoWallet: PropTypes.isRequired,
+  clearDaos:PropTypes.isRequired,
 }
 const connectStateToProps = ({ oidc, proposal }) => {
   return { oidc: oidc, proposal: proposal };
@@ -254,7 +285,16 @@ const connectDispatchToProps = (dispatch) => {
     },
     saveProposalData: (obj, callback) => {
       dispatch(saveProposalCall(obj, callback))
-    }
+    },
+    trackWallet: (information) => {
+      dispatch(daoCards(information));
+    },
+    trackDaoWallet: (information, inverstorId) => {
+      dispatch(InvestorDaoCards(information, inverstorId));
+    },
+    clearDaos: () => {
+      dispatch(clearDaos());
+    },
     
   }
 }

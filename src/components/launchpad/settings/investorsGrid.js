@@ -429,7 +429,7 @@ class InvestorsGrid extends Component {
                                                     isInvalid={!!this.state.errors.email}
                                                     required
                                                     placeholder="Email "
-                                                    maxLength={50}
+                                                    maxLength={30}
                                                     onBlur={(e) => {
                                                         this.setField(
                                                           "email",
@@ -451,7 +451,7 @@ class InvestorsGrid extends Component {
                                                         as="select"
                                                         type="select"
                                                         name="phoneNoCountryCode"
-                                                        className="code-width c-pointer zindex1"
+                                                        className="code-width c-pointer zindex1 bg-transparent"
                                                         aria-label="Default select example"
                                                         onChange={(e) => { this.setField('phoneNoCountryCode', e.currentTarget.value) }}
                                                         value={this.state.form?.phoneNoCountryCode}

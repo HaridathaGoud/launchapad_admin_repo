@@ -222,7 +222,7 @@ td {
 /* settings modal end  */
 .header-profile-size{border: 1px solid #fff;width: 35px !important;height: 35px !important;border-radius: 50%;}
 .mobile-noinput .form-number{flex: 1 !important;}
-.mobile-noinput .code-width{max-width: 110px !important;background-color: #2f2d2d !important;}
+.mobile-noinput .code-width{max-width: 110px !important;}
 .input-style .floatingInput-number{position: absolute !important;left: 4px !important;top: -12px !important;color: #000 !important;font-size: 14px !important;font-weight: 400 !important;background-color: #fff !important;z-index: 1 !important;display: inline-block !important;padding: 0 4px !important;}
 .mobile-noinput .input-group > .form-control:focus{z-index: 0 !important;}
 ::-webkit-calendar-picker-indicator { filter: invert(1);color: #fff;}
@@ -836,7 +836,7 @@ input[type="datetime-local"],input[type="date"] {
 .input-group > .code-width.form-control:focus, .was-validated .input-group > .code-width.form-control:not(:focus):valid, .country-code-style.input-group >  .form-control:focus{z-index: 0;}
 html:not([dir=rtl]) .country-code-style.input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating){border-bottom-right-radius:28px;border-top-right-radius:28px;}
 .was-validated .change-password .form-control:invalid,.was-validated .change-password .form-control:valid{background-image: none !important;background: none;}
-.loader{position: absolute;top: 0; right: 0; bottom: 0; left: 0;z-index: 9;display: flex; align-items: center;background-color: #070d14;justify-content: center;}
+.loader{position: absolute;top: 0; right: 0; bottom: 0; left: 0;z-index: 9;display: flex; align-items: center;background-color: #fff;justify-content: center;}
 .kyc-badge{background: rgb(36 45 56) !important;
   border-radius: 5px !important;color: #fff !important;font-weight: 600 !important;display: inline-block !important;padding: 2px 6px !important;
   font-size: 12px;}
