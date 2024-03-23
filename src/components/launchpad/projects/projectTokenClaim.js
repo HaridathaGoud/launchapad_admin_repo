@@ -55,6 +55,8 @@ const ProjectsTokenClaim = (props) => {
   const investorsDetails = useSelector((reducerstate) => reducerstate.projectDetails)
   const isProjectCardsId = useSelector(reducerstate => reducerstate.oidc?.isProjectCardsId)
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails);
+  const projectSaveDetails = useSelector(reducerstate => reducerstate.launchpad?.projectSaveDetails);
+
 
   useEffect(() => {
     getClaimsandAllocations();
@@ -365,7 +367,6 @@ const timeDate=(timeString)=>{
   }
  
 
-
   return (
     <>
       {!state.claimloader && <div>
@@ -388,6 +389,7 @@ const timeDate=(timeString)=>{
                 <CBreadcrumbItem>
                   <CLink href="#" onClick={() => navigate(`/launchpad/investors/projects/${isProjectCardsId}`)}>Projects</CLink>
                 </CBreadcrumbItem>}
+                <CBreadcrumbItem >{projectSaveDetails?.projectName}</CBreadcrumbItem>
               <CBreadcrumbItem active>Token Claim</CBreadcrumbItem>
             </CBreadcrumb>}
 
@@ -397,6 +399,7 @@ const timeDate=(timeString)=>{
                  
                   <CLink href="#" onClick={() => idoRequestBredCrumd()}>{"IDO Request"}</CLink>
                 </CBreadcrumbItem>
+                <CBreadcrumbItem >{projectSaveDetails.projectName}</CBreadcrumbItem>
                 <CBreadcrumbItem active>{"View"}</CBreadcrumbItem>
               </CBreadcrumb>}
 
@@ -405,6 +408,7 @@ const timeDate=(timeString)=>{
               <CBreadcrumbItem>
                 <CLink href="#" onClick={() => navigate(`/launchpad/projects/${isAdmin?.id}`)}>Projects</CLink>
               </CBreadcrumbItem>
+              <CBreadcrumbItem >{projectSaveDetails?.projectName}</CBreadcrumbItem>
               <CBreadcrumbItem active>Token Claim</CBreadcrumbItem>
             </CBreadcrumb>}
 

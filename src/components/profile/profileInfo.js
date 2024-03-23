@@ -110,6 +110,7 @@ const handleTabChange = (tab) => {
           <CLink href="#" onClick={() => navigate('/launchpad/customers')}>Customers</CLink>:<CLink href="#" onClick={() => navigate('/kyc/customers')}>Customers</CLink>}
           </CBreadcrumbItem>
           <CBreadcrumbItem>Personal info</CBreadcrumbItem>
+          <CBreadcrumbItem>{userDetails?.firstName ? userDetails?.firstName : "unnamed"}</CBreadcrumbItem>
         </CBreadcrumb>
        
         {errorMessage && (

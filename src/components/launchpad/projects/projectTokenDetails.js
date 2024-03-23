@@ -198,7 +198,6 @@ const ProjectTokenDetails = (props) => {
       event.preventDefault();
     }
   };
-
   return (<>
     {state.tokenloader&&<div className="text-center"><Spinner ></Spinner></div>}
     {!state.projectsPoolsStaking && !state.tokenloader&&
@@ -224,15 +223,17 @@ const ProjectTokenDetails = (props) => {
             <CBreadcrumbItem>
               <CLink href="#" onClick={() =>  navigate(`/launchpad/investors/projects/${isProjectCardsId}`) }>Projects</CLink>
             </CBreadcrumbItem>}
+            <CBreadcrumbItem >{projectSaveDetails?.projectName}</CBreadcrumbItem>
           <CBreadcrumbItem active>Payment method</CBreadcrumbItem>
         </CBreadcrumb>}
-
+          
         { isAdmin?.isAdmin&& window.location.pathname.includes('idorequest')&&
         <CBreadcrumb>
            <CBreadcrumbItem>
           
            <CLink href="#" onClick={() => idoRequestBredCrumd()}>{"IDO Request"}</CLink>
          </CBreadcrumbItem>
+         <CBreadcrumbItem >{projectSaveDetails?.projectName}</CBreadcrumbItem>
          <CBreadcrumbItem active>{"View"}</CBreadcrumbItem>
          </CBreadcrumb>}
 
@@ -242,6 +243,7 @@ const ProjectTokenDetails = (props) => {
         <CBreadcrumbItem>
         <CLink href="#" onClick={() => navigate(`/launchpad/projects/${isAdmin?.id}` )}>Projects</CLink>
           </CBreadcrumbItem>
+          <CBreadcrumbItem >{projectSaveDetails?.projectName}</CBreadcrumbItem>
           <CBreadcrumbItem active>Payment method</CBreadcrumbItem>
       </CBreadcrumb>
       } 
@@ -361,7 +363,9 @@ const ProjectTokenDetails = (props) => {
       </Form>
     </div>}
      
-     {state.projectsPoolsStaking && <ProjectsTokenClaim closeProject={props.closeProject} goBackToPoolsStaking={goBackToTokenDetails} saveTiersDetails={state.saveTiersDetails} stakingDetails={state.stakingDetails} projectId={state.projetTokenData} projectInfo={props?.projectDetails?.projectsViewModel} />}  
+     {state.projectsPoolsStaking && <ProjectsTokenClaim closeProject={props.closeProject} goBackToPoolsStaking={goBackToTokenDetails} 
+     saveTiersDetails={state.saveTiersDetails} stakingDetails={state.stakingDetails} projectId={state.projetTokenData} 
+     projectInfo={props?.projectDetails?.projectsViewModel} />}  
      </>)
    
 }

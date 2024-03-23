@@ -638,7 +638,8 @@ const Projects = (props) => {
                   <CBreadcrumbItem>
                     <CLink href="#" onClick={() => navigate(mode === "projectsDetails" ? `/launchpad/investors/projects/${isProjectCardsId}` : `/launchpad/idorequest`)}>{mode === "projectsDetails" && "Projects"}</CLink>
                   </CBreadcrumbItem>}
-                <CBreadcrumbItem active>{projectId === "00000000-0000-0000-0000-000000000000" ? "Add Project" : "View"}</CBreadcrumbItem>
+                  <CBreadcrumbItem >{projectId === "00000000-0000-0000-0000-000000000000" ? "Add Project" :`${state.projectSaveDetails?.projectName}`}</CBreadcrumbItem>
+                  {projectId !== "00000000-0000-0000-0000-000000000000" && <CBreadcrumbItem > {"View"}</CBreadcrumbItem>}
               </CBreadcrumb>}
 
             {isAdmin?.isAdmin && window.location.pathname.includes('idorequest') &&
@@ -646,6 +647,7 @@ const Projects = (props) => {
                 <CBreadcrumbItem>
                   <CLink href="#" onClick={() => idoRequestBredCrumd()}>{"IDO Request"}</CLink>
                 </CBreadcrumbItem>
+                <CBreadcrumbItem >{state.projectSaveDetails?.projectName}</CBreadcrumbItem>
                 <CBreadcrumbItem active>{"View"}</CBreadcrumbItem>
               </CBreadcrumb>}
 
@@ -655,7 +657,8 @@ const Projects = (props) => {
               <CBreadcrumbItem>
                 <CLink href="#" onClick={() => navigate(`/launchpad/projects/${isAdmin?.id}`)}>Projects</CLink>
               </CBreadcrumbItem>
-              <CBreadcrumbItem active>{projectId === "00000000-0000-0000-0000-000000000000" ? "Add Project" : "View"}</CBreadcrumbItem>
+              <CBreadcrumbItem >{projectId === "00000000-0000-0000-0000-000000000000" ? "Add Project" :`${state.projectSaveDetails?.projectName}`}</CBreadcrumbItem>
+              {projectId !== "00000000-0000-0000-0000-000000000000" && <CBreadcrumbItem > View</CBreadcrumbItem>}
             </CBreadcrumb>}
 
             {imageError && (
