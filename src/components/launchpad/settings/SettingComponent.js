@@ -53,7 +53,7 @@ const SettingsComponent = (props) => {
   }
 
   const convertdateToMinutes = (date) => {
-    return new Date(date).getTime();
+    return Math.floor(new Date(date).getTime() / 1000)
   }
 
 
@@ -65,7 +65,7 @@ const SettingsComponent = (props) => {
     setTransactionSuccess(false);
     setBtnLoader(true)
     const form = document.forms["settingsForm"];
-    const currentDatetime = new Date().getTime();
+    const currentDatetime = Math.floor(new Date().getTime() / 1000);
     if(settingValue){
       store.dispatch(fcfsStartTime(settingValue));
       const fcfsStartDateTime = convertdateToMinutes(moment(settingsFcfsStartTime).format("YYYY-MM-DDTHH:mm"));
@@ -115,7 +115,7 @@ const SettingsComponent = (props) => {
           }
           
         }else{
-          let timeData = convertdateToMinutes(moment(settingValue).format("YYYY-MM-DDTHH:mm"));
+          let timeData = convertdateToMinutes(moment(settingValue).format("YYYY-MM-DDTHH:mm:ss"));
           const provider = new ethers.providers.Web3Provider(window?.ethereum)
           const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
           const res = await factory[props.funcName](timeData/1000);

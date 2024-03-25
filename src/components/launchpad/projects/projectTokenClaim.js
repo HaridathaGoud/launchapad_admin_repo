@@ -14,6 +14,8 @@ import ToasterMessage from "src/utils/toasterMessages";
 import store from 'src/store/index';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import { projectedSaved } from "src/components/launchpad/launchpadReducer/launchpadReducer"
+import { NumericFormat } from 'react-number-format';
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMsg":
@@ -78,10 +80,8 @@ const ProjectsTokenClaim = (props) => {
 
   };
 
-  const handleChange = (field, event) => {
-    let _data = { ...state.claimDetails };
-    _data[event.target.name] = event.target.value;
-    dispatch({ type: 'claimDetails', payload: _data })
+  const handleChange = (field, value) => {
+    dispatch({ type: 'claimDetails', payload:{ ...state.claimDetails,[field]: value }  })
     if (formErrors[field]) {
       setFormErrors({ ...formErrors, [field]: null })
     }
@@ -374,19 +374,21 @@ const time=(timeString)=>{
                   label="Claim Slots*"
                   className=""
                 >Claim Slots<span className="text-danger">*</span></Form.Label>
-                <Form.Control value={state.claimDetails?.noofSlots} name='noofSlots'
-                  onKeyPress={(event) => {
-                    const allowedKeys = /[0-9]/;
-                    if (!allowedKeys.test(event.key)) {
-                      event.preventDefault();
-                    }
-                  }}
-                  isInvalid={!!formErrors.noofSlots}
-                  type="text" placeholder="No of Slots" onChange={(e) => handleChange("noofSlots", e)} required
-                  disabled={
-                    (props?.projectInfo?.projectStatus == "Deployed" ||
-                      props?.projectInfo?.projectStatus == "Rejected" ||
-                      props?.projectInfo?.projectStatus == "Approved") }
+                <NumericFormat
+                  value={state.claimDetails?.noofSlots}
+                  name='noofSlots'
+                  allowNegative={false}
+                  className='form-control'
+                  thousandSeparator={true}
+                  placeholder="No of Slots"
+                  onChange={(e) => handleChange('noofSlots', e.currentTarget.value)}
+                  onBlur={(e) => handleChange('privateTokenEquivalentToPaymentType', e.target.value.trim().replace(/\s+/g, " "))}
+                  required
+                  isInvalid={!!formErrors?.noofSlots}
+                  disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                    || state.projectSaveDetails?.projectStatus == "Rejected"
+                    || state.projectSaveDetails?.projectStatus == "Approved"
+                  )}
                 />
                 <Form.Control.Feedback type="invalid">{formErrors?.noofSlots || state.errors.noofSlots}</Form.Control.Feedback>
 
@@ -397,20 +399,22 @@ const time=(timeString)=>{
                   controlId="floatingInput"
                   label="Claim Vesting Time*"
                   className=""
-                >Claim Vesting Time<span className="text-danger">*</span></Form.Label>
-                <Form.Control value={state.claimDetails?.vestingDays} name='vestingDays' type="text"
-                  onKeyPress={(event) => {
-                    const allowedKeys = /[0-9]/;
-                    if (!allowedKeys.test(event.key)) {
-                      event.preventDefault();
-                    }
-                  }}
-                  isInvalid={!!formErrors.vestingDays}
-                  placeholder="Claim Vesting Time" onChange={(e) => handleChange("vestingDays", e)} required
-                  disabled={
-                    (props?.projectInfo?.projectStatus == "Deployed" ||
-                      props?.projectInfo?.projectStatus == "Rejected" ||
-                      props?.projectInfo?.projectStatus == "Approved")}
+                >Claim Vesting Time (days)<span className="text-danger">*</span></Form.Label>
+                 <NumericFormat
+                  value={state.claimDetails?.vestingDays}
+                  name='vestingDays'
+                  allowNegative={false}
+                  className='form-control'
+                  thousandSeparator={true}
+                  placeholder="No of Slots"
+                  onChange={(e) => handleChange('vestingDays', e.currentTarget.value)}
+                  onBlur={(e) => handleChange('vestingDays', e.target.value.trim().replace(/\s+/g, " "))}
+                  required
+                  isInvalid={!!formErrors?.vestingDays}
+                  disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                    || state.projectSaveDetails?.projectStatus == "Rejected"
+                    || state.projectSaveDetails?.projectStatus == "Approved"
+                  )}
                 />
                 <Form.Control.Feedback type="invalid">{formErrors.vestingDays || state.errors.vestingDays}</Form.Control.Feedback>
 
@@ -428,7 +432,7 @@ const time=(timeString)=>{
                     id="meeting-time"
                     name="privateStartDate"
                     value={state.claimDetails?.privateStartDate}
-                    onChange={(e) => handleChange("privateStartDate", e)}
+                    onChange={(e)=>handleChange('privateStartDate',e.currentTarget.value)}
                     min={currentDate}
                     max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                     isInvalid={!!formErrors.privateStartDate}
@@ -452,7 +456,7 @@ const time=(timeString)=>{
                     id="meeting-time"
                     name="privateEndDate"
                     value={state.claimDetails?.privateEndDate}
-                    onChange={(e) => handleChange("privateEndDate", e)}
+                    onChange={(e) => handleChange("privateEndDate", e.currentTarget.value)}
                     min={currentDate}
                     max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                     isInvalid={!!formErrors.privateEndDate}
@@ -476,7 +480,7 @@ const time=(timeString)=>{
                     id="meeting-time"
                     name="publicStartDate"
                     value={state.claimDetails?.publicStartDate}
-                    onChange={(e) => handleChange("publicStartDate", e)}
+                    onChange={(e) => handleChange("publicStartDate", e.currentTarget.value)}
                     min={currentDate}
                     max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                     isInvalid={!!formErrors.publicStartDate}
@@ -503,7 +507,7 @@ const time=(timeString)=>{
                     id="meeting-time"
                     name="publicEndDate"
                     value={state.claimDetails?.publicEndDate}
-                    onChange={(e) => handleChange("publicEndDate", e)}
+                    onChange={(e) => handleChange("publicEndDate", e.currentTarget.value)}
                     min={currentDate}
                     max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                     isInvalid={!!formErrors.publicEndDate}
