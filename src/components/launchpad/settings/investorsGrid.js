@@ -275,7 +275,6 @@ class InvestorsGrid extends Component {
         const { searchObj, gridUrl } = this.state;
         return (
             <>
-             
                 <div className='custom-flex pb-4 pt-2 justify-content-between'>
                     <Form className="d-flex grid-search">
                         <Form.Control
