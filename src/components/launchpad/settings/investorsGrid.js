@@ -159,7 +159,8 @@ class InvestorsGrid extends Component {
         errors: {
             ...prevState.errors,
             [field]: null
-        }
+        },
+        errorMessageProfile:null,
     }));
 };
 
@@ -200,11 +201,11 @@ class InvestorsGrid extends Component {
         if (!phoneNo || phoneNo === '') {
             newErrors.phoneNo = "Is required";
         }
-        else if (!validateContentRules("", phoneNo)) {
+        else if (!validateContentRules("", phoneNo)|| phoneNo?.match(specialCharsOnly) ) {
             newErrors.phoneNo = "Invalid phone number";
         }
         if ((!phoneNoCountryCode || phoneNoCountryCode === " ") ||phoneNoCountryCode ==="Select" || phoneNoCountryCode===undefined) {
-            newErrors.phoneNo = "Invalid phone code";
+            newErrors.phoneNo = "Is required";
         }
         if (!country || country === "Select Country") {
             newErrors.country = "Is required";

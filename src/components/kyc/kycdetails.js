@@ -55,6 +55,7 @@ const KycDetails = (props) => {
     'RESIDENCE_PERMIT': 'Residence Permit',
   };
   return (<>
+  <h1 className='main-title mb-3 mt-4'>Kyc Detail's</h1>
     {(props?.userDetailsId?.kycStatus?.toLowerCase() === "completed" 
     || props?.userDetailsId?.kycStatus?.toLowerCase() === "pending" 
     || props?.userDetailsId?.kycStatus?.toLowerCase() === "rejected") ? <>
@@ -169,10 +170,12 @@ const KycDetails = (props) => {
                                             </div>
                                           </div>))}
                                       </div>
-      </> : <div className="nodata-text db-no-data">
+      </> :
+       <div className="nodata-text db-no-data">
         <Image src={nodata} className="text-center mt-4" alt=""></Image>
         <h3 className="text-center nodata">No data found</h3>
-      </div>}
+      </div>
+      }
 
     </>
       :

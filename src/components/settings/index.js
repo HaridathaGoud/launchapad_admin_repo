@@ -25,6 +25,7 @@ const Settings = () => {
   const [confirmPasswordType, setConfirmPasswordType] = useState("password");
   const userProfile = useSelector(state => state.oidc?.profile?.profile)
   const [adminDetails, setAdminDetails] = useState()
+  const [pageLoader,setPageLoader]=useState(false);
 
   useEffect(() => {
     getAdminDetails(userProfile?.sub)
@@ -119,11 +120,14 @@ const Settings = () => {
     return newErrors;
   }
   const getAdminDetails = async (id) => {
+    setPageLoader(true);
     const response = await apiCalls.fetchAdminDetails(id);
     if (response.ok) {
       setAdminDetails(response.data)
+      setPageLoader(false);
     } else {
       setErrors(apiCalls.isErrorDispaly(response))
+      setPageLoader(false);
     }
   }
 
@@ -167,6 +171,8 @@ const Settings = () => {
 
   return (
     <div className=''>
+    {pageLoader && <div className="text-center"><Spinner ></Spinner></div>}
+    {!pageLoader &&
       <div className='profile-container'>
 
         <h5 className="page-title mb-3 mt-3">Settings</h5>
@@ -285,7 +291,7 @@ const Settings = () => {
           <ToasterMessage isShowToaster={success} success={success}></ToasterMessage>
         </div>
         </>}
-      </div>
+      </div>}
     </div>
   );
 }

@@ -204,6 +204,7 @@ const UserProfile = (props) => {
       })
       .catch((error) => {
         setErrorMessage(apiCalls.uploadErrorDisplay(error?.response?.data));
+        setPicLoader(false);
       });
   };
 
@@ -242,15 +243,15 @@ const UserProfile = (props) => {
                   <Form.Group>
                     <div className='profile-size identification-image  no-hover' >
                       <span className='image-box'>
-                      {picLoader && <Spinner size="sm" />}
                         <img className='image-setup'
                         src={profile?.profilePicUrl || adminDetails?.profilePicUrl || profileavathar} alt="profile img" 
                         />
                       </span>
                       <span>
+                      {picLoader && <Spinner size="md" className="text-light position-absolute" />}
                         <input ref={inputRef} type="file" name="myImage" id="input-file" onChange={uploadToClient} className="d-none"/>
-                        <Button onClick={handleUpload} className="icon camera cam-position upload-transparent">
-                        </Button>
+                        {!picLoader && <Button onClick={handleUpload} className="icon camera cam-position upload-transparent">
+                        </Button>}
                     </span>
                     </div>
                   </Form.Group>
