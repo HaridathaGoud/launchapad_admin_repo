@@ -62,27 +62,25 @@ const UserProfile = (props) => {
     }
   }
   const getAdminDetails = async () => {
+    setLoader(true);
     const response = await apiCalls.fetchAdminDetails(params.id||props.profileData?.profile?.sub);
     if (response.ok) {
       if (response.data) {
         setDetailsData(response.data)
         getAdminProfile(response.data.id)
-
+        setLoader(false);
       }
     }
   }
 
   const getAdminProfile = async (id) => {
-    setLoader(true);
     let response = await apiCalls.adminProfile(id)
     if (response.ok) {
       setAdminDetails(response.data);
       setForm(response.data);
-      setLoader(false);
     }
     else {
       setErrorMessage(apiCalls.isErrorDispaly(response));
-      setLoader(false);
     }
   }
 
