@@ -232,7 +232,7 @@ function AppHeader(props){
             </NavDropdown> </>)}</div> : ""}
       </CSidebar> : <CSidebar className='bg-none menu-left superadmin-leftmenu '></CSidebar>}
       
-      <CHeaderToggler className='mb-show icon toggole-icon d-md-none' onClick={() => setOpen(!open)}
+     <div> <CHeaderToggler className='mb-show icon toggole-icon d-md-none' onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
         aria-expanded={open} />
         <Image width={25} className='mobile-nav' src={navBrand} alt="" onClick={() => {
@@ -240,7 +240,7 @@ function AppHeader(props){
             // navigate('/kyc/customers');
             onAppSelect("launchpad");
             navigate('/launchpad/dashboard');
-          }} />
+          }} /></div>
       <CHeaderNav className="ms-3 align-items-center">
         <ul className='header-menu'>
         {/* {props?.oidc?.adminDetails?.isInvestor == false  &&
@@ -382,7 +382,7 @@ function AppHeader(props){
                       <> <OverlayTrigger
                         placement="right"
                         overlay={renderTooltipIdoRequest} >
-                        <CNavLink onClick={() => navigate('launchpad/idorequest')}><span className="icon ido-request me-0" /><span className=' mx-1'>IDO-request</span></CNavLink>
+                        <CNavLink onClick={() => navigate('launchpad/idorequest')}><span className="icon ido-request me-0" /><span className=' mx-1'>IDO Request</span></CNavLink>
                       </OverlayTrigger>
                       </>
                     </CNavItem>

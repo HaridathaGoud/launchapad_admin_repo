@@ -544,6 +544,7 @@ button:disabled{background-color: #d0d0d0 !important;color: #000 !important;bord
 .bg-dashboard{background: url(../images/bg-dashboard.png) no-repeat; background-size: cover;height: 100vh;}
 .db-content{color: #666;}
 input::placeholder{font-size: 14px;}
+.k-grid-norecords td{text-align: center !important;}
 @media (min-width: 768px) {
   .profile-size{ width: 106px;}
   .profile-size, .customer-pfview{width: 258px;}
@@ -714,6 +715,10 @@ html:not([dir=rtl]) .sidebar.hide:not(.sidebar-end){margin-left: 0;}
 /* select[disabled]{cursor: not-allowed;} */
 select[type='select']:disabled{cursor: not-allowed;}
 @media (max-width: 767.98px) {
+  .k-pager-wrap .k-pager-numbers.k-reset li:not(:first-child) { display: none;}
+.k-pager-sizes.k-label { margin-left:5px}
+.k-pager-wrap.k-pager { font-size: 10px;}
+  .mobile-nav{margin-left: 20px;}
   .cust-dropdown.me-0 .dropdown-toggle{display: flex;justify-content: space-between;align-items: center;}
   .dao-shimmer{width: 100%;}
   .settings-popover{left: -100px !important;}

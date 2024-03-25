@@ -222,6 +222,7 @@ const UserProfile = (props) => {
   }
 
   return (
+   <>
     <div className='container'>
       <div className='profile-container'>
         {errorMessage && (
@@ -470,12 +471,13 @@ const UserProfile = (props) => {
             </Row>
           </div>
         )}
-          {success && <><div className="text-center toster-placement">
-             <ToasterMessage isShowToaster={success} success={success}></ToasterMessage>
-           </div>
-           </>}
+         
       </div>
     </div>
+     {success && <>
+     <ToasterMessage isShowToaster={success} success={success}></ToasterMessage>
+     </>}
+   </>
   );
 }
 
