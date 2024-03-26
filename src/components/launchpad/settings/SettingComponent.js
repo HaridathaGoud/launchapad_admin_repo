@@ -53,7 +53,7 @@ const SettingsComponent = (props) => {
   }
 
   const convertdateToMinutes = (date) => {
-    return Math.floor(new Date(date).getTime() / 1000)
+    return Math.floor(moment.utc(date).valueOf() / 1000);
   }
 
 
