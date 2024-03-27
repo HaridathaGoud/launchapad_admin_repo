@@ -22,7 +22,7 @@ import { projectDetailsSave, projectePayment, viewedProjects } from "src/compone
 import ToasterMessage from "src/utils/toasterMessages";
 import { useConnectWallet } from '../../../hooks/useConnectWallet';
 import { useAccount } from 'wagmi'
-
+import shimmers from 'src/components/shimmers/shimmers';
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMgs":
@@ -344,8 +344,7 @@ const ProjectCards = () => {
 
   return (
     <div>
-        {state.loader && <div className="text-center"><Spinner ></Spinner></div>}
-        {!state.loader && <div className='Container'>
+         <div className='Container'>
         <div className=''>
             <h2 className='page-title'>{window.location.pathname.includes('/investors') ? "Projects" : "My Projects"}</h2>
 
@@ -363,7 +362,7 @@ const ProjectCards = () => {
             </CBreadcrumbItem>
             {selectedProject?.name &&<CBreadcrumbItem active>{selectedProject.name? selectedProject?.name:''}</CBreadcrumbItem>}
           </CBreadcrumb>}
-
+         
           {state.errorMgs && (
             <Alert variant="danger">
               <div className='d-flex align-items-center'>
@@ -388,8 +387,12 @@ const ProjectCards = () => {
               <Button className='button-style mt-3 mt-md-0' onClick={redirectToProject}><span className='icon add-icon'></span> Add Project</Button>
             </div>
           </div>
-          <div className="text-center">{state.loader && <Spinner></Spinner>}</div>
 
+          {state.loader &&
+                 <div className='mt-4 mb-4'>
+                    <shimmers.DaoCardShimmer count={8} />
+                    </div>
+                }
           {!state.loader && <>
             <Row className='mt-4 mb-4'>
               {state.ownerProjects?.length === 0 &&
@@ -590,7 +593,7 @@ const ProjectCards = () => {
               </Button></div>
             </Modal.Footer>
           </Modal>
-        </div>}
+        </div>
         {success &&<div className="text-center toster-placement toaster-cust">
           <ToasterMessage isShowToaster={success} success={success}></ToasterMessage>
         </div>

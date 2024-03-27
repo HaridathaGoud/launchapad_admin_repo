@@ -216,7 +216,7 @@ const Projects = (props) => {
     if (!projectName || projectName === '') {
       newErrors.projectName = 'Is required';
     } else if (!validateContentRules('', projectName) || projectName?.match(numbersOnly) || projectName?.match(specialCharsOnly)) {
-      newErrors.projectName = 'Please provide valid content.';
+      newErrors.projectName = 'Accepts alphanumeric and special chars.';
     }
 
     if (!countryRestrictions || countryRestrictions === '' || countryRestrictions?.length == 0) {
@@ -243,32 +243,32 @@ const Projects = (props) => {
     if (!description || description == '') {
       newErrors.description = 'Is required';
     }else if (!validateContentRules('', description)|| description?.match(specialCharsOnly) || description?.match(numbersOnly) ) {
-      newErrors.description = 'Please provide valid content.';
+      newErrors.description = 'Accepts alphanumeric and special chars.';
     }
     if (!contractAddress || contractAddress == '') {
       newErrors.contractAddress = 'Is required';
     } else if (!validateContentRules("", contractAddress) || (emojiRejex.test(contractAddress))|| contractAddress?.match(specialCharsOnly) || contractAddress?.match(numbersOnly) ) {
-      newErrors.contractAddress = 'Please provide valid content.';
+      newErrors.contractAddress = 'Accepts alphanumeric and special chars.';
     }
     if (!tokenName || tokenName == '') {
       newErrors.tokenName = 'Is required';
     } else if (!validateContentRules("", tokenName) || (emojiRejex.test(tokenName))|| tokenName?.match(specialCharsOnly) || tokenName?.match(numbersOnly) ) {
-      newErrors.tokenName = 'Please provide valid content.';
+      newErrors.tokenName = 'Accepts alphanumeric and special chars.';
     }
     if (!tokenSymbol || tokenSymbol == '') {
       newErrors.tokenSymbol = 'Is required';
     } else if (!validateContentRules("", tokenSymbol) || (emojiRejex.test(tokenSymbol))|| tokenSymbol?.match(specialCharsOnly) || tokenSymbol?.match(numbersOnly) ) {
-      newErrors.tokenSymbol = 'Please provide valid content.';
+      newErrors.tokenSymbol = 'Accepts alphanumeric and special chars.';
     }
     if (!tokenDecimal || tokenDecimal == '') {
       newErrors.tokenDecimal = 'Is required';
     } else if (tokenDecimal && (emojiRejex.test(tokenDecimal))) {
-      newErrors.tokenDecimal = 'Please provide valid content.';
+      newErrors.tokenDecimal = 'Accepts alphanumeric and special chars.';
     }
     if (!totalNumberOfTokens || totalNumberOfTokens == '') {
       newErrors.totalNumberOfTokens = 'Is required';
     } else if (totalNumberOfTokens && (emojiRejex.test(totalNumberOfTokens))) {
-      newErrors.totalNumberOfTokens = 'Please provide valid content.';
+      newErrors.totalNumberOfTokens = 'Accepts alphanumeric and special chars.';
     }
 
     return newErrors;
@@ -548,25 +548,25 @@ const Projects = (props) => {
     if (!validatingForm?.name || validatingForm?.name === '') {
       newErrors.name = 'Is required';
     } else if (!validateContentRules('', validatingForm?.name)  || validatingForm?.name?.match(numbersOnly) || validatingForm?.name?.match(specialCharsOnly)) {
-      newErrors.name = 'Please provide valid content for the name.';
+      newErrors.name = 'Accepts alphanumeric and special chars.';
     }
     if (!validatingForm?.role || validatingForm?.role === '') {
       newErrors.role = 'Is required';
     }
     if (!validateContentRules('', validatingForm?.bio)  || validatingForm?.bio?.match(numbersOnly) || validatingForm?.bio?.match(specialCharsOnly)) {
-      newErrors.bio = 'Please provide valid content for the bio.';
+      newErrors.bio = 'Accepts alphanumeric and special chars.';
     }
     if (validatingForm?.webisite && (emojiRegex.test(validatingForm?.webisite) || !urlRegex.test(validatingForm?.webisite))) {
-      newErrors.webisite ='Please provide valid content for the Website';
+      newErrors.webisite ='Accepts alphanumeric and special chars.';
     }
     if (validatingForm?.facebook && (emojiRegex.test(validatingForm?.facebook) || !urlRegex.test(validatingForm?.facebook))) {
-      newErrors.facebook ='Please provide valid content for the Website';
+      newErrors.facebook ='Accepts alphanumeric and special chars.';
     }
     if (validatingForm?.instagram && (emojiRegex.test(validatingForm?.instagram) || !urlRegex.test(validatingForm?.instagram))) {
-      newErrors.instagram ='Please provide valid content for the Website';
+      newErrors.instagram ='Accepts alphanumeric and special chars.';
     }
     if (validatingForm?.facebook && !urlRegex.test(validatingForm?.facebook)) {
-      newErrors.facebook = 'Please provide a valid Facebook URL';
+      newErrors.facebook = 'Accepts alphanumeric and special chars.';
     }
     return newErrors;
   }

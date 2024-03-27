@@ -145,20 +145,17 @@ const handleTabChange = (tab) => {
            
              
             <div className="value-card col-md-3"><span className="icon discord"></span><label className="text-medium text-secondary ms-1">{userDetails.discordId?userDetails.discordId:"-"}</label></div>
-            <div className="d-flex align-items-center value-card col-md-3">                  
+            {/* <div className="d-flex align-items-center value-card col-md-3">                  
                     <span className="icon small-referral"></span>                  
-                    <span className="text-medium text-secondary ms-1">{userDetails?.referralCode || "--"}
-                  
-                    </span>
-                  </div>
+                    <span className="text-medium text-secondary ms-1">{userDetails?.referralCode || "--"}</span>
+                  </div> */}
                   <div className="d-flex align-items-center value-card col-md-3">                  
                   <span className="icon small-referral"></span>                   
                     <span className="text-medium text-secondary ms-1">{userDetails?.customerReferralCode || "--"}
                    {userDetails?.customerReferralCode && ( <CopyToClipboard 
                       text={userDetails.customerReferralCode } 
                       options={{ format: 'text/plain' }}
-						        	onCopy={() => handleCopy(userDetails.customerReferralCode)}
-              >
+						        	onCopy={() => handleCopy(userDetails.customerReferralCode)}>
 							<span className={(copied && selection === userDetails.customerReferralCode) ? "icon copied-check ms-2" : "icon copy c-pointer"}></span>
 						</CopyToClipboard> )}
                     </span>

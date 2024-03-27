@@ -524,7 +524,7 @@ import PropTypes from 'prop-types'
 const IDORequest=()=>{
  
   return(<>
-    <h3 className='page-title mb-3'>IdoRequests</h3>
+    <h3 className='page-title mb-3'>IDO Request</h3>
     <CBreadcrumb>
       <CBreadcrumbItem>
         Launchpad

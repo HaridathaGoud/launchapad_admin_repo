@@ -385,9 +385,9 @@ const time=(timeString)=>{
                   onBlur={(e) => handleChange('privateTokenEquivalentToPaymentType', e.target.value.trim().replace(/\s+/g, " "))}
                   required
                   isInvalid={!!formErrors?.noofSlots}
-                  disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                    || state.projectSaveDetails?.projectStatus == "Rejected"
-                    || state.projectSaveDetails?.projectStatus == "Approved"
+                  disabled={(projectSaveDetails?.projectStatus == "Deployed"
+                    || projectSaveDetails?.projectStatus == "Rejected"
+                    || projectSaveDetails?.projectStatus == "Approved"
                   )}
                 />
                 <Form.Control.Feedback type="invalid">{formErrors?.noofSlots || state.errors.noofSlots}</Form.Control.Feedback>
@@ -411,9 +411,9 @@ const time=(timeString)=>{
                   onBlur={(e) => handleChange('vestingDays', e.target.value.trim().replace(/\s+/g, " "))}
                   required
                   isInvalid={!!formErrors?.vestingDays}
-                  disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                    || state.projectSaveDetails?.projectStatus == "Rejected"
-                    || state.projectSaveDetails?.projectStatus == "Approved"
+                  disabled={(projectSaveDetails?.projectStatus == "Deployed"
+                    || projectSaveDetails?.projectStatus == "Rejected"
+                    || projectSaveDetails?.projectStatus == "Approved"
                   )}
                 />
                 <Form.Control.Feedback type="invalid">{formErrors.vestingDays || state.errors.vestingDays}</Form.Control.Feedback>
