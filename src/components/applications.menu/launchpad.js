@@ -1,11 +1,23 @@
-import React from 'react'
+import React,{useState,useReducer} from 'react'
 import { CNavItem, CNavLink } from '@coreui/react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Button from 'react-bootstrap/Button';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
 import { useSelector} from 'react-redux';
+const reducer = (state, action) => {
+    switch (action.type) {
+      case "isVissble":
+        return { ...state, isVissble: action.payload };
+      default:
+        return state;
+    }
+  }
+  const initialState = {
+    isVissble: false,
+  };
 function LaunchPadMenu(props){
+    const [state, dispatch] = useReducer(reducer, initialState);
 
   const isAdmin = useSelector(state => state.oidc?.adminDetails);
     const showSettings = useSelector(state => state.oidc?.isShowSettings);
@@ -40,6 +52,11 @@ function LaunchPadMenu(props){
             Transactions
         </Tooltip>
     );
+    const renderTooltipSettings = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+            Settings
+        </Tooltip>
+    );
     const popover = (
         <Popover id="popover-basic" className='settings-popover'>
           <Popover.Header as="h3" className='bg-transparent'>Settings</Popover.Header>
@@ -55,7 +72,15 @@ function LaunchPadMenu(props){
           </Popover.Body>
         </Popover>
       );
- 
+      const handleHoverButtonClick = () => {
+       dispatch({ type: 'isVissble', payload: true })
+
+    };
+    const handleFocusButtonClick=()=>{
+        setTimeout(() => {
+            dispatch({ type: 'isVissble', payload: false })
+        }, 4000);
+    }
   const { handleMenuNavigate,app_name } = props;
   let locationSplit = location?.pathname?.split('/');
     if (isAdmin?.isAdmin) {
@@ -71,14 +96,23 @@ function LaunchPadMenu(props){
                 </CNavItem>}
                 {isAdmin?.isAdmin && showSettings && viewedProject?.projectstatus=="Deployed"&&
                    <> {locationSplit[1] =="launchpad" && <CNavItem className={locationSplit[2] == "Settings" ? "active" : ""}>
-                        <OverlayTrigger
-                            placement="right"
-                            trigger="focus"
-                            overlay={popover} >
-                            <Button variant="" className='setting-space' ><span className="icon nav-settings ms-1" /></Button>
-                        </OverlayTrigger>
-                    </CNavItem>}</>
-                }
+                 {!state.isVissble&& <OverlayTrigger
+                       placement="right"
+                       trigger="hover"
+                       overlay={  renderTooltipSettings}
+                       >
+                 <Button variant="" className='setting-space' onClick={handleHoverButtonClick}><span className="icon nav-settings ms-1" /></Button>
+                   </OverlayTrigger>}
+
+                   {state.isVissble &&<OverlayTrigger
+                       placement="right"
+                       trigger="focus"
+                       overlay={popover}
+                       >
+                 <Button variant="" className='setting-space' onClick={handleFocusButtonClick}><span className="icon nav-settings ms-1" /></Button>
+                   </OverlayTrigger>}
+               </CNavItem>}</>
+           }
                {locationSplit[1] =="launchpad" && 
                 <CNavItem className={locationSplit[2] == "customers" ? "active" : ""}>
                     <OverlayTrigger
