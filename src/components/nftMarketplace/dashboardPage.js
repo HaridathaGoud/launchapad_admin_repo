@@ -8,6 +8,7 @@ import auction from '../../assets/images/auction.svg'
 import { connect, useSelector } from 'react-redux';
 import { CBreadcrumb, CBreadcrumbItem } from '@coreui/react'
 import nftimg from '../../assets/images/nft.png';
+import LaunchpadShimmer from "../shimmers/launchpaddashboard";
 function MarketplaceDashboard() {
     const [adminCustomerDetails, setAdminCustomerDetails] = useState({})
     const [errorMsg, setErrorMsg] = useState(null);
@@ -47,6 +48,7 @@ function MarketplaceDashboard() {
         }
     }
     return <>
+    {loader ? <LaunchpadShimmer/> :
     <div className="bg-dashboard">
     <div className="text-center pt-5">
     <h3 className="page-title fs-3"> Welcome to <br/> Marketplace Dashboard</h3>
@@ -63,7 +65,6 @@ function MarketplaceDashboard() {
         )}
         <div className="dashboard-page mt-3">
            
-            <div className="text-center">{loader && <Spinner fallback={loader}></Spinner>}</div>
             {!loader && adminCustomerDetails && <div className="row justify-content-center">
                 <div className="col-md-6 col-lg-2">
                     <div className="dash-card bg-user">
@@ -118,7 +119,7 @@ function MarketplaceDashboard() {
             </div>}
         </div>
         </div>
-
+    }
     </>
 }
 
