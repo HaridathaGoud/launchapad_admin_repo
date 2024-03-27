@@ -201,7 +201,7 @@ class InvestorsGrid extends Component {
         if (!phoneNo || phoneNo === '') {
             newErrors.phoneNo = "Is required";
         }
-        else if (!validateContentRules("", phoneNo)|| phoneNo?.match(specialCharsOnly) ) {
+        else if (!validateContentRules("", phoneNo) || phoneNo.length <6|| phoneNo?.match(specialCharsOnly) ) {
             newErrors.phoneNo = "Invalid phone number";
         }
         if ((!phoneNoCountryCode || phoneNoCountryCode === " ") ||phoneNoCountryCode ==="Select" || phoneNoCountryCode===undefined) {

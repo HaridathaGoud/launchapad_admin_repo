@@ -90,8 +90,9 @@ const SettingsComponent = (props) => {
       try {
         setBtnLoader(true)
         if(props.funcName=="setVestingTime"){
-          if( settingValue>0){
-            let timeData = settingValue * 60 * 60 * 24;
+          const numericSettingValue = parseFloat(settingValue.replace(/,/g, ''));
+          if( numericSettingValue>0){
+            let timeData = numericSettingValue * 60 * 60 * 24;
             const provider = new ethers.providers.Web3Provider(window?.ethereum)
             const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
             const res = await factory[props.funcName](timeData);

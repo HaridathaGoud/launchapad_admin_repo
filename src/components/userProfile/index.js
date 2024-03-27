@@ -94,13 +94,13 @@ const UserProfile = (props) => {
       newErrors.firstName = "Is required";
     } 
     else if(!validateContentRules("",firstName)|| firstName?.match(whiteSpace) || firstName?.match(numbersOnly) || firstName?.match(specialCharsOnly)) {
-      newErrors.firstName = "Invalid first name";
+      newErrors.firstName = "Accepts alphanumeric and special chars.";
     }
     if (!lastName || lastName === '') {
       newErrors.lastName = "Is required";
     } 
     else if(!validateContentRules("",lastName) || lastName?.match(whiteSpace) || lastName?.match(numbersOnly) || lastName?.match(specialCharsOnly)){
-      newErrors.lastName = "Invalid last name";
+      newErrors.lastName = "Accepts alphanumeric and special chars.";
     }
     if (!phoneNo || phoneNo === '') {
       newErrors.phoneNo = "Is required";

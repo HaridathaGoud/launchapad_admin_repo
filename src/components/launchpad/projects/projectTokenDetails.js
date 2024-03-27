@@ -271,9 +271,9 @@ const ProjectTokenDetails = (props) => {
                 onBlur={(e) => handleChange('privateTokenEquivalentToPaymentType', e.target.value.trim().replace(/\s+/g, " "))}
                 required
                 isInvalid={!!errors?.privateTokenEquivalentToPaymentType}
-                disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                  || state.projectSaveDetails?.projectStatus == "Rejected"
-                  || state.projectSaveDetails?.projectStatus == "Approved"
+                disabled={(projectSaveDetails?.projectStatus == "Deployed"
+                  || projectSaveDetails?.projectStatus == "Rejected"
+                  || projectSaveDetails?.projectStatus == "Approved"
                 )}
               />
               <Form.Control.Feedback type="invalid">{errors?.privateTokenEquivalentToPaymentType ||
@@ -297,9 +297,9 @@ const ProjectTokenDetails = (props) => {
                 onBlur={(e) => handleChange('publicTokenEquivalentToPaymentType', e.target.value.trim().replace(/\s+/g, " "))}
                 required
                 isInvalid={!!errors?.publicTokenEquivalentToPaymentType}
-                disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                  || state.projectSaveDetails?.projectStatus == "Rejected"
-                  || state.projectSaveDetails?.projectStatus == "Approved"
+                disabled={(projectSaveDetails?.projectStatus == "Deployed"
+                  || projectSaveDetails?.projectStatus == "Rejected"
+                  || projectSaveDetails?.projectStatus == "Approved"
                 )}
               />
               <Form.Control.Feedback type="invalid">{errors?.publicTokenEquivalentToPaymentType ||
