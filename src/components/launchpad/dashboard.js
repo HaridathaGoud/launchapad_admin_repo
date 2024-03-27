@@ -7,8 +7,9 @@ import { SuperAdminDetails, UpComingProjectDetails, getAdminDashboardDetails } f
 import store from 'src/store';
 import { showSettings } from 'src/reducers/authReducer';
 import { CBreadcrumb, CBreadcrumbItem } from '@coreui/react';
-import { Spinner } from 'react-bootstrap';
+import { Placeholder, Spinner } from 'react-bootstrap';
 import PropTypes from 'prop-types'
+import LaunchpadShimmer from '../shimmers/launchpaddashboard';
 
 const DashboardPage = (props) => {
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails?.isAdmin);
@@ -36,7 +37,7 @@ const DashboardPage = (props) => {
   }, [AdminId]);
   return (
     <>
-    {loader ? <div className="text-center mt-1"><Spinner ></Spinner></div> : 
+    {loader ? <LaunchpadShimmer/> : 
     <div className='bg-dashboard'>
     <div className='text-center pt-5'>
     <h3 className='page-title mb-3 fs-3'>Welcome To <br/>Launchpad Dashboard</h3>

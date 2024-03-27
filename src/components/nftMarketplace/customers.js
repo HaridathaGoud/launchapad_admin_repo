@@ -11,6 +11,7 @@ import { CBreadcrumb, CBreadcrumbItem, CLink } from '@coreui/react';
 import Nfts from './nfts'
 import CopyToClipboard from 'react-copy-to-clipboard';
 import Referrals from "../minting/referrals";
+import ProfileViewShimmer from "../shimmers/profileviewshimmer";
 const CustomersInfo = () => {
   const inputRef = useRef(null);
   let { address,key} = useParams();
@@ -112,7 +113,7 @@ const CustomersInfo = () => {
           </Alert>
        
         )}
-         <div className="text-center">{loader && <Spinner></Spinner>}</div>
+         <div className="text-center">{loader && <ProfileViewShimmer/>}</div>
          {!loader &&
           <div className='profile-section bg-none'>
             

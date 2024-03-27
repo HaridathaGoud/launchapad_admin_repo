@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import Referrals from "../minting/referrals";
 import { userDetailsData} from "../launchpad/launchpadReducer/launchpadReducer";
 import store from 'src/store/index';
+import ProfileViewShimmer from "../shimmers/profileviewshimmer";
 const ProfileInfo = () => {
   const inputRef = useRef(null);
   const [copied,setCopied]=useState(false);
@@ -121,7 +122,7 @@ const handleTabChange = (tab) => {
             </div>
           </Alert>
         )}
-        <div className="text-center">{loader && <Spinner></Spinner>}</div>
+        <div className="text-center">{loader && <ProfileViewShimmer/>}</div>
         {!loader &&
           <div className='profile-section bg-none'>
             <div className="custom-flex align-items-start mb-4 tab-block">

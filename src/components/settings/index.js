@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Spinner, Modal, FloatingLabel } from 'react-bootstrap';
+import { Spinner, Modal, FloatingLabel, Placeholder } from 'react-bootstrap';
 import apiCalls from 'src/api/apiCalls';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
@@ -171,7 +171,21 @@ const Settings = () => {
 
   return (
     <div className=''>
-    {pageLoader && <div className="text-center"><Spinner ></Spinner></div>}
+    {pageLoader && <div className="text-center">
+    <Row className='card-row mt-3 justify-content-center'>
+        <Col xl={6}>
+          <Placeholder as="p" animation="glow">
+            <Placeholder xs={12} className='status-card' />
+          </Placeholder>
+        </Col>
+        <Col xl={6}>
+          <Placeholder as="p" animation="glow">
+            <Placeholder xs={12} className='status-card' />
+          </Placeholder>
+        </Col>
+        
+      </Row>
+      </div>}
     {!pageLoader &&
       <div className='profile-container'>
 

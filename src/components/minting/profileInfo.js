@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import { CBreadcrumb, CBreadcrumbItem, CLink } from '@coreui/react';
 import Button from 'react-bootstrap/Button';
 import ToasterMessage from "src/utils/toasterMessages";
+import ProfileViewShimmer from "../shimmers/profileviewshimmer";
 
 const ProfileInfo = () => {
   const inputRef = useRef(null);
@@ -101,7 +102,7 @@ const ProfileInfo = () => {
             </div>
           </Alert>
         )}
-        <div className="text-center">{loader && <Spinner></Spinner>}</div>
+        <div className="text-center">{!loader && <ProfileViewShimmer/>}</div>
         {!loader &&
           <div className='profile-section'>
             <div className="custom-flex align-items-center mb-4">

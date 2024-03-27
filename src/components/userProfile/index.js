@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {  Modal, FloatingLabel,Spinner } from 'react-bootstrap';
+import {  Modal, FloatingLabel,Spinner, Placeholder } from 'react-bootstrap';
 import apiCalls from 'src/api/apiCalls';
 import Alert from 'react-bootstrap/Alert';
 import {useParams } from "react-router-dom";
@@ -232,7 +232,23 @@ const UserProfile = (props) => {
             </div>
           </Alert>
         )}
-        {loader && <div className="text-center"> <Spinner className="text-center" /></div>}
+        {loader && <div className="profile-section mb-5 mt-5"> 
+        <div>
+       <Placeholder as="p" animation="glow" className='mt-3 custom-flex align-items-start mb-4 tab-block'>
+          <Placeholder xs={12} className='customer-pfview' />
+          <div className='custom-flex align-items-center flex-wrap row gap-4 flex-1 ms-lg-4'>         
+          <Placeholder className='value-card col-md-3' />
+          <Placeholder className='value-card col-md-3' />
+          <Placeholder className='value-card col-md-3' />
+          <Placeholder className='value-card col-md-3' />
+          <Placeholder className='value-card col-md-3' />
+          <Placeholder className='value-card col-md-3' />
+          <Placeholder className='value-card col-md-3' />
+          <Placeholder className='value-card col-md-3' />
+          </div>
+        </Placeholder>
+       </div>
+        </div>}
         {!loader && (
           <div className='profile-section mb-5 mt-5'>
             <Row className="profile-panel ms-0 me-0" >
