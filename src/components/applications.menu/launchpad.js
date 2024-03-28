@@ -99,7 +99,8 @@ function LaunchPadMenu(props){
                  {!state.isVissble&& <OverlayTrigger
                        placement="right"
                        trigger="hover"
-                       overlay={  renderTooltipSettings}
+                       overlay={renderTooltipSettings}
+                       onClick={popover}
                        >
                  <Button variant="" className='setting-space' onClick={handleHoverButtonClick}><span className="icon nav-settings ms-1" /></Button>
                    </OverlayTrigger>}
