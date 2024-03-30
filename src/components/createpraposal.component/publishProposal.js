@@ -43,30 +43,27 @@ function PublishProposal(props) {
  const [startDateEpoch,setStartDateEpoch] = useState()
  const [endDateEpoch,setEndDateEpoch] = useState()
  const [votingContractAddress,setVotingContractAddress] = useState();
- const getDaosList = async () => {
+ const getDaosList = async (data,page) => {
   await props.trackWallet({
-    page: DaoDetail?.nextPage || 1,
+    page: page,
     take: take,
-    data: DaoDetail?.data || null,
+    data: data,
   });
 };
-const getInvestorDaosList = async () => {
+const getInvestorDaosList = async (data,page) => {
   await props.trackDaoWallet({
-    page: DaoDetail?.nextPage || 1,
+    page: page,
     take: take,
-    data: DaoDetail?.data || null,
+    data: data ,
   },adminDetails?.id);
-};
+}
 
 useEffect(() => {
   if (adminDetails?.isInvestor === true) {
-      getInvestorDaosList();
+    getInvestorDaosList(null,1);
   } else {
-      getDaosList();
+    getDaosList(null,1);
   }
-  return () => {
-    props.clearDaos();
-  };
 }, [])
   useEffect(() => {
     let localDate1 = new Date(proposalDetails?.startdate); 

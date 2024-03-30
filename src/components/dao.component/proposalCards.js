@@ -23,6 +23,7 @@ import VotingContract from '../../contract/voting.json';
 import moment from 'moment';
 import ErrorPage from "../../../src/views/pages/unauthorizederror/unauthorizederror"
 import PropTypes from 'prop-types'
+import shimmers from '../shimmers/shimmers';
 
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
  
@@ -42,6 +43,7 @@ const reducers = (state, action) => {
             return { ...state, votingContractAddress: action.payload };
     }
 }
+const take = 8;
 const Dao = (props) => {
     const params = useParams()
     const pageSize = 10;
@@ -56,6 +58,7 @@ const Dao = (props) => {
     const proposalData = useSelector((reducerState) => reducerState?.proposal?.proposalDetailsList);
     const loadData = useSelector((reducerState) => reducerState.proposal?.isCheckSeeMore);
     const UserInfo = useSelector(reducerState => reducerState.oidc?.profile?.profile)
+    const  DaoDetail =  useSelector((state) => state?.proposal?.daoCards?.data);
     const [loading, setLoading]=useState(false)
     const [state, dispatch] = useReducer(reducers, { modalShow: false, status: "all", statusLu: [],
      date: null, dateStatus: false,votingContractAddress:'' })
@@ -67,7 +70,6 @@ const Dao = (props) => {
     const isAdmin = useSelector(reducerState => reducerState.oidc?.adminDetails)
     const [loadMore,setLoadMore] = useState(false)
     const [hide,setHide] = useState(false)
-    const [daoName,setDaoName]=useState(null)
     const [selection, setSelection]=useState(null);
         const { address, isConnected } = useAccount()
     const [shimmerLoading,setShimmerLoading] = useState(true)
@@ -81,6 +83,20 @@ const Dao = (props) => {
         window.scrollTo(0,0)
     },[address])
 
+    const getDaosList = async (data,page) => {
+        await props.trackWallet({
+          page: page,
+          take: take,
+          data: data,
+        });
+      };
+      const getInvestorDaosList = async (data,page) => {
+        await props.trackDaoWallet({
+          page: page,
+          take: take,
+          data: data ,
+        },isAdmin?.id);
+      };
     useEffect(() => {
         getApprovedProposalData(status)
         setLoading(true)
@@ -90,21 +106,12 @@ const Dao = (props) => {
             window.scrollTo(0,0)
         })
         if (isAdmin?.isInvestor === true) {
-            props?.trackWalletDao((callback)=>{
-                let daoData=callback?.find((item)=>item?.daoId==params.id?.toLocaleLowerCase())
-                setDaoName(daoData);
-                dispatch({type:'votingContractAddress',payload:daoData?.contractAddress})
-            },isAdmin?.id)
-            getVotingOwner()
+           getInvestorDaosList(null,1);
          }else{
-            props?.trackWallet((callback)=>{
-                let daoData=callback?.find((item)=>item?.daoId==params.id?.toLocaleLowerCase())
-                setDaoName(daoData);
-                dispatch({type:'votingContractAddress',payload:daoData?.contractAddress})
-            })
-            getVotingOwner()
+            getDaosList(null,1);            
         }
     }, [address,txHash])
+
 
     useEffect(() => {
         const updatedList = proposalData.map((item) => {
@@ -115,10 +122,15 @@ const Dao = (props) => {
             return { ...item, dateEnded: isCurrentGreater };
           });
           setProposalCardList(updatedList);
+          getDaoItem();
     }, [proposalData])
 
-    
-    
+    const getDaoItem = () => {
+        let daoData = DaoDetail?.find((item) => item?.daoId == params.id?.toLocaleLowerCase())
+        dispatch({ type: 'votingContractAddress', payload: daoData?.contractAddress })
+        getVotingOwner()
+    }
+
     async function getVotingOwner() {
       let contractAddress=state.votingContractAddress;
         try {
@@ -275,14 +287,12 @@ const Dao = (props) => {
         
         }
       }
-
     const handleVote=async(item)=>{
         setSuccess(null);
         setErrorMsg(null)
         setTxHash(null)
-        let contractAddress=state.votingContractAddress;
         try {
-        const response = await voteCalculation(contractAddress,item.titleHash);
+        const response = await voteCalculation(state?.votingContractAddress,item.titleHash);
         const _connector = window?.ethereum;
         const provider = new ethers.providers.Web3Provider(_connector);
             const txResponse = await provider.waitForTransaction(response.hash);
@@ -345,11 +355,13 @@ const Dao = (props) => {
             Publishing: "pending-text",
             default: "close-text",
           };
-          
+
     return (
         <>{params.id == "null" ? <ErrorPage /> :
             <>
-                {loading && <div className="text-center"><Spinner /></div>}
+                {loading && 
+                <shimmers.ProposalsShimmer  count={3}/>
+                }
                 {!loading && <Container className='dao-mt'>
                     
                     {errorMsg && (
@@ -488,13 +500,19 @@ const Dao = (props) => {
                                                                 </p>
                                                             </div>))}
                                                         </div>
-                                                        {UserInfo?.role == "Super Admin" ? "" : <>
+                                                        {/* {UserInfo?.role == "Super Admin" ? "" : <>
                                                             {item.status == "Closed" ? "" : <>
                                                                 {item?.dateEnded && <Button
                                                                     disabled={btnLoader}
                                                                     className='ustify-content-end' onClick={() => handleCalculateVote(item)}>
                                                                     <span>{(selection == item?.proposalId) && btnLoader && <Spinner size="sm" />}  </span>  Calculate Vote</Button>}
-                                                            </>}</>}
+                                                            </>}</>} */}
+
+                                                        {UserInfo.role ==="Super Admin" && item.status == "Closed" && item?.dateEnded &&
+                                                        <Button
+                                                        disabled={btnLoader}
+                                                        className='ustify-content-end' onClick={() => handleCalculateVote(item)}>
+                                                        <span>{(selection == item?.proposalId) && btnLoader && <Spinner size="sm" />}  </span>  Calculate Vote</Button>}
                                                     </div>
                                                 }
                                             </Col>))}
@@ -524,7 +542,7 @@ const Dao = (props) => {
 Dao.propTypes = {
     lookUp: PropTypes.isRequired,
     trackWallet: PropTypes.isRequired,
-    trackWalletDao: PropTypes.isRequired,
+    trackDaoWallet: PropTypes.isRequired,
     proposalDetailsList: PropTypes.isRequired,
 
   }
@@ -537,12 +555,21 @@ const connectDispatchToProps = (dispatch) => {
         lookUp: (callback) => {
             dispatch(getLookUp(callback))
         },
-        trackWallet: (callback) => {
-            dispatch(daoCards(callback));
-        },
-        trackWalletDao: (callback,inverstorId) => {
-            dispatch(InvestorDaoCards(callback,inverstorId));
-        },
+        // trackWallet: (callback) => {
+        //     dispatch(daoCards(callback));
+        // },
+        // trackWalletDao: (callback,inverstorId) => {
+        //     dispatch(InvestorDaoCards(callback,inverstorId));
+        // },
+        trackWallet: (information) => {
+            dispatch(daoCards(information));
+          },
+          trackDaoWallet: (information, inverstorId) => {
+            dispatch(InvestorDaoCards(information, inverstorId));
+          },
+          clearDaos: () => {
+            dispatch(clearDaos());
+          },
     }
 }
 

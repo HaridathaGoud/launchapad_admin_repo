@@ -333,7 +333,7 @@ body.mceContentBody {
 .badge-style div{flex-grow: 1;flex-basis: 0;padding: 0 12px;}
 .project-card button{flex: auto;}
 .project-card{gap: 12px;}
-.btn:disabled{cursor: not-allowed !important;}
+.btn:disabled{cursor: not-allowed !important;pointer-events: visible;}
 .cust-toaster{height: 100vh;  display: flex;  justify-content: center;}
 .cust-toaster .toster-component{position: absolute;  bottom: 18px;z-index: 9;}
 .header-toggler-icon{display: none;}

@@ -198,8 +198,13 @@ const time=(timeString)=>{
       }
       if (investorsDetails.project == null) {
           navigate('/launchpad/idorequest');
+          props.closeProject(false)
         } else {
-          navigate(`/launchpad/investors/projects/${investorsDetails?.project?.id}`);
+          if (window.location.pathname.includes('idorequest')) {
+            props.closeProject(false)
+          }else{
+            navigate(`/launchpad/investors/projects/${investorsDetails?.project?.id}`);
+          }
         }
     } else {
       const privateEndingTimeInSeconds = parseTime(state.claimDetails?.privateEndDate);

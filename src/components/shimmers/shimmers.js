@@ -131,6 +131,25 @@ const votingShimmer = (count) => {
 
 };
 
-let shimmers={ DaoCardShimmer,ProposalCardShimmer,PublishProposal,votingShimmer}
+const ProposalsShimmer = ({count}) => {
+    let countList = [0];
+    if (count) {
+        for (let i = 1; i < count; i++) {
+            countList.push(i)
+        }
+    }
+    const html = <div >
+        {countList.map((item) => (
+            <div className='dao-mt container' key={item}>
+                <Placeholder as="p" animation="glow" className='mb-4'>
+                    <Placeholder xs={12} className='proposalcard-shimmer' />
+                </Placeholder>
+            </div>
+        ))}
+    </div>
+    return html;
+}
+
+const shimmers={ DaoCardShimmer,ProposalCardShimmer,PublishProposal,votingShimmer,ProposalsShimmer}
 export default shimmers;
 
