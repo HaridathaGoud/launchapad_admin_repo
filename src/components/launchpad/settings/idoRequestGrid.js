@@ -245,12 +245,7 @@ class IdoRequestGrid extends Component {
         this.setState({
             errorMsg: null,
         });
-        if (this.state.SelectData.status==='Rejected') {
-            this.setState({
-                errorMsg: "You cannot change the state of a Rejected record.",
-            });
-        }
-        else if (!this.state.SelectData.id) {
+         if (!this.state.SelectData.id) {
             this.setState({
                 errorMsg: "Please select a record.",
             });
@@ -258,6 +253,10 @@ class IdoRequestGrid extends Component {
             this.setState({
                 errorMsg: "Please select a record.",
                 show: false,
+            });
+        }else if (this.state.SelectData.status==='Rejected') {
+            this.setState({
+                errorMsg: "You cannot change the state of a Rejected record.",
             });
         }
         else {
@@ -288,6 +287,7 @@ class IdoRequestGrid extends Component {
         }
         let res = await apiCalls.idoRequestStateChange(obj)
         if (res.ok) {
+            this.gridRef.current.refreshGrid();
             this.setState({
                 btnLoader: false,
                 show: false,
@@ -295,7 +295,6 @@ class IdoRequestGrid extends Component {
                 success: true,
                 successMessage: `Project ${this.state.selection} successfully`
             })
-            this.gridRef.current.refreshGrid();
             setTimeout(() => {
                 this.setState({ success: false });
             }, 2500);
