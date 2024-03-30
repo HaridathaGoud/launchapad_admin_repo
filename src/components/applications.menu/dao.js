@@ -30,17 +30,6 @@ const DaoMenu = (props) => {
                             </CNavLink>
                         </OverlayTrigger>
                     </CNavItem>}
-
-                    {locationSplit[1] =="dao" && 
-                    <CNavItem className={locationSplit[2] == "customers" ? "active" : ""}>
-                        <OverlayTrigger
-                            placement="right"
-                            overlay={renderTooltipCustomers}
-                        >
-                            <CNavLink className='customer' onClick={() => handleMenuNavigate('launchpad/customers',false,"launchpad")}><span className="icon customer" />
-                            </CNavLink>
-                        </OverlayTrigger>
-                    </CNavItem>}
             </React.Fragment>
         )
     }else{
