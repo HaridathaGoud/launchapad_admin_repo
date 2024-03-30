@@ -849,7 +849,7 @@ html:not([dir=rtl]) .country-code-style.input-group:not(.has-validation) > :not(
 .flex-1{flex: 1;}
 
 .toster-component .toast{margin: 0 auto; z-index: 1;}
-.toster-component .toast-body{background-color: #41555e;font-weight: 400;color: #ffffff;font-size: 14px;position: absolute;  bottom: 12px;  min-width: 350px;}
+.toster-component .toast-body{background-color: #41555e;font-weight: 400;color: #ffffff;font-size: 14px;position: fixed;  bottom: 12px;  min-width: 350px;}
 .country-code-style .form-control,.country-code-style .form-control:focus{background-color: #fff !important;padding: 6px 16px !important; padding-right: 28px !important;}
 .icon.downarrow-white { top: 14px !important;cursor: pointer !important; right: 12px !important;background-position: -360px -609px !important;height: 16px !important; width: 16px !important; position: absolute !important;}
 .select-phone {left: 72px !important; top: 15px !important; z-index: 999;}
