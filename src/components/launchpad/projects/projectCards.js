@@ -87,7 +87,6 @@ const ProjectCards = () => {
   const params = useParams();
   const [loadMore, setLoadMore] = useState(false);
   const [hide, setHide] = useState(false);
-  const [deployedProject, setDeployedProject] = useState(false)
   const [search, setSearch] = useState();
   const { isConnected } = useAccount()
   const { connectWallet } = useConnectWallet();
@@ -288,7 +287,6 @@ const ProjectCards = () => {
         try {
           await apiCalls.updateContractAddressStatus(updateProject);
           dispatch({ type: 'btnLoader', payload: false })
-          setDeployedProject(true)
           getOwenersProjects(1, 10, null);
           handleClose();
 

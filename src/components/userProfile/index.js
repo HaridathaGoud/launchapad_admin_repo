@@ -105,7 +105,7 @@ const UserProfile = (props) => {
     if (!phoneNo || phoneNo === '') {
       newErrors.phoneNo = "Is required";
     }
-    else if(!validateContentRules("",phoneNo)){
+    else if(!validateContentRules("",phoneNo) || phoneNo.length <6){
       newErrors.phoneNo = "Invalid phone number";
     }
     else if((!countryCode||countryCode==="select")){
@@ -281,32 +281,32 @@ const UserProfile = (props) => {
                 </div>
                 <Row className="px-lg-4 px-2">
                   <Col xl={4} sm={12} md={6}>
-                    <label className="profile-label">First Name</label>
+                    <label htmlFor="firstName" className="profile-label">First Name</label>
                     <p className="profile-value">{adminDetails?.firstName ? adminDetails?.firstName : "--"}</p>
                   </Col>
                   <Col xl={4} sm={12} md={6}>
-                    <label className="profile-label">Last Name</label>
+                    <label htmlFor="LastName" className="profile-label">Last Name</label>
                     <p className="profile-value">{adminDetails?.lastName ? adminDetails?.lastName : "--"}</p>
                   </Col>
                   <Col xl={4} sm={12} md={6}>
-                    <label className="profile-label">User Name</label>
+                    <label htmlFor="UserName" className="profile-label">User Name</label>
                     <p className="profile-value">{adminDetails?.userName ? adminDetails?.userName : "--"}</p>
                   </Col>
                   <Col xl={4} sm={12} md={6}></Col>
                 </Row>
                 <Row className="px-lg-4 mb-2 px-2">
                   <Col xl={4} sm={12} md={6}>
-                    <label className="profile-label">Email</label>
+                    <label htmlFor="Email" className="profile-label">Email</label>
                     <p className="profile-value">{adminDetails?.email ? adminDetails?.email : "--"}</p>
                   </Col>
                   <Col xl={4} sm={12} md={6}>
-                    <label className="profile-label">Phone No</label>
+                    <label htmlFor="Phone"className="profile-label">Phone No</label>
                     <p className="profile-value">
                       {adminDetails?.phoneNo ? adminDetails?.phoneNo : "--"}
                     </p>
                   </Col>
                   <Col xl={4} sm={12} md={6}>
-                    <label className="profile-label">Country</label>
+                    <label htmlFor="Country" className="profile-label">Country</label>
                     <p className="profile-value">{adminDetails?.country ? adminDetails?.country : "--"}</p>
                   </Col>
                 </Row>
@@ -489,9 +489,9 @@ const UserProfile = (props) => {
          
       </div>
     </div>
-     {success && <>
+     {success &&
      <ToasterMessage isShowToaster={success} success={success}></ToasterMessage>
-     </>}
+     }
    </>
   );
 }

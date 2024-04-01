@@ -9,7 +9,7 @@ import { connect, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { Spinner } from 'react-bootstrap';
 import nodata from '../../assets/images/no-data.png';
-
+import ToasterMessage from "src/utils/toasterMessages";
 import profileavathar from '../../assets/images/default-avatar.jpg';
 import votingFactory from '../../contract/votingFactory.json';
 import { ethers } from 'ethers';
@@ -25,6 +25,7 @@ const Dashboard = (props) => {
     const [deployContractLoader, setDeployContractLoader]=useState(false);
     const [errorMsg,setErrorMsg]=useState(null);
     const [selectedDaoId, setSelectedDaoId]=useState(null);
+    const [success,setSuccess]=useState(null)
     const router = useNavigate();
 
     const getDaosList = async (data,page) => {
@@ -89,6 +90,11 @@ const Dashboard = (props) => {
                         }
                         setDeployContractLoader(false);
                         setSelectedDaoId(null)
+                        setErrorMsg(null);
+                        setSuccess(`Dao deployed successfully`);
+                        setTimeout(function () {
+                            setSuccess(null);
+                        }, 2000);
                     }
                 } catch (error) {
                     setSelectedDaoId(null)
@@ -128,10 +134,11 @@ const Dashboard = (props) => {
                                             <p className='m-0 col-3'>members:</p> <p className='m-0 '>{item?.members?.toLocaleString()}</p>
                                         </Card.Text>
                                         {!isAdmin.isInvestor&&<> 
-                                        {item?.status?.toLowerCase() == "approved" && <Button className='button-secondary' onClick={() => deployDAO(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) && <span><Spinner size='sm' className='text-light mr-1' /></span>} Deploy</Button>}
-                                        {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed") && <Button className='button-secondary' onClick={() => goToProposalList(item)}>{item?.status}</Button>}
+                                        {item?.status?.toLowerCase() == "approved" && <Button className='button-secondary w-100 mt-2' onClick={() => deployDAO(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) && <span><Spinner size='sm' className='text-light mr-1' /></span>} Deploy</Button>}
+                                        {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed") && <Button className='button-secondary w-100 mt-2' onClick={() => goToProposalList(item)}>{item?.status}</Button>}
                                         </>}
-                                     { isAdmin.isInvestor && (item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed" || item?.status?.toLowerCase() == "approved" ) && <Button className='button-secondary' onClick={() => goToProposalList(item)}>{item?.status}</Button>}
+                                     { isAdmin.isInvestor && (item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed" || item?.status?.toLowerCase() == "approved" ) && 
+                                     <Button className='button-secondary w-100 mt-2' onClick={() => goToProposalList(item)}>{item?.status}</Button>}
                                     </Card.Body>
                                 </Card>}
                             </Col>
@@ -159,6 +166,10 @@ const Dashboard = (props) => {
                             <span className='d-block'><span onClick={loadMoreDaoCards} role="button" className='c-pointer'>See More</span></span>  <span className='icon blue-doublearrow c-pointer' onClick={loadMoreDaoCards}></span>
                         </div>
                     )}
+                {success && <div className="text-center toster-placement toaster-cust">
+                    <ToasterMessage isShowToaster={success} success={success}></ToasterMessage>
+                </div>
+                }
         </div>
         </div></>
     )
