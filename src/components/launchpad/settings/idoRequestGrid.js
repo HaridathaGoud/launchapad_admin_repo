@@ -254,11 +254,12 @@ class IdoRequestGrid extends Component {
                 errorMsg: "Please select a record.",
                 show: false,
             });
-        }else if (this.state.SelectData.status==='Rejected') {
-            this.setState({
-                errorMsg: "You cannot change the state of a Rejected record.",
-            });
         }
+        // else if (this.state.SelectData.status==='Rejected') {
+        //     this.setState({
+        //         errorMsg: "You cannot change the state of a Rejected record.",
+        //     });
+        // }
         else {
             this.setState({
                 show: true,
@@ -271,6 +272,8 @@ class IdoRequestGrid extends Component {
     handleClose = () => {
         this.setState({
             show: false,
+            selection: [],
+            SelectData: {},
         })
     }
     idoStateChange = async () => {
@@ -293,7 +296,9 @@ class IdoRequestGrid extends Component {
                 show: false,
                 loader: false,
                 success: true,
-                successMessage: `Project ${this.state.selection} successfully`
+                successMessage: `Project ${this.state.selection} successfully`,
+                selection: [],
+                SelectData: {},
             })
             setTimeout(() => {
                 this.setState({ success: false });
@@ -406,7 +411,7 @@ class IdoRequestGrid extends Component {
                                         value={this.state.form?.status ? this.state.form?.status : this.state.SelectData?.status}
                                         defaultValue={this.state.form?.status ? this.state.form?.status : this.state.SelectData?.status}
                                         maxLength={20}
-                                        disabled={this.state.SelectData?.status == "Rejected"}
+                                        // disabled={this.state.SelectData?.status == "Rejected"}
                                         isInvalid={!!this.state.errors.country}
                                         onChange={(e) => { this.setField('status', e.currentTarget.value) }}
                                     >
@@ -421,7 +426,7 @@ class IdoRequestGrid extends Component {
                                 <Button className='cancel-btn' onClick={this.handleClose}
                                 >Cancel</Button>
 
-                                {this.state.SelectData?.status != "Rejected" &&
+                                {/* {this.state.SelectData?.status != "Rejected" && */}
                                     <Button className='button-secondary ms-3' onClick={this.idoStateChange}
                                         disabled={this.state.btnLoader ||
                                             (this.state.form?.status == null && this.state.SelectData?.status == "Submitted") ||
@@ -430,7 +435,7 @@ class IdoRequestGrid extends Component {
                                     >
                                         <span>{this.state.btnLoader && <Spinner size="sm" className='text-light' />}</span>
                                         <span>Ok</span></Button>
-                                }
+                                 {/* } */}
                             </div></div>
                         </Modal.Body>
                     </Modal>
