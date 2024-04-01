@@ -6,7 +6,6 @@ import { connect, useSelector } from 'react-redux';
 import { SuperAdminDetails, UpComingProjectDetails, getAdminDashboardDetails } from './launchpadReducer/launchpadReducer';
 import store from 'src/store';
 import { showSettings } from 'src/reducers/authReducer';
-import { CBreadcrumb, CBreadcrumbItem } from '@coreui/react';
 import { Placeholder, Spinner } from 'react-bootstrap';
 import PropTypes from 'prop-types'
 import LaunchpadShimmer from '../shimmers/launchpaddashboard';
