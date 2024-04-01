@@ -53,13 +53,12 @@ const SettingsComponent = (props) => {
   }
 
   const convertdateToMinutes = (date) => {
-    return Math.floor(moment.utc(date).valueOf() / 1000);
+    return Math.floor(moment(date).valueOf() / 1000);
   }
 
 
 
   const updateData = async () => {
-    
     setSuccess(null);
     setErrorMgs(null);
     setTransactionSuccess(false);
@@ -68,8 +67,8 @@ const SettingsComponent = (props) => {
     const currentDatetime = Math.floor(new Date().getTime() / 1000);
     if(settingValue){
       store.dispatch(fcfsStartTime(settingValue));
-      const fcfsStartDateTime = convertdateToMinutes(moment(settingsFcfsStartTime).format("YYYY-MM-DDTHH:mm"));
-      const inputDatetime = convertdateToMinutes(moment(settingValue).format("YYYY-MM-DDTHH:mm"));
+      const fcfsStartDateTime = convertdateToMinutes(moment.utc(settingsFcfsStartTime).format("YYYY-MM-DDTHH:mm"));
+      const inputDatetime = convertdateToMinutes(moment.utc(settingValue).format("YYYY-MM-DDTHH:mm"));
       if(inputDatetime < currentDatetime && props?.funcName?.toLowerCase().includes('setfcfsstarttime')){
         setErrorMgs(apiCalls.isErrorDispaly({data:"Please choose a date and time that is not before now."}));
         setBtnLoader(false)
@@ -90,6 +89,7 @@ const SettingsComponent = (props) => {
       try {
         setBtnLoader(true)
         if(props.funcName=="setVestingTime"){
+          
           const numericSettingValue = parseFloat(settingValue.replace(/,/g, ''));
           if( numericSettingValue>0){
             let timeData = numericSettingValue * 60 * 60 * 24;
@@ -116,10 +116,10 @@ const SettingsComponent = (props) => {
           }
           
         }else{
-          let timeData = convertdateToMinutes(moment(settingValue).format("YYYY-MM-DDTHH:mm:ss"));
+          let timeData = convertdateToMinutes(moment.utc(settingValue).format("YYYY-MM-DDTHH:mm:ss"));
           const provider = new ethers.providers.Web3Provider(window?.ethereum)
           const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
-          const res = await factory[props.funcName](timeData/1000);
+          const res = await factory[props.funcName](timeData);
           res.wait().then(async () => {
             setSettingValue(null)
             setDataUpdated(true)
