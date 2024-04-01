@@ -1069,6 +1069,7 @@ const Projects = (props) => {
                         onBlur={(e) => handleChange('contractAddress',e.target.value.trim().replace(/\s+/g, " "))}
                         isInvalid={!!errors?.contractAddress}
                         required
+                        maxLength={250 }
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
@@ -1093,6 +1094,7 @@ const Projects = (props) => {
                         onBlur={(e) => handleChange('tokenName',e.target.value.trim().replace(/\s+/g, " "))}
                         isInvalid={!!errors?.tokenName}
                         required
+                        maxLength={100 }
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
@@ -1116,6 +1118,7 @@ const Projects = (props) => {
                         onBlur={(e) => handleChange('tokenSymbol',e.target.value.trim().replace(/\s+/g, " "))}
                         isInvalid={!!errors?.tokenSymbol}
                         required
+                        maxLength={10 }
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
@@ -1138,6 +1141,7 @@ const Projects = (props) => {
                         thousandSeparator={true}
                         type="text" placeholder="Token Decimal"
                         isInvalid={!!errors?.tokenDecimal}
+                        maxLength={2 }
                         onChange={(e)=>handleChange('tokenDecimal',e.currentTarget.value)}
                         onBlur={(e) => handleChange('tokenDecimal',e.target.value.trim().replace(/\s+/g, " "))}
                         required
@@ -1163,6 +1167,7 @@ const Projects = (props) => {
                         className='form-control'
                         thousandSeparator={true}
                         placeholder="Total No of Token"
+                        maxLength={ 30}
                         onChange={(e)=>handleChange('totalNumberOfTokens',e.currentTarget.value)}
                         onBlur={(e) => handleChange('totalNumberOfTokens',e.target.value.trim().replace(/\s+/g, " "))}
                         required
@@ -1190,6 +1195,7 @@ const Projects = (props) => {
                         className='form-control'
                         thousandSeparator={true}
                         placeholder="Initial Supply"
+                        maxLength={30 }
                         onChange={(e)=>handleChange('initialSupply',e.currentTarget.value)}
                         onBlur={(e) => handleChange('initialSupply',e.target.value.trim().replace(/\s+/g, " "))}
                         required
@@ -1423,7 +1429,7 @@ const Projects = (props) => {
                               onChange={(e)=>handlecastCrewData('bio',e.currentTarget.value)}
                               onBlur={(e) => handlecastCrewData('bio',e.target.value.trim().replace(/\s+/g, " "))}
                               isInvalid={!!errors.bio}
-                              maxLength={50}
+                              maxLength={256}
                               disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                                 || state.projectSaveDetails?.projectStatus == "Rejected"
                                 || state.projectSaveDetails?.projectStatus == "Approved"
