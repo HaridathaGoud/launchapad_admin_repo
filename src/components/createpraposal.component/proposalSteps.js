@@ -10,10 +10,10 @@ function StartedSteps(props) {
       }, 100);
 
       const stepsOneListClassName =
-  props?.stepsOne === "1" ? "step-list success" : "step-list active";
+  props?.stepsOne === "1" ? "step-list active" : "step-list success";
 
   const stepsOneiconClassName =
-  props?.stepsOne === "1" ? "icon-dao success-icon" : "icon-dao active-check";
+  props?.stepsOne === "1" ? "icon-dao active-check" : "icon-dao success-icon";
 
   const stepsTwoListClassName =
   props?.stepsTwo == "2" ? 'step-list success' : 'step-list active';

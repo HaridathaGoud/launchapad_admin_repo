@@ -1075,7 +1075,7 @@ const Projects = (props) => {
                         className=""
                       >Token Contract Address<span className="text-danger">*</span></Form.Label>
                       <Form.Control
-                        value={state.projectSaveDetails?.contractAddress}
+                        value={state.projectSaveDetails?.tokenContractAddress}
                         name='contractAddress'
                         type="text"
                         placeholder="Contract Address"

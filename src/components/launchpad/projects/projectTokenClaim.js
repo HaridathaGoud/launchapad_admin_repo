@@ -251,6 +251,19 @@ const time=(timeString)=>{
           return;
         }
       }
+      if (timeDate(state.claimDetails?.publicStartDate) < timeDate(state.claimDetails?.privateEndDate)) {
+        dispatch({ type: 'errorMsg', payload: 'Round One End Date cannot be greater than the Round Two Start Date.' });
+        window.scroll(0, 0);
+        dispatch({ type: 'claimBtnLoader', payload: false });
+        return;
+      }else if (timeDate(state.claimDetails?.publicStartDate) === timeDate(state.claimDetails?.privateEndDate)) {
+        if (publicStartingTimeInSeconds < privateEndingTimeInSeconds) {
+          dispatch({ type: 'errorMsg', payload: 'Round One End time cannot be greater than the Round Two Start time.' });
+          window.scroll(0, 0);
+          dispatch({ type: 'claimBtnLoader', payload: false });
+          return;
+        }
+      }
       
      
      
