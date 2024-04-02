@@ -538,7 +538,6 @@ const Projects = (props) => {
     dispatch({ type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, role: selectedRoleNames } })
   };
   const validateCastCrewForm = () => {
-    debugger
     const validatingForm = { ...state.cast_CrewsFormDeatils };
     const newErrors = {};
     const urlRegex = /^(?:(?:https?|ftp|file):\/\/|www\.)[^\s/$.?#].[^\s]*$/;

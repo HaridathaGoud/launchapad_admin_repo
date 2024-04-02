@@ -59,6 +59,7 @@ const reducers =(state ,action )=>{
   const checkBoxChecked = (e) => {
     if(attributes?.length ==0 && !state.checked){
     dispatch({type:'isChecked',payload:e.target.checked})
+    setErrors({proposal:''});
     }
   
   }
@@ -220,16 +221,20 @@ const optionSave = ()=>{
 
   const validateForm = (obj, isChange) => {
     const { proposal, summary, startdate, enddate } = isChange ? obj : form
+    const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
     const newErrors = {};
     if (!proposal || proposal === '') {
       newErrors.proposal = "Is required";
-    } else if (validateContentRule("", proposal)) {
-      newErrors.proposal = "Please provide valid content";
+    } else if (validateContentRule("", proposal) || proposal?.match(specialCharsOnly)) {
+      newErrors.proposal = 'Accepts alphanumeric and special chars.';
     }
     if (!summary || summary === '') {
       newErrors.summary = "Is required";
-    } else if (validateContentRule("", summary)) {
-      newErrors.summary = "Please provide valid content";
+    } else if (validateContentRule("", summary) || summary?.match(specialCharsOnly)) {
+      newErrors.summary = 'Accepts alphanumeric and special chars.';
+    }
+    if(!state?.isChecked){
+      newErrors.proposalType  = "Is required";
     }
     if (!startdate || startdate === '') {
       newErrors.startdate = "Is required";
@@ -241,7 +246,7 @@ const optionSave = ()=>{
   }
 
   const setField = (field, value) => {
-    setForm({...form,[field]: value})
+    setForm({...form,[field]:value});
     if (errors[field]) {
       setErrors({ ...errors,[field]: null
       })
@@ -347,40 +352,48 @@ if (isMobile) {
                     <Form.Label className='starlabel mb-0'>Proposal Title</Form.Label>
                     <Form.Control
                      className='input-height'
+                     value={form.proposal}
                     type="text"
                     placeholder="Proposal Title"
                     name="proposal"
                     maxLength={250}
                     isInvalid={!!errors.proposal}
-                    onChange={(e) => { setField('proposal', e.currentTarget.value.trim()) }}
+                    onChange={(e) => { setField('proposal', e.currentTarget.value) }}
+                    onBlur={(e) => setField('proposal',e.target.value.trim().replace(/\s+/g, " "))}
                      />
+
                   <Form.Control.Feedback type="invalid">{errors.proposal}</Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label className='starlabel mb-0'>Summary</Form.Label>
                     <Form.Control as="textarea"
+                    value={form.summary}
                     rows={5}
                     placeholder="Summary"
                     name='summary'
                     isInvalid={!!errors.summary}
-                    onChange={(e) => { setField('summary', e.currentTarget.value.trim()) }} />
+                    onChange={(e) => { setField('summary', e.currentTarget.value) }}
+                    onBlur={(e) => setField('summary',e.target.value.trim().replace(/\s+/g, " "))} />
                    <Form.Control.Feedback type="invalid">{errors.summary}</Form.Control.Feedback>
                   </Form.Group>
                   <div>
                 <Form.Label className='starlabel mb-0'>Select Your Proposal Type</Form.Label> 
                 </div>    
 
-                <div className='col-md-6'>
-                 <div className='proposal-type justify-content-between'>
+                <div className='col-md-6 mb-3 '>
+                 <div className= {`${errors?.proposalType ? 'is-invalid': 'proposal-type justify-content-between mb-0 '}`}>
               <div>  <input 
                 type='checkbox' 
                 checked={attributes?.length !== 0 ?  state?.isChecked : ""}
                 onChange={checkBoxChecked}
-                onClick={openModalPopUp} /><span className='icon-check c-pointer'> </span><span className='mb-0'>Voting</span></div>
+                onClick={openModalPopUp} /><span className='icon-check c-pointer'> </span><span className='mb-0'>Voting</span>
+               
+                 </div>
                 </div>
-                
+                <p type="invalid" className='invalid-feedback'>{errors?.proposalType}</p>
                 </div> 
+
                 <div className='col-md-12'>
                 <div className='option-style'>
                 {attributes?.map((item)=>(
