@@ -559,16 +559,16 @@ const Projects = (props) => {
       }
   }
     if (validatingForm?.webisite && (emojiRegex.test(validatingForm?.webisite) || !urlRegex.test(validatingForm?.webisite))) {
-      newErrors.webisite ='Accepts alphanumeric and special chars.';
+      newErrors.webisite ='please provide valid content for website';
     }
     if (validatingForm?.facebook && (emojiRegex.test(validatingForm?.facebook) || !urlRegex.test(validatingForm?.facebook))) {
-      newErrors.facebook ='Accepts alphanumeric and special chars.';
+      newErrors.facebook ='please provide valid content for facebook';
     }
     if (validatingForm?.instagram && (emojiRegex.test(validatingForm?.instagram) || !urlRegex.test(validatingForm?.instagram))) {
-      newErrors.instagram ='Accepts alphanumeric and special chars.';
+      newErrors.instagram ='please provide valid content for instagram';
     }
     if (validatingForm?.facebook && !urlRegex.test(validatingForm?.facebook)) {
-      newErrors.facebook = 'Accepts alphanumeric and special chars.';
+      newErrors.facebook = 'please provide valid content for facebook';
     }
     return newErrors;
   }
