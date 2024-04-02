@@ -274,6 +274,7 @@ const ProjectTokenDetails = (props) => {
                 disabled={(projectSaveDetails?.projectStatus == "Deployed"
                   || projectSaveDetails?.projectStatus == "Rejected"
                   || projectSaveDetails?.projectStatus == "Approved"
+                  || projectSaveDetails?.projectStatus == "Deploying"
                 )}
               />
               <Form.Control.Feedback type="invalid">{errors?.privateTokenEquivalentToPaymentType ||
@@ -300,6 +301,7 @@ const ProjectTokenDetails = (props) => {
                 disabled={(projectSaveDetails?.projectStatus == "Deployed"
                   || projectSaveDetails?.projectStatus == "Rejected"
                   || projectSaveDetails?.projectStatus == "Approved"
+                  || projectSaveDetails?.projectStatus == "Deploying"
                 )}
               />
               <Form.Control.Feedback type="invalid">{errors?.publicTokenEquivalentToPaymentType ||
@@ -324,6 +326,7 @@ const ProjectTokenDetails = (props) => {
 {(props?.projectDetails?.projectsViewModel?.projectStatus=="Deployed"
                         ||props?.projectDetails?.projectsViewModel?.projectStatus=="Rejected"
                         ||props?.projectDetails?.projectsViewModel?.projectStatus=="Approved"
+                        ||props?.projectDetails?.projectsViewModel?.projectStatus=="Deploying"
                         )? 
                         "Next" : "Save & Next"}
 

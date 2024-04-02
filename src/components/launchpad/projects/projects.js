@@ -702,6 +702,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
+                              || state.projectSaveDetails?.projectStatus == "Deploying"
                             )}
                           />
                           <span
@@ -735,6 +736,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
+                              || state.projectSaveDetails?.projectStatus == "Deploying"
                             )}
                           />
                           <span
@@ -773,6 +775,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
+                              || state.projectSaveDetails?.projectStatus == "Deploying"
                             )}
                           />
                           <span
@@ -804,6 +807,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
+                              || state.projectSaveDetails?.projectStatus == "Deploying"
                             )}
                           />
                           <span
@@ -840,6 +844,7 @@ const Projects = (props) => {
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
+                      || state.projectSaveDetails?.projectStatus == "Deploying"
                     )}
 
                   />
@@ -868,6 +873,7 @@ const Projects = (props) => {
                     disable={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
+                      || state.projectSaveDetails?.projectStatus == "Deploying"
                     )}
                   />
 
@@ -889,6 +895,7 @@ const Projects = (props) => {
                       disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                         || state.projectSaveDetails?.projectStatus == "Rejected"
                         || state.projectSaveDetails?.projectStatus == "Approved"
+                        || state.projectSaveDetails?.projectStatus == "Deploying"
                       )}
                     >
                       <span className="icon md matic-icon" /> Matic
@@ -916,6 +923,7 @@ const Projects = (props) => {
                       disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                         || state.projectSaveDetails?.projectStatus == "Rejected"
                         || state.projectSaveDetails?.projectStatus == "Approved"
+                        || state.projectSaveDetails?.projectStatus == "Deploying"
                       )}
                     />
                     <Form.Control.Feedback type="invalid">{errors?.tokenListingDate || state?.errors?.tokenListingDate}</Form.Control.Feedback>
@@ -942,6 +950,7 @@ const Projects = (props) => {
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
+                      || state.projectSaveDetails?.projectStatus == "Deploying"
                     )}
                     required
                   />
@@ -962,6 +971,7 @@ const Projects = (props) => {
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
+                      || state.projectSaveDetails?.projectStatus == "Deploying"
                     )}
                     init={{
                       height: 500,
@@ -1008,6 +1018,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
+                              || state.projectSaveDetails?.projectStatus == "Deploying"
                             )}
                           />
                           <span
@@ -1039,6 +1050,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
+                              || state.projectSaveDetails?.projectStatus == "Deploying"
                             )}
                           />
                           <span
@@ -1075,6 +1087,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
+                          || state.projectSaveDetails?.projectStatus == "Deploying"
                         )}
                       />
                       <Form.Control.Feedback type="invalid">{errors?.contractAddress || state?.errors?.contractAddress}</Form.Control.Feedback>
@@ -1100,6 +1113,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
+                          || state.projectSaveDetails?.projectStatus == "Deploying"
                         )}
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenName || state?.errors?.tokenName}</Form.Control.Feedback>
@@ -1124,6 +1138,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
+                          || state.projectSaveDetails?.projectStatus == "Deploying"
                         )}
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenSymbol || state?.errors?.tokenSymbol}</Form.Control.Feedback>
@@ -1150,6 +1165,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
+                          || state.projectSaveDetails?.projectStatus == "Deploying"
                         )}
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenDecimal || state?.errors?.tokenDecimal}</Form.Control.Feedback>
@@ -1177,6 +1193,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
+                          || state.projectSaveDetails?.projectStatus == "Deploying"
                         )}
                       />
 
@@ -1205,6 +1222,7 @@ const Projects = (props) => {
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
+                          || state.projectSaveDetails?.projectStatus == "Deploying"
                         )}
                       />
 
@@ -1222,6 +1240,7 @@ const Projects = (props) => {
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
+                      || state.projectSaveDetails?.projectStatus == "Deploying"
                     )}
                   ><span className='icon add-icon'></span> Add </Button>
                 </div>
@@ -1278,6 +1297,7 @@ const Projects = (props) => {
                   {(state.projectSaveDetails?.projectStatus == "Deployed"
                     || state.projectSaveDetails?.projectStatus == "Rejected"
                     || state.projectSaveDetails?.projectStatus == "Approved"
+                    || state.projectSaveDetails?.projectStatus == "Deploying"
                   ) ?
                     "Next" : "Save & Next"}
 
@@ -1334,6 +1354,8 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
+                              || state.projectSaveDetails?.projectStatus == "Deploying"
+                              
                             )}
                           />
                           <span
@@ -1363,6 +1385,7 @@ const Projects = (props) => {
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
+                              || state.projectSaveDetails?.projectStatus == "Deploying"
                             )}
                           />
                           <span
@@ -1394,6 +1417,7 @@ const Projects = (props) => {
                               disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                                 || state.projectSaveDetails?.projectStatus == "Rejected"
                                 || state.projectSaveDetails?.projectStatus == "Approved"
+                                || state.projectSaveDetails?.projectStatus == "Deploying"
                               )}
                             />
                             <Form.Control.Feedback type="invalid">{errors?.name || state?.errors?.name}</Form.Control.Feedback>
@@ -1413,6 +1437,7 @@ const Projects = (props) => {
                               disable={(state.projectSaveDetails?.projectStatus == "Deployed"
                                 || state.projectSaveDetails?.projectStatus == "Rejected"
                                 || state.projectSaveDetails?.projectStatus == "Approved"
+                                || state.projectSaveDetails?.projectStatus == "Deploying"
                               )}
                             />
                             <Form.Control.Feedback type="invalid" className={`${errors?.role ? 'error-role' : ''}`}>{errors?.role || state?.errors?.role} </Form.Control.Feedback>
@@ -1435,6 +1460,7 @@ const Projects = (props) => {
                               disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                                 || state.projectSaveDetails?.projectStatus == "Rejected"
                                 || state.projectSaveDetails?.projectStatus == "Approved"
+                                || state.projectSaveDetails?.projectStatus == "Deploying"
                               )}
                             />
                             <Form.Control.Feedback type="invalid">{errors?.bio || state?.errors?.bio}</Form.Control.Feedback>
@@ -1456,6 +1482,7 @@ const Projects = (props) => {
                               disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                                 || state.projectSaveDetails?.projectStatus == "Rejected"
                                 || state.projectSaveDetails?.projectStatus == "Approved"
+                                || state.projectSaveDetails?.projectStatus == "Deploying"
                               )}
                             />
                             <Form.Control.Feedback type="invalid">{errors?.webisite || state?.errors?.webisite}</Form.Control.Feedback>
@@ -1477,6 +1504,7 @@ const Projects = (props) => {
                               disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                                 || state.projectSaveDetails?.projectStatus == "Rejected"
                                 || state.projectSaveDetails?.projectStatus == "Approved"
+                                || state.projectSaveDetails?.projectStatus == "Deploying"
                               )}
                             />
                             <Form.Control.Feedback type="invalid">{errors?.instagram || state?.errors?.instagram}</Form.Control.Feedback>
@@ -1499,6 +1527,7 @@ const Projects = (props) => {
                               disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                                 || state.projectSaveDetails?.projectStatus == "Rejected"
                                 || state.projectSaveDetails?.projectStatus == "Approved"
+                                || state.projectSaveDetails?.projectStatus == "Deploying"
                               )}
                             />
                             <Form.Control.Feedback type="invalid">{errors?.facebook || state?.errors?.facebook}</Form.Control.Feedback>

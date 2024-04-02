@@ -9,15 +9,21 @@ import { showSettings } from 'src/reducers/authReducer';
 import { Placeholder, Spinner } from 'react-bootstrap';
 import PropTypes from 'prop-types'
 import LaunchpadShimmer from '../shimmers/launchpaddashboard';
+import { getAdminDetails } from '../../reducers/authReducer';
+
 
 const DashboardPage = (props) => {
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails?.isAdmin);
-   const AdminId = useSelector(reducerstate => reducerstate.oidc?.adminDetails?.id);
+   const AdminId = useSelector(reducerstate => reducerstate.oidc?.profile?.profile.sub );
   const SuperAdminDetail =useSelector(reducerstate=>reducerstate?.launchpad?.superAdminDetails)
   const adminDashboard =useSelector(reducerstate=>reducerstate?.launchpad?.adminDashboardDetails)
   const showSetting = useSelector(reducerstate => reducerstate.oidc?.isShowSettings)
   const shouldLog = useRef(true);
   const [loader,setLoader] = useState(false);
+
+  useEffect(()=>{
+    props.AdminDetails(AdminId)
+  },[])
   useEffect(() => {
     setLoader(true)
     if (shouldLog.current) {
@@ -86,9 +92,13 @@ DashboardPage.propTypes = {
   superAdminDetails: PropTypes.isRequired,
   upcomingProjectsDetails: PropTypes.isRequired,
   adminDashboardDetails: PropTypes.isRequired,
+  AdminDetails:PropTypes.isRequired,
 }
 const connectDispatchToProps = (dispatch) => {
   return {
+    AdminDetails :(userId)=>{
+      dispatch(getAdminDetails(userId))
+    },
     superAdminDetails: (callback) => {
           dispatch(SuperAdminDetails(callback))
       },

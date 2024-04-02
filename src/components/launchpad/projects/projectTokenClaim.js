@@ -393,6 +393,7 @@ const time=(timeString)=>{
                   disabled={(projectSaveDetails?.projectStatus == "Deployed"
                     || projectSaveDetails?.projectStatus == "Rejected"
                     || projectSaveDetails?.projectStatus == "Approved"
+                    || projectSaveDetails?.projectStatus == "Deploying"
                   )}
                 />
                 <Form.Control.Feedback type="invalid">{formErrors?.noofSlots || state.errors.noofSlots}</Form.Control.Feedback>
@@ -419,6 +420,7 @@ const time=(timeString)=>{
                   disabled={(projectSaveDetails?.projectStatus == "Deployed"
                     || projectSaveDetails?.projectStatus == "Rejected"
                     || projectSaveDetails?.projectStatus == "Approved"
+                    || projectSaveDetails?.projectStatus == "Deploying"
                   )}
                 />
                 <Form.Control.Feedback type="invalid">{formErrors.vestingDays || state.errors.vestingDays}</Form.Control.Feedback>
@@ -444,6 +446,7 @@ const time=(timeString)=>{
                     disabled={
                       (props?.projectInfo?.projectStatus == "Deployed" ||
                         props?.projectInfo?.projectStatus == "Rejected" ||
+                        props?.projectInfo?.projectStatus == "Deploying" ||
                         props?.projectInfo?.projectStatus == "Approved") }
                   />
                   <Form.Control.Feedback type="invalid">{formErrors.privateStartDate || state.errors.privateStartDate}</Form.Control.Feedback>
@@ -468,6 +471,7 @@ const time=(timeString)=>{
                     disabled={
                       (props?.projectInfo?.projectStatus == "Deployed" ||
                         props?.projectInfo?.projectStatus == "Rejected" ||
+                        props?.projectInfo?.projectStatus == "Deploying" ||
                         props?.projectInfo?.projectStatus == "Approved") }
                   />
                   <Form.Control.Feedback type="invalid">{formErrors.privateEndDate || state.errors.privateEndDate}</Form.Control.Feedback>
@@ -492,6 +496,7 @@ const time=(timeString)=>{
                     disabled={
                       (props?.projectInfo?.projectStatus == "Deployed" ||
                         props?.projectInfo?.projectStatus == "Rejected" ||
+                        props?.projectInfo?.projectStatus == "Deploying" ||
                         props?.projectInfo?.projectStatus == "Approved") }
                   />
                   <Form.Control.Feedback type="invalid">{formErrors.publicStartDate || state.errors.publicStartDate}</Form.Control.Feedback>
@@ -519,6 +524,7 @@ const time=(timeString)=>{
                     disabled={
                       (props?.projectInfo?.projectStatus == "Deployed" ||
                         props?.projectInfo?.projectStatus == "Rejected" ||
+                        props?.projectInfo?.projectStatus == "Deploying" ||
                         props?.projectInfo?.projectStatus == "Approved") }
                   />
                   <Form.Control.Feedback type="invalid">{formErrors.publicEndDate || state.errors.publicEndDate}</Form.Control.Feedback>
@@ -541,6 +547,7 @@ const time=(timeString)=>{
                   {
                     (props?.projectInfo?.projectStatus == "Deployed" ||
                       props?.projectInfo?.projectStatus == "Rejected" ||
+                      props?.projectInfo?.projectStatus == "Deploying" ||
                       props?.projectInfo?.projectStatus == "Approved") ? "Close" : "Save & Next"}
                 </Button>{' '}
 
