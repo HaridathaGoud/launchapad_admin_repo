@@ -59,7 +59,7 @@ const reducers =(state ,action )=>{
   const checkBoxChecked = (e) => {
     if(attributes?.length ==0 && !state.checked){
     dispatch({type:'isChecked',payload:e.target.checked})
-    setErrors({proposal:''});
+    setErrorMsg(null)
     }
   
   }
@@ -233,9 +233,6 @@ const optionSave = ()=>{
     } else if (validateContentRule("", summary) || summary?.match(specialCharsOnly)) {
       newErrors.summary = 'Accepts alphanumeric and special chars.';
     }
-    if(!state?.isChecked){
-      newErrors.proposalType  = "Is required";
-    }
     if (!startdate || startdate === '') {
       newErrors.startdate = "Is required";
     }
@@ -382,7 +379,7 @@ if (isMobile) {
                 </div>    
 
                 <div className='col-md-6 mb-3 '>
-                 <div className= {`${errors?.proposalType ? 'is-invalid': 'proposal-type justify-content-between mb-0 '}`}>
+                 <div className= 'proposal-type justify-content-between mb-0'>
               <div>  <input 
                 type='checkbox' 
                 checked={attributes?.length !== 0 ?  state?.isChecked : ""}
@@ -391,7 +388,7 @@ if (isMobile) {
                
                  </div>
                 </div>
-                <p type="invalid" className='invalid-feedback'>{errors?.proposalType}</p>
+                {/* <p type="invalid" className='invalid-feedback'>{errors?.proposalType}</p> */}
                 </div> 
 
                 <div className='col-md-12'>
