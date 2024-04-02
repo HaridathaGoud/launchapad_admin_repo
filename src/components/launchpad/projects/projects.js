@@ -538,6 +538,7 @@ const Projects = (props) => {
     dispatch({ type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, role: selectedRoleNames } })
   };
   const validateCastCrewForm = () => {
+    debugger
     const validatingForm = { ...state.cast_CrewsFormDeatils };
     const newErrors = {};
     const urlRegex = /^(?:(?:https?|ftp|file):\/\/|www\.)[^\s/$.?#].[^\s]*$/;
@@ -553,9 +554,11 @@ const Projects = (props) => {
     if (!validatingForm?.role || validatingForm?.role === '') {
       newErrors.role = 'Is required';
     }
-    if (!validateContentRules('', validatingForm?.bio)  || validatingForm?.bio?.match(numbersOnly) || validatingForm?.bio?.match(specialCharsOnly)) {
-      newErrors.bio = 'Accepts alphanumeric and special chars.';
-    }
+    if (validatingForm?.bio && validatingForm?.bio.trim() !== '') {
+      if (!validateContentRules('', validatingForm?.bio) || validatingForm?.bio.match(numbersOnly) || validatingForm?.bio.match(specialCharsOnly)) {
+          newErrors.bio = 'Accepts alphanumeric and special chars.';
+      }
+  }
     if (validatingForm?.webisite && (emojiRegex.test(validatingForm?.webisite) || !urlRegex.test(validatingForm?.webisite))) {
       newErrors.webisite ='Accepts alphanumeric and special chars.';
     }
