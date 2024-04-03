@@ -255,7 +255,8 @@ const ProjectCards = () => {
     const tierWaight = [1, 1, 1, 2, 2, 2, 3, 3, 4, 6, 6, 7, 8, 9, 10, 11, 11, 13];
     const listingTime = parseFloat(state.detailsPreview?.listTime?.slice(0, 2))
     const timeSolts = state.detailsPreview?.noOfSlots
-    const vestingTime = state.detailsPreview?.vestingDays * 60 * 60 * 24;
+    const secondsInDay = 24 * 60 * 60;
+    const totalSeconds = parseInt(state.detailsPreview?.vestingDays, 10) * secondsInDay;
     const rndStart = convertDateToMinutesUTC(moment(state.detailsPreview?.privateStartDate).format("YYYY-MM-DDTHH:mm"));
     const rndEnd = convertDateToMinutesUTC(moment(state.detailsPreview?.privateEndDate).format("YYYY-MM-DDTHH:mm"));
     const fcfss = convertDateToMinutesUTC(moment(state.detailsPreview?.publicStartDate).format("YYYY-MM-DDTHH:mm"));
@@ -270,7 +271,7 @@ const ProjectCards = () => {
         tierWaight,
         listingTime,
         timeSolts,
-        vestingTime,
+        totalSeconds,
         rndStart,
         rndEnd,
         fcfss,
