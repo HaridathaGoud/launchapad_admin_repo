@@ -12,7 +12,7 @@ export default function ProposalViewstatus() {
     const params = useParams()
     return (
 
-            <Container className='dao-mt'>
+            <div className='dao-mt'>
             <div className='d-flex align-items-center title-width-fit'>
                 <Link to={`/dao/proposal/${params?.daoId}`}>
                     <span className='icon-dao back mr-2 c-pointer'></span>
@@ -30,6 +30,6 @@ export default function ProposalViewstatus() {
                     </Col>
                    
                 </Row>
-            </Container>
+            </div>
     );
 }

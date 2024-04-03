@@ -362,7 +362,7 @@ const Dao = (props) => {
                 {loading && 
                 <shimmers.ProposalsShimmer  count={3}/>
                 }
-                {!loading && <Container className='dao-mt'>
+                {!loading && <div className='dao-mt'>
                     
                     {errorMsg && (
                         <Alert variant="danger" className="cust-alert-design">
@@ -509,10 +509,13 @@ const Dao = (props) => {
                                                             </>}</>} */}
 
                                                         {UserInfo.role ==="Super Admin" && item.status == "Closed" && item?.dateEnded &&
-                                                        <Button
+                                                         <div className='text-end'>
+                                                             <Button
                                                         disabled={btnLoader}
-                                                        className='ustify-content-end' onClick={() => handleCalculateVote(item)}>
-                                                        <span>{(selection == item?.proposalId) && btnLoader && <Spinner size="sm" />}  </span>  Calculate Vote</Button>}
+                                                        className='justify-content-end filled-btn' onClick={() => handleCalculateVote(item)}>
+                                                        <span>{(selection == item?.proposalId) && btnLoader && <Spinner size="sm" />}  </span>  Calculate Vote</Button>
+                                                         </div>
+                                                       }
                                                     </div>
                                                 }
                                             </Col>))}
@@ -534,7 +537,7 @@ const Dao = (props) => {
 
                         </div> : <FirstPraposal handleRedirect={handleRedirect} votingOwner={votingOwner} />}
 
-                </Container>}
+                </div>}
             </>
         }</>
     );

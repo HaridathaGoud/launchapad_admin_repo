@@ -320,7 +320,7 @@ if (isMobile) {
 
     return (
        
-        <Container className='dao-mt'>
+        <div className='dao-mt'>
          <Link className=' title-width-fit' to={`/dao/proposal/${params.id}`}><div className='d-flex align-items-center'> <span className='icon-dao back mr-2 c-pointer'></span><span className='mb-0 ms-2 back-text'>Create Proposal</span></div></Link>
           
           <Row className='mt-5 gap-4 gap-md-0'>
@@ -492,7 +492,7 @@ if (isMobile) {
             </div>
           </Modal.Footer>
         </Modal>
-        </Container>
+        </div>
         
     );
 }

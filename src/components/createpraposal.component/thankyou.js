@@ -21,7 +21,7 @@ export default function Success() {
         setLoader(params.id)
       }, 2000);
     return (
-            <Container className='dao-mt'>
+            <div className='dao-mt'>
            <Link className=' title-width-fit' to={`/dao/publishproposal/${params.id}`}> <div className='d-flex align-items-center title-width-fit'>  <span className='icon-dao back mr-2 c-pointer'></span><span className='mb-0 ms-2 back-text'>Create Proposal</span></div></Link>
               <Row className='mt-5'>
                     <Col md={4}>
@@ -38,6 +38,6 @@ export default function Success() {
                    </div>:<PlaceHolder contenthtml={PublishShimmers} />}
                     </Col>
                 </Row>
-            </Container>
+            </div>
     );
 }

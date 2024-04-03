@@ -140,7 +140,7 @@ const ProposalsShimmer = ({count}) => {
     }
     const html = <div >
         {countList.map((item) => (
-            <div className='dao-mt container' key={item}>
+            <div className='' key={item}>
                 <Placeholder as="p" animation="glow" className='mb-4'>
                     <Placeholder xs={12} className='proposalcard-shimmer' />
                 </Placeholder>

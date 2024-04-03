@@ -8,7 +8,7 @@ import Voters from './votersgrid';
 export default function Voting() {
     return (
         <>
-            <Container className='dao-mt'>
+            <div className='dao-mt'>
             <div className='d-flex align-items-center title-width-fit'>
                 <span className='icon-dao back mr-2 c-pointer'onClick={handleback}></span>
                 <span className='mb-0 ms-2 back-text'>Voting</span>
@@ -22,7 +22,7 @@ export default function Voting() {
                     </Col>
                 </Row>
                 <Voters></Voters>
-            </Container>
+            </div>
         </>
     );
 }

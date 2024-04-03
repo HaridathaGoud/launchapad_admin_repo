@@ -8,7 +8,7 @@ import StartedSteps from './proposalSteps';
 export default function ProposalView() {
     const params = useParams()
     return (
-        <Container className='dao-mt'>
+        <div className='dao-mt'>
                 <div className='d-flex align-items-center sm-m-space title-width-fit'>
                 <Link to={`/dao/proposal/${params.id}`}>
                     <span className='icon-dao back mr-2 c-pointer '></span>
@@ -23,6 +23,6 @@ export default function ProposalView() {
                    <TestingPraposalflow></TestingPraposalflow>
                     </Col>
                 </Row>
-            </Container>
+            </div>
     );
 }

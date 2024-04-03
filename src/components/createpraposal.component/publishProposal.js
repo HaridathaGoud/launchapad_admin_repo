@@ -180,7 +180,7 @@ const publishProposal =  async(walletAddress) => {
 
 
   return (
-    <Container className='dao-mt'>
+    <div className='dao-mt'>
       <Link className=' title-width-fit' to={`/dao/createpraposal/${params.id}`}><div className='d-flex align-items-center title-width-fit'>  <span className='icon-dao back mr-2 c-pointer'></span><span className='mb-0 ms-2 back-text'>Create Proposal</span></div></Link>
         <Row>
           <Col md={4} className='mt-5'>
@@ -258,7 +258,7 @@ const publishProposal =  async(walletAddress) => {
             </div>
           </Col>
         </Row>
-      </Container>
+      </div>
   );
 }
 PublishProposal.propTypes = {
