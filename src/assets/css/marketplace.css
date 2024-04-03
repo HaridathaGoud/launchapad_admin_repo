@@ -1,5 +1,5 @@
 /*  dashboard start  */ 
-.cust-alert-design.alert p{color: #ff2e2e !important;}
+.cust-alert-design.alert p{color: #ff2e2e !important;flex: 1;}
 .page-title{font-weight: 600;
   font-size: 18px;color: #000;margin-bottom: 20px;}
 .dash-card{
