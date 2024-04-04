@@ -25,6 +25,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import { NumericFormat } from 'react-number-format';
 import profileavathar from "../../../assets/images/default-avatar.jpg";
 import { Modal } from 'react-bootstrap';
+import { uuidv4 } from 'src/utils/uuid';
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMgs":
@@ -183,20 +184,7 @@ const Projects = (props) => {
     }
   };
 
-  const handleEdit = (index) => {
-    setShow(true)
-    if (index !== null) {
-      dispatch({ type: 'castCrewFormLoader', payload: true })
-      const selectedItem = state.castCrewDataList[index];
-      setSelectedroleValues(selectedItem?.role?.map(role => ({ role })));
-      dispatch({ type: "cast_CrewsFormDeatils", payload: selectedItem });
-      setTimeout(() => {
-        dispatch({ type: 'castCrewFormLoader', payload: false })
-      }, 1000);
-    } else {
-      dispatch({ type: "cast_CrewsFormDeatils", payload: {} });
-    }
-  }
+ 
   const handleCancell = () => {
     setShow(false)
     dispatch({ type: "cast_CrewsFormDeatils", payload: {} });
@@ -269,6 +257,9 @@ const Projects = (props) => {
       newErrors.totalNumberOfTokens = 'Is required';
     } else if (totalNumberOfTokens && (emojiRejex.test(totalNumberOfTokens))) {
       newErrors.totalNumberOfTokens = 'Accepts alphanumeric and special chars.';
+    }
+    if(state?.castCrewDataList.length ===0){
+      dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' })
     }
 
     return newErrors;
@@ -509,6 +500,20 @@ const Projects = (props) => {
     }
   }
 
+  const handleEdit = (index) => {
+    setShow(true)
+    if (index !== null) {
+      dispatch({ type: 'castCrewFormLoader', payload: true })
+      const selectedItem = state.castCrewDataList[index];
+      setSelectedroleValues(selectedItem?.role?.map(role => ({ role })));
+      dispatch({ type: "cast_CrewsFormDeatils", payload: selectedItem });
+      setTimeout(() => {
+        dispatch({ type: 'castCrewFormLoader', payload: false })
+      }, 1000);
+    } else {
+      dispatch({ type: "cast_CrewsFormDeatils", payload: {} });
+    }
+  }
 
   const onSelect = (selectedList) => {
     let _data = { ...state.projectSaveDetails };
@@ -527,9 +532,6 @@ const Projects = (props) => {
     setSelectedValues(selectedList);
 
   };
-
-
- 
 
 
   const onRolsSelect = (selectedList) => {
@@ -587,22 +589,17 @@ const Projects = (props) => {
         const updatedList = [...state.castCrewDataList];
         updatedList[existingIndex] = { ...formDetails, recordStatus: "modified" };
         dispatch({ type: 'castCrewDataList', payload: updatedList });
-        setErrors({});
-        setTimeout(() => {
-          setCastCrewLoader(false)
-        }, 1000);
-        setShow(false)
-        setSelectedroleValues([])
       } else {
-        const formData = { ...state.cast_CrewsFormDeatils, id: '00000000-0000-0000-0000-000000000000' };
+        const formData = { ...state.cast_CrewsFormDeatils, id: uuidv4() };
         dispatch({ type: 'castCrewDataList', payload: [...state.castCrewDataList, { ...formData, recordStatus: "added" }] });
-        setErrors({});
-        setTimeout(() => {
-          setCastCrewLoader(false)
-        }, 1000);
-        setShow(false)
-      setSelectedroleValues([])
       }
+      dispatch({ type: 'errorMgs', payload: '' })
+      setErrors({});
+      setTimeout(() => {
+        setCastCrewLoader(false)
+      }, 1000);
+      setShow(false)
+      setSelectedroleValues([])
     }
   }
 
@@ -1235,7 +1232,7 @@ const Projects = (props) => {
             </div>
               <div className='profile-section'>
                 <div className='d-flex justify-content-between  align-items-center mb-2'>
-                  <h3 className='section-title '>Cast And Crew</h3>
+                  <h3 className='section-title '>Cast And Crew <span className="text-danger">*</span></h3>
                   <Button className='button-style mt-3 mt-md-0' onClick={() => handleEdit(null)}
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"
