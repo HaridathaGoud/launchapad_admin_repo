@@ -188,13 +188,14 @@ const Projects = (props) => {
   const handleCancell = () => {
     setShow(false)
     dispatch({ type: "cast_CrewsFormDeatils", payload: {} });
+    dispatch({ type: 'castCrewImageError', payload: null })
     setSelectedroleValues([])
     setErrors({});
   }
 
   const validateForm = (obj) => {
     const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, contractAddress,
-      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply } = obj;
+      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply,cast_Crews  } = obj;
     const newErrors = {};
     const numbersOnly = /^\d+$/;
     const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
@@ -258,7 +259,9 @@ const Projects = (props) => {
     } else if (totalNumberOfTokens && (emojiRejex.test(totalNumberOfTokens))) {
       newErrors.totalNumberOfTokens = 'Accepts alphanumeric and special chars.';
     }
-
+    if(cast_Crews?.length === 0) {
+      dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
+    }
     return newErrors;
   };
 
@@ -291,11 +294,6 @@ const Projects = (props) => {
       dispatch({ type: 'projectTokenShow', payload: true })
       store.dispatch(projectDetailsSave(state.projectSaveDetails));
     } else {
-      if (state.castCrewDataList.length === 0) {
-        dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
-        window.scroll(0, 0);
-        return;
-      }
       dispatch({ type: 'buttonLoader', payload: true })
       let obj = {
         "id": projectSaveDetails?.id != null ? projectSaveDetails.id : (projectId ?? "00000000-0000-0000-0000-000000000000"),
@@ -342,6 +340,11 @@ const Projects = (props) => {
         dispatch({ type: 'errors', payload: formErrors })
         dispatch({ type: 'loader', payload: false })
       } else {
+        if (obj.cast_Crews?.length === 0) {
+          dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
+          window.scroll(0, 0);
+          return; 
+      }
         obj.tokenListingDate = moment(obj.tokenListingDate).utc().format("YYYY-MM-DDTHH:mm:ss")
         let res = await apiCalls.UpdateProjectDetail(obj);
         if (res.ok) {
@@ -362,7 +365,7 @@ const Projects = (props) => {
           window.scroll(0, 0);
         }
       }
-    }
+   }
     dispatch({ type: 'validated', payload: true })
     dispatch({ type: 'buttonLoader', payload: false })
     window.scroll(0, 0);
@@ -411,9 +414,11 @@ const Projects = (props) => {
     }
   };
   const uploadToServer = async (file, type) => {
+    
     const body = new FormData();
     body.append('file', file);
     try {
+      debugger
       const res = await apiCalls.apiUploadPost(`/Upload/UploadFileNew`, body)
       if (res.title) {
         window.scroll(0, 0);
@@ -444,8 +449,12 @@ const Projects = (props) => {
         }
       }
     } catch (error) {
+      if(type=='image'){
+        dispatch({ type: 'castCrewImageError', payload: apiCalls.isErrorDispaly(error) })
+      }else{
+        dispatch({ type: 'errorMgs', payload: apiCalls.isErrorDispaly(error) })
+      }
       dispatch({ type: 'bannerImgLoader', payload: false })
-      dispatch({ type: 'errorMgs', payload: apiCalls.isErrorDispaly(error) })
       dispatch({ type: 'loading', payload: false })
       dispatch({ type: 'cardImgLoader', payload: false })
       dispatch({ type: 'castImgLoader', payload: false })
@@ -596,6 +605,7 @@ const Projects = (props) => {
         dispatch({ type: 'castCrewDataList', payload: [...state.castCrewDataList, { ...formData, recordStatus: "added" }] });
       }
       dispatch({ type: 'errorMgs', payload: '' })
+      dispatch({ type: 'castCrewImageError', payload: null })
       setErrors({});
       setTimeout(() => {
         setCastCrewLoader(false)

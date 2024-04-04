@@ -14,7 +14,8 @@ import { getAdminDetails } from '../../reducers/authReducer';
 
 const DashboardPage = (props) => {
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails?.isAdmin);
-   const AdminId = useSelector(reducerstate => reducerstate.oidc?.profile?.profile.sub );
+  const inverstor = useSelector(reducerstate => reducerstate.oidc?.adminDetails)
+   const AdminId = useSelector(reducerstate => reducerstate.oidc?.profile?.profile );
   const SuperAdminDetail =useSelector(reducerstate=>reducerstate?.launchpad?.superAdminDetails)
   const adminDashboard =useSelector(reducerstate=>reducerstate?.launchpad?.adminDashboardDetails)
   const showSetting = useSelector(reducerstate => reducerstate.oidc?.isShowSettings)
@@ -34,7 +35,7 @@ const DashboardPage = (props) => {
         }
       })
       props.upcomingProjectsDetails()
-      props.adminDashboardDetails(AdminId)
+      props.adminDashboardDetails(inverstor?.id)
       if(showSetting){
         store.dispatch(showSettings(false));
       }
