@@ -16,6 +16,8 @@ import { ethers } from 'ethers';
 import apiCalls from 'src/api/apiCalls';
 import PropTypes from 'prop-types'
 import shimmers from '../shimmers/shimmers';
+import { useAccount } from 'wagmi'
+import { useConnectWallet } from 'src/hooks/useConnectWallet';
 const take = 8;
 
 const Dashboard = (props) => {
@@ -27,6 +29,10 @@ const Dashboard = (props) => {
     const [selectedDaoId, setSelectedDaoId]=useState(null);
     const [success,setSuccess]=useState(null)
     const router = useNavigate();
+    const { isConnected } = useAccount()
+    const { connectWallet } = useConnectWallet();
+
+
 
     const getDaosList = async (data,page) => {
         await props.trackWallet({
@@ -66,6 +72,26 @@ const Dashboard = (props) => {
     const goToProposalList = (item) => {
         router(`/dao/proposal/${item?.daoId}`);
     }
+    const handleDeployDao = async (item) => {
+        setSelectedDaoId(null)
+        setErrorMsg(null);
+        if (isConnected) {
+            deployDAO(item);
+        }
+        else {
+          try {
+            await connectWallet();
+            deployDAO(item);
+            setErrorMsg(null);
+          } catch (error) {
+            setSelectedDaoId(null)
+            setErrorMsg(apiCalls.isErrorDispaly(error));
+            setDeployContractLoader(false);
+          }
+    
+        }
+      }
+
     const deployDAO = async (daoDetails) => {
         setDeployContractLoader(true)
         setSelectedDaoId(daoDetails?.daoId);
@@ -134,7 +160,7 @@ const Dashboard = (props) => {
                                             <p className='m-0 col-3'>members:</p> <p className='m-0 '>{item?.members?.toLocaleString()}</p>
                                         </Card.Text>
                                         {!isAdmin.isInvestor&&<> 
-                                        {item?.status?.toLowerCase() == "approved" && <Button className='button-secondary w-100 mt-2' onClick={() => deployDAO(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) && <span><Spinner size='sm' className='text-light mr-1' /></span>} Deploy</Button>}
+                                        {item?.status?.toLowerCase() == "approved" && <Button className='button-secondary w-100 mt-2' onClick={() => handleDeployDao(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) && <span><Spinner size='sm' className='text-light mr-1' /></span>} Deploy</Button>}
                                         {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed") && <Button className='button-secondary w-100 mt-2' onClick={() => goToProposalList(item)}>{item?.status}</Button>}
                                         </>}
                                      { isAdmin.isInvestor && (item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed" || item?.status?.toLowerCase() == "approved" ) && 
