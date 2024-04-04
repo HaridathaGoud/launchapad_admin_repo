@@ -258,9 +258,6 @@ const Projects = (props) => {
     } else if (totalNumberOfTokens && (emojiRejex.test(totalNumberOfTokens))) {
       newErrors.totalNumberOfTokens = 'Accepts alphanumeric and special chars.';
     }
-    if(state?.castCrewDataList.length ===0){
-      dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' })
-    }
 
     return newErrors;
   };
@@ -294,6 +291,11 @@ const Projects = (props) => {
       dispatch({ type: 'projectTokenShow', payload: true })
       store.dispatch(projectDetailsSave(state.projectSaveDetails));
     } else {
+      if (state.castCrewDataList.length === 0) {
+        dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
+        window.scroll(0, 0);
+        return;
+      }
       dispatch({ type: 'buttonLoader', payload: true })
       let obj = {
         "id": projectSaveDetails?.id != null ? projectSaveDetails.id : (projectId ?? "00000000-0000-0000-0000-000000000000"),
