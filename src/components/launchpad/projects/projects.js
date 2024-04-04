@@ -343,6 +343,7 @@ const Projects = (props) => {
         if (obj.cast_Crews?.length === 0) {
           dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
           window.scroll(0, 0);
+          dispatch({ type: 'buttonLoader', payload: false })
           return; 
       }
         obj.tokenListingDate = moment(obj.tokenListingDate).utc().format("YYYY-MM-DDTHH:mm:ss")
@@ -418,7 +419,6 @@ const Projects = (props) => {
     const body = new FormData();
     body.append('file', file);
     try {
-      debugger
       const res = await apiCalls.apiUploadPost(`/Upload/UploadFileNew`, body)
       if (res.title) {
         window.scroll(0, 0);
