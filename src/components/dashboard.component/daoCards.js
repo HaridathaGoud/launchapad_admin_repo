@@ -32,8 +32,6 @@ const Dashboard = (props) => {
     const { isConnected } = useAccount()
     const { connectWallet } = useConnectWallet();
 
-
-
     const getDaosList = async (data,page) => {
         await props.trackWallet({
           page: page,
@@ -159,11 +157,11 @@ const Dashboard = (props) => {
                                         <Card.Text className='card-description d-flex mb-1'>
                                             <p className='m-0 col-3'>members :</p> <p className='m-0 '>{item?.members?.toLocaleString()}</p>
                                         </Card.Text>
-                                        {!isAdmin.isInvestor&&<> 
+                                        {!isAdmin?.isInvestor&&<> 
                                         {item?.status?.toLowerCase() == "approved" && <Button className='button-secondary w-100 mt-2' onClick={() => handleDeployDao(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) && <span><Spinner size='sm' className='text-light mr-1' /></span>} Deploy</Button>}
                                         {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed") && <Button className='button-secondary w-100 mt-2' onClick={() => goToProposalList(item)}>{item?.status}</Button>}
                                         </>}
-                                     { isAdmin.isInvestor && (item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed" || item?.status?.toLowerCase() == "approved" ) && 
+                                     { isAdmin?.isInvestor && (item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed" || item?.status?.toLowerCase() == "approved" ) && 
                                      <Button className='button-secondary w-100 mt-2' onClick={() => goToProposalList(item)}>{item?.status}</Button>}
                                     </Card.Body>
                                 </Card>}

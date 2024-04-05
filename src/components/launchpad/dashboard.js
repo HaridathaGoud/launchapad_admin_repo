@@ -6,7 +6,7 @@ import { connect, useSelector } from 'react-redux';
 import { SuperAdminDetails, UpComingProjectDetails, getAdminDashboardDetails } from './launchpadReducer/launchpadReducer';
 import store from 'src/store';
 import { showSettings } from 'src/reducers/authReducer';
-import { Placeholder, Spinner } from 'react-bootstrap';
+import {  Spinner } from 'react-bootstrap';
 import PropTypes from 'prop-types'
 import LaunchpadShimmer from '../shimmers/launchpaddashboard';
 import { getAdminDetails } from '../../reducers/authReducer';
@@ -14,11 +14,11 @@ import { getAdminDetails } from '../../reducers/authReducer';
 
 const DashboardPage = (props) => {
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails?.isAdmin);
-  const inverstor = useSelector(reducerstate => reducerstate.oidc?.adminDetails)
-   const AdminId = useSelector(reducerstate => reducerstate.oidc?.profile?.profile );
+   const AdminId = useSelector(reducerstate => reducerstate.oidc?.profile?.profile?.sub );
   const SuperAdminDetail =useSelector(reducerstate=>reducerstate?.launchpad?.superAdminDetails)
   const adminDashboard =useSelector(reducerstate=>reducerstate?.launchpad?.adminDashboardDetails)
   const showSetting = useSelector(reducerstate => reducerstate.oidc?.isShowSettings)
+  const inverstor = useSelector(reducerstate => reducerstate.oidc?.adminDetails?.id)
   const shouldLog = useRef(true);
   const [loader,setLoader] = useState(false);
 
@@ -35,7 +35,7 @@ const DashboardPage = (props) => {
         }
       })
       props.upcomingProjectsDetails()
-      props.adminDashboardDetails(inverstor?.id)
+      props.adminDashboardDetails(inverstor)
       if(showSetting){
         store.dispatch(showSettings(false));
       }
