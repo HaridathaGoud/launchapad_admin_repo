@@ -253,7 +253,8 @@ const ProjectCards = () => {
     const totalSupply = state.detailsPreview?.totalSupply;
     // const tierWaight = [10, 10, 10, 30, 30, 30, 40, 40, 40, 60, 60, 60, 80, 80, 80, 120, 120, 120];
     const tierWaight = [1, 1, 1, 2, 2, 2, 3, 3, 4, 6, 6, 7, 8, 9, 10, 11, 11, 13];
-    const listingTime = parseFloat(state.detailsPreview?.listTime?.slice(0, 2))
+    // const listingTime = parseFloat(state.detailsPreview?.listTime?.slice(0, 2))
+    const listingTime = convertDateToMinutesUTC(moment(state.detailsPreview?.listTime).format("YYYY-MM-DDTHH:mm"))
     const timeSolts = state.detailsPreview?.noOfSlots
     const secondsInDay = 24 * 60 * 60;
     const totalSeconds = parseInt(state.detailsPreview?.vestingDays, 10) * secondsInDay;
