@@ -14,33 +14,34 @@ import { getAdminDetails } from '../../reducers/authReducer';
 
 const DashboardPage = (props) => {
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails?.isAdmin);
-   const AdminId = useSelector(reducerstate => reducerstate.oidc?.profile?.profile?.sub );
+  const AdminDetails = useSelector(reducerstate => reducerstate.oidc?.adminDetails)
   const SuperAdminDetail =useSelector(reducerstate=>reducerstate?.launchpad?.superAdminDetails)
   const adminDashboard =useSelector(reducerstate=>reducerstate?.launchpad?.adminDashboardDetails)
   const showSetting = useSelector(reducerstate => reducerstate.oidc?.isShowSettings)
-  const inverstor = useSelector(reducerstate => reducerstate.oidc?.adminDetails?.id)
-  const shouldLog = useRef(true);
   const [loader,setLoader] = useState(false);
 
-  useEffect(()=>{
-    props.AdminDetails(AdminId)
-  },[])
   useEffect(() => {
+  adminDashboardDetails()
+  }, [AdminDetails]);
+
+  const adminDashboardDetails = () => {
     setLoader(true)
-    if (shouldLog.current) {
-      shouldLog.current = false;
-      props.superAdminDetails((callback)=>{
-        if(callback?.data){
+    if (AdminDetails?.isInvestor) {
+      props.upcomingProjectsDetails()
+      props.adminDashboardDetails(AdminDetails?.id)
+      setLoader(false)
+    } else {
+      props.superAdminDetails((callback) => {
+        if (callback?.data) {
           setLoader(false)
         }
       })
-      props.upcomingProjectsDetails()
-      props.adminDashboardDetails(inverstor)
-      if(showSetting){
-        store.dispatch(showSettings(false));
-      }
     }
-  }, [AdminId]);
+    if (showSetting) {
+      store.dispatch(showSettings(false));
+    }
+  }
+
   return (
     <>
     {loader ? <LaunchpadShimmer/> : 
