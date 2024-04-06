@@ -259,9 +259,6 @@ const Projects = (props) => {
     } else if (totalNumberOfTokens && (emojiRejex.test(totalNumberOfTokens))) {
       newErrors.totalNumberOfTokens = 'Accepts alphanumeric and special chars.';
     }
-    if(cast_Crews?.length === 0) {
-      dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
-    }
     return newErrors;
   };
 
