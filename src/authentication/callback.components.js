@@ -11,15 +11,15 @@ const CallbackPage = () => {
     }
     const handleRedirect = (user) => {
         store.dispatch(profileSuccess(user));
+        store.dispatch(getAdminDetails(user?.profile?.sub));
          if(user?.profile?.isInvestor){
           return navigate("/launchpad/dashboard");
             // navigate("/minting/dashboard")
         }
         else{
-           navigate("/launchpad/dashboard");
-            // const url = localStorage.getItem("__url");
-            // localStorage.removeItem("__url");
-            // navigate(url && url !== "/callback" ? url : "/launchpad/dashboard")
+            const url = localStorage.getItem("__url");
+            localStorage.removeItem("__url");
+            navigate(url && url !== "/callback" ? url : "/launchpad/dashboard")
             // navigate(url && url !== "/callback" ? url : "/kyc/customers")
         }
        
