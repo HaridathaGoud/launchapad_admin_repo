@@ -409,6 +409,7 @@ if (isMobile) {
                       placeholder='Start Date'
                       name='startdate'
                       min={currentDate}
+                      max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                       isInvalid={!!errors.startdate}
                       onChange={(e) => startDate(e)}
                     />
@@ -419,6 +420,7 @@ if (isMobile) {
                       className={inputEndClassName} placeholder='End Date'
                       name="enddate"
                       min={currentDate}
+                      max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                       isInvalid={!!errors.enddate}
                       onChange={(e) => endDate(e)}
                     />
