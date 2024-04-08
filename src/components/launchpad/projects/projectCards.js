@@ -251,6 +251,9 @@ const ProjectCards = () => {
     const tokenContract = state.detailsPreview?.stakingContractAddress;
     const rewardsToken = state.detailsPreview.tokenContractAddress
     const totalSupply = state.detailsPreview?.totalSupply;
+    const tokenDecimals   = state.detailsPreview?.tokenDecimal
+    const tokenAmount = state.detailsPreview.tokenPrice
+    const tokenPrice = tokenAmount * (10 ** tokenDecimals);
     // const tierWaight = [10, 10, 10, 30, 30, 30, 40, 40, 40, 60, 60, 60, 80, 80, 80, 120, 120, 120];
     const tierWaight = [1, 1, 1, 2, 2, 2, 3, 3, 4, 6, 6, 7, 8, 9, 10, 11, 11, 13];
     // const listingTime = parseFloat(state.detailsPreview?.listTime?.slice(0, 2))
@@ -277,7 +280,7 @@ const ProjectCards = () => {
         rndEnd,
         fcfss,
         fcfse,
-        1,
+        tokenPrice,
         { gasLimit: 9000000, gasPrice: 300000 });
       contractRes.wait().then(async (receipt) => {
         const address = receipt.logs[0].address;

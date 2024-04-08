@@ -429,14 +429,17 @@ const Projects = (props) => {
         let _obj = { ...state.projectImages };
         if (type == "LOGO") {
           _obj.tokenLogo = data[0];
+          dispatch({ type: 'errors', payload:{ ...state.errors,  tokenLogo: ''}  });
           dispatch({ type: 'loading', payload: false })
           dispatch({ type: 'projectLogoImages', payload: data[0] })
         } else if (type == "banner") {
           _obj.bannerImage = data[0];
+          dispatch({ type: 'errors', payload:{ ...state.errors,  bannerImage: ''}  });
           dispatch({ type: 'bannerImgLoader', payload: false })
           dispatch({ type: 'projectBannerImages', payload: data[0] })
         } else if (type == "CARD") {
           _obj.cardImage = data[0];
+          dispatch({ type: 'errors', payload:{ ...state.errors,  cardImage: ''}  });
           dispatch({ type: 'cardImgLoader', payload: false })
           dispatch({ type: 'projectCardImages', payload: data[0] })
         } else if (type == "image") {
