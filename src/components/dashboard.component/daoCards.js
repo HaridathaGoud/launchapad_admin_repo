@@ -154,9 +154,9 @@ const Dashboard = (props) => {
                                         <Card.Text className='mb-1 d-flex'>
                                             <p className='m-0 col-3'>Name : </p><p className='m-0 '>{item.name}</p>
                                         </Card.Text>
-                                        <Card.Text className='card-description d-flex mb-1'>
+                                        {/* <Card.Text className='card-description d-flex mb-1'>
                                             <p className='m-0 col-3'>members :</p> <p className='m-0 '>{item?.members?.toLocaleString()}</p>
-                                        </Card.Text>
+                                        </Card.Text>  */}
                                         {!isAdmin?.isInvestor&&<> 
                                         {item?.status?.toLowerCase() == "approved" && <Button className='button-secondary w-100 mt-2' onClick={() => handleDeployDao(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) && <span><Spinner size='sm' className='text-light mr-1' /></span>} Deploy</Button>}
                                         {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed") && <Button className='button-secondary w-100 mt-2' onClick={() => goToProposalList(item)}>{item?.status}</Button>}

@@ -34,6 +34,11 @@ const launchpadApi=create({
 const projectApii = create({
 	baseURL: process.env.REACT_APP_API_LAUNCHPAD_POINT + "/api/v1/",
 });
+projectApii.axiosInstance.interceptors.request.use(async config => {
+	const token = store.getState().oidc.user.access_token;
+	config.headers.authorization = `Bearer ${token}`;
+	return config;
+});
 launchpadApi.axiosInstance.interceptors.request.use(async config => {
 	const token = store.getState().oidc.user.access_token;
 	config.headers.authorization = `Bearer ${token}`;
