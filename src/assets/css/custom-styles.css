@@ -548,6 +548,8 @@ input::placeholder{font-size: 14px;}
 .placeholder{opacity: 0.1;}
 .proposalcard-shimmer{height: 230px;border-radius: 10px;}
 th .k-link{cursor: default !important;}
+.font-bold{font-weight: 600;}
+.font-regular{font-weight: 400;}
 @media (min-width: 768px) {
   .profile-size{ width: 106px;}
   .profile-size, .customer-pfview{width: 258px;}

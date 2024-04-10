@@ -151,8 +151,8 @@ const Dashboard = (props) => {
                                 {<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={item?.daoId} >
                                     <Card.Img variant="top" src={item?.logo || profileavathar} onClick={() => goToProposalList(item)} />
                                     <Card.Body>
-                                        <Card.Text className='mb-1 d-flex'>
-                                            <p className='m-0 col-3'>Name : </p><p className='m-0 '>{item.name}</p>
+                                        <Card.Text className='mb-1 '>
+                                            <p className='m-0 font-bold'>Name : <span className='m-0 font-regular '>{item.name}</span></p>
                                         </Card.Text>
                                         {/* <Card.Text className='card-description d-flex mb-1'>
                                             <p className='m-0 col-3'>members :</p> <p className='m-0 '>{item?.members?.toLocaleString()}</p>
