@@ -30,6 +30,8 @@ const SettingsComponent = (props) => {
   const [loader,setLoader] = useState(false);
   const [dataUpdated,setDataUpdated]=useState(false)
   const settingLoader = useSelector(state => state.oidc?.isSettingsLoading)
+  const projectDetails = useSelector((reducerstate) => reducerstate?.projectDetails?.details)
+
   useEffect(() => {
     getWalletAddress();
   }, [])
@@ -65,33 +67,36 @@ const SettingsComponent = (props) => {
     setBtnLoader(true)
     const form = document.forms["settingsForm"];
     const currentDatetime = Math.floor(new Date().getTime() / 1000);
-    if(settingValue){
+    if (settingValue) {
       store.dispatch(fcfsStartTime(settingValue));
       const fcfsStartDateTime = convertdateToMinutes(moment.utc(settingsFcfsStartTime).format("YYYY-MM-DDTHH:mm"));
+      const projectDetailsStartDate = convertdateToMinutes(moment.utc(projectDetails).format("YYYY-MM-DDTHH:mm"));
       const inputDatetime = convertdateToMinutes(moment.utc(settingValue).format("YYYY-MM-DDTHH:mm"));
-      if(inputDatetime < currentDatetime && props?.funcName?.toLowerCase().includes('setfcfsstarttime')){
-        setErrorMgs(apiCalls.isErrorDispaly({data:"Please choose a date and time that is not before now."}));
+      if (inputDatetime < currentDatetime && props?.funcName?.includes('setfcfsstarttime')) {
+        setErrorMgs(apiCalls.isErrorDispaly({ data: "Please choose a date and time that is not before now." }));
         setBtnLoader(false)
         return;
       }
-      else if(inputDatetime < fcfsStartDateTime && (props?.funcName?.toLowerCase().includes('setfcfsendtime') ||
-      (props?.funcName?.toLowerCase().includes('setVestingTime'))||
-      (props?.funcName?.toLowerCase().includes('setTokenListingTime'))||
-      (props?.funcName?.toLowerCase().includes('setVestingTime'))||
-      (props?.funcName?.toLowerCase().includes('setroundOneStartTime'))||
-      (props?.funcName?.toLowerCase().includes('setroundOneEndTime')))){
-        setErrorMgs(apiCalls.isErrorDispaly({data:"Please choose a date and time that is not before fcfcs start time."}));
+      else if (inputDatetime < fcfsStartDateTime && (props?.funcName?.includes('setfcfsendtime') ||
+        (props?.funcName?.includes('setTokenListingTime')) ||
+        (props?.funcName?.includes('setVestingTime')) ||
+        (props?.funcName?.includes('setroundOneStartTime')))) {
+        setErrorMgs(apiCalls.isErrorDispaly({ data: "Please choose a date and time that is not before fcfcs start time." }));
         setBtnLoader(false)
         return;
+      } else if (inputDatetime > projectDetailsStartDate && (props?.funcName?.includes('setroundOneEndTime'))) {
+        setErrorMgs(apiCalls.isErrorDispaly({ data: "Please choose a date and time that is not before fcfcs start time." }))
+        setBtnLoader(false);
+        return
       }
     }
-    if (form.checkValidity() === true  ) {
+    if (form.checkValidity() === true) {
       try {
         setBtnLoader(true)
-        if(props.funcName=="setVestingTime"){
-          
+        if (props.funcName == "setVestingTime") {
+
           const numericSettingValue = parseFloat(settingValue.replace(/,/g, ''));
-          if( numericSettingValue>0){
+          if (numericSettingValue > 0) {
             let timeData = numericSettingValue * 60 * 60 * 24;
             const provider = new ethers.providers.Web3Provider(window?.ethereum)
             const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
