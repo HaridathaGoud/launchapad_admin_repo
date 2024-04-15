@@ -105,7 +105,8 @@ const initialState = {
     webisite: '',
     instagram: '',
     facebook: '',
-    role: []
+    role: [],
+    recordStatus:''
   },
   castImgLoader: false,
   castCrewDataList: [],
@@ -586,6 +587,7 @@ const Projects = (props) => {
     return newErrors;
   }
 
+
   const handleCastCrewDataSave = async (event) => {
     event.preventDefault();
     const formErrors = validateCastCrewForm();
@@ -598,7 +600,7 @@ const Projects = (props) => {
       const existingIndex = state.castCrewDataList?.findIndex(item => item.id === formDetails.id);
       if (existingIndex !== -1) {
         const updatedList = [...state.castCrewDataList];
-        updatedList[existingIndex] = { ...formDetails, recordStatus: "modified" };
+        updatedList[existingIndex] = { ...formDetails, recordStatus: formDetails?.recordStatus === "added" ? "added" : "modified" };
         dispatch({ type: 'castCrewDataList', payload: updatedList });
       } else {
         const formData = { ...state.cast_CrewsFormDeatils, id: uuidv4() };
@@ -614,8 +616,6 @@ const Projects = (props) => {
       setSelectedroleValues([])
     }
   }
-
-
   return (<>
     {state.loader && <div className="text-center"><Spinner ></Spinner></div>}
     {!state.loader && <>
