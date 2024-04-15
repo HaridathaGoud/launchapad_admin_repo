@@ -1,4 +1,4 @@
-import React,{useState,useReducer} from 'react'
+import React,{useReducer} from 'react'
 import { CNavItem, CNavLink } from '@coreui/react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Button from 'react-bootstrap/Button';
@@ -61,14 +61,30 @@ function LaunchPadMenu(props){
         <Popover id="popover-basic" className='settings-popover'>
           <Popover.Header as="h3" className='bg-transparent'>Settings</Popover.Header>
           <Popover.Body>
-           <div onClick={()=>handleMenuNavigate('fcfs','true')}>Set FCFS Start Time</div>
-           <div onClick={()=>handleMenuNavigate('fcfsendtime','true')}>Set FCFS End Time</div>
-           <div onClick={()=>handleMenuNavigate('vestingtime','true')}>Set Vesting Time</div>
-           <div onClick={()=>handleMenuNavigate('tokenlisting','true')}>Set Token Listing Time</div>
-           <div onClick={()=>handleMenuNavigate('roundonestart','true')}>Set Round One Start Time</div>
-           <div onClick={()=>handleMenuNavigate('roundoneend','true')}>Set Round One End Time</div>
-           <div onClick={()=>handleMenuNavigate('allocation','true')}>Allocation</div>
-           <div onClick={()=>handleMenuNavigate('allocationroundtwo','true')}> Round Two Allocation</div>
+                <div>
+                    <button className='btn-transparent' onClick={() => handleMenuNavigate('fcfs', 'true')}>Set FCFS Start Time</button>
+                </div>
+                <div>
+                    <button className='btn-transparent' onClick={() => handleMenuNavigate('fcfsendtime', 'true')}>Set FCFS End Time</button>
+                </div>
+                <div>
+                    <button className='btn-transparent' onClick={() => handleMenuNavigate('vestingtime', 'true')}>Set Vesting Time</button>
+                </div>
+                <div>
+                    <button className='btn-transparent' onClick={() => handleMenuNavigate('tokenlisting', 'true')}>Set Token Listing Time</button>
+                </div>
+                <div>
+                    <button className='btn-transparent' onClick={() => handleMenuNavigate('roundonestart', 'true')}>Set Round One Start Time</button>
+                </div>
+                <div>
+                    <button className='btn-transparent' onClick={() => handleMenuNavigate('roundoneend', 'true')}>Set Round One End Time</button>
+                </div>
+                <div>
+                    <button className='btn-transparent' onClick={() => handleMenuNavigate('allocation', 'true')}>Allocation</button>
+                </div>
+                <div>
+                    <button className='btn-transparent' onClick={() => handleMenuNavigate('allocationroundtwo', 'true')}>Round Two Allocation</button>
+                </div>
           </Popover.Body>
         </Popover>
       );
@@ -95,12 +111,10 @@ function LaunchPadMenu(props){
                     </OverlayTrigger>
                 </CNavItem>}
                 {isAdmin?.isAdmin && showSettings && viewedProject?.projectstatus=="Deployed"&&
-                   <> {locationSplit[1] =="launchpad" && <CNavItem className={locationSplit[2] == "Settings" ? "active" : ""}>
+                   <> {locationSplit[1] =="launchpad" && <CNavItem className={locationSplit.includes("settings") ? "active" : ""}>
                  {!state.isVissble&& <OverlayTrigger
                        placement="right"
-                       trigger="hover"
                        overlay={renderTooltipSettings}
-                       onClick={popover}
                        >
                  <Button variant="" className='setting-space' onClick={handleHoverButtonClick}><span className="icon nav-settings ms-1" /></Button>
                    </OverlayTrigger>}
