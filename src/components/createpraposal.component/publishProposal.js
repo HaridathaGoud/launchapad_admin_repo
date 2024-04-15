@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from 'react';
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -17,7 +16,6 @@ import { useAccount } from 'wagmi';
 import UseEthers from '../../utils/useEthers';
 import Moment from 'react-moment';
 import { ethers } from 'ethers';
-import { waitForTransaction } from "wagmi/actions";
 import PropTypes from 'prop-types'
 
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
