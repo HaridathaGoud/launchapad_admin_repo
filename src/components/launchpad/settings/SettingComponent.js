@@ -153,7 +153,6 @@ const SettingsComponent = (props) => {
     }
     
   }
-
   return (
     
     <>
@@ -195,7 +194,7 @@ const SettingsComponent = (props) => {
                 controlId="floatingInput"
                 label={props?.label}
                 className=""
-                >{props?.label}</Form.Label>
+                >{props?.label}<span className='text-danger'>*</span></Form.Label>
 
               <NumericFormat
                 value={settingValue}
