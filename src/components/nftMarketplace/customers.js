@@ -69,6 +69,7 @@ const CustomersInfo = () => {
   }
   
   const handleClose =()=>{
+    debugger
     setShow(false);
   }
   const kycStatusUpdate = async () => {
@@ -226,9 +227,9 @@ const CustomersInfo = () => {
 
         </Modal.Body>
         <Modal.Footer>
-          <div className="text-end"><Button className="transparent-btn" onClick={() => handleClose()}>Cancel</Button>
-            <Button className="filled-btn ms-lg-3 ms-2" onClick={kycStatusUpdate}>
-              <span>{btnLoader && <Spinner size="sm" />}</span>Approve</Button></div>
+          <div className="text-end"><Button className="cancel-btn" onClick={() => handleClose()}>Cancel</Button>
+            <Button className="button-secondary ms-lg-3 ms-2" onClick={kycStatusUpdate}>
+              <span>{btnLoader && <Spinner size="sm text-light" />}</span>Approve</Button></div>
         </Modal.Footer>
 
       </Modal>
