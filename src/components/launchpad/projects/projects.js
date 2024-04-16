@@ -401,7 +401,7 @@ const Projects = (props) => {
         } else if (type === 'image') {
           dispatch({ type: 'castImgLoader', payload: true })
           if (errors[type]) {
-            setErrors({ ...errors, [field]: null })
+            dispatch({ type: 'castCrewImageError', payload:  null })
           }
         } else {
           dispatch({ type: 'cardImgLoader', payload: true })
@@ -424,7 +424,11 @@ const Projects = (props) => {
         dispatch({ type: 'cardImgLoader', payload: false })
         dispatch({ type: 'bannerImgLoader', payload: false })
         dispatch({ type: 'castImgLoader', payload: false })
-        dispatch({ type: 'errorMgs', payload: apiCalls.uploadErrorDisplay(res) })
+        if(type !='image'){
+          dispatch({ type: 'errorMgs', payload: apiCalls.uploadErrorDisplay(res) })
+        }else{
+          dispatch({ type: 'castCrewImageError', payload: apiCalls.uploadErrorDisplay(res) })
+        }
       } else {
         let data = res
         let _obj = { ...state.projectImages };
@@ -450,10 +454,10 @@ const Projects = (props) => {
         }
       }
     } catch (error) {
-      if(type=='image'){
-        dispatch({ type: 'castCrewImageError', payload: apiCalls.isErrorDispaly(error) })
-      }else{
+      if(type !='image'){
         dispatch({ type: 'errorMgs', payload: apiCalls.isErrorDispaly(error) })
+      }else{
+        dispatch({ type: 'castCrewImageError', payload: apiCalls.isErrorDispaly(error) })
       }
       dispatch({ type: 'bannerImgLoader', payload: false })
       dispatch({ type: 'loading', payload: false })
