@@ -69,7 +69,6 @@ const CustomersInfo = () => {
   }
   
   const handleClose =()=>{
-    debugger
     setShow(false);
   }
   const kycStatusUpdate = async () => {

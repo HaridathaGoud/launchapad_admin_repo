@@ -62,7 +62,6 @@ const ProfileInfo = () => {
   };
 
   const handleClose = () => {
-    debugger
     setShow(false);
     setErrorMsg(false);
   }

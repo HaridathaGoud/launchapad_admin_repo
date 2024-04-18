@@ -140,7 +140,6 @@ const ProjectsTokenClaim = (props) => {
     return totalSeconds;
   };
 
-
 const time=(timeString)=>{
   const selectedDate =timeString
   const datetime = new Date(selectedDate);

@@ -15,7 +15,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { setProjectDetail } from '../../../reducers/projectDetailsReducer';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { CBreadcrumb, CBreadcrumbItem, CLink } from '@coreui/react'
-import { projectDetailsData, projectDetailsSave, projectePayment, fetchCastCrewRolesData } from '../launchpadReducer/launchpadReducer';
+import { projectDetailsData, projectDetailsSave, projectePayment, fetchCastCrewRolesData ,fetchTokenTypeLu} from '../launchpadReducer/launchpadReducer';
 import moment from 'moment';
 import { validateContentRules } from '../../../utils/custom.validator';
 import jsonCountryCode from '../../../utils/countryCode.json';
@@ -26,6 +26,8 @@ import { NumericFormat } from 'react-number-format';
 import profileavathar from "../../../assets/images/default-avatar.jpg";
 import { Modal } from 'react-bootstrap';
 import { uuidv4 } from 'src/utils/uuid';
+import { erc20FormValidation,erc721FormValidation } from './formValidation';
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMgs":
@@ -136,8 +138,10 @@ const Projects = (props) => {
   const [imageError, setImageError] = useState()
   const [show, setShow] = useState(false);
   const castCrewRolesLu = useSelector(state => state.launchpad?.castCrewRolesLuData?.data);
+  const ercTokeType = useSelector(state => state.launchpad?.tokenTypeLuData?.data);
   const [selectedroleValues, setSelectedroleValues] = useState([]);
   const [castCrewLoader,setCastCrewLoader]=useState(false);
+  const [selectedTokeType, setSelectedTokeType] = useState('ERC-20');
   useEffect(() => {
     dispatch({ type: 'loader', payload: true })
     dispatch({ type: 'loading', payload: true })
@@ -160,6 +164,7 @@ const Projects = (props) => {
       store.dispatch(projectePayment(callback.data?.projectPayment))
       dispatch({ type: 'loader', payload: false })
       getClaimsandAllocations(callback.data?.projectsViewModel)
+      setSelectedTokeType(callback.data?.projectsViewModel?.tokenType ?callback.data?.projectsViewModel?.tokenType : 'ERC-20'  )
     })
     getWalletAddress();
   }, []);
@@ -194,74 +199,6 @@ const Projects = (props) => {
     setErrors({});
   }
 
-  const validateForm = (obj) => {
-    const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, contractAddress,
-      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply,cast_Crews  } = obj;
-    const newErrors = {};
-    const numbersOnly = /^\d+$/;
-    const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
-    const emojiRejex =
-      /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff]|[\u2010-\u2017])/;
-
-    if (!projectName || projectName === '') {
-      newErrors.projectName = 'Is required';
-    } else if (!validateContentRules('', projectName) || projectName?.match(numbersOnly) || projectName?.match(specialCharsOnly)) {
-      newErrors.projectName = 'Accepts alphanumeric and special chars.';
-    }
-
-    if (!countryRestrictions || countryRestrictions === '' || countryRestrictions?.length == 0) {
-      newErrors.countryRestrictions = 'Is required';
-    }
-    if (!networkSymbol || networkSymbol === '') {
-      newErrors.networkSymbol = 'Is required';
-    }
-    if (!tokenLogo || tokenLogo == '') {
-      newErrors.tokenLogo = 'Is required';
-    }
-    if (!cardImage || cardImage == '') {
-      newErrors.cardImage = 'Is required';
-    }
-    if (!bannerImage || bannerImage == '') {
-      newErrors.bannerImage = 'Is required';
-    }
-    if (!tokenListingDate || tokenListingDate === '') {
-      newErrors.tokenListingDate = 'Is required';
-    }
-    if (!initialSupply || initialSupply === '') {
-      newErrors.initialSupply = 'Is required';
-    }
-    if (!description || description == '') {
-      newErrors.description = 'Is required';
-    }else if (!validateContentRules('', description)|| description?.match(specialCharsOnly) || description?.match(numbersOnly) ) {
-      newErrors.description = 'Accepts alphanumeric and special chars.';
-    }
-    if (!contractAddress || contractAddress == '') {
-      newErrors.contractAddress = 'Is required';
-    } else if (!validateContentRules("", contractAddress) || (emojiRejex.test(contractAddress))|| contractAddress?.match(specialCharsOnly) || contractAddress?.match(numbersOnly) ) {
-      newErrors.contractAddress = 'Accepts alphanumeric and special chars.';
-    }
-    if (!tokenName || tokenName == '') {
-      newErrors.tokenName = 'Is required';
-    } else if (!validateContentRules("", tokenName) || (emojiRejex.test(tokenName))|| tokenName?.match(specialCharsOnly) || tokenName?.match(numbersOnly) ) {
-      newErrors.tokenName = 'Accepts alphanumeric and special chars.';
-    }
-    if (!tokenSymbol || tokenSymbol == '') {
-      newErrors.tokenSymbol = 'Is required';
-    } else if (!validateContentRules("", tokenSymbol) || (emojiRejex.test(tokenSymbol))|| tokenSymbol?.match(specialCharsOnly) || tokenSymbol?.match(numbersOnly) ) {
-      newErrors.tokenSymbol = 'Accepts alphanumeric and special chars.';
-    }
-    if (!tokenDecimal || tokenDecimal == '') {
-      newErrors.tokenDecimal = 'Is required';
-    } else if (tokenDecimal && (emojiRejex.test(tokenDecimal))) {
-      newErrors.tokenDecimal = 'Accepts alphanumeric and special chars.';
-    }
-    if (!totalNumberOfTokens || totalNumberOfTokens == '') {
-      newErrors.totalNumberOfTokens = 'Is required';
-    } else if (totalNumberOfTokens && (emojiRejex.test(totalNumberOfTokens))) {
-      newErrors.totalNumberOfTokens = 'Accepts alphanumeric and special chars.';
-    }
-    return newErrors;
-  };
 
   const getClaimsandAllocations = (projectObj) => {
     let obj = projectObj;
@@ -296,13 +233,13 @@ const Projects = (props) => {
       let obj = {
         "id": projectSaveDetails?.id != null ? projectSaveDetails.id : (projectId ?? "00000000-0000-0000-0000-000000000000"),
         "contractAddress": state.projectSaveDetails?.contractAddress,
-        "tokenName": state.projectSaveDetails?.tokenName,
-        "tokenSymbol": state.projectSaveDetails?.tokenSymbol,
+        "tokenName": state.projectSaveDetails?.tokenName || null,
+        "tokenSymbol": state.projectSaveDetails?.tokenSymbol || null,
         "tokenLogo": state.projectLogoImages,
-        "tokenDecimal": state.projectSaveDetails?.tokenDecimal,
-        "totalNumberOfTokens": state.projectSaveDetails?.totalNumberOfTokens,
+        "tokenDecimal": state.projectSaveDetails?.tokenDecimal || null,
+        "totalNumberOfTokens": state.projectSaveDetails?.totalNumberOfTokens || null,
         "bannerImage": state.projectBannerImages,
-        "cardImage": state.projectCardImages,
+        "cardImage": state.projectCardImages || null,
         "projectName": state.projectSaveDetails?.projectName,
         "networkSymbol": "Matic",
         "vestingDetails": "string",
@@ -311,59 +248,99 @@ const Projects = (props) => {
         "walletAddress": walletAddress || null,
         "description": state.projectSaveDetails?.description,
         "tokenListingDate": state.projectSaveDetails?.tokenListingDate,
-        "tokenContractAddress": state.projectSaveDetails?.contractAddress,
+        "tokenContractAddress": state.projectSaveDetails?.contractAddress || null,
         "introductionHtml": state.introductionHtml || state.projectSaveDetails?.introductionHtml,
         "projectOwnerId": projectItem?.id ? projectItem.id : isAdmin?.id,
-        "initialSupply": state.projectSaveDetails?.initialSupply,
+        "initialSupply": state.projectSaveDetails?.initialSupply || null,
         "cast_Crews": state.castCrewDataList,
-        // "category": "string",
-        // "tokenType": "string",
-        // "daoContractAddress": "string",
+        "category": "string",
+        "tokenType": selectedTokeType || null,
+        "nftImagesCount": state.projectSaveDetails?.nftImagesCount || null,
       }
       dispatch({ type: 'projectSaveDetails', payload: obj })
       if (window.location.pathname.includes('/launchpad/idorequest')) {
         obj.id = state.projectSaveDetails?.id
       }
-      let initialSupplyValue = obj?.initialSupply
-      let totalNumberOfTokenValue = obj?.totalNumberOfTokens
-      if (typeof totalNumberOfTokenValue === 'string') {
-        obj.totalNumberOfTokens = parseFloat(totalNumberOfTokenValue.replace(/[^0-9.-]+/g, ''));
-      }
-      if (typeof initialSupplyValue === 'string') {
-        obj.initialSupply = parseFloat(initialSupplyValue.replace(/[^0-9.-]+/g, ''));
-      }
-      const formErrors = validateForm(obj);
-      if (Object.keys(formErrors)?.length > 0) {
-        setErrors(formErrors)
-        dispatch({ type: 'errors', payload: formErrors })
-        dispatch({ type: 'loader', payload: false })
-      } else {
-        if (obj.cast_Crews?.length === 0) {
-          dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
-          window.scroll(0, 0);
-          dispatch({ type: 'buttonLoader', payload: false })
-          return; 
-      }
-        obj.tokenListingDate = moment(obj.tokenListingDate).utc().format("YYYY-MM-DDTHH:mm:ss")
-        let res = await apiCalls.UpdateProjectDetail(obj);
-        if (res.ok) {
-          dispatch({ type: 'projectTokenShow', payload: true })
-          dispatch({ type: 'scuess', payload: true })
-          dispatch({ type: 'buttonLoader', payload: false })
-          setTimeout(function () {
-            dispatch({ type: 'scuess', payload: false })
-          }, 2000);
-          dispatch({ type: 'projectData', payload: res.data })
-          window.scroll(0, 0);
-          store.dispatch(projectDetailsSave(res.data));
+      if(selectedTokeType == 'ERC-20'){
+        let initialSupplyValue = obj?.initialSupply
+        let totalNumberOfTokenValue = obj?.totalNumberOfTokens
+        if (typeof totalNumberOfTokenValue === 'string') {
+          obj.totalNumberOfTokens = parseFloat(totalNumberOfTokenValue.replace(/[^0-9.-]+/g, ''));
         }
-        else {
-          dispatch({ type: 'errorMgs', payload: apiCalls.isErrorDispaly(res) })
-          dispatch({ type: 'projectTokenShow', payload: false })
+        if (typeof initialSupplyValue === 'string') {
+          obj.initialSupply = parseFloat(initialSupplyValue.replace(/[^0-9.-]+/g, ''));
+        }
+        
+        const formErrors = erc20FormValidation(obj);
+        if (Object.keys(formErrors)?.length > 0) {
+          setErrors(formErrors)
+          dispatch({ type: 'errors', payload: formErrors })
+          dispatch({ type: 'loader', payload: false })
           dispatch({ type: 'buttonLoader', payload: false })
-          window.scroll(0, 0);
+        } else {
+          if (obj.cast_Crews?.length === 0) {
+            dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
+            window.scroll(0, 0);
+            dispatch({ type: 'buttonLoader', payload: false })
+            return; 
+        }
+          obj.tokenListingDate = moment(obj.tokenListingDate).utc().format("YYYY-MM-DDTHH:mm:ss")
+          let res = await apiCalls.UpdateProjectDetail(obj);
+          if (res.ok) {
+            dispatch({ type: 'projectTokenShow', payload: true })
+            dispatch({ type: 'scuess', payload: true })
+            dispatch({ type: 'buttonLoader', payload: false })
+            setTimeout(function () {
+              dispatch({ type: 'scuess', payload: false })
+            }, 2000);
+            dispatch({ type: 'projectData', payload: res.data })
+            window.scroll(0, 0);
+            store.dispatch(projectDetailsSave(res.data));
+          }
+          else {
+            dispatch({ type: 'errorMgs', payload: apiCalls.isErrorDispaly(res) })
+            dispatch({ type: 'projectTokenShow', payload: false })
+            dispatch({ type: 'buttonLoader', payload: false })
+            window.scroll(0, 0);
+          }
+        }
+        
+      }else{
+        const formErrors = erc721FormValidation(obj);
+        if (Object.keys(formErrors)?.length > 0) {
+          setErrors(formErrors)
+          dispatch({ type: 'errors', payload: formErrors })
+          dispatch({ type: 'loader', payload: false })
+          dispatch({ type: 'buttonLoader', payload: false })
+        } else {
+          if (obj.cast_Crews?.length === 0) {
+            dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
+            window.scroll(0, 0);
+            dispatch({ type: 'buttonLoader', payload: false })
+            return; 
+        }
+          obj.tokenListingDate = moment(obj.tokenListingDate).utc().format("YYYY-MM-DDTHH:mm:ss")
+          let res = await apiCalls.UpdateProjectDetail(obj);
+          if (res.ok) {
+            dispatch({ type: 'projectTokenShow', payload: true })
+            dispatch({ type: 'scuess', payload: true })
+            dispatch({ type: 'buttonLoader', payload: false })
+            setTimeout(function () {
+              dispatch({ type: 'scuess', payload: false })
+            }, 2000);
+            dispatch({ type: 'projectData', payload: res.data })
+            window.scroll(0, 0);
+            store.dispatch(projectDetailsSave(res.data));
+          }
+          else {
+            dispatch({ type: 'errorMgs', payload: apiCalls.isErrorDispaly(res) })
+            dispatch({ type: 'projectTokenShow', payload: false })
+            dispatch({ type: 'buttonLoader', payload: false })
+            window.scroll(0, 0);
+          }
         }
       }
+    
    }
     dispatch({ type: 'validated', payload: true })
     dispatch({ type: 'buttonLoader', payload: false })
@@ -620,7 +597,12 @@ const Projects = (props) => {
       setSelectedroleValues([])
     }
   }
-  return (<>
+
+  const handleTokenType = (eventKey, event) => {
+    setSelectedTokeType(eventKey);
+  };
+
+return (<>
     {state.loader && <div className="text-center"><Spinner ></Spinner></div>}
     {!state.loader && <>
       {!state.projectTokenShow &&
@@ -1004,6 +986,27 @@ const Projects = (props) => {
                 </div>
               </Row>
               <h3 className='section-title mb-2 mt-5'>Token Details</h3>
+          <Col lg={6} md={12}>
+
+            <Form.Label className='input-label'>Token Type<span className="text-danger">*</span></Form.Label>
+            <Dropdown className='matic-dropdown' onSelect={handleTokenType}>
+              <Dropdown.Toggle variant="secondary" id="dropdown-basic"
+                disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                  || state.projectSaveDetails?.projectStatus == "Rejected"
+                  || state.projectSaveDetails?.projectStatus == "Approved"
+                  || state.projectSaveDetails?.projectStatus == "Deploying"
+                )}
+              > {selectedTokeType}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {ercTokeType?.map((option) => (
+                  <Dropdown.Item eventKey={option.tokenName}>{option.tokenName} </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+
+            </Dropdown>
+          </Col>
+              {selectedTokeType =='ERC-20' &&
               <Row className='mb-4 Token-Details'>
                 <Col lg={6} md={12} className='mb-0'>
                   <Form.Label className="input-label upload-file">Upload Token Image<span className="text-danger">*</span></Form.Label>
@@ -1244,7 +1247,115 @@ const Projects = (props) => {
                   </Row>
                 </Col>
               </Row>
+              }
+            {selectedTokeType =='ERC-721' && 
+            <Row className='mb-4 Token-Details'>
+            <Col lg={6} md={12} className='mb-0'>
+              <Form.Label className="input-label upload-file">Upload NFT Image<span className="text-danger">*</span></Form.Label>
+              <div
+                className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
+                  || state.projectSaveDetails?.projectStatus == "Approved") ?
+                  'upload-img token-upload mb-2 c-notallowed' :
+                  'upload-img token-upload mb-2'}`}
+              >
+                {state.cardImgLoader && <Spinner fallback={state.cardImgLoader}></Spinner>}
+                {state.projectCardImages && !state.cardImgLoader &&
+                  <span className='imgupload-span'>
+                    <Image src={state.projectCardImages} width="100" height="100" alt="" />
+                  </span>}
+                {!state.projectCardImages && !state.cardImgLoader &&
+                  <div className="choose-image">
+                    <div>
+                      <Form.Control
+                        required
+                        className="d-none custom-btn active btn"
+                        type="file"
+                        ref={inputRef2}
+                        onChange={(e) => uploadToClient(e, 'CARD')}
+                        isInvalid={!!state.errors.cardImage}
+                        disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                          || state.projectSaveDetails?.projectStatus == "Rejected"
+                          || state.projectSaveDetails?.projectStatus == "Approved"
+                          || state.projectSaveDetails?.projectStatus == "Deploying"
+                        )}
+                      />
+                      <span
+                        className="icon camera"
+                        onClick={() => inputRef2.current?.click()}
+                      ></span>
+                      <p className="c-pointer pt-3">
+                        Jpg, Jpeg, Png, Gif, Webp
+                      </p>
+                      <Form.Control.Feedback type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
+                    </div>
 
+                  </div>
+                }
+                {state.projectCardImages && !state.cardImgLoader &&
+                  <div
+                    className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
+                      || state.projectSaveDetails?.projectStatus == "Approved") ?
+                      'onhover-upload c-notallowed' :
+                      'onhover-upload'}`}>
+                    <div className='bring-front'>
+                      <Form.Control
+                        required
+                        className="d-none custom-btn active btn"
+                        type="file"
+                        ref={inputRef2}
+                        onChange={(e) => uploadToClient(e, 'CARD')}
+                        isInvalid={!!state.errors.cardImage}
+                        disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                          || state.projectSaveDetails?.projectStatus == "Rejected"
+                          || state.projectSaveDetails?.projectStatus == "Approved"
+                          || state.projectSaveDetails?.projectStatus == "Deploying"
+                        )}
+                      />
+                      <span
+                        className="icon camera"
+                        onClick={() => inputRef2.current?.click()}
+                      ></span>
+                      <Form.Control.Feedback type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
+                    </div>
+
+                  </div>
+                }
+              </div>
+            </Col>
+
+
+            <Col lg={6} md={12} className='mb-0'>
+              <Row >
+                <Col lg={12} md={12} className='mb-3'>
+                  <Form.Label
+                    controlId="floatingInput"
+                    label="Token Decimals*"
+                    className="d-block"
+                  >Member Ship Count<span className="text-danger">*</span></Form.Label>
+                  <NumericFormat
+                  className='form-control'
+                   value={state.projectSaveDetails?.nftImagesCount}
+                    name='nftImagesCount'
+                    allowNegative={false}
+                    thousandSeparator={true}
+                    type="text" placeholder="Member Ship Count"
+                    isInvalid={!!errors?.nftImagesCount}
+                    maxLength={5 }
+                    onChange={(e)=>handleChange('nftImagesCount',e.currentTarget.value)}
+                    onBlur={(e) => handleChange('nftImagesCount',e.target.value.trim().replace(/\s+/g, " "))}
+                    required
+                    disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                      || state.projectSaveDetails?.projectStatus == "Rejected"
+                      || state.projectSaveDetails?.projectStatus == "Approved"
+                      || state.projectSaveDetails?.projectStatus == "Deploying"
+                    )}
+                  />
+                  <Form.Control.Feedback type="invalid">{errors?.nftImagesCount || state?.errors?.nftImagesCount}</Form.Control.Feedback>
+
+                </Col>
+              </Row>
+            </Col>
+          </Row>}
             </div>
               <div className='profile-section'>
                 <div className='d-flex justify-content-between  align-items-center mb-2'>
@@ -1590,6 +1701,7 @@ const connectDispatchToProps = (dispatch) => {
 
       dispatch(projectDetailsData(id, callback));
       dispatch(fetchCastCrewRolesData());
+      dispatch(fetchTokenTypeLu());
     },
   }
 }

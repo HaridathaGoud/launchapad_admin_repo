@@ -78,7 +78,7 @@ const ProjectCards = () => {
   const [success, setSuccess] = useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
-  const pageSize = 10;
+  const pageSize = 8;
   const [pageNo, setPageNo] = useState(1);
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails?.isAdmin);
   const role = useSelector(reducerstate => reducerstate?.oidc?.user?.profile?.role)
@@ -96,7 +96,7 @@ const ProjectCards = () => {
     window.scroll(0, 0);
     store.dispatch(projectDetailsSave(null));
     store.dispatch(projectePayment(null))
-    getOwenersProjects(1, 10, null);
+    getOwenersProjects(1, 8, null);
   }, [])
 
   const handleShow = () => {
@@ -125,7 +125,6 @@ const ProjectCards = () => {
 
 
   const getOwenersProjects = async (pageNum, pageListSize, searchProject) => {
-
     dispatch({ type: 'errorMgs', payload: null })
     if (state.ownerProjects?.length === 0) {
       dispatch({ type: 'loader', payload: true })
@@ -140,7 +139,7 @@ const ProjectCards = () => {
       setPageNo(_pageNo);
       let mergeData = pageNum === 1 ? [...response.data] : [...state.ownerProjects, ...response.data];
       dispatch({ type: 'ownerProjects', payload: mergeData })
-      if (response?.data?.length < 10) {
+      if (response?.data?.length >=8) {
         setHide(true)
         setLoadMore(false)
       }
@@ -172,7 +171,7 @@ const ProjectCards = () => {
       setPageNo(_pageNo);
       let mergeData = pageNum === 1 ? [...response.data] : [...state.ownerProjects, ...response.data];
       dispatch({ type: 'ownerProjects', payload: mergeData })
-      if (response?.data?.length == 0 || response?.data?.length < 10) {
+      if (response?.data?.length == 0 || response?.data?.length >=8) {
         setHide(true)
         setLoadMore(false)
       } else {
@@ -292,7 +291,7 @@ const ProjectCards = () => {
         try {
           await apiCalls.updateContractAddressStatus(updateProject);
           dispatch({ type: 'btnLoader', payload: false })
-          getOwenersProjects(1, 10, null);
+          getOwenersProjects(1, 8, null);
           handleClose();
 
           setSuccess(`Project deployed successfully`);
@@ -457,7 +456,7 @@ const ProjectCards = () => {
             <>
               <div className='text-center'>{loadMore && <Spinner size="sm" className='text-white text-center' />} </div>
               <div className='addmore-title' >
-                {!hide && <>
+                {hide && <>
                   <span className='d-block'><span onClick={addProposalList} role="button" className='c-pointer'>See More</span></span>  <span className='icon blue-doublearrow c-pointer' onClick={addProposalList}></span>
                 </>}
               </div></>

@@ -302,7 +302,9 @@ const updateVotingContractAddress=(obj)=> {
   return daoApi.put(ApiControllers.admin +`updatedaocontractaddress`,obj);
 
 }
-
+const tokenCollectionLu = () => {
+  return projectApii.get(ApiControllers.projects + `tokencollectionlu`)
+}
 let apiCalls = {idoRequestStateChange,createInvestors,getAdminDashboarDataK,
   getLaunchPadProjectData,getTokenInfo,getClames,getAllocation,getAllocationDetails,
 totalBonus,updateRefferal,getProposalView,postCreateProposal,getProposalList,getStatusLu,getDaoDetails,getContractDetails,daoContractAddress,
@@ -312,6 +314,7 @@ totalBonus,updateRefferal,getProposalView,postCreateProposal,getProposalList,get
   , savetiers, UpdateClaimsAndAllocation, getProjects, getTiers, getSuperAdminDetails, getUpcomingProjects,
   updateContractAddressStatus, adminOrSuperAdminDetails, getlaunchpadProjects, getLaunchpadProjectDetails, getProjectFeed,getUserProfile,
   apiUploadPost,metaDataDetails,memberTypes,memberPrice,updateTransaction,
-  getPeriodType,getWhiteListeddata,saveWhitelist,getPeriodsData,memberTypes,customerWalletAddressChecking,getProposalVoters,uploadErrorDisplay,getCastCrewRolesLu,getInvestorDaoDetails,updateVotingContractAddress}
+  getPeriodType,getWhiteListeddata,saveWhitelist,getPeriodsData,memberTypes,customerWalletAddressChecking,getProposalVoters,uploadErrorDisplay,
+  getCastCrewRolesLu,getInvestorDaoDetails,updateVotingContractAddress,tokenCollectionLu}
 
 export default apiCalls

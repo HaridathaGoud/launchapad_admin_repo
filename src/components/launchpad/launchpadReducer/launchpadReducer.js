@@ -9,7 +9,7 @@ const SET_PROJECT_PAYMENT = "projectePayment"
 const PROJECT_DETAILS_SAVE = "projectDetailsSave";
 const USER_DETAILS = "userDetailsData";
 const SET_CAST_CREW_ROLES_LU="setcastCrewRolesLu";
-
+const SET_TOKEN_TYPE_LU = "setTokenTypeLu"
 const userDetailsData = (payload) => {
   return {
     type: USER_DETAILS,
@@ -55,6 +55,13 @@ const setProjectDetails = (payload) => {
 const setcastCrewRolesLu = (payload) => {
   return {
     type: SET_CAST_CREW_ROLES_LU,
+    payload
+  }
+};
+
+const setTokenTypeLu = (payload) => {
+  return {
+    type: SET_TOKEN_TYPE_LU,
     payload
   }
 };
@@ -166,6 +173,17 @@ const fetchCastCrewRolesData = () => {
    }
   };
 };
+const fetchTokenTypeLu = () => {
+  return async (dispatch) => {
+    dispatch(setTokenTypeLu({ key: "tokenTypeLuData", loader: true, data: [] }));
+      let response = await apiCalls.tokenCollectionLu();
+   if(response.data){
+    dispatch(setTokenTypeLu({ key: "tokenTypeLuData", loader: false, data: response.data, errorMsg: null }));
+   }else{
+    dispatch(setTokenTypeLu({ key: "tokenTypeLuData", loader: false, data: null, errorMsg: apiCalls.isErrorDispaly(response) }));
+   }
+  };
+};
 let initialState = {
   projectDetails: {},
   superAdminDetails: {},
@@ -177,7 +195,7 @@ let initialState = {
   projectePayment: {},
   projectSaveDetails: {},
   castCrewRolesLuData: [],
-
+  tokenTypeLuData:[],
 };
 
 
@@ -231,6 +249,8 @@ const launchPadReducer = (state, action) => {
       return state;
     case SET_CAST_CREW_ROLES_LU:
       return { ...state, castCrewRolesLuData: action.payload };
+    case SET_TOKEN_TYPE_LU:
+      return { ...state, tokenTypeLuData: action.payload };
     case ADMIN_DASHBOARD_DETAILS:
       return handleDetailsCase(state, action);
     default:
@@ -238,4 +258,5 @@ const launchPadReducer = (state, action) => {
   }
 }
 export default launchPadReducer;
-export { projectDetailsSave, projectDetailsData, SuperAdminDetails, UpComingProjectDetails, getAdminDashboardDetails, viewedProjects, userDetailsData, projectedSaved, projectePayment,fetchCastCrewRolesData };
+export { projectDetailsSave, projectDetailsData, SuperAdminDetails, UpComingProjectDetails, getAdminDashboardDetails,
+   viewedProjects, userDetailsData, projectedSaved, projectePayment,fetchCastCrewRolesData,fetchTokenTypeLu };
