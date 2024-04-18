@@ -306,7 +306,7 @@ const time=(timeString)=>{
                     controlId="floatingInput"
                     label="Claim Vesting Time*"
                     className=""
-                  >Claim Vesting Time (hours)<span className="text-danger">*</span></Form.Label>
+                  >Claim Vesting Time (Hours)<span className="text-danger">*</span></Form.Label>
                   <NumericFormat
                     value={state.claimDetails?.vestingDays}
                     name='vestingDays'

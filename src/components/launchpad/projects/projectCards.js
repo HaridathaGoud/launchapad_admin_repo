@@ -228,12 +228,21 @@ const ProjectCards = () => {
     dispatch({ type: 'previewErrorMsg', payload: null })
     // dispatch({ type: 'btnLoader', payload: true })
     if (isConnected) {
-      deployContract();
+      if(state.detailsPreview?.tokenType=='ERC-20'){
+        deployErc20Contract();
+      }else{
+        deployErc721Contract();
+      }
     }
     else {
       try {
         await connectWallet();
-        deployContract();
+        if(state.detailsPreview?.tokenType=='ERC-20'){
+          deployErc20Contract();
+        }else{
+          deployErc721Contract();
+        }
+        
         dispatch({ type: 'previewErrorMsg', payload: null })
       } catch (error) {
         dispatch({ type: 'previewErrorMsg', payload: error?.reason })
@@ -243,7 +252,7 @@ const ProjectCards = () => {
     }
   }
 
-  const deployContract = async () => {
+  const deployErc20Contract = async () => {
     setSuccess(null);
     dispatch({ type: 'btnLoader', payload: true })
     dispatch({ type: 'previewErrorMsg', payload: null })
@@ -252,14 +261,15 @@ const ProjectCards = () => {
     const totalSupply = state.detailsPreview?.totalSupply;
     const tokenDecimals   = state.detailsPreview?.tokenDecimal
     const tokenAmount = state.detailsPreview.tokenPrice
-    const tokenPrice = tokenAmount * (10 ** tokenDecimals);
+    const tokenPrice= ethers.utils.parseUnits(tokenAmount.toString(),tokenDecimals);
     // const tierWaight = [10, 10, 10, 30, 30, 30, 40, 40, 40, 60, 60, 60, 80, 80, 80, 120, 120, 120];
     const tierWaight = [1, 1, 1, 2, 2, 2, 3, 3, 4, 6, 6, 7, 8, 9, 10, 11, 11, 13];
     // const listingTime = parseFloat(state.detailsPreview?.listTime?.slice(0, 2))
     const listingTime = convertDateToMinutesUTC(moment(state.detailsPreview?.listTime).format("YYYY-MM-DDTHH:mm"))
     const timeSolts = state.detailsPreview?.noOfSlots
-    const secondsInDay = 24 * 60 * 60;
-    const totalSeconds = parseInt(state.detailsPreview?.vestingDays, 10) * secondsInDay;
+    const hours = Number(state.detailsPreview?.vestingDays);
+    const secondsInHour = 60 * 60;
+    const totalSeconds = hours * secondsInHour;
     const rndStart = convertDateToMinutesUTC(moment(state.detailsPreview?.privateStartDate).format("YYYY-MM-DDTHH:mm"));
     const rndEnd = convertDateToMinutesUTC(moment(state.detailsPreview?.privateEndDate).format("YYYY-MM-DDTHH:mm"));
     const fcfss = convertDateToMinutesUTC(moment(state.detailsPreview?.publicStartDate).format("YYYY-MM-DDTHH:mm"));
@@ -280,6 +290,64 @@ const ProjectCards = () => {
         fcfss,
         fcfse,
         tokenPrice,
+        { gasLimit: 9000000, gasPrice: 300000 });
+      contractRes.wait().then(async (receipt) => {
+        const address = receipt.logs[0].address;
+        const updateProject = {
+          projectId: state.detailsPreview?.projectId,
+          contractAddress: address,
+          status: "Deployed"
+        }
+        try {
+          await apiCalls.updateContractAddressStatus(updateProject);
+          dispatch({ type: 'btnLoader', payload: false })
+          getOwenersProjects(1, 8, null);
+          handleClose();
+
+          setSuccess(`Project deployed successfully`);
+          setTimeout(function () {
+            setSuccess(null);
+          }, 2000);
+        }
+        catch (error) {
+          dispatch({ type: 'errorMgs', payload: error?.reason || null })
+          dispatch({ type: 'btnLoader', payload: false })
+        }
+      }).catch((error) => {
+        dispatch({ type: 'previewErrorMsg', payload: error?.reason || null })
+        dispatch({ type: 'btnLoader', payload: false })
+      })
+    } catch (error) {
+      dispatch({ type: 'previewErrorMsg', payload: error?.reason || null })
+      dispatch({ type: 'btnLoader', payload: false })
+    }
+  };
+
+  const deployErc721Contract = async () => {
+    setSuccess(null);
+    dispatch({ type: 'btnLoader', payload: true })
+    dispatch({ type: 'previewErrorMsg', payload: null })
+       
+    const listingTime = convertDateToMinutesUTC(moment(state.detailsPreview?.listTime).format("YYYY-MM-DDTHH:mm"))
+
+    const rndStart = convertDateToMinutesUTC(moment(state.detailsPreview?.privateStartDate).format("YYYY-MM-DDTHH:mm"));
+
+    const rndEnd = convertDateToMinutesUTC(moment(state.detailsPreview?.privateEndDate).format("YYYY-MM-DDTHH:mm"));
+
+    const fcfss = convertDateToMinutesUTC(moment(state.detailsPreview?.publicStartDate).format("YYYY-MM-DDTHH:mm"));
+
+    const fcfse = convertDateToMinutesUTC(moment(state.detailsPreview?.publicEndDate).format("YYYY-MM-DDTHH:mm"));
+
+    const provider = new ethers.providers.Web3Provider(window?.ethereum)
+
+    const factory = new ethers.Contract(DeployFactory.contractAddress, DeployFactory.abi, provider.getSigner());
+    try {
+      const contractRes = await factory.deployClaimableContract(
+        listingTime,
+        rndStart,
+        rndEnd,
+        fcfss,
+        fcfse,
         { gasLimit: 9000000, gasPrice: 300000 });
       contractRes.wait().then(async (receipt) => {
         const address = receipt.logs[0].address;
@@ -551,7 +619,7 @@ const ProjectCards = () => {
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="vestingTimeInput" className='profile-label'>Vesting Time</label>
-                        <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.vestingDays || '-'} {state.detailsPreview?.vestingDays ? "(Days)" : ""}</h6>
+                        <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.vestingDays || '-'} {state.detailsPreview?.vestingDays ? "(Hours)" : ""}</h6>
                       </div>
                     </Col>
                     <Col lg={4} md={12}>
