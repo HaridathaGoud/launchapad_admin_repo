@@ -1,4 +1,5 @@
 import { validateContentRules } from "src/utils/custom.validator";
+
 export  const erc20FormValidation = (obj) => {
     const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, contractAddress,
       tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply  } = obj;
@@ -108,3 +109,103 @@ export  const erc20FormValidation = (obj) => {
     }
     return newErrors;
   };
+
+ 
+  export const allocationValidation = (obj,tokenType) => {
+    const { noofSlots, vestingDays, publicStartDate, publicEndDate, privateStartDate, privateEndDate } = obj ;
+    const newErrors = {};
+    let errorMsg = ''
+    const dateRegex = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/;
+    const privateEndingTimeInSeconds = parseTime(privateEndDate);
+    const privateStartingTimeInSeconds = parseTime(privateStartDate);
+    const publicEndingTimeInSeconds = parseTime(publicEndDate);
+    const publicStartingTimeInSeconds = parseTime(publicStartDate);
+    
+    if(tokenType != 'ERC-721'){
+      if (!noofSlots || noofSlots === ''|| noofSlots ==undefined) {
+        newErrors.noofSlots = 'Is required';
+      }
+      if (!vestingDays || vestingDays === ''||vestingDays ==undefined) {
+        newErrors.vestingDays = 'Is required';
+      }
+      if (noofSlots == 0) {
+        newErrors.noofSlots = 'claim slots should be greater than zero.' 
+      }
+      if (vestingDays == 0) {
+        newErrors.vestingDays = 'claim vesting time should be greater than zero.'
+      }
+    }
+    
+    if (!publicStartDate || publicStartDate === '') {
+      newErrors.publicStartDate = 'Is required';
+    } else if (publicStartDate && (!dateRegex.test(publicStartDate))) {
+      newErrors.publicStartDate = 'Invalid Public Start Date';
+    }
+    if (!publicEndDate || publicEndDate === '') {
+      newErrors.publicEndDate = 'Is required';
+    } else if (publicEndDate && (!dateRegex.test(publicEndDate))) {
+      newErrors.publicEndDate = 'Invalid Public End Date';
+    }
+    if (!privateStartDate || privateStartDate === '') {
+      newErrors.privateStartDate = 'Is required';
+    } else if (privateStartDate && (!dateRegex.test(privateStartDate))) {
+      newErrors.privateStartDate = 'Invalid Private Start Date';
+    }
+    if (!privateEndDate || privateEndDate === '') {
+      newErrors.privateEndDate = 'Is required';
+    } else if (privateEndDate && (!dateRegex.test(privateEndDate))) {
+      newErrors.privateEndDate = 'Invalid Private End Date';
+    }
+    
+    if (timeDate(privateStartDate) > timeDate(privateEndDate)) {
+      errorMsg =  'Private Start date cannot be greater than the end date.'
+
+    } else if (timeDate(privateStartDate) === timeDate(privateEndDate)) {
+      if (privateStartingTimeInSeconds >= privateEndingTimeInSeconds) {
+        errorMsg =  'Private Start time cannot be greater than or equal to the end time.';
+      }
+    }
+
+    if (timeDate(publicStartDate) > timeDate(publicEndDate)) {
+      errorMsg = 'Public Start date cannot be greater than the end date.' ;
+    }
+     else if (timeDate(publicStartDate) === timeDate(publicEndDate)) {
+      if (publicStartingTimeInSeconds >= publicEndingTimeInSeconds) {
+        errorMsg =  'Public Start time cannot be greater than or equal to the end time.';
+      }
+    }
+    if (timeDate(publicStartDate) < timeDate(privateEndDate)) {
+      errorMsg = 'Round One End Date cannot be greater than the Round Two Start Date.' ;
+
+    }else if (timeDate(publicStartDate) === timeDate(privateEndDate)) {
+      if (publicStartingTimeInSeconds < privateEndingTimeInSeconds) {
+        errorMsg = 'Round One End time cannot be greater than the Round Two Start time.';
+
+      }
+    }
+    newErrors.errorMsg = errorMsg;
+    return newErrors;
+  };
+  const parseTime = (timeString ) => {
+    const selectedDate =timeString
+    const datetime = new Date(selectedDate);
+    const selectedTime = datetime.toLocaleTimeString();
+    const [times, meridian] = selectedTime.split(' ');
+    const [hours, minutes, seconds] = times.split(':').map(Number);
+    let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    
+    if (meridian?.toLowerCase() === "pm" && hours !== 12) {
+      totalSeconds += 12 * 3600;
+    } else if (meridian?.toLowerCase() === "am" && hours === 12) {
+      totalSeconds -= 12 * 3600;
+    }
+    
+    return totalSeconds;
+  };
+  const timeDate = (timeString) => {
+    if (timeString) {
+      return timeString.slice(0, 10);
+    } else {
+      return '';
+    }
+  }

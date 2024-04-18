@@ -15,7 +15,7 @@ import store from 'src/store/index';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import { projectedSaved } from "src/components/launchpad/launchpadReducer/launchpadReducer"
 import { NumericFormat } from 'react-number-format';
-
+import { allocationValidation } from './formValidation';
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMsg":
@@ -83,62 +83,15 @@ const ProjectsTokenClaim = (props) => {
   const handleChange = (field, value) => {
     dispatch({ type: 'claimDetails', payload:{ ...state.claimDetails,[field]: value }  })
     if (formErrors[field]) {
-      setFormErrors({ ...formErrors, [field]: null })
-    }
+      setFormErrors({ ...formErrors, [field]: null });
+      dispatch({ type: 'errorMsg', payload: '' });
+      }
+      dispatch({ type: 'errorMsg', payload: null });
   }
 
-  const validateForm = (obj) => {
-    const { noofSlots, vestingDays, publicStartDate, publicEndDate, privateStartDate, privateEndDate } = obj || state?.claimDetails || {};
-    const newErrors = {};
-    const dateRegex = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/;
-    if (!noofSlots || noofSlots === '') {
-      newErrors.noofSlots = 'Is required';
-    }
-    if (!vestingDays || vestingDays === '') {
-      newErrors.vestingDays = 'Is required';
-    }
-    if (!publicStartDate || publicStartDate === '') {
-      newErrors.publicStartDate = 'Is required';
-    } else if (publicStartDate && (!dateRegex.test(publicStartDate))) {
-      newErrors.publicStartDate = 'Invalid Public Start Date';
-    }
-    if (!publicEndDate || publicEndDate === '') {
-      newErrors.publicEndDate = 'Is required';
-    } else if (publicEndDate && (!dateRegex.test(publicEndDate))) {
-      newErrors.publicEndDate = 'Invalid Public End Date';
-    }
-    if (!privateStartDate || privateStartDate === '') {
-      newErrors.privateStartDate = 'Is required';
-    } else if (privateStartDate && (!dateRegex.test(privateStartDate))) {
-      newErrors.privateStartDate = 'Invalid Private Start Date';
-    }
-    if (!privateEndDate || privateEndDate === '') {
-      newErrors.privateEndDate = 'Is required';
-    } else if (privateEndDate && (!dateRegex.test(privateEndDate))) {
-      newErrors.privateEndDate = 'Invalid Private End Date';
-    }
-
-    return newErrors;
-
-  }
+  
 
 
-  const parseTime = (timeString ) => {
-    const selectedDate =timeString
-    const datetime = new Date(selectedDate);
-    const selectedTime = datetime.toLocaleTimeString();
-    const [times, meridian] = selectedTime.split(' ');
-    const [hours, minutes, seconds] = times.split(':').map(Number);
-    let totalSeconds = hours * 3600 + minutes * 60 + seconds;
-    
-    if (meridian?.toLowerCase() === "pm" && hours !== 12) {
-      totalSeconds += 12 * 3600;
-    } else if (meridian?.toLowerCase() === "am" && hours === 12) {
-      totalSeconds -= 12 * 3600;
-    }
-    
-    return totalSeconds;
-  };
 
 const time=(timeString)=>{
   const selectedDate =timeString
@@ -146,13 +99,7 @@ const time=(timeString)=>{
   return  datetime.toLocaleTimeString();
 }
 
-  const timeDate = (timeString) => {
-    if (timeString) {
-      return timeString.slice(0, 10);
-    } else {
-      return '';
-    }
-  }
+  
   const convertUtcToLocal = (date) => {
     if (!date) {
       return '';
@@ -205,67 +152,8 @@ const time=(timeString)=>{
             navigate(`/launchpad/investors/projects/${investorsDetails?.project?.id}`);
           }
         }
-    } else {
-      const privateEndingTimeInSeconds = parseTime(state.claimDetails?.privateEndDate);
-      const privateStartingTimeInSeconds = parseTime(state.claimDetails?.privateStartDate);
-     const publicEndingTimeInSeconds = parseTime(state.claimDetails?.publicEndDate);
-     const publicStartingTimeInSeconds = parseTime(state.claimDetails?.publicStartDate);
-
-      if (state.claimDetails?.noofSlots == 0) {
-        dispatch({ type: 'errorMsg', payload: 'claim slots should be greater than zero.' })
-        window.scroll(0, 0);
-        dispatch({ type: 'claimBtnLoader', payload: false })
-        return
-      }
-      if (state.claimDetails?.vestingDays==0) {
-        dispatch({ type: 'errorMsg', payload: 'claim vesting time should be greater than zero.' })
-        window.scroll(0, 0);
-        dispatch({ type: 'claimBtnLoader', payload: false })
-        return
-      }
-      if (timeDate(state.claimDetails?.privateStartDate) > timeDate(state.claimDetails?.privateEndDate)) {
-        dispatch({ type: 'errorMsg', payload: 'Private Start date cannot be greater than the end date.' });
-        window.scroll(0, 0);
-        dispatch({ type: 'claimBtnLoader', payload: false });
-        return;
-      } else if (timeDate(state.claimDetails?.privateStartDate) === timeDate(state.claimDetails?.privateEndDate)) {
-        if (privateStartingTimeInSeconds >= privateEndingTimeInSeconds) {
-          dispatch({ type: 'errorMsg', payload: 'Private Start time cannot be greater than or equal to the end time.' });
-          window.scroll(0, 0);
-          dispatch({ type: 'claimBtnLoader', payload: false });
-          return;
-        }
-      }
-
-      if (timeDate(state.claimDetails?.publicStartDate) > timeDate(state.claimDetails?.publicEndDate)) {
-        dispatch({ type: 'errorMsg', payload: 'Public Start date cannot be greater than the end date.' });
-        window.scroll(0, 0);
-        dispatch({ type: 'claimBtnLoader', payload: false });
-        return;
-      } else if (timeDate(state.claimDetails?.publicStartDate) === timeDate(state.claimDetails?.publicEndDate)) {
-        if (publicStartingTimeInSeconds >= publicEndingTimeInSeconds) {
-          dispatch({ type: 'errorMsg', payload: 'Public Start time cannot be greater than or equal to the end time.' });
-          window.scroll(0, 0);
-          dispatch({ type: 'claimBtnLoader', payload: false });
-          return;
-        }
-      }
-      if (timeDate(state.claimDetails?.publicStartDate) < timeDate(state.claimDetails?.privateEndDate)) {
-        dispatch({ type: 'errorMsg', payload: 'Round One End Date cannot be greater than the Round Two Start Date.' });
-        window.scroll(0, 0);
-        dispatch({ type: 'claimBtnLoader', payload: false });
-        return;
-      }else if (timeDate(state.claimDetails?.publicStartDate) === timeDate(state.claimDetails?.privateEndDate)) {
-        if (publicStartingTimeInSeconds < privateEndingTimeInSeconds) {
-          dispatch({ type: 'errorMsg', payload: 'Round One End time cannot be greater than the Round Two Start time.' });
-          window.scroll(0, 0);
-          dispatch({ type: 'claimBtnLoader', payload: false });
-          return;
-        }
-      }
-      
-     
-     
+    }
+    else {
       dispatch({ type: 'errorMsg', payload: null })
 
       let publicStartDate
@@ -285,15 +173,17 @@ const time=(timeString)=>{
         privateStartDate: privateStartDate,
         privateEndDate: privateEndDate,
       }
-      const formError = validateForm(obj);
-      if (Object.keys(formError)?.length > 0) {
+      let tokenType = projectSaveDetails?.tokenType
+      const formError = allocationValidation(obj,tokenType);
+      if (Object.keys(formError)?.length > 1) {
         setFormErrors(formError)
         dispatch({ type: 'errors', payload: formError })
-        dispatch({ type: 'claimloader', payload: false })
+        dispatch({ type: 'errorMsg', payload: formError.errorMsg })
+        dispatch({ type: 'claimBtnLoader', payload: false })
       } else {
         let res = await apiCalls.UpdateClaimsAndAllocation(obj);
         if (res.ok) {
-          dispatch({ type: 'claimloader', payload: false })
+          dispatch({ type: 'claimBtnLoader', payload: false })
           dispatch({ type: 'errorMsg', payload: null })
           dispatch({ type: 'success', payload: true })
           if (window.location.pathname.includes('idorequest')) {
@@ -316,16 +206,15 @@ const time=(timeString)=>{
           }
         }
         else {
-          dispatch({ type: 'claimloader', payload: false })
+          dispatch({ type: 'claimBtnLoader', payload: false })
           dispatch({ type: 'errorMsg', payload: apiCalls.isErrorDispaly(res) })
           window.scroll(0, 0);
           dispatch({ type: 'validated', payload: false })
         }
       }
-      dispatch({ type: 'claimloader', payload: false })
+      dispatch({ type: 'claimBtnLoader', payload: false })
     }
   };
-
 
   const idoRequestBredCrumd = () => {
     navigate(mode === "projectsDetails" ? `/launchpad/investors` : `/launchpad/idorequest`)
@@ -381,65 +270,66 @@ const time=(timeString)=>{
               <CBreadcrumbItem active>Token Claim</CBreadcrumbItem>
             </CBreadcrumb>}
 
-            <div className='d-lg-flex align-items-center justify-content-between mb-2'><h3 className='section-title mb-2 mt-3'>Token Claim</h3><p className='mb-0 page-number'><span className='active-number'>3</span> of 3</p></div>
+            {projectSaveDetails?.tokenType != 'ERC-721' && <>
+              <div className='d-lg-flex align-items-center justify-content-between mb-2'><h3 className='section-title mb-2 mt-3'>Token Claim</h3><p className='mb-0 page-number'><span className='active-number'>3</span> of 3</p>
+              </div>
+              <Row>
+                <Col lg={6} md={12}>
+                  <Form.Label
+                    controlId="floatingInput"
+                    label="Claim Slots*"
+                    className=""
+                  >Claim Slots<span className="text-danger">*</span></Form.Label>
+                  <NumericFormat
+                    value={state.claimDetails?.noofSlots}
+                    name='noofSlots'
+                    allowNegative={false}
+                    className={`form-control ${formErrors.noofSlots ? 'is-invalid' : ''}`}
+                    thousandSeparator={true}
+                    placeholder="No of Slots"
+                    onChange={(e) => handleChange('noofSlots', e.currentTarget.value)}
+                    onBlur={(e) => handleChange('privateTokenEquivalentToPaymentType', e.target.value.trim().replace(/\s+/g, " "))}
+                    required
+                    isInvalid={!!formErrors?.noofSlots}
+                    disabled={(projectSaveDetails?.projectStatus == "Deployed"
+                      || projectSaveDetails?.projectStatus == "Rejected"
+                      || projectSaveDetails?.projectStatus == "Approved"
+                      || projectSaveDetails?.projectStatus == "Deploying"
+                    )}
+                  />
+                  <Form.Control.Feedback type="invalid">{formErrors?.noofSlots || state.errors.noofSlots}</Form.Control.Feedback>
 
 
-            <Row>
-              <Col lg={6} md={12}>
-                <Form.Label
-                  controlId="floatingInput"
-                  label="Claim Slots*"
-                  className=""
-                >Claim Slots<span className="text-danger">*</span></Form.Label>
-                <NumericFormat
-                  value={state.claimDetails?.noofSlots}
-                  name='noofSlots'
-                  allowNegative={false}
-                  className='form-control'
-                  thousandSeparator={true}
-                  placeholder="No of Slots"
-                  onChange={(e) => handleChange('noofSlots', e.currentTarget.value)}
-                  onBlur={(e) => handleChange('privateTokenEquivalentToPaymentType', e.target.value.trim().replace(/\s+/g, " "))}
-                  required
-                  isInvalid={!!formErrors?.noofSlots}
-                  disabled={(projectSaveDetails?.projectStatus == "Deployed"
-                    || projectSaveDetails?.projectStatus == "Rejected"
-                    || projectSaveDetails?.projectStatus == "Approved"
-                    || projectSaveDetails?.projectStatus == "Deploying"
-                  )}
-                />
-                <Form.Control.Feedback type="invalid">{formErrors?.noofSlots || state.errors.noofSlots}</Form.Control.Feedback>
+                </Col>
+                <Col lg={6} md={12}>
+                  <Form.Label
+                    controlId="floatingInput"
+                    label="Claim Vesting Time*"
+                    className=""
+                  >Claim Vesting Time (hours)<span className="text-danger">*</span></Form.Label>
+                  <NumericFormat
+                    value={state.claimDetails?.vestingDays}
+                    name='vestingDays'
+                    allowNegative={false}
+                    className={`form-control ${formErrors.vestingDays ? 'is-invalid' : ''}`}
+                    thousandSeparator={true}
+                    placeholder="No of Slots"
+                    onChange={(e) => handleChange('vestingDays', e.currentTarget.value)}
+                    onBlur={(e) => handleChange('vestingDays', e.target.value.trim().replace(/\s+/g, " "))}
+                    required
+                    isInvalid={!!formErrors?.vestingDays}
+                    disabled={(projectSaveDetails?.projectStatus == "Deployed"
+                      || projectSaveDetails?.projectStatus == "Rejected"
+                      || projectSaveDetails?.projectStatus == "Approved"
+                      || projectSaveDetails?.projectStatus == "Deploying"
+                    )}
+                  />
+                  <Form.Control.Feedback type="invalid">{formErrors.vestingDays || state.errors.vestingDays}</Form.Control.Feedback>
 
 
-              </Col>
-              <Col lg={6} md={12}>
-                <Form.Label
-                  controlId="floatingInput"
-                  label="Claim Vesting Time*"
-                  className=""
-                >Claim Vesting Time (days)<span className="text-danger">*</span></Form.Label>
-                 <NumericFormat
-                  value={state.claimDetails?.vestingDays}
-                  name='vestingDays'
-                  allowNegative={false}
-                  className='form-control'
-                  thousandSeparator={true}
-                  placeholder="No of Slots"
-                  onChange={(e) => handleChange('vestingDays', e.currentTarget.value)}
-                  onBlur={(e) => handleChange('vestingDays', e.target.value.trim().replace(/\s+/g, " "))}
-                  required
-                  isInvalid={!!formErrors?.vestingDays}
-                  disabled={(projectSaveDetails?.projectStatus == "Deployed"
-                    || projectSaveDetails?.projectStatus == "Rejected"
-                    || projectSaveDetails?.projectStatus == "Approved"
-                    || projectSaveDetails?.projectStatus == "Deploying"
-                  )}
-                />
-                <Form.Control.Feedback type="invalid">{formErrors.vestingDays || state.errors.vestingDays}</Form.Control.Feedback>
-
-
-              </Col>
-            </Row>
+                </Col>
+              </Row>
+            </>}
             <h6 className='section-title mb-2 mt-4'>Allocation time</h6>
             <Row>
               <Col lg={6} md={12}>
