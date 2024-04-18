@@ -1260,7 +1260,7 @@ h1.heading{font-size: 24px;font-weight: 600;color:var(--textWhite);margin-bottom
 }
 .herader-top{margin-top: 4px !important;}
 select[type='select'].form-control {
-  background-image: url(https://dottvideos.blob.core.windows.net/images/arrow-down-black.svg) !important;
+  background-image: url(https://devdottstoragespace.blob.core.windows.net/dottimages/blackdown-arrow.svg) !important;
   background-position: right 16px center !important;
   background-repeat: no-repeat !important;
   background-size: 12px !important;
