@@ -183,7 +183,9 @@ export  const erc20FormValidation = (obj) => {
 
       }
     }
-    newErrors.errorMsg = errorMsg;
+    if (errorMsg.trim() !== '') {
+      newErrors.errorMsg = errorMsg;
+    }
     return newErrors;
   };
   const parseTime = (timeString ) => {
@@ -208,4 +210,39 @@ export  const erc20FormValidation = (obj) => {
     } else {
       return '';
     }
+  }
+ export const validateCastCrewForm = (validatingForm) => {
+    const { name, role, bio, webisite, facebook, instagram } = validatingForm ;
+    const newErrors = {};
+    const urlRegex = /^(?:(?:https?|ftp|file):\/\/|www\.)[^\s/$.?#].[^\s]*$/;
+    const emojiRegex = /\p{Emoji}/u;
+    const numbersOnly = /^\d+$/;
+    const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
+
+    if (!name || name === '') {
+      newErrors.name = 'Is required';
+    } else if (!validateContentRules('', name)  || name?.match(numbersOnly) || name?.match(specialCharsOnly)) {
+      newErrors.name = 'Accepts alphanumeric and special chars.';
+    }
+    if (!role || role === '') {
+      newErrors.role = 'Is required';
+    }
+    if (bio && bio.trim() !== '') {
+      if (!validateContentRules('', bio) || bio.match(numbersOnly) || bio.match(specialCharsOnly)) {
+          newErrors.bio = 'Accepts alphanumeric and special chars.';
+      }
+  }
+    if (webisite && (emojiRegex.test(webisite) || !urlRegex.test(webisite))) {
+      newErrors.webisite ='please provide valid content for website';
+    }
+    if (facebook && (emojiRegex.test(facebook) || !urlRegex.test(facebook))) {
+      newErrors.facebook ='please provide valid content for facebook';
+    }
+    if (instagram && (emojiRegex.test(instagram) || !urlRegex.test(instagram))) {
+      newErrors.instagram ='please provide valid content for instagram';
+    }
+    if (facebook && !urlRegex.test(facebook)) {
+      newErrors.facebook = 'please provide valid content for facebook';
+    }
+    return newErrors;
   }

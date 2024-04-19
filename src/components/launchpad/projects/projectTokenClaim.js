@@ -175,7 +175,7 @@ const time=(timeString)=>{
       }
       let tokenType = projectSaveDetails?.tokenType
       const formError = allocationValidation(obj,tokenType);
-      if (Object.keys(formError)?.length > 1) {
+      if (Object.keys(formError)?.length > 0) {
         setFormErrors(formError)
         dispatch({ type: 'errors', payload: formError })
         dispatch({ type: 'errorMsg', payload: formError.errorMsg })

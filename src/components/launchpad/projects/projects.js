@@ -17,7 +17,6 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { CBreadcrumb, CBreadcrumbItem, CLink } from '@coreui/react'
 import { projectDetailsData, projectDetailsSave, projectePayment, fetchCastCrewRolesData ,fetchTokenTypeLu} from '../launchpadReducer/launchpadReducer';
 import moment from 'moment';
-import { validateContentRules } from '../../../utils/custom.validator';
 import jsonCountryCode from '../../../utils/countryCode.json';
 import store from 'src/store';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -26,7 +25,7 @@ import { NumericFormat } from 'react-number-format';
 import profileavathar from "../../../assets/images/default-avatar.jpg";
 import { Modal } from 'react-bootstrap';
 import { uuidv4 } from 'src/utils/uuid';
-import { erc20FormValidation,erc721FormValidation } from './formValidation';
+import { erc20FormValidation,erc721FormValidation,validateCastCrewForm } from './formValidation';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -532,46 +531,13 @@ const Projects = (props) => {
     setSelectedroleValues(selectedList);
     dispatch({ type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, role: selectedRoleNames } })
   };
-  const validateCastCrewForm = () => {
-    const validatingForm = { ...state.cast_CrewsFormDeatils };
-    const newErrors = {};
-    const urlRegex = /^(?:(?:https?|ftp|file):\/\/|www\.)[^\s/$.?#].[^\s]*$/;
-    const emojiRegex = /\p{Emoji}/u;
-    const numbersOnly = /^\d+$/;
-    const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
-
-    if (!validatingForm?.name || validatingForm?.name === '') {
-      newErrors.name = 'Is required';
-    } else if (!validateContentRules('', validatingForm?.name)  || validatingForm?.name?.match(numbersOnly) || validatingForm?.name?.match(specialCharsOnly)) {
-      newErrors.name = 'Accepts alphanumeric and special chars.';
-    }
-    if (!validatingForm?.role || validatingForm?.role === '') {
-      newErrors.role = 'Is required';
-    }
-    if (validatingForm?.bio && validatingForm?.bio.trim() !== '') {
-      if (!validateContentRules('', validatingForm?.bio) || validatingForm?.bio.match(numbersOnly) || validatingForm?.bio.match(specialCharsOnly)) {
-          newErrors.bio = 'Accepts alphanumeric and special chars.';
-      }
-  }
-    if (validatingForm?.webisite && (emojiRegex.test(validatingForm?.webisite) || !urlRegex.test(validatingForm?.webisite))) {
-      newErrors.webisite ='please provide valid content for website';
-    }
-    if (validatingForm?.facebook && (emojiRegex.test(validatingForm?.facebook) || !urlRegex.test(validatingForm?.facebook))) {
-      newErrors.facebook ='please provide valid content for facebook';
-    }
-    if (validatingForm?.instagram && (emojiRegex.test(validatingForm?.instagram) || !urlRegex.test(validatingForm?.instagram))) {
-      newErrors.instagram ='please provide valid content for instagram';
-    }
-    if (validatingForm?.facebook && !urlRegex.test(validatingForm?.facebook)) {
-      newErrors.facebook = 'please provide valid content for facebook';
-    }
-    return newErrors;
-  }
+  
 
 
   const handleCastCrewDataSave = async (event) => {
     event.preventDefault();
-    const formErrors = validateCastCrewForm();
+    const validatingForm = { ...state.cast_CrewsFormDeatils };
+    const formErrors = validateCastCrewForm(validatingForm);
     setCastCrewLoader(true)
     if (Object.keys(formErrors)?.length > 0) {
       setErrors(formErrors);
@@ -1371,10 +1337,10 @@ return (<>
                 <Row className='mb-4 mt-4'>
                   {state?.castCrewDataList?.map((item, index) => (
                     <Col className="" lg={3} key={item.id}>
-                      <div className='profile-panel mb-4 card-style home-card p-lg-3 p-2' key={index} onClick={() => handleEdit(index)} >
+                      <div className='profile-panel mb-4 card-style home-card p-lg-3 p-2' key={item.id}  >
                         <div>
                           <Form.Group >
-                            <div className='profile-size castandcre-profile  no-hover mx-auto' >
+                            <div className='profile-size castandcre-profile  no-hover mx-auto'onClick={() => handleEdit(index)} >
                               <span className='image-box'>
                                 <img className='image-setup'
                                   src={item?.image || profileavathar} alt="profile img"

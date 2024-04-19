@@ -566,6 +566,22 @@ const ProjectCards = () => {
                         </div>
                       </div>
                     </Col>
+                    {state.detailsPreview.nftImagesCount && 
+                    <Col lg={4} md={12}>
+                      <div className="view-data">
+                        <label htmlFor="nftImagesCountInput" className='profile-label'>Token Contract Address</label>
+                        <div className='d-flex align-items-center'>
+                            <h6 className='about-label mb-0'>
+                              {state.detailsPreview?.nftImagesCount?.substring(0, 6)}...{state.detailsPreview?.nftImagesCount?.slice(-4)}</h6>
+                            <UseCopyToClipboard address={state.detailsPreview?.nftImagesCount}></UseCopyToClipboard>
+                          {!state.detailsPreview?.nftImagesCount &&
+                            <h6>{'-'}</h6>}
+                        </div>
+                      </div>
+                    </Col>
+                    }
+
+                    {state.detailsPreview.tokenContractAddress && 
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="tokenContractAddressInput" className='profile-label'>Token Contract Address</label>
@@ -580,12 +596,15 @@ const ProjectCards = () => {
                         </div>
                       </div>
                     </Col>
+                    }
+                    {state.detailsPreview.totalSupply &&
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="totalSupplyInput" className='profile-label'>Total Supply</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.totalSupply?.toLocaleString() || '-'}</h6>
                       </div>
                     </Col>
+                     }
                     {/* <Col lg={4} md={12}>
                       <div className="view-data">
                         <label className='project-text text-lightpurpl'>Tire Weights</label>
@@ -610,18 +629,22 @@ const ProjectCards = () => {
                           : '-'} (UTC)</h6>
                       </div>
                     </Col>
+                    {state.detailsPreview.noOfSlots !=0 &&
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="claimSlotsInput" className='profile-label'>Claim Slots</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.noOfSlots || '-'}</h6>
                       </div>
                     </Col>
+                    }
+                    {state.detailsPreview.vestingDays !=0 &&
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="vestingTimeInput" className='profile-label'>Vesting Time</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.vestingDays || '-'} {state.detailsPreview?.vestingDays ? "(Hours)" : ""}</h6>
                       </div>
                     </Col>
+                    }
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="roundOneStartTimePrivate" className='profile-label'>Round One Start Time(Private)</label>
