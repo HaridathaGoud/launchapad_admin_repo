@@ -22,10 +22,10 @@ import store from 'src/store';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Multiselect from 'multiselect-react-dropdown';
 import { NumericFormat } from 'react-number-format';
-import profileavathar from "../../../assets/images/default-avatar.jpg";
 import { Modal } from 'react-bootstrap';
 import { uuidv4 } from 'src/utils/uuid';
 import { erc20FormValidation,erc721FormValidation,validateCastCrewForm } from './formValidation';
+import CastcrewCards from './castcrewCards';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -1335,46 +1335,7 @@ return (<>
                   ><span className='icon add-icon'></span> Add </Button>
                 </div>
                 <Row className='mb-4 mt-4'>
-                  {state?.castCrewDataList?.map((item, index) => (
-                    <Col className="" lg={3} key={item.id}>
-                      <div className='profile-panel mb-4 card-style home-card p-lg-3 p-2' key={item.id}  >
-                        <div>
-                          <Form.Group >
-                            <div className='profile-size castandcre-profile  no-hover mx-auto'onClick={() => handleEdit(index)} >
-                              <span className='image-box'>
-                                <img className='image-setup'
-                                  src={item?.image || profileavathar} alt="profile img"
-                                />
-                              </span>
-                            </div>
-                            <p className="profile-value mb-0 text-center mt-2">{item?.name}</p>
-                            <p className="profile-value mb-1 text-center">{item?.role?.join(', ')}</p>
-                            <p className="profile-label text-center ellipsis">{item?.bio}</p>
-                          </Form.Group>
-                        </div>
-                        <hr />
-                        <Row className="">
-                          <Col md={12}>
-                            {item?.facebook &&
-                              <div className='d-flex gap-2 mb-2'>
-                                <span className='icon facebook shrink-0'></span>
-                                <p className="profile-value mb-0">{item?.facebook}</p>
-                              </div>}
-                            {item?.webisite &&
-                              <div className='d-flex gap-2 mb-2'>
-                                <span className='icon website shrink-0'></span>
-                                <p className="profile-value mb-0">{item?.webisite} </p>
-                              </div>}
-                            {item?.instagram &&
-                              <div className='d-flex gap-2'>
-                                <span className='icon instagram shrink-0'></span>
-                                <p className="profile-value mb-0">{item?.instagram} </p>
-                              </div>}
-                          </Col>
-                        </Row>
-                      </div>
-                    </Col>
-                  ))}
+                  <CastcrewCards castCrewDataList={state?.castCrewDataList} handleEdit={handleEdit}/>
                 </Row>
               </div>
               <div className='text-end mt-5 mb-5'>
@@ -1558,7 +1519,7 @@ return (<>
                         </Col>
                         <Col xl={6} className="mb-3">
                           <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                            <Form.Label >Website URL</Form.Label>
+                            <Form.Label >Website Link</Form.Label>
                             <Form.Control
                               value={state?.cast_CrewsFormDeatils?.webisite || ''}
                               type="text"
@@ -1567,7 +1528,7 @@ return (<>
                               onChange={(e)=>handlecastCrewData('webisite',e.currentTarget.value)}
                               onBlur={(e) => handlecastCrewData('webisite',e.target.value.trim().replace(/\s+/g, " "))}
                               isInvalid={!!errors.webisite}
-                              placeholder="Website URL"
+                              placeholder="Website Link"
                               maxLength={50}
                               disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                                 || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -1580,7 +1541,7 @@ return (<>
                         </Col>
                         <Col xl={6} className="mb-3">
                           <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                            <Form.Label >Insta URL</Form.Label>
+                            <Form.Label >Instagram Link</Form.Label>
                             <Form.Control
                               value={state?.cast_CrewsFormDeatils?.instagram || ''}
                               type="text"
@@ -1589,7 +1550,7 @@ return (<>
                               onChange={(e)=>handlecastCrewData('instagram',e.currentTarget.value)}
                               onBlur={(e) => handlecastCrewData('instagram',e.target.value.trim().replace(/\s+/g, " "))}
                               isInvalid={!!errors.instagram}
-                              placeholder="Insta URL"
+                              placeholder="Instagram Link"
                               maxLength={50}
                               disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                                 || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -1603,7 +1564,7 @@ return (<>
                         </Col>
                         <Col xl={6} className="mb-3">
                           <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                            <Form.Label >FB URL</Form.Label>
+                            <Form.Label >FaceBook Link</Form.Label>
                             <Form.Control
                               value={state?.cast_CrewsFormDeatils?.facebook || ''}
                               type="text"
@@ -1612,7 +1573,7 @@ return (<>
                               onChange={(e)=>handlecastCrewData('facebook',e.currentTarget.value)}
                               onBlur={(e) => handlecastCrewData('facebook',e.target.value.trim().replace(/\s+/g, " "))}
                               isInvalid={!!errors.facebook}
-                              placeholder="FB URL"
+                              placeholder="FaceBook Link"
                               maxLength={50}
                               disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                                 || state.projectSaveDetails?.projectStatus == "Rejected"
