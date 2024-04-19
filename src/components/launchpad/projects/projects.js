@@ -452,7 +452,7 @@ const Projects = (props) => {
   const handleCancel = () => {
     if (isAdmin?.isAdmin) {
       if (window.location.pathname.includes('/launchpad/investors')) {
-        navigate(`/launchpad/investors/projects/${projectItem.id}`)
+        navigate(`/launchpad/investors/projects/${projectItem?.id }`)
       }
       else {
         props.closeProject(false)
@@ -468,7 +468,6 @@ const Projects = (props) => {
       props.closeProject(false)
     }
   }
-
 
   const getSelectedCountries = (countrys) => {
     const countries = jsonCountryCode.filter(obj => countrys?.includes(obj.name));
