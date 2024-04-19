@@ -26,6 +26,7 @@ import { Modal } from 'react-bootstrap';
 import { uuidv4 } from 'src/utils/uuid';
 import { erc20FormValidation,erc721FormValidation,validateCastCrewForm } from './formValidation';
 import CastcrewCards from './castcrewCards';
+import CastCrewForm from './castcrewForm';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -389,7 +390,6 @@ const Projects = (props) => {
     }
   };
   const uploadToServer = async (file, type) => {
-    
     const body = new FormData();
     body.append('file', file);
     try {
@@ -1362,247 +1362,20 @@ return (<>
               aria-labelledby="contained-modal-title-vcenter"
               centered
             >
-              <Form   >
-                <Modal.Header className="d-flex justify-content-between">
-                  <Modal.Title id="example-custom-modal-styling-title">
-                    Add Cast and Crew
-                  </Modal.Title>
-                  <span className="icon close" onClick={handleCancell} ></span>
-
-                </Modal.Header>
-                <Modal.Body className="launchpadadmin-modal">
-                  {state.castCrewImageError && (
-                    <Alert variant="danger">
-                      <div className='d-flex align-items-center'>
-                        <span className='icon error-alert'></span>
-                        <p className='m1-2' style={{ color: 'red' }}>{state.castCrewImageError}</p>
-                      </div>
-                    </Alert>
-                  )}
-                  <div className="text-center">{state.castCrewFormLoader && <Spinner className='text-center'></Spinner>}</div>
-                  {!state.castCrewFormLoader &&
-                  <Row>
-                    <Col xl={4} className="mb-4">
-                      <Form.Group>
-                        <div
-                    className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
-                      || state.projectSaveDetails?.projectStatus == "Approved") ?
-                      'upload-img mb-2 position-relative c-notallowed' :
-                      'upload-img mb-2 position-relative '}`}
-                  >
-                    {state.castImgLoader && <Spinner fallback={state.castImgLoader} className='position-absolute'></Spinner>}
-                    {state?.cast_CrewsFormDeatils?.image && !state.castImgLoader && <span className='imgupload-span'>
-                      <Image src={state?.cast_CrewsFormDeatils?.image} width="100" height="100" alt="" /></span>}
-                    {!state?.cast_CrewsFormDeatils?.image && !state.castImgLoader &&
-                      <div className="choose-image">
-                        <div>
-                          <Form.Control
-                            required
-                            className="d-none custom-btn active btn"
-                            type="file"
-                            ref={inputRef3}
-                            onChange={(e) => uploadToClient(e, 'image')}
-                            disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                              || state.projectSaveDetails?.projectStatus == "Rejected"
-                              || state.projectSaveDetails?.projectStatus == "Approved"
-                              || state.projectSaveDetails?.projectStatus == "Deploying"
-                              
-                            )}
-                          />
-                          <span
-                            className="icon camera"
-                            onClick={() => inputRef3.current?.click()}
-                          ></span>
-                          <p className="c-pointer pt-3">
-                            Jpg, Jpeg, Png, Gif, Webp
-
-                          </p>
-                        </div>
-                      </div>
-                    }
-                    {state?.cast_CrewsFormDeatils?.image && !state.castImgLoader &&
-                      <div
-                        className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
-                          || state.projectSaveDetails?.projectStatus == "Approved") ?
-                          'onhover-upload c-notallowed' :
-                          'onhover-upload'}`}>
-                        <div className='bring-front'>
-                          <Form.Control
-                            required
-                            className="d-none custom-btn active btn"
-                            type="file"
-                            ref={inputRef3}
-                            onChange={(e) => uploadToClient(e, 'image')}
-                            disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                              || state.projectSaveDetails?.projectStatus == "Rejected"
-                              || state.projectSaveDetails?.projectStatus == "Approved"
-                              || state.projectSaveDetails?.projectStatus == "Deploying"
-                            )}
-                          />
-                          <span
-                            className="icon camera"
-                            onClick={() => inputRef3.current?.click()}
-                          ></span>
-                        </div>
-                      </div>
-                    }
-                  </div>
-                      </Form.Group>
-                    </Col>
-                    <Col xl={8}>
-                      <Row>
-                        <Col xl={12} className="mb-3">
-                          <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                            <Form.Label >Name<span className="text-danger">*</span></Form.Label>
-                            <Form.Control
-                              value={state?.cast_CrewsFormDeatils?.name || ''}
-                              type="text"
-                              name="name"
-                              autoComplete="off"
-                              onChange={(e)=>handlecastCrewData('name',e.currentTarget.value)}
-                              onBlur={(e) => handlecastCrewData('name',e.target.value.trim().replace(/\s+/g, " "))}
-                              isInvalid={!!errors.name}
-                              required
-                              placeholder="Name"
-                              maxLength={50}
-                              disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                                || state.projectSaveDetails?.projectStatus == "Rejected"
-                                || state.projectSaveDetails?.projectStatus == "Approved"
-                                || state.projectSaveDetails?.projectStatus == "Deploying"
-                              )}
-                            />
-                            <Form.Control.Feedback type="invalid">{errors?.name || state?.errors?.name}</Form.Control.Feedback>
-                          </Form.Group>
-                        </Col>
-                        <Col lg={12} md={12} className="mb-3">
-                          <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                            <Form.Label >Role<span className="text-danger">*</span></Form.Label>
-                            <Multiselect
-                              className='multiselecter role-select'
-                              options={castCrewRolesLu}
-                              selectedValues={selectedroleValues}
-                              onSelect={onRolsSelect}
-                              onRemove={onRolsSelect}
-                              displayValue="role"
-                              isInvalid={!!errors.role}
-                              disable={(state.projectSaveDetails?.projectStatus == "Deployed"
-                                || state.projectSaveDetails?.projectStatus == "Rejected"
-                                || state.projectSaveDetails?.projectStatus == "Approved"
-                                || state.projectSaveDetails?.projectStatus == "Deploying"
-                              )}
-                            />
-                            <Form.Control.Feedback type="invalid" className={`${errors?.role ? 'error-role' : ''}`}>{errors?.role || state?.errors?.role} </Form.Control.Feedback>
-                          </Form.Group>
-
-                        </Col>
-                        <Col xl={12} className="mb-3">
-                          <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                            <Form.Label >Bio</Form.Label>
-                            <Form.Control
-                              value={state?.cast_CrewsFormDeatils?.bio || ''}
-                              as="textarea"
-                              name='bio'
-                              placeholder="Enter Bio"
-                              style={{ height: '100px' }}
-                              onChange={(e)=>handlecastCrewData('bio',e.currentTarget.value)}
-                              onBlur={(e) => handlecastCrewData('bio',e.target.value.trim().replace(/\s+/g, " "))}
-                              isInvalid={!!errors.bio}
-                              maxLength={256}
-                              disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                                || state.projectSaveDetails?.projectStatus == "Rejected"
-                                || state.projectSaveDetails?.projectStatus == "Approved"
-                                || state.projectSaveDetails?.projectStatus == "Deploying"
-                              )}
-                            />
-                            <Form.Control.Feedback type="invalid">{errors?.bio || state?.errors?.bio}</Form.Control.Feedback>
-                          </Form.Group>
-                        </Col>
-                        <Col xl={6} className="mb-3">
-                          <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                            <Form.Label >Website Link</Form.Label>
-                            <Form.Control
-                              value={state?.cast_CrewsFormDeatils?.webisite || ''}
-                              type="text"
-                              name="webisite"
-                              autoComplete="off"
-                              onChange={(e)=>handlecastCrewData('webisite',e.currentTarget.value)}
-                              onBlur={(e) => handlecastCrewData('webisite',e.target.value.trim().replace(/\s+/g, " "))}
-                              isInvalid={!!errors.webisite}
-                              placeholder="Website Link"
-                              maxLength={50}
-                              disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                                || state.projectSaveDetails?.projectStatus == "Rejected"
-                                || state.projectSaveDetails?.projectStatus == "Approved"
-                                || state.projectSaveDetails?.projectStatus == "Deploying"
-                              )}
-                            />
-                            <Form.Control.Feedback type="invalid">{errors?.webisite || state?.errors?.webisite}</Form.Control.Feedback>
-                          </Form.Group>
-                        </Col>
-                        <Col xl={6} className="mb-3">
-                          <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                            <Form.Label >Instagram Link</Form.Label>
-                            <Form.Control
-                              value={state?.cast_CrewsFormDeatils?.instagram || ''}
-                              type="text"
-                              name="instagram"
-                              autoComplete="off"
-                              onChange={(e)=>handlecastCrewData('instagram',e.currentTarget.value)}
-                              onBlur={(e) => handlecastCrewData('instagram',e.target.value.trim().replace(/\s+/g, " "))}
-                              isInvalid={!!errors.instagram}
-                              placeholder="Instagram Link"
-                              maxLength={50}
-                              disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                                || state.projectSaveDetails?.projectStatus == "Rejected"
-                                || state.projectSaveDetails?.projectStatus == "Approved"
-                                || state.projectSaveDetails?.projectStatus == "Deploying"
-                              )}
-                            />
-                            <Form.Control.Feedback type="invalid">{errors?.instagram || state?.errors?.instagram}</Form.Control.Feedback>
-                          </Form.Group>
-
-                        </Col>
-                        <Col xl={6} className="mb-3">
-                          <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                            <Form.Label >FaceBook Link</Form.Label>
-                            <Form.Control
-                              value={state?.cast_CrewsFormDeatils?.facebook || ''}
-                              type="text"
-                              name="facebook"
-                              autoComplete="off"
-                              onChange={(e)=>handlecastCrewData('facebook',e.currentTarget.value)}
-                              onBlur={(e) => handlecastCrewData('facebook',e.target.value.trim().replace(/\s+/g, " "))}
-                              isInvalid={!!errors.facebook}
-                              placeholder="FaceBook Link"
-                              maxLength={50}
-                              disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                                || state.projectSaveDetails?.projectStatus == "Rejected"
-                                || state.projectSaveDetails?.projectStatus == "Approved"
-                                || state.projectSaveDetails?.projectStatus == "Deploying"
-                              )}
-                            />
-                            <Form.Control.Feedback type="invalid">{errors?.facebook || state?.errors?.facebook}</Form.Control.Feedback>
-                          </Form.Group>
-                        </Col>
-
-                      </Row>
-                    </Col>
-                  </Row>
-                  }
-
-                </Modal.Body>
-                <Modal.Footer>
-                <div className="text-end btn-width"><Button className="cancel-btn" onClick={() => { handleCancell() }}>Cancel</Button>
-                  {!(state.projectSaveDetails?.projectStatus === "Deployed" ||
-                    state.projectSaveDetails?.projectStatus === "Rejected" ||
-                    state.projectSaveDetails?.projectStatus === "Approved") && (
-                      <Button className="button-secondary ms-lg-3 ms-2" type="submit" onClick={(e) => handleCastCrewDataSave(e)}>
-                        <span>{ castCrewLoader && <Spinner size="sm" className='text-light'/>} </span>Save
-                      </Button>
-                    )}
-                    </div>
-                </Modal.Footer>
-              </Form>
+              <CastCrewForm projectSaveDetails={state.projectSaveDetails} 
+              castCrewImageError={state.castCrewImageError}
+              cast_CrewsFormDeatils={state.cast_CrewsFormDeatils}
+              uploadToClient={uploadToClient}
+              errors={errors}
+              handlecastCrewData={handlecastCrewData}
+              handleCancell={handleCancell}
+              handleCastCrewDataSave={handleCastCrewDataSave}
+              castCrewRolesLu={castCrewRolesLu}
+              selectedroleValues={selectedroleValues}
+              onRolsSelect={onRolsSelect}
+              castCrewLoader={castCrewLoader}
+              inputRef3={inputRef3}
+              castImgLoader={state.castImgLoader}/>
             </Modal>
           </Form>
         </>
