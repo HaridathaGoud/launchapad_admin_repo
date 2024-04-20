@@ -1384,10 +1384,10 @@ return (<>
   </>)
 }
 Projects.propTypes = {
-  projectTokenData: PropTypes.isRequired,
-  informationProjectView: PropTypes.string,
-  closeProject: PropTypes.isRequired,
-  projectDetailsReducerData: PropTypes.isRequired,
+  projectTokenData: PropTypes.any,
+  informationProjectView: PropTypes.any,
+  closeProject: PropTypes.any,
+  projectDetailsReducerData: PropTypes.any,
 }
 
 

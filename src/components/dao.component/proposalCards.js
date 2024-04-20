@@ -543,10 +543,10 @@ const Dao = (props) => {
     );
 }
 Dao.propTypes = {
-    lookUp: PropTypes.isRequired,
-    trackWallet: PropTypes.isRequired,
-    trackDaoWallet: PropTypes.isRequired,
-    proposalDetailsList: PropTypes.isRequired,
+    lookUp: PropTypes.any,
+    trackWallet: PropTypes.any,
+    trackDaoWallet: PropTypes.any,
+    proposalDetailsList: PropTypes.any,
 
   }
 

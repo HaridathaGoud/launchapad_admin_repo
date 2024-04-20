@@ -8,8 +8,10 @@ import Spinner from 'react-bootstrap/esm/Spinner';
 import Multiselect from 'multiselect-react-dropdown';
 import Image from 'react-bootstrap/Image';
 import Alert from 'react-bootstrap/Alert';
+import PropTypes from 'prop-types'
+
 const CastCrewForm = (props) => {
-    return (<>
+    return (
         <Form>
             <Modal.Header className="d-flex justify-content-between">
                 <Modal.Title id="example-custom-modal-styling-title">
@@ -251,6 +253,23 @@ const CastCrewForm = (props) => {
                 </div>
             </Modal.Footer>
         </Form>
-    </>)
+    )
 }
+CastCrewForm.propTypes = {
+    castCrewImageError: PropTypes.any,
+    handleCancell: PropTypes.any,
+    errors: PropTypes.any,
+    projectSaveDetails: PropTypes.any,
+    handlecastCrewData: PropTypes.any,
+    castCrewRolesLu: PropTypes.any,
+    cast_CrewsFormDeatils: PropTypes.any,
+    selectedroleValues: PropTypes.any,
+    castCrewLoader: PropTypes.any,
+    handleCastCrewDataSave : PropTypes.any,
+    onRolsSelect: PropTypes.any,
+    inputRef3: PropTypes.any,
+    uploadToClient : PropTypes.any,
+    castImgLoader: PropTypes.any,
+    castCrewFormLoader : PropTypes.any,
+  }
 export default CastCrewForm;

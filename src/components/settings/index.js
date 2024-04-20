@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Spinner, Modal, FloatingLabel, Placeholder } from 'react-bootstrap';
+import { Spinner, Modal, Placeholder } from 'react-bootstrap';
 import apiCalls from 'src/api/apiCalls';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
@@ -7,7 +7,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import { connect, useSelector } from "react-redux";
-import PropTypes from 'prop-types';
 import { validateContent } from '../../utils/custom.validator';
 import ToasterMessage from "src/utils/toasterMessages";
 
@@ -17,7 +16,7 @@ const Settings = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
-  const [loaderform, setloaderform] = useState(false);
+  const [loaderform, setLoaderform] = useState(false);
   const [success, setSuccess] = useState(null);
   const [passwordErrorMsg, setPasswordErrorMsg] = useState(null);
   const [currentPasswordType, setCurrentPasswordType] = useState("password");
@@ -135,7 +134,7 @@ const Settings = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     setPasswordErrorMsg(null);
-    setloaderform(false);
+    setLoaderform(false);
     if ((form?.currentPassword && form?.password) && (form?.currentPassword === form?.password)) {
       return setPasswordErrorMsg("Current password and New password should not be same");
     }
@@ -144,7 +143,7 @@ const Settings = () => {
       setErrors(formErrors);
     }
     else {
-      setloaderform(true);
+      setLoaderform(true);
       let obj = Object.assign({}, form);
       obj.email = apiCalls.encryptValue(adminDetails?.email, adminDetails?.tokenEncryptKey);
       obj.currentPassword = apiCalls.encryptValue(form.currentPassword, adminDetails?.tokenEncryptKey);
@@ -154,7 +153,7 @@ const Settings = () => {
       let response = await apiCalls.changePassword(obj)
       if (response.ok) {
         setSuccess("Password changed successfully");
-        setloaderform(false);
+        setLoaderform(false);
         setShow(false)
         setTimeout(function () {
           setSuccess(null);
@@ -162,10 +161,10 @@ const Settings = () => {
       }
       else {
         setPasswordErrorMsg(apiCalls.isErrorDispaly(response));
-        setloaderform(false);
+        setLoaderform(false);
       }
       setValidated(true);
-      setloaderform(false);
+      setLoaderform(false);
     }
   }
 
@@ -301,10 +300,10 @@ const Settings = () => {
           </Form>
 
         </Modal>
-        {success && <><div className="text-center">
+        {success && <div className="text-center">
           <ToasterMessage isShowToaster={success} success={success}></ToasterMessage>
         </div>
-        </>}
+        }
       </div>}
     </div>
   );
@@ -316,8 +315,5 @@ const connectDispatchToProps = dispatch => {
   return {
   }
 }
-Settings.propTypes = {
-  userConfig: PropTypes.string,
-  oidc: PropTypes.string,
-}
+
 export default connect(connectStateToProps, connectDispatchToProps)(Settings);

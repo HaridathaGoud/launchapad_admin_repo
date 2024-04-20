@@ -12,7 +12,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment';
 import project from '../../../contract/project.json';
 import store from 'src/store/index';
-import { fcfsStartTime, setSettingsLoaders } from 'src/reducers/authReducer';
+import { fcfsStartTime } from 'src/reducers/authReducer';
 import useEthers from 'src/utils/useEthers';
 import ToasterMessage from "src/utils/toasterMessages";
 import { NumericFormat } from 'react-number-format';
@@ -23,7 +23,7 @@ const SettingsComponent = (props) => {
   const [settingValue, setSettingValue] = useState(null);
   const [btnLoader, setBtnLoader] = useState(false)
   const [validated, setValidated] = useState(false);
-  const [isTransactionSuccess, setTransactionSuccess] = useState(false);
+  const [isTransactionSuccess, setIsTransactionSuccess] = useState(false);
   const settingsFcfsStartTime = useSelector(reducerstate => reducerstate.settings?.isFcfsStartDate);
   const [success, setSuccess] = useState(null);
   const currentDate = new Date().toISOString().slice(0, 16);
@@ -63,7 +63,7 @@ const SettingsComponent = (props) => {
   const updateData = async () => {
     setSuccess(null);
     setErrorMgs(null);
-    setTransactionSuccess(false);
+    setIsTransactionSuccess(false);
     setBtnLoader(true)
     const form = document.forms["settingsForm"];
     const currentDatetime = Math.floor(new Date().getTime() / 1000);
@@ -104,9 +104,9 @@ const SettingsComponent = (props) => {
             res.wait().then(async (receipt) => {
              
               setSuccess("Vesting Details updated successfully");
-              setTransactionSuccess(true)
+              setIsTransactionSuccess(true)
               setTimeout(function () {
-                setTransactionSuccess(false)
+                setIsTransactionSuccess(false)
               }, 3000);
               setBtnLoader(false)
             }).catch((err) => {
@@ -129,9 +129,9 @@ const SettingsComponent = (props) => {
             setSettingValue(null)
             setDataUpdated(true)
             setSuccess("Date saved successfully");
-            setTransactionSuccess(true)
+            setIsTransactionSuccess(true)
             setTimeout(function () {
-              setTransactionSuccess(false)
+              setIsTransactionSuccess(false)
             }, 3000);
            
             setBtnLoader(false)
@@ -232,7 +232,6 @@ const SettingsComponent = (props) => {
       )
 }
 SettingsComponent.propTypes = {
-  title: PropTypes.string,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   funcName: PropTypes.string

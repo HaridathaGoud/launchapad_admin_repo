@@ -193,12 +193,6 @@ const ProjectTokenDetails = (props) => {
     props.closeProject(false)}
   }
 
-  const handleNumericInput = (event) => {
-    const allowedKeys = /[0-9\b.]/;
-    if (!allowedKeys.test(event.key)) {
-      event.preventDefault();
-    }
-  };
   return (<>
     {state.tokenloader&&<div className="text-center"><Spinner ></Spinner></div>}
     {!state.projectsPoolsStaking && !state.tokenloader&&
@@ -345,11 +339,11 @@ const ProjectTokenDetails = (props) => {
    
 }
 ProjectTokenDetails.propTypes = {
-  onBack: PropTypes.bool,
-  projectData: PropTypes.isRequired,
-  projectDetails: PropTypes.isRequired,
-  projectDetailsReducerData :PropTypes.isRequired,
-  closeProject :PropTypes.isRequired,
+  onBack: PropTypes.banyool,
+  projectData: PropTypes.any,
+  projectDetails: PropTypes.any,
+  projectDetailsReducerData :PropTypes.any,
+  closeProject :PropTypes.any,
 }
 
 

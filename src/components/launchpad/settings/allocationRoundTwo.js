@@ -21,7 +21,7 @@ const AllocationRoundTwo = () => {
   const projectItem= useSelector(reducerstate =>  reducerstate.projectDetails?.project)
   const [btnLoader, setBtnLoader] = useState(false);
   const [errorMgs, setErrorMgs] = useState(null);
-  const [isTransactionSuccess, setTransactionSuccess] = useState(false);
+  const [isTransactionSuccess, setIsTransactionSuccess] = useState(false);
   const [success, setSuccess] = useState(null);
   const [txHash,setTxHash]=useState(null);
   const [loader,setLoader] =useState(false)
@@ -46,9 +46,9 @@ const AllocationRoundTwo = () => {
         setTxHash(res.hash)
         res.wait().then(async (receipt) => {
           setSuccess("Allocated successfully");
-          setTransactionSuccess(true)
+          setIsTransactionSuccess(true)
           setTimeout(function () {
-            setTransactionSuccess(false)
+            setIsTransactionSuccess(false)
           }, 5000);
           setBtnLoader(false);
         }).catch(() => {

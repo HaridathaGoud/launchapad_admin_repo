@@ -3,6 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import profileavathar from '../../../assets/images/default-avatar.jpg';
+import PropTypes from 'prop-types'
 
  const CastcrewCards = (props)=>{
   const [expandedBios, setExpandedBios] = useState({});
@@ -12,8 +13,8 @@ import profileavathar from '../../../assets/images/default-avatar.jpg';
 };
     return(<> 
         {props?.castCrewDataList?.map((item, index) => (
-            <Col className="" lg={3} key={item.id}>
-              <div className='profile-panel mb-4 card-style home-card p-lg-3 p-2' key={item.id}  >
+            <Col className="" lg={3} key={item?.id}>
+              <div className='profile-panel mb-4 card-style home-card p-lg-3 p-2' key={item?.id}  >
                 <div>
                   <Form.Group >
                     <div className='profile-size castandcre-profile  mx-auto'onClick={() => props?.handleEdit(index)} >
@@ -26,10 +27,10 @@ import profileavathar from '../../../assets/images/default-avatar.jpg';
                     <p className="profile-value mb-0 text-center mt-2">{item?.name}</p>
                     <p className="profile-value mb-1 text-center">{item?.role?.join(', ')}</p>
                   <p className="profile-label text-center ellipsis">
-                    {expandedBios[item.id] || item.bio.length <= 150 ? item.bio + '...' : item.bio.slice(0, 150) + '...'}
-                    {item.bio.length > 150 && (
-                      <span className="see-more" onClick={() => toggleBio(item.id)}>
-                        {expandedBios[item.id] ? 'See Less' : 'See More'}
+                    {expandedBios[item?.id] || item?.bio?.length <= 150 ? item?.bio + '...' : item?.bio?.slice(0, 150) + '...'}
+                    {item?.bio?.length > 150 && (
+                      <span className="see-more" onClick={() => toggleBio(item?.id)}>
+                        {expandedBios[item?.id] ? 'See Less' : 'See More'}
                       </span>
                     )}
                   </p>
@@ -59,5 +60,9 @@ import profileavathar from '../../../assets/images/default-avatar.jpg';
             </Col>
           ))}
     </>)
+}
+CastcrewCards.propTypes = {
+  castCrewDataList: PropTypes.any,
+  handleEdit: PropTypes.any,
 }
 export default CastcrewCards;

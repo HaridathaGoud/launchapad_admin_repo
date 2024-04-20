@@ -9,7 +9,7 @@ import apiCalls from '../../../api/apiCalls';
 import project from '../../../contract/project.json';
 import Alert from 'react-bootstrap/Alert';
 import ToasterMessage from 'src/utils/toasterMessages';
-import { setSettingsLoaders, showSettings } from 'src/reducers/authReducer';
+import { showSettings } from 'src/reducers/authReducer';
 import store from 'src/store';
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
 
@@ -22,7 +22,7 @@ const PeojectAllocation = () => {
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails);
   const [btnLoader, setBtnLoader] = useState(false);
   const [errorMgs, setErrorMgs] = useState(null);
-  const [isTransactionSuccess, setTransactionSuccess] = useState(false);
+  const [isTransactionSuccess, setIsTransactionSuccess] = useState(false);
   const [success, setSuccess] = useState(null);
   const [txHash,setTxHash]=useState(null)
   const [loader,setLoader] =useState(false)
@@ -47,9 +47,9 @@ const PeojectAllocation = () => {
         setTxHash(res.hash)
         res.wait().then(async () => {
           setSuccess("Allocated successfully");
-          setTransactionSuccess(true)
+          setIsTransactionSuccess(true)
           setTimeout(function () {
-            setTransactionSuccess(false)
+            setIsTransactionSuccess(false)
           }, 5000);
           setBtnLoader(false);
         }).catch((err) => {

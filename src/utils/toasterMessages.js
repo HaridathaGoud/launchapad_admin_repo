@@ -16,7 +16,7 @@ const ToasterMessage = (props) => {
     )
 }
 ToasterMessage.propTypes = {
-    isShowToaster: PropTypes.string,
+    isShowToaster: PropTypes.any,
     success: PropTypes.string,
   }
 export default ToasterMessage;

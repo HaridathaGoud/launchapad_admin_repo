@@ -89,15 +89,6 @@ const ProjectsTokenClaim = (props) => {
       dispatch({ type: 'errorMsg', payload: null });
   }
 
-  
-
-
-
-const time=(timeString)=>{
-  const selectedDate =timeString
-  const datetime = new Date(selectedDate);
-  return  datetime.toLocaleTimeString();
-}
 
   
   const convertUtcToLocal = (date) => {
@@ -471,9 +462,9 @@ const time=(timeString)=>{
   )
 }
 ProjectsTokenClaim.propTypes = {
-  closeProject: PropTypes.isRequired,
-  goBackToPoolsStaking: PropTypes.isRequired,
-  projectId: PropTypes.isRequired,
-  projectInfo: PropTypes.isRequired
+  closeProject: PropTypes.any,
+  goBackToPoolsStaking: PropTypes.any,
+  projectId: PropTypes.any,
+  projectInfo: PropTypes.any
 }
 export default ProjectsTokenClaim;

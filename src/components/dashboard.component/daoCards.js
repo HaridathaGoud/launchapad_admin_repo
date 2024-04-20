@@ -199,9 +199,9 @@ const Dashboard = (props) => {
     )
 }
 Dashboard.propTypes = {
-    trackWallet: PropTypes.isRequired,
-    trackDaoWallet: PropTypes.isRequired,
-    clearDaos:PropTypes.isRequired,
+    trackWallet: PropTypes.any,
+    trackDaoWallet: PropTypes.any,
+    clearDaos:PropTypes.any,
   };
 const connectDispatchToProps = (dispatch) => {
     return {

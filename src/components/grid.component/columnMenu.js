@@ -1,4 +1,5 @@
 import * as React from 'react'
+import PropTypes from 'prop-types'
 import {
   GridColumnMenuSort,
   GridColumnMenuFilter,
@@ -175,4 +176,11 @@ export class ColumnMenu extends React.Component {
       </div>
     )
   }
+}
+ColumnMenu.propTypes = {
+  columns: PropTypes.any,
+  onColumnsApply: PropTypes.any,
+  onCloseMenu: PropTypes.any,
+  resetToDefault: PropTypes.any,
+  column: PropTypes.any,
 }

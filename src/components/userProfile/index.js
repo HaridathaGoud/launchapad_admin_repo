@@ -23,8 +23,8 @@ const UserProfile = (props) => {
   const [adminDetails, setAdminDetails] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
   const [loader, setLoader] = useState(false);
-  const [loaderform, setloaderform] = useState(false);
-  const [errorMessageProfile, setEerrorMessageProfile] = useState(null);
+  const [loaderform, setLoaderform] = useState(false);
+  const [errorMessageProfile, setErrorMessageProfile] = useState(null);
   const [show, setShow] = useState(false);
   const shouldLog = useRef(true);
   const [validated, setValidated] = useState(false);
@@ -125,9 +125,9 @@ const UserProfile = (props) => {
         if (Object.keys(formErrors)?.length > 0) {
           setErrors(formErrors);
           setLoader(false);
-          setloaderform(false);
+          setLoaderform(false);
         }else{
-          setloaderform(true);
+          setLoaderform(true);
           let obj = Object.assign({}, form);
           obj.id= adminDetails.id,
           obj.firstName= form.firstName || adminDetails.firstName,
@@ -145,7 +145,7 @@ const UserProfile = (props) => {
           if (response.ok) {
             store.dispatch(adminProfileImg(profile?.profilePicUrl || adminDetails?.profilePicUrl));
             setSuccess("Profile details saved successfully");
-            setloaderform(false);
+            setLoaderform(false);
             setShow(false)
             getAdminProfile(detailsData?.id);
             setTimeout(function () {
@@ -153,11 +153,11 @@ const UserProfile = (props) => {
             }, 2000);
           }
           else {
-            setEerrorMessageProfile(apiCalls.isErrorDispaly(response));
-            setloaderform(false);
+            setErrorMessageProfile(apiCalls.isErrorDispaly(response));
+            setLoaderform(false);
           }
           setValidated(true);
-          setloaderform(false);
+          setLoaderform(false);
         }
     
      
@@ -209,7 +209,7 @@ const UserProfile = (props) => {
   const handleEdit = () => {
     setShow(true);
     setValidated(false)
-    setEerrorMessageProfile(null);
+    setErrorMessageProfile(null);
     setForm(adminDetails);
   }
 
@@ -508,5 +508,5 @@ const connectDispatchToProps = dispatch => {
 
 export default connect(connectStateToProps, connectDispatchToProps)(UserProfile);
 UserProfile.propTypes = {
-  oidc: PropTypes.string
+  profileData: PropTypes.any,
 };

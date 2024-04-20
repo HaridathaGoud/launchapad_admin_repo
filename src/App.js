@@ -75,6 +75,8 @@ import ProjectsPoolsStaking from './components/launchpad/projects/projectPoolsSt
 import ProjectsTokenClaim from './components/launchpad/projects/projectTokenClaim';
 import ProjectTokenDetails from './components/launchpad/projects/projectTokenDetails';
 import ErrorPage from './components/errorPage/errorPage'; 
+import PropTypes from 'prop-types'
+
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>
@@ -281,6 +283,10 @@ const App =(props)=> {
     )
   }
   
+  App.propTypes = {
+    user: PropTypes.any,
+    trackauditlogs: PropTypes.any,
+  }
 const connectStateToProps = ({ userConfig, oidc }) => {
 	return { userConfig: userConfig?.userProfileInfo, user: oidc?.profile }
   }

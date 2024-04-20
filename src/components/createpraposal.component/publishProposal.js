@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import { connect,useSelector } from "react-redux";
-import { contractDetailsData ,daoCards,clearDaos, InvestorDaoCards ,saveProposalCall} from '../proposalReducer/proposalReducer';
+import { contractDetailsData ,daoCards, InvestorDaoCards ,saveProposalCall} from '../proposalReducer/proposalReducer';
 import { useParams,useNavigate,Link} from 'react-router-dom';
 import shimmers from '../shimmers/shimmers';
 import PlaceHolder from '../shimmers/placeHolder';
@@ -265,7 +265,6 @@ PublishProposal.propTypes = {
   saveProposalData:PropTypes.isRequired,
   trackWallet: PropTypes.isRequired,
   trackDaoWallet: PropTypes.isRequired,
-  clearDaos:PropTypes.isRequired,
 }
 const connectStateToProps = ({ oidc, proposal }) => {
   return { oidc: oidc, proposal: proposal };
@@ -283,9 +282,6 @@ const connectDispatchToProps = (dispatch) => {
     },
     trackDaoWallet: (information, inverstorId) => {
       dispatch(InvestorDaoCards(information, inverstorId));
-    },
-    clearDaos: () => {
-      dispatch(clearDaos());
     },
     
   }
