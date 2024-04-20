@@ -277,6 +277,7 @@ const ProjectsTokenClaim = (props) => {
                     allowNegative={false}
                     className={`form-control ${formErrors.noofSlots ? 'is-invalid' : ''}`}
                     thousandSeparator={true}
+                    decimalScale={0}
                     placeholder="No of Slots"
                     onChange={(e) => handleChange('noofSlots', e.currentTarget.value)}
                     onBlur={(e) => handleChange('privateTokenEquivalentToPaymentType', e.target.value.trim().replace(/\s+/g, " "))}
@@ -304,6 +305,7 @@ const ProjectsTokenClaim = (props) => {
                     allowNegative={false}
                     className={`form-control ${formErrors.vestingDays ? 'is-invalid' : ''}`}
                     thousandSeparator={true}
+                    decimalScale={0}
                     placeholder="No of Slots"
                     onChange={(e) => handleChange('vestingDays', e.currentTarget.value)}
                     onBlur={(e) => handleChange('vestingDays', e.target.value.trim().replace(/\s+/g, " "))}

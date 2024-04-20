@@ -1140,6 +1140,7 @@ return (<>
                         type="text" placeholder="Token Decimal"
                         isInvalid={!!errors?.tokenDecimal}
                         maxLength={2 }
+                        decimalScale={0}
                         onChange={(e)=>handleChange('tokenDecimal',e.currentTarget.value)}
                         onBlur={(e) => handleChange('tokenDecimal',e.target.value.trim().replace(/\s+/g, " "))}
                         required
@@ -1167,6 +1168,7 @@ return (<>
                         thousandSeparator={true}
                         placeholder="Total No of Token"
                         maxLength={ 30}
+                        decimalScale={0}
                         onChange={(e)=>handleChange('totalNumberOfTokens',e.currentTarget.value)}
                         onBlur={(e) => handleChange('totalNumberOfTokens',e.target.value.trim().replace(/\s+/g, " "))}
                         required
@@ -1196,6 +1198,7 @@ return (<>
                         thousandSeparator={true}
                         placeholder="Initial Supply"
                         maxLength={30 }
+                        decimalScale={0}
                         onChange={(e)=>handleChange('initialSupply',e.currentTarget.value)}
                         onBlur={(e) => handleChange('initialSupply',e.target.value.trim().replace(/\s+/g, " "))}
                         required
@@ -1306,8 +1309,9 @@ return (<>
                     type="text" placeholder="Member Ship Count"
                     isInvalid={!!errors?.nftImagesCount}
                     maxLength={5 }
+                    decimalScale={0}
                     onChange={(e)=>handleChange('nftImagesCount',e.currentTarget.value)}
-                    onBlur={(e) => handleChange('nftImagesCount',e.target.value.trim().replace(/\s+/g, " "))}
+                    onBlur={(e) => handleChange('nftImagesCount',e.target.value.trim())}
                     required
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                       || state.projectSaveDetails?.projectStatus == "Rejected"

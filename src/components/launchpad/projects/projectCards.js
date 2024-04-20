@@ -327,7 +327,7 @@ const ProjectCards = () => {
     setSuccess(null);
     dispatch({ type: 'btnLoader', payload: true })
     dispatch({ type: 'previewErrorMsg', payload: null })
-       
+    const nftImagesCount = state.detailsPreview?.nftImagesCount;
     const listingTime = convertDateToMinutesUTC(moment(state.detailsPreview?.listTime).format("YYYY-MM-DDTHH:mm"))
 
     const rndStart = convertDateToMinutesUTC(moment(state.detailsPreview?.privateStartDate).format("YYYY-MM-DDTHH:mm"));
@@ -343,6 +343,7 @@ const ProjectCards = () => {
     const factory = new ethers.Contract(DeployFactory.contractAddress, DeployFactory.abi, provider.getSigner());
     try {
       const contractRes = await factory.deployClaimableContract(
+        nftImagesCount,
         listingTime,
         rndStart,
         rndEnd,
