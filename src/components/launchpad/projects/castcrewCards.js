@@ -26,14 +26,15 @@ import PropTypes from 'prop-types'
                     </div>
                     <p className="profile-value mb-0 text-center mt-2">{item?.name}</p>
                     <p className="profile-value mb-1 text-center">{item?.role?.join(', ')}</p>
+                    {item?.bio && 
                   <p className="profile-label text-center ellipsis">
-                    {expandedBios[item?.id] || item?.bio?.length <= 150 ? item?.bio + '...' : item?.bio?.slice(0, 150) + '...'}
+                    {expandedBios[item?.id] || item?.bio?.length <= 150 ? item?.bio : item?.bio?.slice(0, 150) + '...'}
                     {item?.bio?.length > 150 && (
                       <span className="see-more" onClick={() => toggleBio(item?.id)}>
-                        {expandedBios[item?.id] ? 'See Less' : 'See More'}
+                        {expandedBios[item?.id] ? '...See Less' : 'See More'}
                       </span>
                     )}
-                  </p>
+                  </p>}
                   </Form.Group>
                 </div>
                 <hr />
