@@ -42,9 +42,9 @@ export  const erc20FormValidation = (obj) => {
       newErrors.description = 'Accepts alphanumeric and special chars.';
     }
     if (!contractAddress || contractAddress == '') {
-      newErrors.contractAddress = 'Is required';
+      newErrors.tokenContractAddress = 'Is required';
     } else if (!validateContentRules("", contractAddress) || (emojiRejex.test(contractAddress))|| contractAddress?.match(specialCharsOnly) || contractAddress?.match(numbersOnly) ) {
-      newErrors.contractAddress = 'Accepts alphanumeric and special chars.';
+      newErrors.tokenContractAddress = 'Accepts alphanumeric and special chars.';
     }
     if (!tokenName || tokenName == '') {
       newErrors.tokenName = 'Is required';

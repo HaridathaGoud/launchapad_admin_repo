@@ -232,7 +232,7 @@ const Projects = (props) => {
       dispatch({ type: 'buttonLoader', payload: true })
       let obj = {
         "id": projectSaveDetails?.id != null ? projectSaveDetails.id : (projectId ?? "00000000-0000-0000-0000-000000000000"),
-        "contractAddress": state.projectSaveDetails?.contractAddress,
+        "contractAddress": state.projectSaveDetails?.tokenContractAddress,
         "tokenName": state.projectSaveDetails?.tokenName || null,
         "tokenSymbol": state.projectSaveDetails?.tokenSymbol || null,
         "tokenLogo": state.projectLogoImages,
@@ -248,7 +248,7 @@ const Projects = (props) => {
         "walletAddress": walletAddress || null,
         "description": state.projectSaveDetails?.description,
         "tokenListingDate": state.projectSaveDetails?.tokenListingDate,
-        "tokenContractAddress": state.projectSaveDetails?.contractAddress || null,
+        "tokenContractAddress": state.projectSaveDetails?.tokenContractAddress || null,
         "introductionHtml": state.introductionHtml || state.projectSaveDetails?.introductionHtml,
         "projectOwnerId": projectItem?.id ? projectItem.id : isAdmin?.id,
         "initialSupply": state.projectSaveDetails?.initialSupply || null,
@@ -1057,12 +1057,12 @@ return (<>
                       >Token Contract Address<span className="text-danger">*</span></Form.Label>
                       <Form.Control
                         value={state.projectSaveDetails?.tokenContractAddress}
-                        name='contractAddress'
+                        name='tokenContractAddress'
                         type="text"
                         placeholder="Contract Address"
-                        onChange={(e)=>handleChange('contractAddress',e.currentTarget.value)}
-                        onBlur={(e) => handleChange('contractAddress',e.target.value.trim().replace(/\s+/g, " "))}
-                        isInvalid={!!errors?.contractAddress}
+                        onChange={(e)=>handleChange('tokenContractAddress',e.currentTarget.value)}
+                        onBlur={(e) => handleChange('tokenContractAddress',e.target.value.trim().replace(/\s+/g, " "))}
+                        isInvalid={!!errors?.tokenContractAddress}
                         required
                         maxLength={250 }
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
@@ -1071,7 +1071,7 @@ return (<>
                           || state.projectSaveDetails?.projectStatus == "Deploying"
                         )}
                       />
-                      <Form.Control.Feedback type="invalid">{errors?.contractAddress || state?.errors?.contractAddress}</Form.Control.Feedback>
+                      <Form.Control.Feedback type="invalid">{errors?.tokenContractAddress || state?.errors?.tokenContractAddress}</Form.Control.Feedback>
 
 
                     </Col>

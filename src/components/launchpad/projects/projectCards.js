@@ -229,18 +229,18 @@ const ProjectCards = () => {
     // dispatch({ type: 'btnLoader', payload: true })
     if (isConnected) {
       if(state.detailsPreview?.tokenType=='ERC-20'){
-        deployErc20Contract();
-      }else{
         deployErc721Contract();
+      }else{
+        deployErc20Contract();
       }
     }
     else {
       try {
         await connectWallet();
         if(state.detailsPreview?.tokenType=='ERC-20'){
-          deployErc20Contract();
-        }else{
           deployErc721Contract();
+        }else{
+          deployErc20Contract();
         }
         
         dispatch({ type: 'previewErrorMsg', payload: null })
@@ -248,7 +248,6 @@ const ProjectCards = () => {
         dispatch({ type: 'previewErrorMsg', payload: error?.reason })
         dispatch({ type: 'btnLoader', payload: false })
       }
-
     }
   }
 

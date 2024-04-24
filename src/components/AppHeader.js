@@ -251,10 +251,10 @@ function AppHeader(props){
           {/* <li><Link to="/minting/dashboard" className={"underline" + (url === "minting" ? " active" : "")} onClick={() => dispatch(setApp("minting"))}>Minting</Link></li> */}
 
           {props?.userInfo?.role=="Admin"&&<li><Link to="/launchpad/dashboard" className={"underline" + (url === "launchpad" ? " active" : "")} onClick={() => dispatch(setApp("launchpad"))}>Launchpad</Link></li>}
-          {props?.userInfo?.role=="Admin"&&<li><Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dao"))}>DAO</Link></li>}
+          {props?.userInfo?.role=="Admin"&&<li><Link to={`/dao/dashboard`} className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dao"))}>DAOS</Link></li>}
 
           {props?.userInfo?.role=="Super Admin"&& <li><Link to="/launchpad/dashboard" className={"underline" + (url === "launchpad" ? " active" : "")} onClick={() => dispatch(setApp("launchpad"))}>Launchpad</Link></li>}
-           {props?.userInfo?.role=="Super Admin"&&  <li><Link to="/dao/dashboard" className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dao"))}>DAO</Link></li>}
+           {props?.userInfo?.role=="Super Admin"&&  <li><Link to="/dao/dashboard" className={"underline" + (url === "dao" ? " active" : "")} onClick={()=>dispatch(setApp("dao"))}>DAOS</Link></li>}
            {props?.userInfo?.role=="Super Admin"&&
           <li><Link to="/marketplace/dashboard" className={"underline" + (url === "marketplace" ? " active" : "")} onClick={() => dispatch(setApp("marketplace"))}>Marketplace</Link></li>}
         </ul>
