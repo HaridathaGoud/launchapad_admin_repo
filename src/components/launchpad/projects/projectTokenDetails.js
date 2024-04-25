@@ -66,6 +66,7 @@ const ProjectTokenDetails = (props) => {
     dispatch({type:'tokenloader',payload:true})
     if(projectePayments){
       dispatch({type:'paymentDetails',payload:projectePayments}) 
+      props.projectDetailsReducerData(projectSaveDetails?.id ,(callback)=>{ })
       setTimeout(function () {
         dispatch({type:'tokenloader',payload:false})
       }, 2000);

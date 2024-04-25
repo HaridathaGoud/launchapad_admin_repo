@@ -448,6 +448,7 @@ const Projects = (props) => {
   const onBack = () => {
     dispatch({ type: 'projectTokenShow', payload: false })
     dispatch({ type: 'projectSaveDetails', payload: projectSaveDetails })
+    dispatch({ type: 'castCrewDataList', payload: projectDetails?.data?.projectsViewModel?.castCrews });
   }
 
   const handleCancel = () => {
