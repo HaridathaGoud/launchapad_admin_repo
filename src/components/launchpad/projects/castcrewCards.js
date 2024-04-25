@@ -40,21 +40,18 @@ import PropTypes from 'prop-types'
                 <hr />
                 <Row className="">
                   <Col md={12}>
-                    {item?.facebook &&
                       <div className='d-flex gap-2 mb-2'>
                         <span className='icon facebook shrink-0'></span>
-                        <p className="profile-value mb-0">{item?.facebook}</p>
-                      </div>}
-                    {item?.webisite &&
+                        <p className="profile-value mb-0">{item?.facebook || "--"}</p>
+                      </div>
                       <div className='d-flex gap-2 mb-2'>
                         <span className='icon website shrink-0'></span>
-                        <p className="profile-value mb-0">{item?.webisite} </p>
-                      </div>}
-                    {item?.instagram &&
+                        <p className="profile-value mb-0">{item?.webisite || "--"} </p>
+                      </div>
                       <div className='d-flex gap-2'>
                         <span className='icon instagram shrink-0'></span>
-                        <p className="profile-value mb-0">{item?.instagram} </p>
-                      </div>}
+                        <p className="profile-value mb-0">{item?.instagram || "--"} </p>
+                      </div>
                   </Col>
                 </Row>
               </div>

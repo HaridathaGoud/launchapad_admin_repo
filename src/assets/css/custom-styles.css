@@ -551,6 +551,7 @@ input::placeholder{font-size: 14px;}
 th .k-link{cursor: default !important;}
 .font-bold{font-weight: 600;}
 .font-regular{font-weight: 400;}
+.button-secondary:disabled:hover{background-color: transparent !important;}
 @media (min-width: 768px) {
   .profile-size{ width: 106px;}
   .profile-size, .customer-pfview{width: 258px;}
