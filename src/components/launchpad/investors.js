@@ -9,6 +9,8 @@ const Investors =()=>{
   const navigate = useNavigate();
   const handleProjects=(val)=>{
     dispatchInvestors(setProject(val))
+    sessionStorage.setItem('userId',val?.id)
+    sessionStorage.setItem('userName',val?.name)
     navigate(`/launchpad/investors/projects/${val?.id}`)
   }
   return(<>

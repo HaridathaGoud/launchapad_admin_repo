@@ -84,6 +84,8 @@ const ProjectCards = () => {
   const role = useSelector(reducerstate => reducerstate?.oidc?.user?.profile?.role)
   const walletAddress = useSelector((reducerstate) => reducerstate.walletAddress?.walletAddress)
   const selectedProject = useSelector(state => state.projectDetails.project);
+  const userName = sessionStorage.getItem('userName');
+  const projectName = selectedProject?.name || userName;
   const params = useParams();
   const [loadMore, setLoadMore] = useState(false);
   const [hide, setHide] = useState(false);
@@ -424,13 +426,13 @@ const ProjectCards = () => {
               <CLink href="#" onClick={() => navigate(`/launchpad/investors`)} className='c-pointer'>Investors</CLink>
             </CBreadcrumbItem>
             <CBreadcrumbItem >Projects</CBreadcrumbItem>
-            {selectedProject?.name &&<CBreadcrumbItem active>{selectedProject.name? selectedProject?.name:''}</CBreadcrumbItem>}
+            {projectName &&<CBreadcrumbItem active>{projectName}</CBreadcrumbItem>}
           </CBreadcrumb>}
           {!isAdmin && <CBreadcrumb>
             <CBreadcrumbItem>
               Launchpad
             </CBreadcrumbItem>
-            {selectedProject?.name &&<CBreadcrumbItem active>{selectedProject.name? selectedProject?.name:''}</CBreadcrumbItem>}
+            {projectName &&<CBreadcrumbItem active>{projectName}</CBreadcrumbItem>}
           </CBreadcrumb>}
          
           {state.errorMgs && (

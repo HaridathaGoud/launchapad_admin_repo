@@ -128,6 +128,7 @@ const Projects = (props) => {
   const projectDetails = useSelector((state) => state.launchpad.projectDetails)
   const isProjectCardsId = useSelector(state => state.oidc?.isProjectCardsId)
   const projectItem = useSelector(state => state.projectDetails?.project)
+  const userId = sessionStorage.getItem('userId');
   const isAdmin = useSelector(state => state.oidc?.adminDetails);
   const projectSaveDetails = useSelector(state => state.launchpad?.projectSaveDetails);
   const navigate = useNavigate();
@@ -452,7 +453,7 @@ const Projects = (props) => {
   const handleCancel = () => {
     if (isAdmin?.isAdmin) {
       if (window.location.pathname.includes('/launchpad/investors')) {
-        navigate(`/launchpad/investors/projects/${projectItem?.id }`)
+        navigate(`/launchpad/investors/projects/${projectItem?.id || userId }`)
       }
       else {
         props.closeProject(false)
