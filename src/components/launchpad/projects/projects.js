@@ -251,7 +251,7 @@ const Projects = (props) => {
         "tokenListingDate": state.projectSaveDetails?.tokenListingDate,
         "tokenContractAddress": state.projectSaveDetails?.tokenContractAddress || null,
         "introductionHtml": state.introductionHtml || state.projectSaveDetails?.introductionHtml,
-        "projectOwnerId": projectItem?.id ? projectItem.id : isAdmin?.id,
+        "projectOwnerId": projectItem?.id || userId,
         "initialSupply": state.projectSaveDetails?.initialSupply || null,
         "cast_Crews": state.castCrewDataList,
         "category": "string",

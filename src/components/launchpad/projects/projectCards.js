@@ -231,18 +231,18 @@ const ProjectCards = () => {
     // dispatch({ type: 'btnLoader', payload: true })
     if (isConnected) {
       if(state.detailsPreview?.tokenType=='ERC-20'){
-        deployErc721Contract();
-      }else{
         deployErc20Contract();
+      }else{
+        deployErc721Contract();
       }
     }
     else {
       try {
         await connectWallet();
         if(state.detailsPreview?.tokenType=='ERC-20'){
-          deployErc721Contract();
-        }else{
           deployErc20Contract();
+        }else{
+          deployErc721Contract();
         }
         
         dispatch({ type: 'previewErrorMsg', payload: null })
@@ -265,7 +265,6 @@ const ProjectCards = () => {
     const tokenPrice= ethers.utils.parseUnits(tokenAmount.toString(),tokenDecimals);
     // const tierWaight = [10, 10, 10, 30, 30, 30, 40, 40, 40, 60, 60, 60, 80, 80, 80, 120, 120, 120];
     const tierWaight = [1, 1, 1, 2, 2, 2, 3, 3, 4, 6, 6, 7, 8, 9, 10, 11, 11, 13];
-    // const listingTime = parseFloat(state.detailsPreview?.listTime?.slice(0, 2))
     const listingTime = convertDateToMinutesUTC(moment(state.detailsPreview?.listTime).format("YYYY-MM-DDTHH:mm"))
     const timeSolts = state.detailsPreview?.noOfSlots
     const hours = Number(state.detailsPreview?.vestingDays);
