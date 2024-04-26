@@ -956,7 +956,7 @@ return (<>
           <Col lg={6} md={12}>
 
             <Form.Label className='input-label'>Token Type<span className="text-danger">*</span></Form.Label>
-            <Dropdown className='matic-dropdown' onSelect={handleTokenType}>
+            {/* <Dropdown className='matic-dropdown' onSelect={handleTokenType}>
               <Dropdown.Toggle variant="secondary" id="dropdown-basic"
                 disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                   || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -969,6 +969,22 @@ return (<>
                 {ercTokeType?.map((option) => (
                   <Dropdown.Item eventKey={option.tokenName}>{option.tokenName} </Dropdown.Item>
                 ))}
+              </Dropdown.Menu>
+
+            </Dropdown> */}
+            <Dropdown className='matic-dropdown' defaultValue={"ERC-20"} value="ERC-20">
+              <Dropdown.Toggle variant="secondary" id="dropdown-basic"
+                disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
+                  || state.projectSaveDetails?.projectStatus == "Rejected"
+                  || state.projectSaveDetails?.projectStatus == "Approved"
+                  || state.projectSaveDetails?.projectStatus == "Deploying"
+                )}
+              > ERC-20
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+              <Dropdown.Item >
+              ERC-20
+              </Dropdown.Item >
               </Dropdown.Menu>
 
             </Dropdown>

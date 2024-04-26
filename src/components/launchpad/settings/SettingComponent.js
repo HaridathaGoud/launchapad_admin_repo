@@ -30,7 +30,7 @@ const SettingsComponent = (props) => {
   const [loader,setLoader] = useState(false);
   const [dataUpdated,setDataUpdated]=useState(false)
   const settingLoader = useSelector(state => state.oidc?.isSettingsLoading)
-  const projectDetails = useSelector((reducerstate) => reducerstate?.projectDetails?.details)
+  const projectDetails = useSelector((reducerstate) => reducerstate?.projectDetails?.details?.publicStartDate)
 
   useEffect(() => {
     getWalletAddress();
@@ -77,14 +77,15 @@ const SettingsComponent = (props) => {
         setBtnLoader(false)
         return;
       }
-      else if (inputDatetime < fcfsStartDateTime && (props?.funcName?.includes('setfcfsendtime') ||
+      else if (inputDatetime <= projectDetailsStartDate && (props?.funcName?.includes('setfcfsendtime') ||
         (props?.funcName?.includes('setTokenListingTime')) ||
         (props?.funcName?.includes('setVestingTime')) ||
         (props?.funcName?.includes('setroundOneStartTime')))) {
         setErrorMgs(apiCalls.isErrorDispaly({ data: "Please choose a date and time that is not before fcfcs start time." }));
         setBtnLoader(false)
         return;
-      } else if (inputDatetime > projectDetailsStartDate && (props?.funcName?.includes('setroundOneEndTime'))) {
+      } 
+      else if (inputDatetime >= projectDetailsStartDate && (props?.funcName?.includes('setroundOneEndTime'))) {
         setErrorMgs(apiCalls.isErrorDispaly({ data: "Please choose a date and time that is not before fcfcs start time." }))
         setBtnLoader(false);
         return

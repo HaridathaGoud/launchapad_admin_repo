@@ -78,7 +78,12 @@
         },
         {
           "internalType": "uint256",
-          "name": "_tokenPrice",
+          "name": "_privateTokenPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_publicTokenPrice",
           "type": "uint256"
         }
       ],
@@ -113,5 +118,5 @@
       "type": "function"
     }
   ],
-  "contractAddress": "0xBe3f1FfC32dC7A9ceCA0F3e5310B35Ff94C23aAd"
+  "contractAddress": "0xbAa929867a50b6b75898a4AE02d9C553D21ad89c"
 }

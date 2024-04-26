@@ -363,6 +363,11 @@
           "internalType": "uint256",
           "name": "amount",
           "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isPublic",
+          "type": "bool"
         }
       ],
       "name": "buyToken",
@@ -575,7 +580,12 @@
         },
         {
           "internalType": "uint256",
-          "name": "_tokenPrice",
+          "name": "_privateTokenPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_publicTokenPrice",
           "type": "uint256"
         }
       ],
@@ -664,12 +674,38 @@
     },
     {
       "inputs": [],
+      "name": "privateTokenPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "proxiableUUID",
       "outputs": [
         {
           "internalType": "bytes32",
           "name": "",
           "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "publicTokenPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -884,19 +920,6 @@
     },
     {
       "inputs": [],
-      "name": "tokenPrice",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
       "name": "totalParticipants",
       "outputs": [
         {
@@ -1009,5 +1032,5 @@
       "type": "receive"
     }
   ],
-  "contractAddress": "0xdDA2F658eFB8515ae874a556451020C12591686B"
+  "contractAddress": "0x14743e27E9D485A9c0aeC1bc336b9883d82136B3"
 }

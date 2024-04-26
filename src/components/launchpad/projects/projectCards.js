@@ -230,21 +230,21 @@ const ProjectCards = () => {
     dispatch({ type: 'previewErrorMsg', payload: null })
     // dispatch({ type: 'btnLoader', payload: true })
     if (isConnected) {
-      if(state.detailsPreview?.tokenType=='ERC-20'){
-        deployErc20Contract();
-      }else{
-        deployErc721Contract();
-      }
+      // if (state.detailsPreview?.tokenType == 'ERC-20') {
+      //   deployErc20Contract();
+      // } else {
+      //   deployErc721Contract();
+      // }
+      deployErc20Contract();
     }
     else {
       try {
         await connectWallet();
-        if(state.detailsPreview?.tokenType=='ERC-20'){
+        // if (state.detailsPreview?.tokenType == 'ERC-20') {
           deployErc20Contract();
-        }else{
-          deployErc721Contract();
-        }
-        
+        // } else {
+          // deployErc721Contract();
+        // }
         dispatch({ type: 'previewErrorMsg', payload: null })
       } catch (error) {
         dispatch({ type: 'previewErrorMsg', payload: error?.reason })
@@ -260,9 +260,11 @@ const ProjectCards = () => {
     const tokenContract = state.detailsPreview?.stakingContractAddress;
     const rewardsToken = state.detailsPreview.tokenContractAddress
     const totalSupply = state.detailsPreview?.totalSupply;
-    const tokenDecimals   = state.detailsPreview?.tokenDecimal
-    const tokenAmount = state.detailsPreview.tokenPrice
-    const tokenPrice= ethers.utils.parseUnits(tokenAmount.toString(),tokenDecimals);
+    const tokenDecimals = state.detailsPreview?.tokenDecimal
+    const tokenAmountPrivate = state.detailsPreview.privateTokenSellingPrice.toLocaleString("en-US",{ maximumFractionDigits: 10 })
+    const tokenAmountPublic = state.detailsPreview.publicTokenSellingPrice.toLocaleString("en-US",{ maximumFractionDigits: 10 })
+    const privatePrice = ethers.utils.parseUnits(tokenAmountPrivate, tokenDecimals);
+    const publicPrice = ethers.utils.parseUnits(tokenAmountPublic, tokenDecimals);
     // const tierWaight = [10, 10, 10, 30, 30, 30, 40, 40, 40, 60, 60, 60, 80, 80, 80, 120, 120, 120];
     const tierWaight = [1, 1, 1, 2, 2, 2, 3, 3, 4, 6, 6, 7, 8, 9, 10, 11, 11, 13];
     const listingTime = convertDateToMinutesUTC(moment(state.detailsPreview?.listTime).format("YYYY-MM-DDTHH:mm"))
@@ -289,7 +291,8 @@ const ProjectCards = () => {
         rndEnd,
         fcfss,
         fcfse,
-        tokenPrice,
+        privatePrice,
+        publicPrice,
         { gasLimit: 9000000, gasPrice: 300000 });
       contractRes.wait().then(async (receipt) => {
         const address = receipt.logs[0].address;
@@ -415,174 +418,171 @@ const ProjectCards = () => {
 
   return (
     <div>
-         <div className='Container'>
+      <div className='Container'>
         <div className=''>
-            <h2 className='page-title'>{window.location.pathname.includes('/investors') ? "Projects" : "My Projects"}</h2>
+          <h2 className='page-title'>{window.location.pathname.includes('/investors') ? "Projects" : "My Projects"}</h2>
 
-          </div>
-          {isAdmin && <CBreadcrumb>
-            <CBreadcrumbItem>
-              <CLink href="#" onClick={() => navigate(`/launchpad/investors`)} className='c-pointer'>Investors</CLink>
-            </CBreadcrumbItem>
-            <CBreadcrumbItem >Projects</CBreadcrumbItem>
-            {projectName &&<CBreadcrumbItem active>{projectName}</CBreadcrumbItem>}
-          </CBreadcrumb>}
-          {!isAdmin && <CBreadcrumb>
-            <CBreadcrumbItem>
-              Launchpad
-            </CBreadcrumbItem>
-            {projectName &&<CBreadcrumbItem active>{projectName}</CBreadcrumbItem>}
-          </CBreadcrumb>}
-         
-          {state.errorMgs && (
-            <Alert variant="danger">
-              <div className='d-flex align-items-center'>
-                <span className='icon error-alert'></span>
-                <p className='m1-2' style={{ color: 'red' }}>{state.errorMgs}</p>
-              </div>
-            </Alert>
-          )}
-          
-          <div className='d-md-flex mt-4 justify-content-between'>
-            <Form className="d-flex grid-search">
-              <Form.Control
-                placeholder="Search by Project Name"
-                className="search-style"
-                aria-label="Search"
-                onKeyUp={(e) => handleChange(e)}
-                onKeyDown={(e) => handleEnterSearch(e)}
-              />
-              <i className="icon search-icon" onClick={handleSearch}></i>
-            </Form>
-            <div className='add-project'>
-              <Button className='button-style mt-3 mt-md-0' onClick={redirectToProject}><span className='icon add-icon'></span> Add Project</Button>
+        </div>
+        {isAdmin && <CBreadcrumb>
+          <CBreadcrumbItem>
+            <CLink href="#" onClick={() => navigate(`/launchpad/investors`)} className='c-pointer'>Investors</CLink>
+          </CBreadcrumbItem>
+          <CBreadcrumbItem >Projects</CBreadcrumbItem>
+          {projectName && <CBreadcrumbItem active>{projectName}</CBreadcrumbItem>}
+        </CBreadcrumb>}
+        {!isAdmin && <CBreadcrumb>
+          <CBreadcrumbItem>
+            Launchpad
+          </CBreadcrumbItem>
+          {projectName && <CBreadcrumbItem active>{projectName}</CBreadcrumbItem>}
+        </CBreadcrumb>}
+
+        {state.errorMgs && (
+          <Alert variant="danger">
+            <div className='d-flex align-items-center'>
+              <span className='icon error-alert'></span>
+              <p className='m1-2' style={{ color: 'red' }}>{state.errorMgs}</p>
             </div>
+          </Alert>
+        )}
+
+        <div className='d-md-flex mt-4 justify-content-between'>
+          <Form className="d-flex grid-search">
+            <Form.Control
+              placeholder="Search by Project Name"
+              className="search-style"
+              aria-label="Search"
+              onKeyUp={(e) => handleChange(e)}
+              onKeyDown={(e) => handleEnterSearch(e)}
+            />
+            <i className="icon search-icon" onClick={handleSearch}></i>
+          </Form>
+          <div className='add-project'>
+            <Button className='button-style mt-3 mt-md-0' onClick={redirectToProject}><span className='icon add-icon'></span> Add Project</Button>
           </div>
+        </div>
 
-          {state.loader &&
-                 <div className='mt-4 mb-4'>
-                    <shimmers.DaoCardShimmer count={8} />
-                    </div>
-                }
-          {!state.loader && <>
-            <Row className='mt-4 mb-4'>
-              {state.ownerProjects?.length === 0 &&
-                <div className='Row d-flex justify-content-center'>
-                  <div className=" col-md-12 col-lg-3" >
-                    <div className='nodata-image text-center'><img src={nodata} alt="" /></div>
-                    <div className="value-section">
-                      <div className="card-footer text-center nodata-title">  
-                        No projects available
+        {state.loader &&
+          <div className='mt-4 mb-4'>
+            <shimmers.DaoCardShimmer count={8} />
+          </div>
+        }
+        {!state.loader && <>
+          <Row className='mt-4 mb-4'>
+            {state.ownerProjects?.length === 0 &&
+              <div className='Row d-flex justify-content-center'>
+                <div className=" col-md-12 col-lg-3" >
+                  <div className='nodata-image text-center'><img src={nodata} alt="" /></div>
+                  <div className="value-section">
+                    <div className="card-footer text-center nodata-title">
+                      No projects available
 
-                      </div>
                     </div>
                   </div>
-                </div>}
+                </div>
+              </div>}
 
-              {state.ownerProjects?.map((val) =>
-                <Col xs={12} md={6} lg={3} className="mb-3" key={val?.id}>
-                  <div className="card-style p-0 home-card">
-                    <div className='card-content'>
-                      <div className='card-image' > <span className='card-image-span'><img src={val?.tokenLogo || defaultLogo} alt="" /></span></div>
-                      <div className="p-relative px-3 py-3">
-                        <div className="d-flex align-items-center justify-content-between mt-4"  >
-                          <h3 className="project-name">{val?.projectName}</h3>
-                        </div>
-                        <div className='card-footer px-0 d-flex justify-content-between project-card'>
-                          {val?.projectstatus?.toLowerCase() === 'rejected' && 
+            {state.ownerProjects?.map((val) =>
+              <Col xs={12} md={6} lg={3} className="mb-3" key={val?.id}>
+                <div className="card-style p-0 home-card">
+                  <div className='card-content'>
+                    <div className='card-image' > <span className='card-image-span'><img src={val?.tokenLogo || defaultLogo} alt="" /></span></div>
+                    <div className="p-relative px-3 py-3">
+                      <div className="d-flex align-items-center justify-content-between mt-4"  >
+                        <h3 className="project-name">{val?.projectName}</h3>
+                      </div>
+                      <div className='card-footer px-0 d-flex justify-content-between project-card'>
+                        {val?.projectstatus?.toLowerCase() === 'rejected' &&
                           <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >
-                              Rejected</Button>}
+                            Rejected</Button>}
 
-                          {val?.projectstatus?.toLowerCase() === 'deployed' &&
-                            <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >
-                              Deployed</Button>
-                          }
-                          
-                          {val?.projectstatus?.toLowerCase() === 'deploying' && 
-                            <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >
+                        {val?.projectstatus?.toLowerCase() === 'deployed' &&
+                          <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >
+                            Deployed</Button>
+                        }
+
+                        {val?.projectstatus?.toLowerCase() === 'deploying' &&
+                          <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >
                             Deploying</Button>
-                          }
+                        }
 
-                          {val?.projectstatus?.toLowerCase() === 'approved' && 
-                            <Button className='button-secondary' onClick={() => getProjectDetails(val.id)} >
-                              Deploy</Button>
-                          }
+                        {val?.projectstatus?.toLowerCase() === 'approved' &&
+                          <Button className='button-secondary' onClick={() => getProjectDetails(val.id)} >
+                            Deploy</Button>
+                        }
 
-                          {val?.projectstatus?.toLowerCase() === 'draft' && 
-                            <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >Draft</Button>
-                          }
+                        {val?.projectstatus?.toLowerCase() === 'draft' &&
+                          <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >Draft</Button>
+                        }
 
-                          {val?.projectstatus?.toLowerCase() === 'submitted' && <><Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >View</Button> </>}
-                        </div>
+                        {val?.projectstatus?.toLowerCase() === 'submitted' && <><Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >View</Button> </>}
                       </div>
                     </div>
                   </div>
-                </Col>
+                </div>
+              </Col>
 
-              )}
-            </Row>
+            )}
+          </Row>
 
-            <>
-              <div className='text-center'>{loadMore && <Spinner size="sm" className='text-white text-center' />} </div>
-              <div className='addmore-title' >
-                {hide && <>
-                  <span className='d-block'><span onClick={addProposalList} role="button" className='c-pointer'>See More</span></span>  <span className='icon blue-doublearrow c-pointer' onClick={addProposalList}></span>
-                </>}
-              </div></>
-          </>}
+          <>
+            <div className='text-center'>{loadMore && <Spinner size="sm" className='text-white text-center' />} </div>
+            <div className='addmore-title' >
+              {hide && <>
+                <span className='d-block'><span onClick={addProposalList} role="button" className='c-pointer'>See More</span></span>  <span className='icon blue-doublearrow c-pointer' onClick={addProposalList}></span>
+              </>}
+            </div></>
+        </>}
 
-          <Modal size="lg" show={state.show} onHide={handleClose} className="settings-modal profile-modal " id="example-modal-sizes-title-lg">
-            <Modal.Header >
-              <Modal.Title className='section-title'>Review Details</Modal.Title><span onClick={handleClose} className='icon close c-pointer'></span>
-            </Modal.Header>
-            <Modal.Body className='p-4'>
-              {state.previewErrorMsg && (
-                <Alert variant="danger">
-                  <div className='d-flex align-items-center'>
-                    <span className='icon error-alert'></span>
-                    <p className='m1-2' style={{ color: 'red' }}>{state.previewErrorMsg}</p>
-                  </div>
-                </Alert>
-              )}
-              <div className="text-center">{state.previewLoader && <Spinner className='text-center'></Spinner>}</div>
-              {!state.previewLoader &&
-                <div>
-                  <Row>
+        <Modal size="lg" show={state.show} onHide={handleClose} className="settings-modal profile-modal " id="example-modal-sizes-title-lg">
+          <Modal.Header >
+            <Modal.Title className='section-title'>Review Details</Modal.Title><span onClick={handleClose} className='icon close c-pointer'></span>
+          </Modal.Header>
+          <Modal.Body className='p-4'>
+            {state.previewErrorMsg && (
+              <Alert variant="danger">
+                <div className='d-flex align-items-center'>
+                  <span className='icon error-alert'></span>
+                  <p className='m1-2' style={{ color: 'red' }}>{state.previewErrorMsg}</p>
+                </div>
+              </Alert>
+            )}
+            <div className="text-center">{state.previewLoader && <Spinner className='text-center'></Spinner>}</div>
+            {!state.previewLoader &&
+              <div>
+                <Row>
+                  <Col lg={4} md={12}>
+                    <div className="view-data">
+                      <label htmlFor='profile-label' className='profile-label'>Project Name</label>
+                      <h6 className='about-label text-overflow  mb-0'>{state.detailsPreview?.projectName || '-'}</h6>
+                    </div></Col>
+                  <Col lg={4} md={12}>
+                    <div className="view-data">
+                      <label htmlFor="stakingContractAddress" className='profile-label'>Staking Contract Address</label>
+                      <div className='d-flex align-items-center'>
+                        {state.detailsPreview?.stakingContractAddress && <>
+                          <h6 className='about-label mb-0'>
+                            {state.detailsPreview?.stakingContractAddress?.substring(0, 6)}...{state.detailsPreview?.stakingContractAddress?.slice(-4)}</h6>
+                          <UseCopyToClipboard address={state.detailsPreview?.stakingContractAddress}></UseCopyToClipboard>
+                        </>}
+                        {!state.detailsPreview?.stakingContractAddress &&
+                          <h6>{'-'}</h6>}
+                      </div>
+                    </div>
+                  </Col>
+                  {state.detailsPreview.nftImagesCount &&
                     <Col lg={4} md={12}>
                       <div className="view-data">
-                        <label htmlFor='profile-label' className='profile-label'>Project Name</label>
-                        <h6 className='about-label text-overflow  mb-0'>{state.detailsPreview?.projectName || '-'}</h6>
-                      </div></Col>
-                    <Col lg={4} md={12}>
-                      <div className="view-data">
-                        <label htmlFor="stakingContractAddress" className='profile-label'>Staking Contract Address</label>
+                        <label htmlFor="nftImagesCountInput" className='profile-label'>NFT Images Counts</label>
                         <div className='d-flex align-items-center'>
-                          {state.detailsPreview?.stakingContractAddress && <>
-                            <h6 className='about-label mb-0'>
-                              {state.detailsPreview?.stakingContractAddress?.substring(0, 6)}...{state.detailsPreview?.stakingContractAddress?.slice(-4)}</h6>
-                            <UseCopyToClipboard address={state.detailsPreview?.stakingContractAddress}></UseCopyToClipboard>
-                          </>}
-                          {!state.detailsPreview?.stakingContractAddress &&
-                            <h6>{'-'}</h6>}
+                          <h6 className='about-label mb-0'>
+                            {state.detailsPreview?.nftImagesCount || '-'}</h6>
                         </div>
                       </div>
                     </Col>
-                    {state.detailsPreview.nftImagesCount && 
-                    <Col lg={4} md={12}>
-                      <div className="view-data">
-                        <label htmlFor="nftImagesCountInput" className='profile-label'>Token Contract Address</label>
-                        <div className='d-flex align-items-center'>
-                            <h6 className='about-label mb-0'>
-                              {state.detailsPreview?.nftImagesCount?.substring(0, 6)}...{state.detailsPreview?.nftImagesCount?.slice(-4)}</h6>
-                            <UseCopyToClipboard address={state.detailsPreview?.nftImagesCount}></UseCopyToClipboard>
-                          {!state.detailsPreview?.nftImagesCount &&
-                            <h6>{'-'}</h6>}
-                        </div>
-                      </div>
-                    </Col>
-                    }
+                  }
 
-                    {state.detailsPreview.tokenContractAddress && 
+                  {state.detailsPreview.tokenContractAddress &&
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="tokenContractAddressInput" className='profile-label'>Token Contract Address</label>
@@ -597,8 +597,8 @@ const ProjectCards = () => {
                         </div>
                       </div>
                     </Col>
-                    }
-                    {state.detailsPreview.totalSupply &&
+                  }
+                  {state.detailsPreview.totalSupply &&
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="totalSupplyInput" className='profile-label'>Total Supply</label>
