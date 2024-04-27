@@ -953,10 +953,10 @@ return (<>
                 </div>
               </Row>
               <h3 className='section-title mb-2 mt-5'>Token Details</h3>
-          <Col lg={6} md={12}>
+           {/* <Col lg={6} md={12}>
 
             <Form.Label className='input-label'>Token Type<span className="text-danger">*</span></Form.Label>
-            {/* <Dropdown className='matic-dropdown' onSelect={handleTokenType}>
+             <Dropdown className='matic-dropdown' onSelect={handleTokenType}>
               <Dropdown.Toggle variant="secondary" id="dropdown-basic"
                 disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                   || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -971,7 +971,7 @@ return (<>
                 ))}
               </Dropdown.Menu>
 
-            </Dropdown> */}
+            </Dropdown> 
             <Dropdown className='matic-dropdown' defaultValue={"ERC-20"} value="ERC-20">
               <Dropdown.Toggle variant="secondary" id="dropdown-basic"
                 disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
@@ -986,9 +986,8 @@ return (<>
               ERC-20
               </Dropdown.Item >
               </Dropdown.Menu>
-
             </Dropdown>
-          </Col>
+          </Col>  */}
               {selectedTokeType =='ERC-20' &&
               <Row className='mb-4 Token-Details'>
                 <Col lg={6} md={12} className='mb-0'>
