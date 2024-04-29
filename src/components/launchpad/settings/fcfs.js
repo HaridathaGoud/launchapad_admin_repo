@@ -7,11 +7,12 @@ import { showSettings } from 'src/reducers/authReducer';
 import store from 'src/store/index';
 const FcfsStart = () => {
   const projectItem= useSelector(reducerstate =>  reducerstate.projectDetails?.project)
+  const userId = sessionStorage.getItem('userId');
   const navigate = useNavigate();
 
   const redirection=()=>{
     store.dispatch(showSettings(false));
-    navigate(`/launchpad/investors/projects/${projectItem.id}`)
+    navigate(`/launchpad/investors/projects/${projectItem?.id||userId}`)
   }
 
 

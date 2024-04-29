@@ -114,7 +114,7 @@ const ProjectCards = () => {
   const getOnePersonDetailsBasedOnId = (val) => {
     if (isAdmin) {
       store.dispatch(showSettings(true));
-      store.dispatch(viewedProjects(val));
+      
     }
     if (window.location.pathname.includes('/investors')) {
       navigate(`/launchpad/investors/projects/${val.id}/projectsDetails`)
@@ -415,7 +415,11 @@ const ProjectCards = () => {
     dispatch({ type: "detailsPreview", payload: {} })
     dispatch({ type: 'show', payload: false })
   }
-
+ const commSeparaion=(val)=>{
+  const intValue = Math.floor(val);
+  const formattedValue = intValue.toLocaleString('en-IN');
+  return formattedValue;
+ }
   return (
     <div>
       <div className='Container'>
@@ -602,7 +606,7 @@ const ProjectCards = () => {
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="totalSupplyInput" className='profile-label'>Total Supply</label>
-                        <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.totalSupply?.toLocaleString() || '-'}</h6>
+                        <h6 className='about-label text-overflow mb-0'>{commSeparaion(state.detailsPreview?.totalSupply) || '-'}</h6>
                       </div>
                     </Col>
                      }

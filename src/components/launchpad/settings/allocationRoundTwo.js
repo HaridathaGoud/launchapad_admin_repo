@@ -19,6 +19,7 @@ const AllocationRoundTwo = () => {
   const params = useParams();
   const projectContractDetails = useSelector((store) => store.launchpad.projectDetails?.data?.projectsViewModel)
   const projectItem= useSelector(reducerstate =>  reducerstate.projectDetails?.project)
+  const userId = sessionStorage.getItem('userId');
   const [btnLoader, setBtnLoader] = useState(false);
   const [errorMgs, setErrorMgs] = useState(null);
   const [isTransactionSuccess, setIsTransactionSuccess] = useState(false);
@@ -67,7 +68,7 @@ const AllocationRoundTwo = () => {
 
   const redirection=()=>{
     store.dispatch(showSettings(false));
-    navigate(`/launchpad/investors/projects/${projectItem.id}`)
+    navigate(`/launchpad/investors/projects/${projectItem?.id||userId}`)
   }
 
   return (

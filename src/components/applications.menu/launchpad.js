@@ -20,8 +20,8 @@ function LaunchPadMenu(props){
     const [state, dispatch] = useReducer(reducer, initialState);
 
   const isAdmin = useSelector(state => state.oidc?.adminDetails);
-    const showSettings = useSelector(state => state.oidc?.isShowSettings);
-    const viewedProject = useSelector(state => state.launchpad?.viewedProject);
+  const viewedProject = useSelector(state => state.launchpad?.viewedProject)
+
     const renderTooltipDashboard = (props) => (
         <Tooltip id="button-tooltip" {...props}> 
             Dashboard
@@ -110,7 +110,7 @@ function LaunchPadMenu(props){
                         </CNavLink>
                     </OverlayTrigger>
                 </CNavItem>}
-                {isAdmin?.isAdmin && showSettings && viewedProject?.projectstatus=="Deployed"&&
+                {isAdmin?.isAdmin && viewedProject?.projectStatus=="Deployed"&&
                    <> {locationSplit[1] =="launchpad" && <CNavItem className={locationSplit.includes("settings") ? "active" : ""}>
                  {!state.isVissble&& <OverlayTrigger
                        placement="right"

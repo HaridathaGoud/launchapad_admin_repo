@@ -15,7 +15,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { setProjectDetail } from '../../../reducers/projectDetailsReducer';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { CBreadcrumb, CBreadcrumbItem, CLink } from '@coreui/react'
-import { projectDetailsData, projectDetailsSave, projectePayment, fetchCastCrewRolesData ,fetchTokenTypeLu} from '../launchpadReducer/launchpadReducer';
+import { projectDetailsData, projectDetailsSave, projectePayment, fetchCastCrewRolesData ,fetchTokenTypeLu,viewedProjects} from '../launchpadReducer/launchpadReducer';
 import moment from 'moment';
 import jsonCountryCode from '../../../utils/countryCode.json';
 import store from 'src/store';
@@ -163,6 +163,7 @@ const Projects = (props) => {
       setSelectedValues(callback.data?.projectsViewModel?.countryRestrictions)
       getSelectedCountries(callback.data?.projectsViewModel?.countryRestrictions)
       store.dispatch(projectePayment(callback.data?.projectPayment))
+      store.dispatch(viewedProjects(callback.data?.projectsViewModel));
       dispatch({ type: 'loader', payload: false })
       getClaimsandAllocations(callback.data?.projectsViewModel)
       setSelectedTokeType(callback.data?.projectsViewModel?.tokenType ?callback.data?.projectsViewModel?.tokenType : 'ERC-20'  )

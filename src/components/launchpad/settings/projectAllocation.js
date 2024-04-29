@@ -19,6 +19,7 @@ const PeojectAllocation = () => {
   const params = useParams();
   const projectContractDetails = useSelector((store) => store.launchpad.projectDetails?.data?.projectsViewModel)
   const projectItem= useSelector(reducerstate =>  reducerstate.projectDetails?.project)
+  const userId = sessionStorage.getItem('userId');
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails);
   const [btnLoader, setBtnLoader] = useState(false);
   const [errorMgs, setErrorMgs] = useState(null);
@@ -68,7 +69,7 @@ const PeojectAllocation = () => {
 
   const redirection=()=>{
     store.dispatch(showSettings(false));
-    navigate(`/launchpad/investors/projects/${projectItem.id}`)
+    navigate(`/launchpad/investors/projects/${projectItem?.id||userId}`)
   }
   return (<>
     {loader ? <div className="text-center"><Spinner ></Spinner></div> : 

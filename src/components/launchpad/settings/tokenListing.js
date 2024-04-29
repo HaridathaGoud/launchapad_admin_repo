@@ -7,12 +7,13 @@ import store from 'src/store/index';
 import { showSettings } from 'src/reducers/authReducer';
 const TokenListing = () => {
   const projectItem= useSelector(reducerstate =>  reducerstate.projectDetails?.project)
+  const userId = sessionStorage.getItem('userId');
   const navigate = useNavigate();
 
 
   const redirection=()=>{
     store.dispatch(showSettings(false));
-    navigate(`/launchpad/investors/projects/${projectItem.id}`)
+    navigate(`/launchpad/investors/projects/${projectItem?.id||userId}`)
   }
 
   return (<div>
