@@ -30,7 +30,7 @@ const SettingsComponent = (props) => {
   const [loader,setLoader] = useState(false);
   const [dataUpdated,setDataUpdated]=useState(false)
   const settingLoader = useSelector(state => state.oidc?.isSettingsLoading)
-  const projectDetails = useSelector((reducerstate) => reducerstate?.projectDetails?.details?.publicStartDate)
+  const projectDetails = useSelector((reducerstate) => reducerstate?.projectDetails?.details)
 
   useEffect(() => {
     getWalletAddress();
@@ -58,7 +58,15 @@ const SettingsComponent = (props) => {
     return Math.floor(moment(date).valueOf() / 1000);
   }
 
-
+const convertUtcToLocal = (date) => {
+  if (!date) {
+    return '';
+  }
+  const utcTime = date;
+  const utcMoment = moment.utc(utcTime);
+  const localMoment = utcMoment.local();
+  return localMoment.format('YYYY-MM-DDTHH:mm');
+}
 
   const updateData = async () => {
     setSuccess(null);
@@ -70,14 +78,15 @@ const SettingsComponent = (props) => {
     if (settingValue) {
       store.dispatch(fcfsStartTime(settingValue));
       const fcfsStartDateTime = convertdateToMinutes(moment.utc(settingsFcfsStartTime).format("YYYY-MM-DDTHH:mm"));
-      const projectDetailsStartDate = convertdateToMinutes(moment.utc(projectDetails).format("YYYY-MM-DDTHH:mm"));
+      const projectDetailsStartDate = convertUtcToLocal(projectDetails?.publicStartDate);
       const inputDatetime = convertdateToMinutes(moment.utc(settingValue).format("YYYY-MM-DDTHH:mm"));
+      const projectsStartDateTime = convertdateToMinutes(moment.utc(projectDetailsStartDate).format("YYYY-MM-DDTHH:mm"));
       if (inputDatetime < currentDatetime && props?.funcName?.includes('setfcfsstarttime')) {
         setErrorMgs(apiCalls.isErrorDispaly({ data: "Please choose a date and time that is not before now." }));
         setBtnLoader(false)
         return;
       }
-      else if (inputDatetime <= projectDetailsStartDate && (props?.funcName?.includes('setfcfsendtime') ||
+      else if (inputDatetime <= projectsStartDateTime && (props?.funcName?.includes('setfcfsendtime') ||
         (props?.funcName?.includes('setTokenListingTime')) ||
         (props?.funcName?.includes('setVestingTime')) ||
         (props?.funcName?.includes('setroundOneStartTime')))) {
@@ -85,8 +94,8 @@ const SettingsComponent = (props) => {
         setBtnLoader(false)
         return;
       } 
-      else if (inputDatetime >= projectDetailsStartDate && (props?.funcName?.includes('setroundOneEndTime'))) {
-        setErrorMgs(apiCalls.isErrorDispaly({ data: "Please choose a date and time that is not before fcfcs start time." }))
+      else if (inputDatetime >= projectsStartDateTime && (props?.funcName?.includes('setroundOneEndTime'))) {
+        setErrorMgs(apiCalls.isErrorDispaly({ data: "Please choose a date and time that is less than fcfcs start time." }))
         setBtnLoader(false);
         return
       }
