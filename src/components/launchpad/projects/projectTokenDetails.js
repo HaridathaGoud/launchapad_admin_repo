@@ -261,9 +261,11 @@ const ProjectTokenDetails = (props) => {
                 allowNegative={false}
                 className='form-control'
                 thousandSeparator={true}
+                maxLength={22}
+                decimalScale={6}
                 placeholder="Private Token Equivalent to Payment Type"
                 onChange={(e) => handleChange('privateTokenEquivalentToPaymentType', e.currentTarget.value)}
-                onBlur={(e) => handleChange('privateTokenEquivalentToPaymentType', e.target.value.trim().replace(/\s+/g, " "))}
+                onBlur={(e) => handleChange('privateTokenEquivalentToPaymentType', e.target.value.trim())}
                 required
                 isInvalid={!!errors?.privateTokenEquivalentToPaymentType}
                 disabled={(projectSaveDetails?.projectStatus == "Deployed"
@@ -288,9 +290,11 @@ const ProjectTokenDetails = (props) => {
                 allowNegative={false}
                 className='form-control'
                 thousandSeparator={true}
+                maxLength={22}
+                decimalScale={6}
                 placeholder="Public Token Equivalent to Payment Type"
                 onChange={(e) => handleChange('publicTokenEquivalentToPaymentType', e.currentTarget.value)}
-                onBlur={(e) => handleChange('publicTokenEquivalentToPaymentType', e.target.value.trim().replace(/\s+/g, " "))}
+                onBlur={(e) => handleChange('publicTokenEquivalentToPaymentType', e.target.value.trim())}
                 required
                 isInvalid={!!errors?.publicTokenEquivalentToPaymentType}
                 disabled={(projectSaveDetails?.projectStatus == "Deployed"
