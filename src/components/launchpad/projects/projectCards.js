@@ -11,6 +11,7 @@ import apiCalls from 'src/api/apiCalls';
 import { connect, useSelector } from 'react-redux';
 import nodata from "../../../assets/images/no-data.png"
 import DeployFactory from '../../../contract/deploye.json';
+import MintFactory from '../../../contract/mintFactory.json';
 import Spinner from 'react-bootstrap/Spinner';
 import moment from 'moment';
 import { CBreadcrumb, CBreadcrumbItem, CLink, } from '@coreui/react'
@@ -343,9 +344,9 @@ const ProjectCards = () => {
 
     const provider = new ethers.providers.Web3Provider(window?.ethereum)
 
-    const factory = new ethers.Contract(DeployFactory.contractAddress, DeployFactory.abi, provider.getSigner());
+    const factory = new ethers.Contract(MintFactory.contractAddress, MintFactory.abi, provider.getSigner());
     try {
-      const contractRes = await factory.deployClaimableContract(
+      const contractRes = await factory.deployMembershipToken(
         nftImagesCount,
         listingTime,
         rndStart,

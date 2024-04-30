@@ -1,0 +1,133 @@
+{
+    "abi": [
+        [
+            {
+                "inputs": [],
+                "stateMutability": "nonpayable",
+                "type": "constructor"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": true,
+                        "internalType": "address",
+                        "name": "tokenAddress",
+                        "type": "address"
+                    }
+                ],
+                "name": "MembershipTokenDeployed",
+                "type": "event"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "customToken",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "baseFiatPrice",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "nativePriceFeedAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "secondaryPriceFeedAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint16",
+                        "name": "platformFee",
+                        "type": "uint16"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "uint16",
+                                "name": "minnapadShare",
+                                "type": "uint16"
+                            },
+                            {
+                                "internalType": "uint16",
+                                "name": "daoShare",
+                                "type": "uint16"
+                            },
+                            {
+                                "internalType": "uint16",
+                                "name": "legendShare",
+                                "type": "uint16"
+                            },
+                            {
+                                "internalType": "address",
+                                "name": "minnapadAddr",
+                                "type": "address"
+                            },
+                            {
+                                "internalType": "address",
+                                "name": "daoAddr",
+                                "type": "address"
+                            },
+                            {
+                                "internalType": "address",
+                                "name": "legendAddr",
+                                "type": "address"
+                            }
+                        ],
+                        "internalType": "struct IMembershipToken.SharesDetails",
+                        "name": "sharesAndAddresses",
+                        "type": "tuple"
+                    }
+                ],
+                "name": "deployMembershipToken",
+                "outputs": [
+                    {
+                        "internalType": "address",
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "deployedTokens",
+                "outputs": [
+                    {
+                        "internalType": "address",
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "getDeployedTokensCount",
+                "outputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            }
+        ]
+    ],
+    "contractAddress": "0xBF5Ab4a72E6E72c130d6a83aBFaE8E656e5aB55B"
+}
