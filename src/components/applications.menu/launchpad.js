@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
 import { useSelector} from 'react-redux';
+import { useParams } from "react-router-dom";
+
 const reducer = (state, action) => {
     switch (action.type) {
       case "isVissble":
@@ -18,7 +20,7 @@ const reducer = (state, action) => {
   };
 function LaunchPadMenu(props){
     const [state, dispatch] = useReducer(reducer, initialState);
-
+    const {pId} = useParams();
   const isAdmin = useSelector(state => state.oidc?.adminDetails);
   const viewedProject = useSelector(state => state.launchpad?.viewedProject)
 
@@ -110,7 +112,7 @@ function LaunchPadMenu(props){
                         </CNavLink>
                     </OverlayTrigger>
                 </CNavItem>}
-                {isAdmin?.isAdmin && viewedProject?.projectStatus=="Deployed"&&
+                {isAdmin?.isAdmin && viewedProject?.projectStatus=="Deployed" && pId &&
                    <> {locationSplit[1] =="launchpad" && <CNavItem className={locationSplit.includes("settings") ? "active" : ""}>
                  {!state.isVissble&& <OverlayTrigger
                        placement="right"
@@ -127,7 +129,7 @@ function LaunchPadMenu(props){
                  <Button variant="" className='setting-space' onClick={handleFocusButtonClick}><span className="icon nav-settings ms-1" /></Button>
                    </OverlayTrigger>}
                </CNavItem>}</>
-           }
+             }
                {locationSplit[1] =="launchpad" && 
                 <CNavItem className={locationSplit[2] == "customers" ? "active" : ""}>
                     <OverlayTrigger

@@ -117,7 +117,7 @@ const initialState = {
 };
 const Projects = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  let { projectId, mode } = useParams();
+  let { pId, mode } = useParams();
   const dispatchData = useDispatch()
   const editorRef = useRef(null);
   const inputRef = useRef();
@@ -149,7 +149,7 @@ const Projects = (props) => {
     dispatch({ type: 'bannerImgLoader', payload: true })
     dispatch({ type: 'cardImgLoader', payload: true })
     window.scroll(0, 0);
-    props.projectDetailsReducerData(projectId || props.informationProjectView, (callback) => {
+    props.projectDetailsReducerData(pId || props.informationProjectView, (callback) => {
       dispatch({ type: 'projectSaveDetails', payload: callback.data?.projectsViewModel })
       dispatch({ type: 'projectLogoImages', payload: callback.data?.projectsViewModel?.tokenLogo })
       dispatch({ type: 'projectBannerImages', payload: callback.data?.projectsViewModel?.bannerImage })
@@ -233,7 +233,7 @@ const Projects = (props) => {
     } else {
       dispatch({ type: 'buttonLoader', payload: true })
       let obj = {
-        "id": projectSaveDetails?.id != null ? projectSaveDetails.id : (projectId ?? "00000000-0000-0000-0000-000000000000"),
+        "id": projectSaveDetails?.id != null ? projectSaveDetails.id : (pId ?? "00000000-0000-0000-0000-000000000000"),
         "contractAddress": state.projectSaveDetails?.tokenContractAddress,
         "tokenName": state.projectSaveDetails?.tokenName || null,
         "tokenSymbol": state.projectSaveDetails?.tokenSymbol || null,
@@ -603,8 +603,8 @@ return (<>
                   <CBreadcrumbItem>
                     <CLink href="#" onClick={() => navigate(mode === "projectsDetails" ? `/launchpad/investors/projects/${isProjectCardsId}` : `/launchpad/idorequest`)}>{mode === "projectsDetails" && "Projects"}</CLink>
                   </CBreadcrumbItem>}
-                  <CBreadcrumbItem >{projectId === "00000000-0000-0000-0000-000000000000" ? "Add Project" :`${state.projectSaveDetails?.projectName}`}</CBreadcrumbItem>
-                  {projectId !== "00000000-0000-0000-0000-000000000000" && <CBreadcrumbItem > {"View"}</CBreadcrumbItem>}
+                  <CBreadcrumbItem >{pId === "00000000-0000-0000-0000-000000000000" ? "Add Project" :`${state.projectSaveDetails?.projectName}`}</CBreadcrumbItem>
+                  {pId !== "00000000-0000-0000-0000-000000000000" && <CBreadcrumbItem > {"View"}</CBreadcrumbItem>}
               </CBreadcrumb>}
 
             {isAdmin?.isAdmin && window.location.pathname.includes('idorequest') &&
@@ -622,8 +622,8 @@ return (<>
               <CBreadcrumbItem>
                 <CLink href="#" onClick={() => navigate(`/launchpad/projects/${isAdmin?.id}`)}>Projects</CLink>
               </CBreadcrumbItem>
-              <CBreadcrumbItem >{projectId === "00000000-0000-0000-0000-000000000000" ? "Add Project" :`${state.projectSaveDetails?.projectName}`}</CBreadcrumbItem>
-              {projectId !== "00000000-0000-0000-0000-000000000000" && <CBreadcrumbItem > View</CBreadcrumbItem>}
+              <CBreadcrumbItem >{pId === "00000000-0000-0000-0000-000000000000" ? "Add Project" :`${state.projectSaveDetails?.projectName}`}</CBreadcrumbItem>
+              {pId !== "00000000-0000-0000-0000-000000000000" && <CBreadcrumbItem > View</CBreadcrumbItem>}
             </CBreadcrumb>}
 
             {imageError && (

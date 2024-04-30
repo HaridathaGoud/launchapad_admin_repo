@@ -116,13 +116,13 @@ const router = createBrowserRouter([
 
       { path: "launchpad/investors/projects/:projectId?", element: <ProjectCards />, errorElement: <>Somthing went wrong</> },
       { path: "launchpad/investors/userprofile/:id?/:view", element: <UserProfile />, errorElement: <>Somthing went wrong</> },
-      { path: "launchpad/investors/projects/:projectId?/:mode", element: <Projects />, errorElement: <>Somthing went wrong</> },
-      { path: "launchpad/investors/addProjectdetails/:projectId?", element: <Projects />, errorElement: <>Somthing went wrong</> },
+      { path: "launchpad/investors/projects/:pId?/:mode", element: <Projects />, errorElement: <>Somthing went wrong</> },
+      { path: "launchpad/investors/addProjectdetails/:pId?", element: <Projects />, errorElement: <>Somthing went wrong</> },
 
 
 
       { path: "launchpad/idorequest", element: <IDORequest />, errorElement: <>Somthing went wrong</> },
-      { path: "launchpad/idorequest/projectDetails/:projectId?", element: <Projects />, errorElement: <>Somthing went wrong</> },
+      { path: "launchpad/idorequest/projectDetails/:pId?", element: <Projects />, errorElement: <>Somthing went wrong</> },
       { path: "launchpad/idorequest/projectDetails/:projectId/:paymentmethod?", element: <ProjectTokenDetails />, errorElement: <>Somthing went wrong</> },
       { path: "launchpad/idorequest/projectDetails/:projectId/:poolstaking?", element: <ProjectsPoolsStaking />, errorElement: <>Somthing went wrong</> },
       { path: "launchpad/idorequest/projectDetails/:projectId/:tokneclaim?", element: <ProjectsTokenClaim />, errorElement: <>Somthing went wrong</> },
@@ -226,28 +226,28 @@ const router = createBrowserRouter([
           <div className=" d-flex flex-column  content-bg"><Outlet />
           </div></>, children: [
             {
-              path: ":projectId/settings/fcfs", element: <FcfsStart />
+              path: ":pId/settings/fcfs", element: <FcfsStart />
             },
             {
-              path: ":projectId/settings/fcfsendtime", element: <FcfsEndtime />
+              path: ":pId/settings/fcfsendtime", element: <FcfsEndtime />
             },
             {
-              path: ":projectId/settings/vestingtime", element: <VestingTime />
+              path: ":pId/settings/vestingtime", element: <VestingTime />
             },
             {
-              path: ":projectId/settings/tokenlisting", element: <TokenListing />
+              path: ":pId/settings/tokenlisting", element: <TokenListing />
             },
             {
-              path: ":projectId/settings/roundonestart", element: <RoundOneStart />
+              path: ":pId/settings/roundonestart", element: <RoundOneStart />
             },
             {
-              path: ":projectId/settings/roundoneend", element: <RoundOneEnd />
+              path: ":pId/settings/roundoneend", element: <RoundOneEnd />
             },
             {
-              path: ":projectId/settings/allocation", element: <PeojectAllocation />
+              path: ":pId/settings/allocation", element: <PeojectAllocation />
             },
             {
-              path: ":projectId/settings/allocationroundtwo", element: <AllocationRoundTwo />
+              path: ":pId/settings/allocationroundtwo", element: <AllocationRoundTwo />
             },
           ]
       },

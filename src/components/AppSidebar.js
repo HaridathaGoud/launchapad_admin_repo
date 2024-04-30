@@ -36,7 +36,7 @@ const AppSidebar = (props) => {
       navigate(`/${menuItem}`);
     }
     else {
-      getWalletAddress(`/launchpad/investors/projects/${params?.projectId}/settings/${menuItem}`);
+      getWalletAddress(`/launchpad/investors/projects/${params?.pId}/settings/${menuItem}`);
     }
   }
 
@@ -61,7 +61,7 @@ const AppSidebar = (props) => {
     }
     if (res.data?.kycStatus != 'Completed' && response.data?.isAdmin) {
       navigate('/kycstatus');
-      navigate(`/launchpad/investors/projects/${params?.projectId}/settings/${menuItem}`);
+      navigate(`/launchpad/investors/projects/${params?.pId}/settings/${menuItem}`);
     }
     store.dispatch(setSettingsLoaders(false));
   }

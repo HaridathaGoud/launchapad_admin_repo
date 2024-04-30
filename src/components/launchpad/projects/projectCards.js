@@ -115,7 +115,6 @@ const ProjectCards = () => {
   const getOnePersonDetailsBasedOnId = (val) => {
     if (isAdmin) {
       store.dispatch(showSettings(true));
-      
     }
     if (window.location.pathname.includes('/investors')) {
       navigate(`/launchpad/investors/projects/${val.id}/projectsDetails`)
@@ -236,7 +235,7 @@ const ProjectCards = () => {
       // } else {
       //   deployErc721Contract();
       // }
-      deployErc20Contract();
+      deployErc721Contract();
     }
     else {
       try {
@@ -331,28 +330,30 @@ const ProjectCards = () => {
     setSuccess(null);
     dispatch({ type: 'btnLoader', payload: true })
     dispatch({ type: 'previewErrorMsg', payload: null })
-    const nftImagesCount = state.detailsPreview?.nftImagesCount;
-    const listingTime = convertDateToMinutesUTC(moment(state.detailsPreview?.listTime).format("YYYY-MM-DDTHH:mm"))
 
-    const rndStart = convertDateToMinutesUTC(moment(state.detailsPreview?.privateStartDate).format("YYYY-MM-DDTHH:mm"));
-
-    const rndEnd = convertDateToMinutesUTC(moment(state.detailsPreview?.privateEndDate).format("YYYY-MM-DDTHH:mm"));
-
-    const fcfss = convertDateToMinutesUTC(moment(state.detailsPreview?.publicStartDate).format("YYYY-MM-DDTHH:mm"));
-
-    const fcfse = convertDateToMinutesUTC(moment(state.detailsPreview?.publicEndDate).format("YYYY-MM-DDTHH:mm"));
-
+    const shareDetails = {
+      minnapadShare: 3000,
+      daoShare: 3000,
+      legendShare: 4000,
+      minnapadAddr: '0xC18E2bdDdc68e4d06978a917A516AC82261E8991',
+      daoAddr: '0xC18E2bdDdc68e4d06978a917A516AC82261E8991',
+      legendAddr: '0xC18E2bdDdc68e4d06978a917A516AC82261E8991',
+    };
+    const nativePriceFeeAddres = '0x001382149eBa3441043c1c66972b4772963f5D43';
+    const secondaryPriceFeeAdres = '0xF0d50568e3A7e8259E16663972b11910F89BD8e7';
+    const platformFee = 0.0002;
+    const ercCustomToken = '0x4eFFBaAeF9a35d151c88FbE8C3daf21B98672f16';
+    const baseFiatPrice = ethers.utils.parseEther('50');
     const provider = new ethers.providers.Web3Provider(window?.ethereum)
-
     const factory = new ethers.Contract(MintFactory.contractAddress, MintFactory.abi, provider.getSigner());
     try {
       const contractRes = await factory.deployMembershipToken(
-        nftImagesCount,
-        listingTime,
-        rndStart,
-        rndEnd,
-        fcfss,
-        fcfse,
+        ercCustomToken,
+        baseFiatPrice,
+        nativePriceFeeAddres,
+        secondaryPriceFeeAdres,
+        platformFee,
+        shareDetails,
         { gasLimit: 9000000, gasPrice: 300000 });
       contractRes.wait().then(async (receipt) => {
         const address = receipt.logs[0].address;
