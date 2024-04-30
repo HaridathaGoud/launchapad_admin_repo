@@ -1,4 +1,4 @@
-import React,{useReducer} from 'react'
+import React,{ useState} from 'react'
 import { CNavItem, CNavLink } from '@coreui/react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Button from 'react-bootstrap/Button';
@@ -7,19 +7,8 @@ import Popover from 'react-bootstrap/Popover';
 import { useSelector} from 'react-redux';
 import { useParams } from "react-router-dom";
 
-const reducer = (state, action) => {
-    switch (action.type) {
-      case "isVissble":
-        return { ...state, isVissble: action.payload };
-      default:
-        return state;
-    }
-  }
-  const initialState = {
-    isVissble: false,
-  };
 function LaunchPadMenu(props){
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [isVissble,setIsVissble] = useState(false)
     const {pId} = useParams();
   const isAdmin = useSelector(state => state.oidc?.adminDetails);
   const viewedProject = useSelector(state => state.launchpad?.viewedProject)
@@ -91,12 +80,11 @@ function LaunchPadMenu(props){
         </Popover>
       );
       const handleHoverButtonClick = () => {
-       dispatch({ type: 'isVissble', payload: true })
-
+       setIsVissble(true)
     };
     const handleFocusButtonClick=()=>{
         setTimeout(() => {
-            dispatch({ type: 'isVissble', payload: false })
+            setIsVissble(false)
         }, 4000);
     }
   const { handleMenuNavigate,app_name } = props;
@@ -114,14 +102,14 @@ function LaunchPadMenu(props){
                 </CNavItem>}
                 {isAdmin?.isAdmin && viewedProject?.projectStatus=="Deployed" && pId &&
                    <> {locationSplit[1] =="launchpad" && <CNavItem className={locationSplit.includes("settings") ? "active" : ""}>
-                 {!state.isVissble&& <OverlayTrigger
+                 {!isVissble&& <OverlayTrigger
                        placement="right"
                        overlay={renderTooltipSettings}
                        >
                  <Button variant="" className='setting-space' onClick={handleHoverButtonClick}><span className="icon nav-settings ms-1" /></Button>
                    </OverlayTrigger>}
 
-                   {state.isVissble &&<OverlayTrigger
+                   {isVissble &&<OverlayTrigger
                        placement="right"
                        trigger="focus"
                        overlay={popover}
