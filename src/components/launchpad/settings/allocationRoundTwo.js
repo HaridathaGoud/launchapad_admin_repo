@@ -99,7 +99,7 @@ const AllocationRoundTwo = () => {
         </Alert>
       )}
      
-    <Button className='filled-btn' onClick={() => updateData()} disabled={btnLoader} >{btnLoader && <Spinner size='sm' className='text-dark' />} Allocate</Button>
+    <Button className='filled-btn' onClick={() => updateData()} disabled={btnLoader} >{btnLoader && <Spinner size='sm' className={`${btnLoader ? "text-black" : "text-light"}`} />} Allocate</Button>
     {isTransactionSuccess && (
         <div >
         <ToasterMessage isShowToaster={isTransactionSuccess} success={success}></ToasterMessage>
