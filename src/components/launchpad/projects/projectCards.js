@@ -230,21 +230,20 @@ const ProjectCards = () => {
     dispatch({ type: 'previewErrorMsg', payload: null })
     // dispatch({ type: 'btnLoader', payload: true })
     if (isConnected) {
-      // if (state.detailsPreview?.tokenType == 'ERC-20') {
-      //   deployErc20Contract();
-      // } else {
-      //   deployErc721Contract();
-      // }
-      deployErc721Contract();
+      if (state.detailsPreview?.tokenType == 'ERC-20') {
+        deployErc20Contract();
+      } else {
+        deployErc721Contract();
+      }
     }
     else {
       try {
         await connectWallet();
-        // if (state.detailsPreview?.tokenType == 'ERC-20') {
+        if (state.detailsPreview?.tokenType == 'ERC-20') {
           deployErc20Contract();
-        // } else {
-          // deployErc721Contract();
-        // }
+        } else {
+          deployErc721Contract();
+        }
         dispatch({ type: 'previewErrorMsg', payload: null })
       } catch (error) {
         dispatch({ type: 'previewErrorMsg', payload: error?.reason })
@@ -330,7 +329,6 @@ const ProjectCards = () => {
     setSuccess(null);
     dispatch({ type: 'btnLoader', payload: true })
     dispatch({ type: 'previewErrorMsg', payload: null })
-
     const shareDetails = {
       minnapadShare: 3000,
       daoShare: 3000,
@@ -341,7 +339,7 @@ const ProjectCards = () => {
     };
     const nativePriceFeeAddres = '0x001382149eBa3441043c1c66972b4772963f5D43';
     const secondaryPriceFeeAdres = '0xF0d50568e3A7e8259E16663972b11910F89BD8e7';
-    const platformFee = 0.0002;
+    const platformFee = 5;
     const ercCustomToken = '0x4eFFBaAeF9a35d151c88FbE8C3daf21B98672f16';
     const baseFiatPrice = ethers.utils.parseEther('50');
     const provider = new ethers.providers.Web3Provider(window?.ethereum)
