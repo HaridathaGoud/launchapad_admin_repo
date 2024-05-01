@@ -127,7 +127,6 @@ const Projects = (props) => {
   const walletAddress = useSelector((state) => state.walletAddress.walletAddress)
   const projectDetails = useSelector((state) => state.launchpad.projectDetails)
   const isProjectCardsId = useSelector(state => state.oidc?.isProjectCardsId)
-  const projectItem = useSelector(state => state.projectDetails?.project)
   const userId = sessionStorage.getItem('userId');
   const isAdmin = useSelector(state => state.oidc?.adminDetails);
   const projectSaveDetails = useSelector(state => state.launchpad?.projectSaveDetails);
@@ -135,6 +134,7 @@ const Projects = (props) => {
   const userName = sessionStorage.getItem('userName');
   const prjctName = selectedProject?.name || userName;
   const projectName = isAdmin?.isAdmin ? prjctName :isAdmin?.firstName;
+  const projectownerId = isAdmin?.isAdmin ? userId : isAdmin?.id
   const navigate = useNavigate();
   const currentDate = new Date().toISOString().slice(0, 16);
   const [errors, setErrors] = useState({});
@@ -256,7 +256,7 @@ const Projects = (props) => {
         "tokenListingDate": state.projectSaveDetails?.tokenListingDate,
         "tokenContractAddress": state.projectSaveDetails?.tokenContractAddress || null,
         "introductionHtml": state.introductionHtml || state.projectSaveDetails?.introductionHtml,
-        "projectOwnerId": userId || isAdmin?.id ,
+        "projectOwnerId":  projectownerId ,
         "initialSupply": state.projectSaveDetails?.initialSupply || null,
         "cast_Crews": state.castCrewDataList,
         "category": "string",
@@ -459,7 +459,7 @@ const Projects = (props) => {
   const handleCancel = () => {
     if (isAdmin?.isAdmin) {
       if (window.location.pathname.includes('/launchpad/investors')) {
-        navigate(`/launchpad/investors/projects/${projectItem?.id || userId }`)
+        navigate(`/launchpad/investors/projects/${projectownerId }`)
       }
       else {
         props.closeProject(false)

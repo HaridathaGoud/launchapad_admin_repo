@@ -1,17 +1,17 @@
-import React,{ useState} from 'react'
+import React from 'react'
 import { CNavItem, CNavLink } from '@coreui/react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Button from 'react-bootstrap/Button';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
 import { useSelector} from 'react-redux';
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 
 function LaunchPadMenu(props){
-    const [isVissble,setIsVissble] = useState(false)
-    const {pId} = useParams();
+  const {pId} = useParams();
   const isAdmin = useSelector(state => state.oidc?.adminDetails);
   const viewedProject = useSelector(state => state.launchpad?.viewedProject)
+  const navigate = useNavigate();
 
     const renderTooltipDashboard = (props) => (
         <Tooltip id="button-tooltip" {...props}> 
@@ -53,39 +53,34 @@ function LaunchPadMenu(props){
           <Popover.Header as="h3" className='bg-transparent'>Settings</Popover.Header>
           <Popover.Body>
                 <div>
-                    <button className='btn-transparent' onClick={() => handleMenuNavigate('fcfs', 'true')}>Set FCFS Start Time</button>
+                    <button className='btn-transparent' onClick={() => handlenavigatemenu('fcfs')}>Set FCFS Start Time</button>
                 </div>
                 <div>
-                    <button className='btn-transparent' onClick={() => handleMenuNavigate('fcfsendtime', 'true')}>Set FCFS End Time</button>
+                    <button className='btn-transparent' onClick={() => handlenavigatemenu('fcfsendtime')}>Set FCFS End Time</button>
                 </div>
                 <div>
-                    <button className='btn-transparent' onClick={() => handleMenuNavigate('vestingtime', 'true')}>Set Vesting Time</button>
+                    <button className='btn-transparent' onClick={() => handlenavigatemenu('vestingtime')}>Set Vesting Time</button>
                 </div>
                 <div>
-                    <button className='btn-transparent' onClick={() => handleMenuNavigate('tokenlisting', 'true')}>Set Token Listing Time</button>
+                    <button className='btn-transparent' onClick={() => handlenavigatemenu('tokenlisting')}>Set Token Listing Time</button>
                 </div>
                 <div>
-                    <button className='btn-transparent' onClick={() => handleMenuNavigate('roundonestart', 'true')}>Set Round One Start Time</button>
+                    <button className='btn-transparent' onClick={() => handlenavigatemenu('roundonestart')}>Set Round One Start Time</button>
                 </div>
                 <div>
-                    <button className='btn-transparent' onClick={() => handleMenuNavigate('roundoneend', 'true')}>Set Round One End Time</button>
+                    <button className='btn-transparent' onClick={() => handlenavigatemenu('roundoneend')}>Set Round One End Time</button>
                 </div>
                 <div>
-                    <button className='btn-transparent' onClick={() => handleMenuNavigate('allocation', 'true')}>Allocation</button>
+                    <button className='btn-transparent' onClick={() => handlenavigatemenu('allocation')}>Allocation</button>
                 </div>
                 <div>
-                    <button className='btn-transparent' onClick={() => handleMenuNavigate('allocationroundtwo', 'true')}>Round Two Allocation</button>
+                    <button className='btn-transparent' onClick={() => handlenavigatemenu('allocationroundtwo')}>Round Two Allocation</button>
                 </div>
           </Popover.Body>
         </Popover>
       );
-      const handleHoverButtonClick = () => {
-       setIsVissble(true)
-    };
-    const handleFocusButtonClick=()=>{
-        setTimeout(() => {
-            setIsVissble(false)
-        }, 4000);
+    const handlenavigatemenu = (menuItem) => {
+        navigate(`/launchpad/investors/projects/${pId}/settings/${menuItem}`);
     }
   const { handleMenuNavigate,app_name } = props;
   let locationSplit = location?.pathname?.split('/');
@@ -101,22 +96,23 @@ function LaunchPadMenu(props){
                     </OverlayTrigger>
                 </CNavItem>}
                 {isAdmin?.isAdmin && viewedProject?.projectStatus=="Deployed" && pId &&
-                   <> {locationSplit[1] =="launchpad" && <CNavItem className={locationSplit.includes("settings") ? "active" : ""}>
-                 {!isVissble&& <OverlayTrigger
+                   <> {locationSplit[1] =="launchpad" && 
+                    <OverlayTrigger
+                   placement="right"
+                   trigger="focus"
+                   overlay={popover}
+                   >
+                    <div> <CNavItem className={locationSplit.includes("settings") ? "active" : ""}>
+                   <OverlayTrigger
                        placement="right"
                        overlay={renderTooltipSettings}
                        >
-                 <Button variant="" className='setting-space' onClick={handleHoverButtonClick}><span className="icon nav-settings ms-1" /></Button>
-                   </OverlayTrigger>}
-
-                   {isVissble &&<OverlayTrigger
-                       placement="right"
-                       trigger="focus"
-                       overlay={popover}
-                       >
-                 <Button variant="" className='setting-space' onClick={handleFocusButtonClick}><span className="icon nav-settings ms-1" /></Button>
-                   </OverlayTrigger>}
-               </CNavItem>}</>
+                 <Button variant="" className='setting-space'><span className="icon nav-settings ms-1" /></Button>
+                   </OverlayTrigger>
+               </CNavItem> </div>
+                </OverlayTrigger>
+                }
+                </>
              }
                {locationSplit[1] =="launchpad" && 
                 <CNavItem className={locationSplit[2] == "customers" ? "active" : ""}>
