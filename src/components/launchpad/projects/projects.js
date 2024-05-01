@@ -131,6 +131,10 @@ const Projects = (props) => {
   const userId = sessionStorage.getItem('userId');
   const isAdmin = useSelector(state => state.oidc?.adminDetails);
   const projectSaveDetails = useSelector(state => state.launchpad?.projectSaveDetails);
+  const selectedProject = useSelector(state => state.projectDetails.project);
+  const userName = sessionStorage.getItem('userName');
+  const prjctName = selectedProject?.name || userName;
+  const projectName = isAdmin?.isAdmin ? prjctName :isAdmin?.firstName;
   const navigate = useNavigate();
   const currentDate = new Date().toISOString().slice(0, 16);
   const [errors, setErrors] = useState({});
@@ -252,7 +256,7 @@ const Projects = (props) => {
         "tokenListingDate": state.projectSaveDetails?.tokenListingDate,
         "tokenContractAddress": state.projectSaveDetails?.tokenContractAddress || null,
         "introductionHtml": state.introductionHtml || state.projectSaveDetails?.introductionHtml,
-        "projectOwnerId": projectItem?.id || userId,
+        "projectOwnerId": userId || isAdmin?.id ,
         "initialSupply": state.projectSaveDetails?.initialSupply || null,
         "cast_Crews": state.castCrewDataList,
         "category": "string",
@@ -599,7 +603,8 @@ return (<>
                 <CBreadcrumbItem>
                   <CLink href="#" onClick={() => navigate(mode === "projectsDetails" ? `/launchpad/investors` : '/launchpad/investors')}>{mode === "projectsDetails" ? "Investors" : "Projects"}</CLink>
                 </CBreadcrumbItem>
-                {mode &&
+                {projectName && <CBreadcrumbItem >{projectName}</CBreadcrumbItem>}
+                  {mode &&
                   <CBreadcrumbItem>
                     <CLink href="#" onClick={() => navigate(mode === "projectsDetails" ? `/launchpad/investors/projects/${isProjectCardsId}` : `/launchpad/idorequest`)}>{mode === "projectsDetails" && "Projects"}</CLink>
                   </CBreadcrumbItem>}

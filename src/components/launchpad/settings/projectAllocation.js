@@ -39,7 +39,7 @@ const PeojectAllocation = () => {
       setSuccess(null);
       setBtnLoader(true)
       setTxHash(null)
-      const projectAddress = await apiCalls.getAllocation(params?.projectId, isAdmin.id)
+      const projectAddress = await apiCalls.getAllocation(params?.pId, isAdmin.id)
       if (projectAddress.ok) {
         const provider = new ethers.providers.Web3Provider(window?.ethereum)
         const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());

@@ -82,11 +82,13 @@ const ProjectCards = () => {
   const pageSize = 8;
   const [pageNo, setPageNo] = useState(1);
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails?.isAdmin);
+  const AdminDetails = useSelector((state)=>state.oidc?.adminDetails)
   const role = useSelector(reducerstate => reducerstate?.oidc?.user?.profile?.role)
   const walletAddress = useSelector((reducerstate) => reducerstate.walletAddress?.walletAddress)
   const selectedProject = useSelector(state => state.projectDetails.project);
   const userName = sessionStorage.getItem('userName');
-  const projectName = selectedProject?.name || userName;
+  const prjctName = selectedProject?.name || userName;
+  const projectName = AdminDetails?.isAdmin ? prjctName :AdminDetails?.firstName;
   const params = useParams();
   const [loadMore, setLoadMore] = useState(false);
   const [hide, setHide] = useState(false);
@@ -420,6 +422,7 @@ const ProjectCards = () => {
   const formattedValue = intValue.toLocaleString('en-IN');
   return formattedValue;
  }
+
   return (
     <div>
       <div className='Container'>
@@ -431,8 +434,8 @@ const ProjectCards = () => {
           <CBreadcrumbItem>
             <CLink href="#" onClick={() => navigate(`/launchpad/investors`)} className='c-pointer'>Investors</CLink>
           </CBreadcrumbItem>
-          <CBreadcrumbItem >Projects</CBreadcrumbItem>
-          {projectName && <CBreadcrumbItem active>{projectName}</CBreadcrumbItem>}
+          {projectName && <CBreadcrumbItem >{projectName}</CBreadcrumbItem>}
+          <CBreadcrumbItem active>Projects</CBreadcrumbItem>
         </CBreadcrumb>}
         {!isAdmin && <CBreadcrumb>
           <CBreadcrumbItem>
