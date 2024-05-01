@@ -552,6 +552,8 @@ th .k-link{cursor: default !important;}
 .font-bold{font-weight: 600;}
 .font-regular{font-weight: 400;}
 .button-secondary:disabled:hover{background-color: transparent !important;}
+.card-state{position: absolute;top: 0;right: 0; color: #fff; padding: 2px 8px; border-radius: 0 10px 0 10px;min-width: 100px;  text-align: center;}
+.card-desc{overflow: hidden;  text-overflow: ellipsis;  display: -webkit-box;  -webkit-line-clamp: 3;  -webkit-box-orient: vertical;}
 @media (min-width: 768px) {
   .profile-size{ width: 106px;}
   .profile-size, .customer-pfview{width: 258px;}

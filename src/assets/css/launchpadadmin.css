@@ -255,7 +255,7 @@ line-height: 15px;
 .button-transparent:hover{  background: #0068ff;}
 .card-label{font-weight: 500;font-size: 16px;color: rgba(255, 255, 255, 0.58);}
 .card-sublabel{font-weight: 500;font-size: 14px;color: rgba(255, 255, 255, 0.31);}
-.project-name{font-weight: 400; font-size: 20px;min-height: 48px;}
+.project-name{font-weight: 500; font-size: 20px;text-overflow: ellipsis;  overflow: hidden;}
 .user-details{padding: 8px 0;border-bottom: 1px solid rgba(255, 255, 255, 0.24);}
 .icon.state-change{background-position: -355px -216px;width: 24px !important;height: 24px !important;}
 .text-rejected{color: #FF5858;}

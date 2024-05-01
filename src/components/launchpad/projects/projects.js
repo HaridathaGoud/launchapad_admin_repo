@@ -230,11 +230,11 @@ const Projects = (props) => {
     event.preventDefault();
     dispatch({ type: 'errorMgs', payload: null })
     event.preventDefault();
-    if (state.projectSaveDetails?.projectStatus &&
-      state.projectSaveDetails?.projectStatus !== "Submitted" && state.projectSaveDetails?.projectStatus !== "Draft") {
-      dispatch({ type: 'projectTokenShow', payload: true })
-      store.dispatch(projectDetailsSave(state.projectSaveDetails));
-    } else {
+    // if (state.projectSaveDetails?.projectStatus &&
+    //   state.projectSaveDetails?.projectStatus !== "Submitted" && state.projectSaveDetails?.projectStatus !== "Draft") {
+    //   dispatch({ type: 'projectTokenShow', payload: true })
+    //   store.dispatch(projectDetailsSave(state.projectSaveDetails));
+    // } else {
       dispatch({ type: 'buttonLoader', payload: true })
       let obj = {
         "id": projectSaveDetails?.id != null ? projectSaveDetails.id : (pId ?? "00000000-0000-0000-0000-000000000000"),
@@ -347,7 +347,7 @@ const Projects = (props) => {
         }
       }
     
-   }
+  //  }
     dispatch({ type: 'validated', payload: true })
     dispatch({ type: 'buttonLoader', payload: false })
     window.scroll(0, 0);
@@ -667,11 +667,6 @@ return (<>
                             ref={inputRef}
                             isInvalid={!!state.errors.tokenLogo}
                             onChange={(e) => uploadToClient(e, 'LOGO')}
-                            disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                              || state.projectSaveDetails?.projectStatus == "Rejected"
-                              || state.projectSaveDetails?.projectStatus == "Approved"
-                              || state.projectSaveDetails?.projectStatus == "Deploying"
-                            )}
                           />
                           <span
                             className="icon camera"
@@ -701,11 +696,6 @@ return (<>
                             ref={inputRef}
                             isInvalid={!!state.errors.tokenLogo}
                             onChange={(e) => uploadToClient(e, 'LOGO')}
-                            disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                              || state.projectSaveDetails?.projectStatus == "Rejected"
-                              || state.projectSaveDetails?.projectStatus == "Approved"
-                              || state.projectSaveDetails?.projectStatus == "Deploying"
-                            )}
                           />
                           <span
                             className="icon camera"
@@ -740,11 +730,6 @@ return (<>
                             ref={inputRef1}
                             isInvalid={!!state.errors.bannerImage}
                             onChange={(e) => uploadToClient(e, 'banner')}
-                            disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                              || state.projectSaveDetails?.projectStatus == "Rejected"
-                              || state.projectSaveDetails?.projectStatus == "Approved"
-                              || state.projectSaveDetails?.projectStatus == "Deploying"
-                            )}
                           />
                           <span
                             className="icon camera"
@@ -772,11 +757,6 @@ return (<>
                             ref={inputRef1}
                             isInvalid={!!state.errors.bannerImage}
                             onChange={(e) => uploadToClient(e, 'banner')}
-                            disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                              || state.projectSaveDetails?.projectStatus == "Rejected"
-                              || state.projectSaveDetails?.projectStatus == "Approved"
-                              || state.projectSaveDetails?.projectStatus == "Deploying"
-                            )}
                           />
                           <span
                             className="icon camera"
@@ -791,8 +771,6 @@ return (<>
                 </Col>
               </Row>
               <Row>
-
-
                 <Col lg={6} md={12}>
                   <Form.Label
                     controlId="floatingInput"
@@ -809,28 +787,17 @@ return (<>
                     required
                     maxLength={100}
                     isInvalid={!!errors?.projectName}
-                    disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                      || state.projectSaveDetails?.projectStatus == "Rejected"
-                      || state.projectSaveDetails?.projectStatus == "Approved"
-                      || state.projectSaveDetails?.projectStatus == "Deploying"
-                    )}
 
                   />
                   <Form.Control.Feedback type="invalid">{errors?.projectName || state?.errors?.projectName}</Form.Control.Feedback>
 
                 </Col>
-
-
-
-
                 <Col lg={6} md={12}>
                   <Form.Label
                     controlId="floatingInput"
                     label="Country Restriction*"
                     className=""
                   > Country Restriction<span className="text-danger">*</span></Form.Label >
-
-
                   <Multiselect
                     className='multiselecter'
                     options={jsonCountryCode}
@@ -838,25 +805,13 @@ return (<>
                     onSelect={onSelect}
                     onRemove={onSelect}
                     displayValue="name"
-                    disable={(state.projectSaveDetails?.projectStatus == "Deployed"
-                      || state.projectSaveDetails?.projectStatus == "Rejected"
-                      || state.projectSaveDetails?.projectStatus == "Approved"
-                      || state.projectSaveDetails?.projectStatus == "Deploying"
-                    )}
                   />
-
                   {errors?.countryRestrictions == "Is required" && (
                     <p style={{ color: "#e55353", fontSize: 14 }}>Is required</p>
 
                   )}
-
-
-
                 </Col>
-
-
                 <Col lg={6} md={12}>
-
                   <Form.Label className='input-label'>Network Symbol<span className="text-danger">*</span></Form.Label>
                   <Dropdown className='matic-dropdown' defaultValue={"Matic"} value="Matic">
                     <Dropdown.Toggle variant="secondary" id="dropdown-basic"
@@ -915,11 +870,6 @@ return (<>
                     onBlur={(e) => handleChange('description',e.target.value.trim().replace(/\s+/g, " "))}
                     maxLength={1000}
                     isInvalid={errors?.description}
-                    disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                      || state.projectSaveDetails?.projectStatus == "Rejected"
-                      || state.projectSaveDetails?.projectStatus == "Approved"
-                      || state.projectSaveDetails?.projectStatus == "Deploying"
-                    )}
                     required
                   />
                   <Form.Control.Feedback type="invalid">{errors?.description || state?.errors?.description}</Form.Control.Feedback>
@@ -936,11 +886,6 @@ return (<>
                     onInit={(evt, editor) => editorRef.current = editor}
                     initialValue={state.projectSaveDetails?.introductionHtml}
                     onChange={handledescription}
-                    disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                      || state.projectSaveDetails?.projectStatus == "Rejected"
-                      || state.projectSaveDetails?.projectStatus == "Approved"
-                      || state.projectSaveDetails?.projectStatus == "Deploying"
-                    )}
                     init={{
                       height: 500,
                       menubar: false,
@@ -1017,11 +962,6 @@ return (<>
                             ref={inputRef2}
                             onChange={(e) => uploadToClient(e, 'CARD')}
                             isInvalid={!!state.errors.cardImage}
-                            disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                              || state.projectSaveDetails?.projectStatus == "Rejected"
-                              || state.projectSaveDetails?.projectStatus == "Approved"
-                              || state.projectSaveDetails?.projectStatus == "Deploying"
-                            )}
                           />
                           <span
                             className="icon camera"
@@ -1262,11 +1202,6 @@ return (<>
                         ref={inputRef2}
                         onChange={(e) => uploadToClient(e, 'CARD')}
                         isInvalid={!!state.errors.cardImage}
-                        disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                          || state.projectSaveDetails?.projectStatus == "Rejected"
-                          || state.projectSaveDetails?.projectStatus == "Approved"
-                          || state.projectSaveDetails?.projectStatus == "Deploying"
-                        )}
                       />
                       <span
                         className="icon camera"
@@ -1351,11 +1286,6 @@ return (<>
                 <div className='d-flex justify-content-between  align-items-center mb-2'>
                   <h3 className='section-title '>Cast And Crew <span className="text-danger">*</span></h3>
                   <Button className='button-style mt-3 mt-md-0' onClick={() => handleEdit(null)}
-                    disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                      || state.projectSaveDetails?.projectStatus == "Rejected"
-                      || state.projectSaveDetails?.projectStatus == "Approved"
-                      || state.projectSaveDetails?.projectStatus == "Deploying"
-                    )}
                   ><span className='icon add-icon'></span> Add </Button>
                 </div>
                 <Row className='mb-4 mt-4'>
@@ -1369,14 +1299,12 @@ return (<>
 
                 >
                   <span>{state.buttonLoader && <Spinner size="sm" className='text-light' />} </span>
-                  {(state.projectSaveDetails?.projectStatus == "Deployed"
+                  {/* {(state.projectSaveDetails?.projectStatus == "Deployed"
                     || state.projectSaveDetails?.projectStatus == "Rejected"
                     || state.projectSaveDetails?.projectStatus == "Approved"
                     || state.projectSaveDetails?.projectStatus == "Deploying"
-                  ) ?
-                    "Next" : "Save & Next"}
-
-
+                  ) ?"Next" : "Save & Next"} */}
+                  Save & Next
                 </Button>{' '}
               </div>
             </>}

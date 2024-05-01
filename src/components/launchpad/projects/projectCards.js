@@ -491,38 +491,39 @@ const ProjectCards = () => {
 
             {state.ownerProjects?.map((val) =>
               <Col xs={12} md={6} lg={3} className="mb-3" key={val?.id}>
-                <div className="card-style p-0 home-card">
+                <div className="card-style p-0 home-card position-relative cursor-pointer">
                   <div className='card-content'>
-                    <div className='card-image' > <span className='card-image-span'><img src={val?.tokenLogo || defaultLogo} alt="" /></span></div>
-                    <div className="p-relative px-3 py-3">
-                      <div className="d-flex align-items-center justify-content-between mt-4"  >
+                    <div className='card-image' onClick={() => getOnePersonDetailsBasedOnId(val)}> <span className='card-image-span'><img src={val?.tokenLogo || defaultLogo} alt="" /></span></div>
+                    <div className="px-3 py-3">
+                      <div className=" mt-4" onClick={() => getOnePersonDetailsBasedOnId(val)} >
                         <h3 className="project-name">{val?.projectName}</h3>
+                        <p className='card-desc'> {val?.description} </p>
                       </div>
                       <div className='card-footer px-0 d-flex justify-content-between project-card'>
                         {val?.projectstatus?.toLowerCase() === 'rejected' &&
-                          <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >
-                            Rejected</Button>}
-
+                         <span className='card-state bg-danger' >
+                            Rejected</span>}
                         {val?.projectstatus?.toLowerCase() === 'deployed' &&
-                          <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >
-                            Deployed</Button>
+                          <span className='card-state bg-success'>
+                            Deployed</span>
                         }
-
                         {val?.projectstatus?.toLowerCase() === 'deploying' &&
-                          <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >
-                            Deploying</Button>
+                           <span className='card-state bg-success'>
+                            Deploying</span>
                         }
-
                         {val?.projectstatus?.toLowerCase() === 'approved' &&
                           <Button className='button-secondary' onClick={() => getProjectDetails(val.id)} >
                             Deploy</Button>
                         }
-
                         {val?.projectstatus?.toLowerCase() === 'draft' &&
-                          <Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >Draft</Button>
+                          <span className='card-state bg-danger' >Draft</span>
+                        }
+                        {val?.projectstatus?.toLowerCase() === 'approved' &&
+                         <span className='card-state bg-success' >
+                            Deploy</span>
                         }
 
-                        {val?.projectstatus?.toLowerCase() === 'submitted' && <><Button className='button-secondary' onClick={() => getOnePersonDetailsBasedOnId(val)} >View</Button> </>}
+                        {val?.projectstatus?.toLowerCase() === 'submitted' && <> <span className='card-state bg-warning'>Submitted</span> </>}
                       </div>
                     </div>
                   </div>
