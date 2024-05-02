@@ -135,10 +135,10 @@ const ProjectsTokenClaim = (props) => {
       }
       if (investorsDetails.project == null) {
           navigate('/launchpad/idorequest');
-          props.closeProject(false)
+          props?.closeProject(false)
         } else {
           if (window.location.pathname.includes('idorequest')) {
-            props.closeProject(false)
+            props?.closeProject(false)
           }else{
             navigate(`/launchpad/investors/projects/${investorsDetails?.project?.id}`);
           }
@@ -439,26 +439,20 @@ const ProjectsTokenClaim = (props) => {
                 <Button className='button-secondary' type='submit'
                
                 ><span>{state.claimBtnLoader && <Spinner size="sm" className='text-light'/>} </span>
-                  {
-                    (props?.projectInfo?.projectStatus == "Deployed" ||
+                  {/* {(props?.projectInfo?.projectStatus == "Deployed" ||
                       props?.projectInfo?.projectStatus == "Rejected" ||
                       props?.projectInfo?.projectStatus == "Deploying" ||
-                      props?.projectInfo?.projectStatus == "Approved") ? "Close" : "Save & Next"}
+                      props?.projectInfo?.projectStatus == "Approved") ? "Close" : "Save & Next"} */}
+                      {"Save & Next"}
                 </Button>{' '}
-
-
-
               </div>
             </div>
-
           </>
-
         </Form>
         {state.success &&<div className="">
           <ToasterMessage isShowToaster={state.success} success={state.successMessage}></ToasterMessage>
         </div>
         }
-
       </div>}
     </>
   )

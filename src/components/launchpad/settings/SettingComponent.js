@@ -16,34 +16,35 @@ import { fcfsStartTime } from 'src/reducers/authReducer';
 import useEthers from 'src/utils/useEthers';
 import ToasterMessage from "src/utils/toasterMessages";
 import { NumericFormat } from 'react-number-format';
+import { useAccount } from 'wagmi'
+import { useConnectWallet } from 'src/hooks/useConnectWallet';
 const SettingsComponent = (props) => {
-  const { getAddress } = useEthers();
+  const { isConnected } = useAccount()
+  const { connectWallet } = useConnectWallet();
   const [errorMgs, setErrorMgs] = useState(null);
   const projectContractDetails = useSelector((reducerstore) => reducerstore.launchpad.projectDetails?.data?.projectsViewModel)
   const [settingValue, setSettingValue] = useState(null);
   const [btnLoader, setBtnLoader] = useState(false)
   const [validated, setValidated] = useState(false);
   const [isTransactionSuccess, setIsTransactionSuccess] = useState(false);
-  const settingsFcfsStartTime = useSelector(reducerstate => reducerstate.settings?.isFcfsStartDate);
   const [success, setSuccess] = useState(null);
   const currentDate = new Date().toISOString().slice(0, 16);
-  const [loader,setLoader] = useState(false);
-  const [dataUpdated,setDataUpdated]=useState(false)
   const settingLoader = useSelector(state => state.oidc?.isSettingsLoading)
   const projectDetails = useSelector((reducerstate) => reducerstate?.projectDetails?.details)
 
-  useEffect(() => {
-    getWalletAddress();
-  }, [])
-  useEffect(() => {
-    getWalletAddress();
-  }, [dataUpdated])
-
   const getWalletAddress = async () => {
-    setLoader(true)
-    let walletAddress = await getAddress();
-    if (walletAddress) {
-      setLoader(false)
+    if (isConnected) {
+      updateData()
+    }
+    else {
+      try {
+        setBtnLoader(true)
+        await connectWallet();
+        updateData()
+      } catch (error) {
+        setErrorMgs(error?.reason)
+        setBtnLoader(false)
+      }
     }
   }
 
@@ -77,7 +78,6 @@ const convertUtcToLocal = (date) => {
     const currentDatetime = Math.floor(new Date().getTime() / 1000);
     if (settingValue) {
       store.dispatch(fcfsStartTime(settingValue));
-      const fcfsStartDateTime = convertdateToMinutes(moment.utc(settingsFcfsStartTime).format("YYYY-MM-DDTHH:mm"));
       const projectDetailsStartDate = convertUtcToLocal(projectDetails?.publicStartDate);
       const inputDatetime = convertdateToMinutes(moment.utc(settingValue).format("YYYY-MM-DDTHH:mm"));
       const projectsStartDateTime = convertdateToMinutes(moment.utc(projectDetailsStartDate).format("YYYY-MM-DDTHH:mm"));
@@ -137,7 +137,6 @@ const convertUtcToLocal = (date) => {
           const res = await factory[props.funcName](timeData);
           res.wait().then(async () => {
             setSettingValue(null)
-            setDataUpdated(true)
             setSuccess("Date saved successfully");
             setIsTransactionSuccess(true)
             setTimeout(function () {
@@ -176,7 +175,7 @@ const convertUtcToLocal = (date) => {
           </div>
         </Alert>
       )}
-      {loader ? <div className="text-center"><Spinner ></Spinner></div> :
+      {/* {loader && <div className="text-center"><Spinner ></Spinner></div> } */}
       <Form noValidate validated={validated} action="" name="settingsForm" >
         <Row className='mt-5'>
         {props.funcName !="setVestingTime"&&  <Col lg={6} md={12}>
@@ -223,14 +222,12 @@ const convertUtcToLocal = (date) => {
          
 
           <Col lg={6} md={12} className='d-flex align-items-end btnalign-mobile'>
-            <Button type="button" onClick={() => updateData()} className="filled-btn"
+            <Button type="button" onClick={() => getWalletAddress()} className="filled-btn"
              disabled={btnLoader}>{btnLoader && <Spinner size='sm' />} Update</Button>{" "}
           </Col>
          
         </Row>
-      </Form>}
-    
-
+      </Form>
     </div>
       {isTransactionSuccess && (
         <div >

@@ -11,10 +11,14 @@ import Alert from 'react-bootstrap/Alert';
 import ToasterMessage from 'src/utils/toasterMessages';
 import { showSettings } from 'src/reducers/authReducer';
 import store from 'src/store';
+import { useConnectWallet } from 'src/hooks/useConnectWallet';
+import { useAccount } from 'wagmi'
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
 
 
 const PeojectAllocation = () => {
+  const { isConnected } = useAccount()
+  const { connectWallet } = useConnectWallet();
   const navigate = useNavigate();
   const params = useParams();
   const projectContractDetails = useSelector((store) => store.launchpad.projectDetails?.data?.projectsViewModel)
@@ -26,13 +30,22 @@ const PeojectAllocation = () => {
   const [isTransactionSuccess, setIsTransactionSuccess] = useState(false);
   const [success, setSuccess] = useState(null);
   const [txHash,setTxHash]=useState(null)
-  const [loader,setLoader] =useState(false)
-  useEffect(()=>{
-    setLoader(true)
-    setTimeout(() => {      
-      setLoader(false);
-  }, 1000);
-  },[])
+
+  const getWalletAddress = async () => {
+    if (isConnected) {
+      updateData()
+    }
+    else {
+      try {
+        setBtnLoader(true)
+        await connectWallet();
+        updateData()
+      } catch (error) {
+        setErrorMgs(error?.reason)
+        setBtnLoader(false)
+      }
+    }
+  }
   const updateData = async () => {
     setErrorMgs(null);
     try {
@@ -72,7 +85,7 @@ const PeojectAllocation = () => {
     navigate(`/launchpad/investors/projects/${projectItem?.id||userId}`)
   }
   return (<>
-    {loader ? <div className="text-center"><Spinner ></Spinner></div> : 
+    {/* {loader && <div className="text-center"><Spinner ></Spinner></div> }  */}
   <div>
     <CBreadcrumb>
       <CBreadcrumbItem>
@@ -99,13 +112,13 @@ const PeojectAllocation = () => {
         </Alert>
       )}
     
-    <Button className='filled-btn' onClick={() => updateData()} disabled={btnLoader} >{btnLoader && <Spinner size='sm' className={`${btnLoader ? "text-black" : "text-light"}`} />} Allocate</Button>
+    <Button className='filled-btn' onClick={() => getWalletAddress()} disabled={btnLoader} >{btnLoader && <Spinner size='sm' className={`${btnLoader ? "text-black" : "text-light"}`} />} Allocate</Button>
     {isTransactionSuccess && (
         <div >
         <ToasterMessage isShowToaster={isTransactionSuccess} success={success}></ToasterMessage>
         </div>
       )}
-  </div>}
+  </div>
   </>
   )
 
