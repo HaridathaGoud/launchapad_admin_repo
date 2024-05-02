@@ -262,6 +262,7 @@ const Projects = (props) => {
         "category": "string",
         "tokenType": selectedTokeType || null,
         "nftImagesCount": state.projectSaveDetails?.nftImagesCount || null,
+        "projectStatus " : state.projectSaveDetails?.projectStatus,
       }
       dispatch({ type: 'projectSaveDetails', payload: obj })
       if (window.location.pathname.includes('/launchpad/idorequest')) {
