@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -13,7 +13,6 @@ import moment from 'moment';
 import project from '../../../contract/project.json';
 import store from 'src/store/index';
 import { fcfsStartTime } from 'src/reducers/authReducer';
-import useEthers from 'src/utils/useEthers';
 import ToasterMessage from "src/utils/toasterMessages";
 import { NumericFormat } from 'react-number-format';
 import { useAccount } from 'wagmi'

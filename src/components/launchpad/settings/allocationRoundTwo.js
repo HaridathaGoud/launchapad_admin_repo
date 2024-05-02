@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Spinner } from 'react-bootstrap';
 import { useParams, useNavigate,Link } from 'react-router-dom';
@@ -11,7 +11,6 @@ import Alert from 'react-bootstrap/Alert';
 import ToasterMessage from 'src/utils/toasterMessages';
 import { showSettings } from 'src/reducers/authReducer';
 import store from 'src/store/index';
-
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
 
 const AllocationRoundTwo = () => {

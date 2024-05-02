@@ -433,7 +433,7 @@ class IdoRequestGrid extends Component {
                                             (this.state.form?.status == "Submitted" && this.state.SelectData?.status == "Submitted")
                                         }
                                     >
-                                        <span>{this.state.btnLoader && <Spinner size="sm" className='text-light' />}</span>
+                                        <span>{this.state.btnLoader && <Spinner size="sm" className={`${this.state.btnLoader ? "text-black" : "text-light"}`} />}</span>
                                         <span>Ok</span></Button>
                                  {/* } */}
                             </div></div>

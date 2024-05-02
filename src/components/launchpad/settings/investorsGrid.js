@@ -415,7 +415,30 @@ class InvestorsGrid extends Component {
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.userName}</Form.Control.Feedback>
                                             </Form.Group>
-
+                                        </Col>
+                                        <Col xl={6} className="mb-3">
+                                            <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                                                <Form.Label >Password<span className="text-danger">*</span></Form.Label>
+                                                <Form.Control
+                                                    type="text"
+                                                    name="password"
+                                                    value={this.state.form?.password}
+                                                    defaultValue={this.state.form?.password}
+                                                    onChange={(e) => { this.setField('password', e.currentTarget.value) }}
+                                                    isInvalid={!!this.state.errors.password}
+                                                    required
+                                                    placeholder="Enter Password "
+                                                    maxLength={50}
+                                                    email
+                                                    onBlur={(e) => {
+                                                        this.setField(
+                                                          "password",
+                                                          e.target.value.trim().replace(/\s+/g, " ")
+                                                        );
+                                                      }}
+                                                />
+                                                <Form.Control.Feedback type="invalid">{this.state.errors.password}</Form.Control.Feedback>
+                                            </Form.Group>
                                         </Col>
                                         <Col xl={6} className="mb-3">
                                             <Form.Group className=" " controlId="exampleForm.ControlInput1">
@@ -518,33 +541,7 @@ class InvestorsGrid extends Component {
                                             </Form.Group>
                                         </Col>
 
-                                        <Col xl={6} className="mb-3">
-
-                                            <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                                <Form.Label >Password<span className="text-danger">*</span></Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    name="password"
-                                                    value={this.state.form?.password}
-                                                    defaultValue={this.state.form?.password}
-                                                    onChange={(e) => { this.setField('password', e.currentTarget.value) }}
-                                                    isInvalid={!!this.state.errors.password}
-                                                    required
-                                                    placeholder="Enter Password "
-                                                    maxLength={50}
-                                                    email
-                                                    onBlur={(e) => {
-                                                        this.setField(
-                                                          "password",
-                                                          e.target.value.trim().replace(/\s+/g, " ")
-                                                        );
-                                                      }}
-                                                />
-                                                <Form.Control.Feedback type="invalid">{this.state.errors.password}</Form.Control.Feedback>
-                                            </Form.Group>
-                                        </Col>
-
-
+                                        
                                     </Row>
                                 </Col>
                             </Row>
@@ -553,7 +550,7 @@ class InvestorsGrid extends Component {
                         <Modal.Footer>
                             <div className="text-end btn-width"><Button className="cancel-btn" disabled={this.state.loaderform} onClick={() => { this.handleCancel() }}>Cancel</Button>
                                 <Button className="button-secondary ms-lg-3 ms-2" type="button" onClick={(e) => this.handleCreateInvestors(e)} disabled={this.state.loaderform}>
-                                    <span>{this.state.loaderform && <Spinner size="sm" className="text-light"/>} </span>Save</Button></div>
+                                    <span>{this.state.loaderform && <Spinner size="sm" className={`${this.state.loaderform ? "text-black" : "text-light"}`}/>} </span>Save</Button></div>
                         </Modal.Footer>
                     </Form>
                 </Modal>
