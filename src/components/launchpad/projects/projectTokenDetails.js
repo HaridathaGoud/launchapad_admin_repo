@@ -79,8 +79,6 @@ const ProjectTokenDetails = (props) => {
       })
       getPayments();
     }
-   
-    
   }, []);
 
   const handleChange = (field,value) => {
@@ -109,9 +107,8 @@ const ProjectTokenDetails = (props) => {
     dispatch({type:'scuess',payload:false}) 
     dispatch({type:'tokenBtnLoader',payload:true}) 
     event.preventDefault();
-    if (props?.projectDetails?.projectsViewModel?.projectStatus &&
-      props?.projectDetails?.projectsViewModel?.projectStatus !== "Submitted" &&
-      props?.projectDetails?.projectsViewModel?.projectStatus !== "Draft") {
+    if (props?.isIdeoRequest || projectSaveDetails?.projectStatus == "Deploying" ||
+    projectSaveDetails?.projectStatus == "Deployed") {
       dispatch({type:'projectsPoolsStaking',payload:true}) 
       dispatch({type:'projetTokenData',payload: props?.projectDetails?.projectsViewModel}) 
     } else {
@@ -133,15 +130,12 @@ const ProjectTokenDetails = (props) => {
         obj.privateTokenEquivalentToPaymentType = parseFloat(sanitizedValue);
       }
       if (typeof totalNumberOfTokenValue === 'string') {
-
         let sanitizedValue = totalNumberOfTokenValue.replace(/[^0-9.-]+/g, '');
         if (sanitizedValue.startsWith('.')) {
           sanitizedValue = '0' + sanitizedValue;
         }
         obj.publicTokenEquivalentToPaymentType = parseFloat(sanitizedValue);
       }
-
-
       const formErrors = validateForm(obj);
       if (Object.keys(formErrors)?.length > 0) {
         setErrors(formErrors)
@@ -150,7 +144,6 @@ const ProjectTokenDetails = (props) => {
         dispatch({type:'tokenBtnLoader',payload:false}) 
       } 
       else {
-        
       // }
       // if (form.checkValidity() === true) {        
         let res = await apiCalls.UpdateProjectPayments(obj);
@@ -272,6 +265,7 @@ const ProjectTokenDetails = (props) => {
                   || projectSaveDetails?.projectStatus == "Rejected"
                   || projectSaveDetails?.projectStatus == "Approved"
                   || projectSaveDetails?.projectStatus == "Deploying"
+                  || props?.isIdeoRequest
                 )}
               />
               <Form.Control.Feedback type="invalid">{errors?.privateTokenEquivalentToPaymentType ||
@@ -301,6 +295,7 @@ const ProjectTokenDetails = (props) => {
                   || projectSaveDetails?.projectStatus == "Rejected"
                   || projectSaveDetails?.projectStatus == "Approved"
                   || projectSaveDetails?.projectStatus == "Deploying"
+                  || props?.isIdeoRequest
                 )}
               />
               <Form.Control.Feedback type="invalid">{errors?.publicTokenEquivalentToPaymentType ||
@@ -312,24 +307,15 @@ const ProjectTokenDetails = (props) => {
 
            
 
-<Button className='cancel-btn me-2' onClick={props.onBack}>
-             Back</Button>
+              <Button className='cancel-btn me-2' onClick={props.onBack}>
+                Back</Button>
               {' '}</div>
-          <div>
-            <Button className='button-secondary' type='submit'
-            disabled={state.tokenloader}
-            >
-              <span>{state.tokenBtnLoader && <Spinner size="sm" className='text-light'/>} </span>
-              
-
-{(props?.projectDetails?.projectsViewModel?.projectStatus=="Deployed"
-                        ||props?.projectDetails?.projectsViewModel?.projectStatus=="Rejected"
-                        ||props?.projectDetails?.projectsViewModel?.projectStatus=="Approved"
-                        ||props?.projectDetails?.projectsViewModel?.projectStatus=="Deploying"
-                        )? 
-                        "Next" : "Save & Next"}
-
-            </Button>{' '}
+            <div>
+              <Button className='button-secondary' type='submit'
+                disabled={state.tokenloader}>
+                <span>{state.tokenBtnLoader && <Spinner size="sm" className='text-light' />} </span>
+                {(props?.isIdeoRequest) ? "Next" : "Save & Next"}
+              </Button>{' '}
           </div>
         </div>
 
@@ -337,7 +323,7 @@ const ProjectTokenDetails = (props) => {
       </Form>
     </div>}
      
-     {state.projectsPoolsStaking && <ProjectsTokenClaim closeProject={props.closeProject} goBackToPoolsStaking={goBackToTokenDetails} 
+     {state.projectsPoolsStaking && <ProjectsTokenClaim isIdeoRequest={props?.isIdeoRequest} closeProject={props.closeProject} goBackToPoolsStaking={goBackToTokenDetails} 
      saveTiersDetails={state.saveTiersDetails} stakingDetails={state.stakingDetails} projectId={state.projetTokenData} 
      projectInfo={props?.projectDetails?.projectsViewModel} />}  
      </>)
@@ -349,6 +335,7 @@ ProjectTokenDetails.propTypes = {
   projectDetails: PropTypes.any,
   projectDetailsReducerData :PropTypes.any,
   closeProject :PropTypes.any,
+  isIdeoRequest : PropTypes.any
 }
 
 

@@ -35,8 +35,7 @@ const CastCrewForm = (props) => {
                         <Col xl={4} className="mb-4">
                             <Form.Group>
                                 <div
-                                    className={`${(props.projectSaveDetails?.projectStatus == "Deployed"
-                                        || props.projectSaveDetails?.projectStatus == "Approved") ?
+                                    className={`${props?.isIdeoRequest ?
                                         'upload-img mb-2 position-relative c-notallowed' :
                                         'upload-img mb-2 position-relative '}`}
                                 >
@@ -52,6 +51,7 @@ const CastCrewForm = (props) => {
                                                     type="file"
                                                     ref={props.inputRef3}
                                                     onChange={(e) => props.uploadToClient(e, 'image')}
+                                                    disabled={props.isIdeoRequest}
                                                 />
                                                 <span
                                                     className="icon camera"
@@ -66,8 +66,7 @@ const CastCrewForm = (props) => {
                                     }
                                     {props?.cast_CrewsFormDeatils?.image && !props.castImgLoader &&
                                         <div
-                                            className={`${(props.projectSaveDetails?.projectStatus == "Deployed"
-                                                || props.projectSaveDetails?.projectStatus == "Approved") ?
+                                            className={`${props?.isIdeoRequest ?
                                                 'onhover-upload c-notallowed' :
                                                 'onhover-upload'}`}>
                                             <div className='bring-front'>
@@ -77,6 +76,7 @@ const CastCrewForm = (props) => {
                                                     type="file"
                                                     ref={props.inputRef3}
                                                     onChange={(e) => props.uploadToClient(e, 'image')}
+                                                    disabled={props.isIdeoRequest}
                                                 />
                                                 <span
                                                     className="icon camera"
@@ -104,6 +104,7 @@ const CastCrewForm = (props) => {
                                             required
                                             placeholder="Name"
                                             maxLength={50}
+                                            disabled={props?.isIdeoRequest}
                                         />
                                         <Form.Control.Feedback type="invalid">{props?.errors?.name}</Form.Control.Feedback>
                                     </Form.Group>
@@ -119,6 +120,7 @@ const CastCrewForm = (props) => {
                                             onRemove={props.onRolsSelect}
                                             displayValue="role"
                                             isInvalid={!!props.errors.role}
+                                            disable={props.isIdeoRequest}
                                         />
                                         <Form.Control.Feedback type="invalid" className={`${props.errors?.role ? 'error-role' : ''}`}>{props?.errors?.role} </Form.Control.Feedback>
                                     </Form.Group>
@@ -137,6 +139,7 @@ const CastCrewForm = (props) => {
                                             onBlur={(e) => props.handlecastCrewData('bio', e.target.value.trim().replace(/\s+/g, " "))}
                                             isInvalid={!!props.errors.bio}
                                             maxLength={256}
+                                            disabled={props?.isIdeoRequest}
                                         />
                                         <Form.Control.Feedback type="invalid">{props?.errors?.bio}</Form.Control.Feedback>
                                     </Form.Group>
@@ -154,6 +157,7 @@ const CastCrewForm = (props) => {
                                             isInvalid={!!props.errors.webisite}
                                             placeholder="Website Link"
                                             maxLength={50}
+                                            disabled={props?.isIdeoRequest}
                                         />
                                         <Form.Control.Feedback type="invalid">{props?.errors?.webisite}</Form.Control.Feedback>
                                     </Form.Group>
@@ -171,6 +175,7 @@ const CastCrewForm = (props) => {
                                             isInvalid={!!props.errors.instagram}
                                             placeholder="Instagram Link"
                                             maxLength={50}
+                                            disabled={props?.isIdeoRequest}
                                         />
                                         <Form.Control.Feedback type="invalid">{props?.errors?.instagram}</Form.Control.Feedback>
                                     </Form.Group>
@@ -189,6 +194,7 @@ const CastCrewForm = (props) => {
                                             isInvalid={!!props.errors.facebook}
                                             placeholder="FaceBook Link"
                                             maxLength={50}
+                                            disabled={props?.isIdeoRequest}
                                         />
                                         <Form.Control.Feedback type="invalid">{props.errors?.facebook}</Form.Control.Feedback>
                                     </Form.Group>
@@ -202,13 +208,11 @@ const CastCrewForm = (props) => {
             </Modal.Body>
             <Modal.Footer>
                 <div className="text-end btn-width"><Button className="cancel-btn" onClick={() => { props.handleCancell() }}>Cancel</Button>
-                    {/* {!(props.projectSaveDetails?.projectStatus === "Deployed" ||
-                        props.projectSaveDetails?.projectStatus === "Rejected" ||
-                        props.projectSaveDetails?.projectStatus === "Approved") && ( */}
+                    {!props?.isIdeoRequest && (
                             <Button className="button-secondary ms-lg-3 ms-2" type="submit" onClick={(e) => props.handleCastCrewDataSave(e)}>
                                 <span>{props.castCrewLoader && <Spinner size="sm" className='text-light' />} </span>Save
                             </Button>
-                        {/* )} */}
+                        )}
                 </div>
             </Modal.Footer>
         </Form>
@@ -230,5 +234,6 @@ CastCrewForm.propTypes = {
     uploadToClient : PropTypes.any,
     castImgLoader: PropTypes.any,
     castCrewFormLoader : PropTypes.any,
+    isIdeoRequest : PropTypes.any
   }
 export default CastCrewForm;

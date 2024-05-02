@@ -115,18 +115,13 @@ const ProjectCards = () => {
   };
 
   const getOnePersonDetailsBasedOnId = (val) => {
-    if (isAdmin) {
-      store.dispatch(showSettings(true));
-    }
-    if (window.location.pathname.includes('/investors')) {
+    // if (window.location.pathname.includes('/investors') ) {
       navigate(`/launchpad/investors/projects/${val.id}/projectsDetails`)
       store.dispatch(isProjectCardsId(params?.projectId))
-    } else {
-      navigate(`/launchpad/idorequest/projectDetails/${val.id}`)
-    }
+    // } else {
+    //   navigate(`/launchpad/idorequest/projectDetails/${val.id}`)
+    // }
   }
-
-
 
   const getOwenersProjects = async (pageNum, pageListSize, searchProject) => {
     dispatch({ type: 'errorMgs', payload: null })
@@ -160,7 +155,6 @@ const ProjectCards = () => {
     }
 
   };
-
 
   const fetchMoreData = async (projectRole, pageNum, pageListSize, searchProject) => {
     setLoadMore(true)
@@ -230,7 +224,6 @@ const ProjectCards = () => {
 
   const handleDeployContract = async () => {
     dispatch({ type: 'previewErrorMsg', payload: null })
-    // dispatch({ type: 'btnLoader', payload: true })
     if (isConnected) {
       if (state.detailsPreview?.tokenType == 'ERC-20') {
         deployErc20Contract();
@@ -494,12 +487,12 @@ const ProjectCards = () => {
                 <div className="card-style p-0 home-card position-relative cursor-pointer">
                   <div className='card-content'>
                     <div className='card-image' onClick={() => getOnePersonDetailsBasedOnId(val)}> <span className='card-image-span'><img src={val?.tokenLogo || defaultLogo} alt="" /></span></div>
-                    <div className="px-3 py-3">
-                      <div className=" mt-4" onClick={() => getOnePersonDetailsBasedOnId(val)} >
+                    <div className="px-3">
+                      <div className=" mt-3" onClick={() => getOnePersonDetailsBasedOnId(val)} >
                         <h3 className="project-name">{val?.projectName}</h3>
                         <p className='card-desc'> {val?.description} </p>
                       </div>
-                      <div className='card-footer px-0 d-flex justify-content-between project-card'>
+                      <div className=''>
                         {val?.projectstatus?.toLowerCase() === 'rejected' &&
                          <span className='card-state bg-danger' >
                             Rejected</span>}
@@ -511,19 +504,17 @@ const ProjectCards = () => {
                            <span className='card-state bg-success'>
                             Deploying</span>
                         }
-                        {val?.projectstatus?.toLowerCase() === 'approved' &&
-                          <Button className='button-secondary' onClick={() => getProjectDetails(val.id)} >
-                            Deploy</Button>
-                        }
                         {val?.projectstatus?.toLowerCase() === 'draft' &&
                           <span className='card-state bg-danger' >Draft</span>
                         }
-                        {val?.projectstatus?.toLowerCase() === 'approved' &&
-                         <span className='card-state bg-success' >
-                            Deploy</span>
+                        {isAdmin && val?.projectstatus?.toLowerCase() === 'approved' &&
+                          <span className='card-state bg-warning' >View</span>
                         }
-
                         {val?.projectstatus?.toLowerCase() === 'submitted' && <> <span className='card-state bg-warning'>Submitted</span> </>}
+                        {!isAdmin && val?.projectstatus?.toLowerCase() === 'approved' &&
+                          <Button className='button-secondary w-100 mb-2' onClick={() => getProjectDetails(val.id)} >
+                            Deploy</Button>
+}
                       </div>
                     </div>
                   </div>

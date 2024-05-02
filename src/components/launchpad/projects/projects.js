@@ -135,6 +135,7 @@ const Projects = (props) => {
   const prjctName = selectedProject?.name || userName;
   const projectName = isAdmin?.isAdmin ? prjctName :isAdmin?.firstName;
   const projectownerId = isAdmin?.isAdmin ? userId : isAdmin?.id
+  const isIdeoRequest = window.location.pathname.includes('/launchpad/idorequest');
   const navigate = useNavigate();
   const currentDate = new Date().toISOString().slice(0, 16);
   const [errors, setErrors] = useState({});
@@ -196,7 +197,6 @@ const Projects = (props) => {
     }
   };
 
- 
   const handleCancell = () => {
     setShow(false)
     dispatch({ type: "cast_CrewsFormDeatils", payload: {} });
@@ -230,11 +230,10 @@ const Projects = (props) => {
     event.preventDefault();
     dispatch({ type: 'errorMgs', payload: null })
     event.preventDefault();
-    // if (state.projectSaveDetails?.projectStatus &&
-    //   state.projectSaveDetails?.projectStatus !== "Submitted" && state.projectSaveDetails?.projectStatus !== "Draft") {
-    //   dispatch({ type: 'projectTokenShow', payload: true })
-    //   store.dispatch(projectDetailsSave(state.projectSaveDetails));
-    // } else {
+    if (isIdeoRequest) {
+      dispatch({ type: 'projectTokenShow', payload: true })
+      store.dispatch(projectDetailsSave(state.projectSaveDetails));
+    } else {
       dispatch({ type: 'buttonLoader', payload: true })
       let obj = {
         "id": projectSaveDetails?.id != null ? projectSaveDetails.id : (pId ?? "00000000-0000-0000-0000-000000000000"),
@@ -262,7 +261,7 @@ const Projects = (props) => {
         "category": "string",
         "tokenType": selectedTokeType || null,
         "nftImagesCount": state.projectSaveDetails?.nftImagesCount || null,
-        "projectStatus " : state.projectSaveDetails?.projectStatus,
+        "projectStatus" : state.projectSaveDetails?.projectStatus,
       }
       dispatch({ type: 'projectSaveDetails', payload: obj })
       if (window.location.pathname.includes('/launchpad/idorequest')) {
@@ -347,8 +346,7 @@ const Projects = (props) => {
           }
         }
       }
-    
-  //  }
+   }
     dispatch({ type: 'validated', payload: true })
     dispatch({ type: 'buttonLoader', payload: false })
     window.scroll(0, 0);
@@ -649,11 +647,9 @@ return (<>
                 <Col lg={3} md={12}>
                   <Form.Label className="input-label upload-file">Upload Image<span className="text-danger">*</span></Form.Label>
                   <div
-                    className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
-                      || state.projectSaveDetails?.projectStatus == "Approved") ?
+                    className={`${isIdeoRequest ?
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
-                  // onClick={() => inputRef.current?.click()}
                   >
                     {state.loading && <Spinner fallback={state.loading} className='position-absolute'></Spinner>}
                     {state.projectLogoImages && !state.loading && <span className='imgupload-span'>
@@ -668,6 +664,7 @@ return (<>
                             ref={inputRef}
                             isInvalid={!!state.errors.tokenLogo}
                             onChange={(e) => uploadToClient(e, 'LOGO')}
+                            disabled={isIdeoRequest}
                           />
                           <span
                             className="icon camera"
@@ -685,8 +682,7 @@ return (<>
                     {state.projectLogoImages && !state.loading &&
                       <div
 
-                        className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
-                          || state.projectSaveDetails?.projectStatus == "Approved") ?
+                        className={`${isIdeoRequest ?
                           'onhover-upload c-notallowed' :
                           'onhover-upload'}`}>
                         <div className='bring-front'>
@@ -697,6 +693,7 @@ return (<>
                             ref={inputRef}
                             isInvalid={!!state.errors.tokenLogo}
                             onChange={(e) => uploadToClient(e, 'LOGO')}
+                            disabled={isIdeoRequest}
                           />
                           <span
                             className="icon camera"
@@ -712,8 +709,7 @@ return (<>
                 <Col lg={9} md={12}>
                   <Form.Label className="input-label upload-file">Upload Banner Image<span className="text-danger">*</span></Form.Label>
                   <div
-                    className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
-                      || state.projectSaveDetails?.projectStatus == "Approved") ?
+                    className={`${isIdeoRequest ?
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
                     role="button"
@@ -731,6 +727,7 @@ return (<>
                             ref={inputRef1}
                             isInvalid={!!state.errors.bannerImage}
                             onChange={(e) => uploadToClient(e, 'banner')}
+                            disabled={isIdeoRequest}
                           />
                           <span
                             className="icon camera"
@@ -746,8 +743,7 @@ return (<>
                     }
                     {state.projectBannerImages && !state.bannerImgLoader &&
                       <div
-                        className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
-                          || state.projectSaveDetails?.projectStatus == "Approved") ?
+                        className={`${isIdeoRequest ?
                           'onhover-upload c-notallowed' :
                           'onhover-upload'}`}>
                         <div className='bring-front'>
@@ -758,6 +754,7 @@ return (<>
                             ref={inputRef1}
                             isInvalid={!!state.errors.bannerImage}
                             onChange={(e) => uploadToClient(e, 'banner')}
+                            disabled={isIdeoRequest}
                           />
                           <span
                             className="icon camera"
@@ -788,7 +785,7 @@ return (<>
                     required
                     maxLength={100}
                     isInvalid={!!errors?.projectName}
-
+                    disabled={isIdeoRequest}
                   />
                   <Form.Control.Feedback type="invalid">{errors?.projectName || state?.errors?.projectName}</Form.Control.Feedback>
 
@@ -806,6 +803,7 @@ return (<>
                     onSelect={onSelect}
                     onRemove={onSelect}
                     displayValue="name"
+                    disable={isIdeoRequest}
                   />
                   {errors?.countryRestrictions == "Is required" && (
                     <p style={{ color: "#e55353", fontSize: 14 }}>Is required</p>
@@ -820,6 +818,7 @@ return (<>
                         || state.projectSaveDetails?.projectStatus == "Rejected"
                         || state.projectSaveDetails?.projectStatus == "Approved"
                         || state.projectSaveDetails?.projectStatus == "Deploying"
+                        || isIdeoRequest
                       )}
                     >
                       <span className="icon md matic-icon" /> Matic
@@ -848,6 +847,7 @@ return (<>
                         || state.projectSaveDetails?.projectStatus == "Rejected"
                         || state.projectSaveDetails?.projectStatus == "Approved"
                         || state.projectSaveDetails?.projectStatus == "Deploying"
+                        || isIdeoRequest
                       )}
                     />
                     <Form.Control.Feedback type="invalid">{errors?.tokenListingDate || state?.errors?.tokenListingDate}</Form.Control.Feedback>
@@ -872,6 +872,7 @@ return (<>
                     maxLength={1000}
                     isInvalid={errors?.description}
                     required
+                    disabled={isIdeoRequest}
                   />
                   <Form.Control.Feedback type="invalid">{errors?.description || state?.errors?.description}</Form.Control.Feedback>
 
@@ -901,6 +902,7 @@ return (<>
                         'removeformat | help',
                       content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; color:#000;background:#fff;  }'
                     }}
+                    disabled={isIdeoRequest}
                   />
                 </div>
               </Row>
@@ -913,6 +915,7 @@ return (<>
                   || state.projectSaveDetails?.projectStatus == "Rejected"
                   || state.projectSaveDetails?.projectStatus == "Approved"
                   || state.projectSaveDetails?.projectStatus == "Deploying"
+                  || isIdeoRequest
                 )}
               > {selectedTokeType}
               </Dropdown.Toggle>
@@ -944,7 +947,7 @@ return (<>
                   <Form.Label className="input-label upload-file">Upload Token Image<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
-                      || state.projectSaveDetails?.projectStatus == "Approved") ?
+                      || isIdeoRequest) ?
                       'upload-img token-upload mb-2 c-notallowed' :
                       'upload-img token-upload mb-2'}`}
                   >
@@ -963,6 +966,7 @@ return (<>
                             ref={inputRef2}
                             onChange={(e) => uploadToClient(e, 'CARD')}
                             isInvalid={!!state.errors.cardImage}
+                            disabled={isIdeoRequest}
                           />
                           <span
                             className="icon camera"
@@ -978,8 +982,7 @@ return (<>
                     }
                     {state.projectCardImages && !state.cardImgLoader &&
                       <div
-                        className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
-                          || state.projectSaveDetails?.projectStatus == "Approved") ?
+                        className={`${isIdeoRequest ?
                           'onhover-upload c-notallowed' :
                           'onhover-upload'}`}>
                         <div className='bring-front'>
@@ -994,6 +997,7 @@ return (<>
                               || state.projectSaveDetails?.projectStatus == "Rejected"
                               || state.projectSaveDetails?.projectStatus == "Approved"
                               || state.projectSaveDetails?.projectStatus == "Deploying"
+                              || isIdeoRequest
                             )}
                           />
                           <span
@@ -1031,6 +1035,7 @@ return (<>
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
+                          || isIdeoRequest
                         )}
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenContractAddress || state?.errors?.tokenContractAddress}</Form.Control.Feedback>
@@ -1057,6 +1062,7 @@ return (<>
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
+                          || isIdeoRequest
                         )}
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenName || state?.errors?.tokenName}</Form.Control.Feedback>
@@ -1082,6 +1088,7 @@ return (<>
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
+                          || isIdeoRequest
                         )}
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenSymbol || state?.errors?.tokenSymbol}</Form.Control.Feedback>
@@ -1110,6 +1117,7 @@ return (<>
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
+                          || isIdeoRequest
                         )}
                       />
                       <Form.Control.Feedback type="invalid">{errors?.tokenDecimal || state?.errors?.tokenDecimal}</Form.Control.Feedback>
@@ -1139,6 +1147,7 @@ return (<>
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
+                          || isIdeoRequest
                         )}
                       />
 
@@ -1169,6 +1178,7 @@ return (<>
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
+                          || isIdeoRequest
                         )}
                       />
 
@@ -1184,7 +1194,7 @@ return (<>
               <Form.Label className="input-label upload-file">Upload NFT Image<span className="text-danger">*</span></Form.Label>
               <div
                 className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
-                  || state.projectSaveDetails?.projectStatus == "Approved") ?
+                  || isIdeoRequest) ?
                   'upload-img token-upload mb-2 c-notallowed' :
                   'upload-img token-upload mb-2'}`}
               >
@@ -1203,6 +1213,7 @@ return (<>
                         ref={inputRef2}
                         onChange={(e) => uploadToClient(e, 'CARD')}
                         isInvalid={!!state.errors.cardImage}
+                        disabled={isIdeoRequest}
                       />
                       <span
                         className="icon camera"
@@ -1234,6 +1245,7 @@ return (<>
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
+                          || isIdeoRequest
                         )}
                       />
                       <span
@@ -1274,6 +1286,7 @@ return (<>
                       || state.projectSaveDetails?.projectStatus == "Rejected"
                       || state.projectSaveDetails?.projectStatus == "Approved"
                       || state.projectSaveDetails?.projectStatus == "Deploying"
+                      || isIdeoRequest
                     )}
                   />
                   <Form.Control.Feedback type="invalid">{errors?.nftImagesCount || state?.errors?.nftImagesCount}</Form.Control.Feedback>
@@ -1287,7 +1300,7 @@ return (<>
                 <div className='d-flex justify-content-between  align-items-center mb-2'>
                   <h3 className='section-title '>Cast And Crew <span className="text-danger">*</span></h3>
                   <Button className='button-style mt-3 mt-md-0' onClick={() => handleEdit(null)}
-                  ><span className='icon add-icon'></span> Add </Button>
+                  disabled={isIdeoRequest}><span className='icon add-icon'></span> Add </Button>
                 </div>
                 <Row className='mb-4 mt-4'>
                   <CastcrewCards castCrewDataList={state?.castCrewDataList} handleEdit={handleEdit}/>
@@ -1300,12 +1313,7 @@ return (<>
 
                 >
                   <span>{state.buttonLoader && <Spinner size="sm" className='text-light' />} </span>
-                  {/* {(state.projectSaveDetails?.projectStatus == "Deployed"
-                    || state.projectSaveDetails?.projectStatus == "Rejected"
-                    || state.projectSaveDetails?.projectStatus == "Approved"
-                    || state.projectSaveDetails?.projectStatus == "Deploying"
-                  ) ?"Next" : "Save & Next"} */}
-                  Save & Next
+                  {isIdeoRequest ?"Next" : "Save & Next"}
                 </Button>{' '}
               </div>
             </>}
@@ -1328,12 +1336,13 @@ return (<>
               onRolsSelect={onRolsSelect}
               castCrewLoader={castCrewLoader}
               inputRef3={inputRef3}
-              castImgLoader={state.castImgLoader}/>
+              castImgLoader={state.castImgLoader}
+              isIdeoRequest={isIdeoRequest}/>
             </Modal>
           </Form>
         </>
       }
-      {state?.projectTokenShow && <ProjectTokenDetails onBack={onBack} closeProject={props.closeProject} projectData={state.projectData} projectDetails={state.projectDetails} />}
+      {state?.projectTokenShow && <ProjectTokenDetails isIdeoRequest={isIdeoRequest} onBack={onBack} closeProject={props.closeProject} projectData={state.projectData} projectDetails={state.projectDetails} />}
     </>}
   </>)
 }

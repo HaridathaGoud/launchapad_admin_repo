@@ -125,11 +125,8 @@ const ProjectsTokenClaim = (props) => {
     dispatch({ type: 'errorMsg', payload: null })
     dispatch({ type: 'claimBtnLoader', payload: true })
     dispatch({ type: 'scuess', payload: false })
-    if (
-      props?.projectInfo?.projectStatus == "Deployed" ||
-      props?.projectInfo?.projectStatus == "Rejected" ||
-      props?.projectInfo?.projectStatus == "Approved"
-    ) {
+    if (props?.isIdeoRequest|| props?.projectInfo?.projectStatus == "Deploying" ||
+        props?.projectInfo?.projectStatus == "Deployed") {
       if(isAdmin.isInvestor){
          return  navigate(`/launchpad/projects/${isAdmin.id}`);
       }
@@ -283,10 +280,11 @@ const ProjectsTokenClaim = (props) => {
                     onBlur={(e) => handleChange('privateTokenEquivalentToPaymentType', e.target.value.trim().replace(/\s+/g, " "))}
                     required
                     isInvalid={!!formErrors?.noofSlots}
-                    disabled={(projectSaveDetails?.projectStatus == "Deployed"
-                      || projectSaveDetails?.projectStatus == "Rejected"
-                      || projectSaveDetails?.projectStatus == "Approved"
-                      || projectSaveDetails?.projectStatus == "Deploying"
+                    disabled={(props?.projectInfo?.projectStatus == "Deployed"
+                      || props?.projectInfo?.projectStatus == "Rejected"
+                      || props?.projectInfo?.projectStatus == "Approved"
+                      || props?.projectInfo?.projectStatus == "Deploying"
+                      || props?.isIdeoRequest
                     )}
                   />
                   <Form.Control.Feedback type="invalid">{formErrors?.noofSlots || state.errors.noofSlots}</Form.Control.Feedback>
@@ -311,10 +309,11 @@ const ProjectsTokenClaim = (props) => {
                     onBlur={(e) => handleChange('vestingDays', e.target.value.trim().replace(/\s+/g, " "))}
                     required
                     isInvalid={!!formErrors?.vestingDays}
-                    disabled={(projectSaveDetails?.projectStatus == "Deployed"
-                      || projectSaveDetails?.projectStatus == "Rejected"
-                      || projectSaveDetails?.projectStatus == "Approved"
-                      || projectSaveDetails?.projectStatus == "Deploying"
+                    disabled={(props?.projectInfo?.projectStatus == "Deployed"
+                      || props?.projectInfo?.projectStatus == "Rejected"
+                      || props?.projectInfo?.projectStatus == "Approved"
+                      || props?.projectInfo?.projectStatus == "Deploying"
+                      || props?.isIdeoRequest
                     )}
                   />
                   <Form.Control.Feedback type="invalid">{formErrors.vestingDays || state.errors.vestingDays}</Form.Control.Feedback>
@@ -326,8 +325,6 @@ const ProjectsTokenClaim = (props) => {
             <h6 className='section-title mb-2 mt-4'>Allocation time</h6>
             <Row>
               <Col lg={6} md={12}>
-
-
                 <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
                   <Form.Label className=''>Round One Start Time<span className="text-danger">*</span></Form.Label>
                   <Form.Control type="datetime-local" placeholder='Round One Start Time'
@@ -339,20 +336,17 @@ const ProjectsTokenClaim = (props) => {
                     max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                     isInvalid={!!formErrors.privateStartDate}
                     disabled={
-                      (props?.projectInfo?.projectStatus == "Deployed" ||
-                        props?.projectInfo?.projectStatus == "Rejected" ||
+                      (props?.projectInfo?.projectStatus == "Deployed"   ||
+                        props?.projectInfo?.projectStatus == "Rejected"  ||
                         props?.projectInfo?.projectStatus == "Deploying" ||
-                        props?.projectInfo?.projectStatus == "Approved") }
+                        props?.projectInfo?.projectStatus == "Approved"  ||
+                        props?.isIdeoRequest
+                      ) }
                   />
                   <Form.Control.Feedback type="invalid">{formErrors.privateStartDate || state.errors.privateStartDate}</Form.Control.Feedback>
                 </Form.Group>
-
-
               </Col>
               <Col lg={6} md={12}>
-
-
-
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label className=''>Round One End Time<span className="text-danger">*</span></Form.Label>
                   <Form.Control type="datetime-local" placeholder='Round One End Time'
@@ -367,17 +361,15 @@ const ProjectsTokenClaim = (props) => {
                       (props?.projectInfo?.projectStatus == "Deployed" ||
                         props?.projectInfo?.projectStatus == "Rejected" ||
                         props?.projectInfo?.projectStatus == "Deploying" ||
-                        props?.projectInfo?.projectStatus == "Approved") }
+                        props?.projectInfo?.projectStatus == "Approved"  ||
+                        props?.isIdeoRequest
+                      ) }
                   />
                   <Form.Control.Feedback type="invalid">{formErrors.privateEndDate || state.errors.privateEndDate}</Form.Control.Feedback>
                 </Form.Group>
-
               </Col>
 
-
               <Col lg={6} md={12}>
-
-
                 <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
                   <Form.Label className=''>Round Two Start Time<span className="text-danger">*</span></Form.Label>
                   <Form.Control type="datetime-local" placeholder='Round Two Start Time'
@@ -392,20 +384,14 @@ const ProjectsTokenClaim = (props) => {
                       (props?.projectInfo?.projectStatus == "Deployed" ||
                         props?.projectInfo?.projectStatus == "Rejected" ||
                         props?.projectInfo?.projectStatus == "Deploying" ||
-                        props?.projectInfo?.projectStatus == "Approved") }
+                        props?.projectInfo?.projectStatus == "Approved"  ||
+                        props?.isIdeoRequest) }
                   />
                   <Form.Control.Feedback type="invalid">{formErrors.publicStartDate || state.errors.publicStartDate}</Form.Control.Feedback>
                 </Form.Group>
-
-
-
-
               </Col>
 
-
               <Col lg={6} md={12}>
-
-
                 <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
                   <Form.Label className=''>Round Two End Time<span className="text-danger">*</span></Form.Label>
                   <Form.Control type="datetime-local" placeholder='Round Two End Time'
@@ -420,12 +406,11 @@ const ProjectsTokenClaim = (props) => {
                       (props?.projectInfo?.projectStatus == "Deployed" ||
                         props?.projectInfo?.projectStatus == "Rejected" ||
                         props?.projectInfo?.projectStatus == "Deploying" ||
-                        props?.projectInfo?.projectStatus == "Approved") }
+                        props?.projectInfo?.projectStatus == "Approved"  ||
+                        props?.isIdeoRequest) }
                   />
                   <Form.Control.Feedback type="invalid">{formErrors.publicEndDate || state.errors.publicEndDate}</Form.Control.Feedback>
                 </Form.Group>
-
-
 
               </Col>
             </Row>
@@ -439,11 +424,11 @@ const ProjectsTokenClaim = (props) => {
                 <Button className='button-secondary' type='submit'
                
                 ><span>{state.claimBtnLoader && <Spinner size="sm" className='text-light'/>} </span>
-                  {/* {(props?.projectInfo?.projectStatus == "Deployed" ||
+                  {(props?.projectInfo?.projectStatus == "Deployed" ||
                       props?.projectInfo?.projectStatus == "Rejected" ||
                       props?.projectInfo?.projectStatus == "Deploying" ||
-                      props?.projectInfo?.projectStatus == "Approved") ? "Close" : "Save & Next"} */}
-                      {"Save & Next"}
+                      props?.projectInfo?.projectStatus == "Approved" ||
+                      props?.isIdeoRequest) ? "Close" : "Save & Next"}
                 </Button>{' '}
               </div>
             </div>
@@ -461,6 +446,7 @@ ProjectsTokenClaim.propTypes = {
   closeProject: PropTypes.any,
   goBackToPoolsStaking: PropTypes.any,
   projectId: PropTypes.any,
-  projectInfo: PropTypes.any
+  projectInfo: PropTypes.any,
+  isIdeoRequest : PropTypes.any
 }
 export default ProjectsTokenClaim;

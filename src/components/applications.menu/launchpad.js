@@ -95,25 +95,6 @@ function LaunchPadMenu(props){
                         </CNavLink>
                     </OverlayTrigger>
                 </CNavItem>}
-                {isAdmin?.isAdmin && viewedProject?.projectStatus=="Deployed" && pId &&
-                   <> {locationSplit[1] =="launchpad" && 
-                    <OverlayTrigger
-                   placement="right"
-                   trigger="focus"
-                   overlay={popover}
-                   >
-                    <div> <CNavItem className={locationSplit.includes("settings") ? "active" : ""}>
-                   <OverlayTrigger
-                       placement="right"
-                       overlay={renderTooltipSettings}
-                       >
-                 <Button variant="" className='setting-space'><span className="icon nav-settings ms-1" /></Button>
-                   </OverlayTrigger>
-               </CNavItem> </div>
-                </OverlayTrigger>
-                }
-                </>
-             }
                {locationSplit[1] =="launchpad" && 
                 <CNavItem className={locationSplit[2] == "customers" ? "active" : ""}>
                     <OverlayTrigger
@@ -151,25 +132,44 @@ function LaunchPadMenu(props){
             </React.Fragment>
         )
     } else {
-     return   (
-        <React.Fragment>
-            {locationSplit[1] =="launchpad" &&<CNavItem className={locationSplit[2] == "dashboard" ? "active" : ""}>
-            <OverlayTrigger
+        return (
+            <React.Fragment>
+                {locationSplit[1] == "launchpad" && <CNavItem className={locationSplit[2] == "dashboard" ? "active" : ""}>
+                    <OverlayTrigger
                         placement="right"
                         overlay={renderTooltipDashboard} >
-                        <CNavLink onClick={() => handleMenuNavigate('launchpad/dashboard',false,app_name)}><span className="icon menu" />
+                        <CNavLink onClick={() => handleMenuNavigate('launchpad/dashboard', false, app_name)}><span className="icon menu" />
                         </CNavLink>
                     </OverlayTrigger>
-                    </CNavItem>}
-                    {locationSplit[1] =="launchpad" &&<CNavItem className={locationSplit[2] == "projects" ? "active" : ""}>
-            <OverlayTrigger
-                placement="right"
-                overlay={renderTooltipProjects} >
-                <CNavLink onClick={() => handleMenuNavigate(`launchpad/projects/${isAdmin.id}`,false,app_name)}><span className="icon ido-request me-0" /></CNavLink>
-            </OverlayTrigger>
-            </CNavItem>}
+                </CNavItem>}
+                {locationSplit[1] == "launchpad" && <CNavItem className={locationSplit[2] == "projects" ? "active" : ""}>
+                    <OverlayTrigger
+                        placement="right"
+                        overlay={renderTooltipProjects} >
+                        <CNavLink onClick={() => handleMenuNavigate(`launchpad/projects/${isAdmin.id}`, false, app_name)}><span className="icon ido-request me-0" /></CNavLink>
+                    </OverlayTrigger>
+                </CNavItem>}
+                {viewedProject?.projectStatus == "Deployed" && pId &&
+                    <> {locationSplit[1] == "launchpad" &&
+                        <OverlayTrigger
+                            placement="right"
+                            trigger="focus"
+                            overlay={popover}
+                        >
+                            <div> <CNavItem className={locationSplit.includes("settings") ? "active" : ""}>
+                                <OverlayTrigger
+                                    placement="right"
+                                    overlay={renderTooltipSettings}
+                                >
+                                    <Button variant="" className='setting-space'><span className="icon nav-settings ms-1" /></Button>
+                                </OverlayTrigger>
+                            </CNavItem> </div>
+                        </OverlayTrigger>
+                    }
+                    </>
+                }
             </React.Fragment>
-       )
+        )
     }
 }
 export default LaunchPadMenu;
