@@ -11,11 +11,15 @@ import Alert from 'react-bootstrap/Alert';
 import ToasterMessage from 'src/utils/toasterMessages';
 import { showSettings } from 'src/reducers/authReducer';
 import store from 'src/store/index';
+import { useAccount } from 'wagmi'
+import { useConnectWallet } from 'src/hooks/useConnectWallet';
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
 
 const AllocationRoundTwo = () => {
   const navigate = useNavigate();
   const params = useParams();
+  const { isConnected } = useAccount()
+  const { connectWallet } = useConnectWallet();
   const projectContractDetails = useSelector((store) => store.launchpad.projectDetails?.data?.projectsViewModel)
   const projectItem= useSelector(reducerstate =>  reducerstate.projectDetails?.project)
   const userId = sessionStorage.getItem('userId');
@@ -40,14 +44,13 @@ const AllocationRoundTwo = () => {
       }
     }
   }
-
   const updateData = async () => {
     setErrorMgs(null);
     try {
       setSuccess(null);
       setBtnLoader(true)
       setTxHash(null)
-      const projectAddress = await apiCalls.getAllocation(params?.projectId)
+      const projectAddress = await apiCalls.getAllocation(params?.pId)
       if (projectAddress.ok) {
         const provider = new ethers.providers.Web3Provider(window?.ethereum)
         const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());

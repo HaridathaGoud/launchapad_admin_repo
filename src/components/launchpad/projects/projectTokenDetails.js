@@ -111,6 +111,7 @@ const ProjectTokenDetails = (props) => {
     projectSaveDetails?.projectStatus == "Deployed") {
       dispatch({type:'projectsPoolsStaking',payload:true}) 
       dispatch({type:'projetTokenData',payload: props?.projectDetails?.projectsViewModel}) 
+      dispatch({type:'tokenBtnLoader',payload:false}) 
     } else {
       let obj = {
         "id": props?.projectData?.id,
