@@ -274,6 +274,7 @@ class IdoRequestGrid extends Component {
             show: false,
             selection: [],
             SelectData: {},
+            form:{},
         })
     }
     idoStateChange = async () => {
@@ -299,6 +300,7 @@ class IdoRequestGrid extends Component {
                 successMessage: `Project ${this.state.selection} successfully`,
                 selection: [],
                 SelectData: {},
+                form:{},
             })
             setTimeout(() => {
                 this.setState({ success: false });
@@ -409,7 +411,7 @@ class IdoRequestGrid extends Component {
                                         className={`${this.state.SelectData?.status != "Rejected" && "c-pointer"}`}
                                         aria-label="Floating label select example"
                                         value={this.state.form?.status ? this.state.form?.status : this.state.SelectData?.status}
-                                        defaultValue={this.state.form?.status ? this.state.form?.status : this.state.SelectData?.status}
+                                        // defaultValue={this.state.form?.status ? this.state.form?.status : this.state.SelectData?.status}
                                         maxLength={20}
                                         // disabled={this.state.SelectData?.status == "Rejected"}
                                         isInvalid={!!this.state.errors.country}
