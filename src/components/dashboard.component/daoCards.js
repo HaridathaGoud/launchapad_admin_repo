@@ -71,20 +71,22 @@ const Dashboard = (props) => {
         router(`/dao/proposal/${item?.daoId}`);
     }
     const handleDeployDao = async (item) => {
-        setSelectedDaoId(null)
         setErrorMsg(null);
         if (isConnected) {
             deployDAO(item);
+            setSelectedDaoId(item?.daoId)
         }
         else {
           try {
             await connectWallet();
             deployDAO(item);
+            setSelectedDaoId(item?.daoId)
             setErrorMsg(null);
           } catch (error) {
             setSelectedDaoId(null)
             setErrorMsg(apiCalls.isErrorDispaly(error));
             setDeployContractLoader(false);
+            setDeployingCardId(null);
           }
     
         }
@@ -92,11 +94,10 @@ const Dashboard = (props) => {
 
     const deployDAO = async (daoDetails) => {
         setDeployContractLoader(true)
-        setSelectedDaoId(daoDetails?.daoId);
         try {
             const _provider = new ethers.providers.Web3Provider(window?.ethereum);
             const _contract = new ethers.Contract(votingFactory?.contractAddress, votingFactory.abi, _provider?.getSigner());
-            const contractRes = await _contract.deployVotingContract(daoDetails.projectToken, 1, 2);
+            const contractRes = await _contract.deployVotingContract(daoDetails.contractAddress, 1, 2);
             contractRes.wait().then(async (receipt) => {
                 const address = receipt.logs[0].address;
                 const updateProject = {
@@ -163,18 +164,22 @@ const Dashboard = (props) => {
                                         {/* <Card.Text className='card-description d-flex mb-1'>
                                             <p className='m-0 col-3'>members :</p> <p className='m-0 '>{item?.members?.toLocaleString()}</p>
                                         </Card.Text>  */}
-                                        {item?.projectstatus?.toLowerCase() === 'deploying' &&
+                                        {item?.status?.toLowerCase() === 'deploying' &&
                                             <span className='card-state bg-success'>
                                             Deploying</span>
                                         }
                                         {item?.status?.toLowerCase() == "deployed" &&
                                             <span className='card-state bg-success' >Deployed</span>
                                         }
-                                        {!isAdmin?.isInvestor && ( item?.projectstatus?.toLowerCase() === 'approved') &&
-                                            <span className='card-state bg-warning' >View</span>
+                                        {!isAdmin?.isInvestor && ( item?.status?.toLowerCase() === 'approved') &&
+                                            <span className='card-state bg-warning' >Approved</span>
                                         }
-                                     { isAdmin?.isInvestor && ( item?.status?.toLowerCase() == "approved" ) && 
-                                     <Button className='button-secondary w-100 mt-2' onClick={() => handleDeployDao(item)}>Deploy</Button>}
+                                        {isAdmin?.isInvestor && (item?.status?.toLowerCase() == "approved") &&
+                                            <Button className='button-secondary w-100 mt-2'
+                                             onClick={() => handleDeployDao(item)}
+                                             disabled={selectedDaoId === item.daoId}>
+                                            <span>{selectedDaoId === item.daoId  && <Spinner className={`loaderStyle  ${deployContractLoader ? 'text-black' : 'text-light'}`}></Spinner>}</span>
+                                            <span>Deploy </span></Button>}
                                     </Card.Body>
                                 </Card>}
                             </Col>
