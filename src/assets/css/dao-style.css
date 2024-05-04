@@ -27,14 +27,14 @@ input {
 .dashboard-card{
   background: #FFF;
 box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
-  min-height:348px;background-color: transparent !important; transition: transform 0.5s ease;}
+  min-height:348px;background-color: transparent !important; transition: transform 0.5s ease;border-radius: 10px;}
 .dashboard-card:hover{transform: translateY(8px);}
 .card-description{ white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;}
   .dashboard-card img{object-fit: cover;height: 300px;
     /* border:1px solid #0068FF !important; */
-    max-width: 100%;}
+    max-width: 100%;border-top-left-radius: 10px;border-top-right-radius: 10px;}
   .dao-mt{margin-top: 32px;}
   .firstpraposal-card{width: 790px;height: 458px;background: #F5f5f5;border-radius: 10px;display: flex;justify-content: center;text-align: center;padding:50px;}
   .pra-description{color:#000;font-size:14px;font-weight: 400;}

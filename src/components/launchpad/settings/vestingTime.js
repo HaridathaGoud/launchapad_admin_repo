@@ -26,7 +26,7 @@ const VestingTime = () => {
       </CBreadcrumbItem>
       <CBreadcrumbItem active>Set Vesting Time</CBreadcrumbItem>
     </CBreadcrumb>
-    <SettingsComponent title="Settings" label="Set Vesting Time" placeholder="Set Vesting Time" funcName="setVestingTime"></SettingsComponent>
+    <SettingsComponent title="Settings" label="Set Vesting Time(hour)" placeholder="Set Vesting Time" funcName="setVestingTime"></SettingsComponent>
 
   </div>
   )

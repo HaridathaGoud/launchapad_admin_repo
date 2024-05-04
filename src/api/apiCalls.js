@@ -305,6 +305,10 @@ const updateVotingContractAddress=(obj)=> {
 const tokenCollectionLu = () => {
   return projectApii.get(ApiControllers.projects + `tokencollectionlu`)
 }
+const getAllTiers = () =>{
+  return launchpadApi.get(ApiControllers.projects + `alltiers`)
+}
+
 let apiCalls = {idoRequestStateChange,createInvestors,getAdminDashboarDataK,
   getLaunchPadProjectData,getTokenInfo,getClames,getAllocation,getAllocationDetails,
 totalBonus,updateRefferal,getProposalView,postCreateProposal,getProposalList,getStatusLu,getDaoDetails,getContractDetails,daoContractAddress,
@@ -315,6 +319,6 @@ totalBonus,updateRefferal,getProposalView,postCreateProposal,getProposalList,get
   updateContractAddressStatus, adminOrSuperAdminDetails, getlaunchpadProjects, getLaunchpadProjectDetails, getProjectFeed,getUserProfile,
   apiUploadPost,metaDataDetails,memberTypes,memberPrice,updateTransaction,
   getPeriodType,getWhiteListeddata,saveWhitelist,getPeriodsData,memberTypes,customerWalletAddressChecking,getProposalVoters,uploadErrorDisplay,
-  getCastCrewRolesLu,getInvestorDaoDetails,updateVotingContractAddress,tokenCollectionLu}
+  getCastCrewRolesLu,getInvestorDaoDetails,updateVotingContractAddress,tokenCollectionLu,getAllTiers}
 
 export default apiCalls

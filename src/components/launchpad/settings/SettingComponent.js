@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect,useReducer } from 'react';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -17,41 +17,40 @@ import ToasterMessage from "src/utils/toasterMessages";
 import { NumericFormat } from 'react-number-format';
 import { useAccount } from 'wagmi'
 import { useConnectWallet } from 'src/hooks/useConnectWallet';
+import { fetchTiersData,initialState } from './settingsReducer';
+import settingsReducer from './settingsReducer';
 const SettingsComponent = (props) => {
   const { isConnected } = useAccount()
   const { connectWallet } = useConnectWallet();
-  const [errorMgs, setErrorMgs] = useState(null);
+  const [state, dispatch] = useReducer(settingsReducer, initialState);
   const projectContractDetails = useSelector((reducerstore) => reducerstore.launchpad.projectDetails?.data?.projectsViewModel)
-  const [settingValue, setSettingValue] = useState(null);
-  const [btnLoader, setBtnLoader] = useState(false)
-  const [validated, setValidated] = useState(false);
-  const [isTransactionSuccess, setIsTransactionSuccess] = useState(false);
-  const [success, setSuccess] = useState(null);
   const currentDate = new Date().toISOString().slice(0, 16);
   const settingLoader = useSelector(state => state.oidc?.isSettingsLoading)
   const projectDetails = useSelector((reducerstate) => reducerstate?.projectDetails?.details)
-
+  const tiersData = useSelector((state)=> state.settings?.allTiersData)
+  // useEffect(()=>{
+  //     props.fetchAllTiersData()
+  // },[])
   const getWalletAddress = async () => {
     if (isConnected) {
       updateData()
     }
     else {
       try {
-        setBtnLoader(true)
+        dispatch({ type: "setBtnLoader", payload: true });
         await connectWallet();
         updateData()
       } catch (error) {
-        setErrorMgs(error?.reason)
-        setBtnLoader(false)
+        dispatch({ type: "setErrorMgs", payload: error?.reason });
+        dispatch({ type: "setBtnLoader", payload: false });
       }
     }
   }
-
   const handleChange = (event) => {
-    setValidated(false);
-    setErrorMgs(null);
+    dispatch({ type: "setValidated", payload: false });
+    dispatch({ type: "setErrorMgs", payload: null });
     let _data = event.target.value;
-    setSettingValue(_data)
+    dispatch({ type: "setSettingValue", payload: _data });
   }
 
   const convertdateToMinutes = (date) => {
@@ -69,95 +68,92 @@ const convertUtcToLocal = (date) => {
 }
 
   const updateData = async () => {
-    setSuccess(null);
-    setErrorMgs(null);
-    setIsTransactionSuccess(false);
-    setBtnLoader(true)
+    dispatch({ type: "setSuccess", payload: null });
+    dispatch({ type: "setErrorMgs", payload: null });
+    dispatch({ type: "setIsTransactionSuccess", payload: false });
+    dispatch({ type: "setBtnLoader", payload: true });
+
     const form = document.forms["settingsForm"];
     const currentDatetime = Math.floor(new Date().getTime() / 1000);
-    if (settingValue) {
-      store.dispatch(fcfsStartTime(settingValue));
+    if (state?.settingValue && !props.funcName == "setVestingTime") {
+      store.dispatch(fcfsStartTime(state?.settingValue));
       const projectDetailsStartDate = convertUtcToLocal(projectDetails?.publicStartDate);
-      const inputDatetime = convertdateToMinutes(moment.utc(settingValue).format("YYYY-MM-DDTHH:mm"));
+      const inputDatetime = convertdateToMinutes(moment.utc(state?.settingValue).format("YYYY-MM-DDTHH:mm"));
       const projectsStartDateTime = convertdateToMinutes(moment.utc(projectDetailsStartDate).format("YYYY-MM-DDTHH:mm"));
       if (inputDatetime < currentDatetime && props?.funcName?.includes('setfcfsstarttime')) {
-        setErrorMgs(apiCalls.isErrorDispaly({ data: "Please choose a date and time that is not before now." }));
-        setBtnLoader(false)
+        dispatch({ type: "setErrorMgs", payload: apiCalls.isErrorDispaly({ data: "Please choose a date and time that is not before now." }) });
+        dispatch({ type: "setBtnLoader", payload: false });
         return;
       }
       else if (inputDatetime <= projectsStartDateTime && (props?.funcName?.includes('setfcfsendtime') ||
         (props?.funcName?.includes('setTokenListingTime')) ||
         (props?.funcName?.includes('setVestingTime')) ||
         (props?.funcName?.includes('setroundOneStartTime')))) {
-        setErrorMgs(apiCalls.isErrorDispaly({ data: "Please choose a date and time that is not before fcfcs start time." }));
-        setBtnLoader(false)
+        dispatch({ type: "setErrorMgs", payload: apiCalls.isErrorDispaly({ data: "Please choose a date and time that is not before fcfcs start time." }) });
+        dispatch({ type: "setBtnLoader", payload: false });
         return;
       } 
       else if (inputDatetime >= projectsStartDateTime && (props?.funcName?.includes('setroundOneEndTime'))) {
-        setErrorMgs(apiCalls.isErrorDispaly({ data: "Please choose a date and time that is less than fcfcs start time." }))
-        setBtnLoader(false);
+        dispatch({ type: "setErrorMgs", payload: apiCalls.isErrorDispaly({ data: "Please choose a date and time that is less than fcfcs start time." }) });
+        dispatch({ type: "setBtnLoader", payload: false });
         return
       }
     }
     if (form.checkValidity() === true) {
       try {
-        setBtnLoader(true)
+        dispatch({ type: "setBtnLoader", payload: true });
         if (props.funcName == "setVestingTime") {
-
-          const numericSettingValue = parseFloat(settingValue.replace(/,/g, ''));
+          const numericSettingValue = parseFloat(state?.settingValue.replace(/,/g, ''));
           if (numericSettingValue > 0) {
             let timeData = numericSettingValue * 60 * 60 * 24;
             const provider = new ethers.providers.Web3Provider(window?.ethereum)
             const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
             const res = await factory[props.funcName](timeData);
             res.wait().then(async (receipt) => {
-             
-              setSuccess("Vesting Details updated successfully");
-              setIsTransactionSuccess(true)
+              dispatch({ type: "setSettingValue", payload: null });
+              dispatch({ type: "setSuccess", payload: "Vesting Details Updated Successfully" });
+              dispatch({ type: "setIsTransactionSuccess", payload: true });
               setTimeout(function () {
-                setIsTransactionSuccess(false)
+                dispatch({ type: "setIsTransactionSuccess", payload: false });
               }, 3000);
-              setBtnLoader(false)
+              dispatch({ type: "setBtnLoader", payload: false });
             }).catch((err) => {
-              setErrorMgs(apiCalls.isErrorDispaly(res));
-              setBtnLoader(false)
-              
+              dispatch({ type: "setSettingValue", payload: null });
+              dispatch({ type: "setErrorMgs", payload: apiCalls.isErrorDispaly(res) });
+              dispatch({ type: "setBtnLoader", payload: false });
             })
           }else{
-            setErrorMgs("VestingTime cannot be zero");
-            setValidated(true);
-            setBtnLoader(false);
+            dispatch({ type: "setErrorMgs", payload: "VestingTime cannot be zero" });
+            dispatch({ type: "setValidated", payload: true });
+            dispatch({ type: "setBtnLoader", payload: false });
           }
           
         }else{
-          let timeData = convertdateToMinutes(moment.utc(settingValue).format("YYYY-MM-DDTHH:mm:ss"));
+          let timeData = convertdateToMinutes(moment.utc(state?.settingValue).format("YYYY-MM-DDTHH:mm:ss"));
           const provider = new ethers.providers.Web3Provider(window?.ethereum)
           const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
           const res = await factory[props.funcName](timeData);
           res.wait().then(async () => {
-            setSettingValue(null)
-            setSuccess("Date saved successfully");
-            setIsTransactionSuccess(true)
+            dispatch({ type: "setSettingValue", payload: null });
+            dispatch({ type: "setSuccess", payload: "Date Saved Successfully" });
+            dispatch({ type: "setIsTransactionSuccess", payload: true });
             setTimeout(function () {
-              setIsTransactionSuccess(false)
+              dispatch({ type: "setIsTransactionSuccess", payload: false });
             }, 3000);
-           
-            setBtnLoader(false)
+            dispatch({ type: "setBtnLoader", payload: false });
           }).catch(() => {
-            setErrorMgs(apiCalls.isErrorDispaly(res));
-            setBtnLoader(false)
-            setSettingValue(null)
+            dispatch({ type: "setErrorMgs", payload: apiCalls.isErrorDispaly(res) });
+            dispatch({ type: "setBtnLoader", payload: false });
+            dispatch({ type: "setSettingValue", payload: null });
           })
         }
-        
-
       } catch (error) {
-        setErrorMgs(apiCalls.isErrorDispaly(error));
-        setBtnLoader(false);
+        dispatch({ type: "setErrorMgs", payload: apiCalls.isErrorDispaly(error) });
+        dispatch({ type: "setBtnLoader", payload: false });
       }
     } else {
-      setValidated(true);
-      setBtnLoader(false);
+      dispatch({ type: "setValidated", payload: true });
+      dispatch({ type: "setBtnLoader", payload: false });
     }
     
   }
@@ -166,16 +162,16 @@ const convertUtcToLocal = (date) => {
     <>
     {settingLoader? <div className="text-center"><Spinner ></Spinner></div> : <>
     <div className='token-listing'>
-      {errorMgs && (
+      {state.errorMgs && (
         <Alert variant="danger">
           <div className='d-flex align-items-center'>
             <span className='icon error-alert'></span>
-            <p className='m1-2' style={{ color: 'red' }}>{errorMgs}</p>
+            <p className='m1-2' style={{ color: 'red' }}>{state.errorMgs}</p>
           </div>
         </Alert>
       )}
       {/* {loader && <div className="text-center"><Spinner ></Spinner></div> } */}
-      <Form noValidate validated={validated} action="" name="settingsForm" >
+      <Form noValidate validated={state.validated} action="" name="settingsForm" >
         <Row className='mt-5'>
         {props.funcName !="setVestingTime"&&  <Col lg={6} md={12}>
           <div className='w-fit p-relative'>
@@ -185,7 +181,7 @@ const convertUtcToLocal = (date) => {
               className=""
             >{props?.label}<span className='text-danger'>*</span></Form.Label>
               <Form.Control min={currentDate}
-               value={settingValue} 
+               value={state?.settingValue !== null ? state?.settingValue : ""} 
                name='settingValue' 
                type="datetime-local"
                placeholder={props?.placeholder}
@@ -205,7 +201,7 @@ const convertUtcToLocal = (date) => {
                 >{props?.label}<span className='text-danger'>*</span></Form.Label>
 
               <NumericFormat
-                value={settingValue}
+                value={state?.settingValue !== null ? state?.settingValue : ""}
                 name='settingValue'
                 allowNegative={false}
                 className='form-control'
@@ -217,20 +213,18 @@ const convertUtcToLocal = (date) => {
 
               <Form.Control.Feedback type="invalid" className='error-absolute'>Is required</Form.Control.Feedback>
               </div> </Col>}
-
-         
-
+        
           <Col lg={6} md={12} className='d-flex align-items-end btnalign-mobile'>
             <Button type="button" onClick={() => getWalletAddress()} className="filled-btn"
-             disabled={btnLoader}>{btnLoader && <Spinner size='sm' />} Update</Button>{" "}
+             disabled={state?.btnLoader}>{state?.btnLoader && <Spinner size='sm' />} Update</Button>{" "}
           </Col>
          
         </Row>
       </Form>
     </div>
-      {isTransactionSuccess && (
+      {state?.isTransactionSuccess && (
         <div >
-        <ToasterMessage isShowToaster={isTransactionSuccess} success={success}></ToasterMessage>
+        <ToasterMessage isShowToaster={state?.isTransactionSuccess} success={state?.success}></ToasterMessage>
         </div>
       )}
       </>}
@@ -240,12 +234,19 @@ const convertUtcToLocal = (date) => {
 SettingsComponent.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  funcName: PropTypes.string
+  funcName: PropTypes.string,
+  fetchAllTiersData: PropTypes.any,
+
 }
 
-const connectStateToProps = ({ auth }) => {
-  return { auth: auth };
+const connectStateToProps = ({ auth,settings,launchpad }) => {
+  return { auth: auth,launchpad:launchpad,settings: settings };
 };
-export default connect(connectStateToProps, (dispatch) => {
-  return { dispatch };
-})(SettingsComponent);
+const connectDispatchToProps = (dispatch) => {
+  return {
+    fetchAllTiersData: () => {
+      dispatch(fetchTiersData())
+    },
+  }
+}
+export default connect(connectStateToProps, connectDispatchToProps)(SettingsComponent);

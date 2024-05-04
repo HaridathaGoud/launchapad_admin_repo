@@ -115,7 +115,7 @@ const Dashboard = (props) => {
                         setDeployContractLoader(false);
                         setSelectedDaoId(null)
                         setErrorMsg(null);
-                        setSuccess(`Dao deployed successfully`);
+                        setSuccess(`Dao Deployed Successfully`);
                         setTimeout(function () {
                             setSuccess(null);
                         }, 2000);
@@ -133,6 +133,12 @@ const Dashboard = (props) => {
             setDeployContractLoader(false);
         }
     }
+
+    const isDeployed=(item)=>{
+       if(item?.status?.toLowerCase() === "deployed"){
+        goToProposalList(item)
+       } 
+    }
     return (
         <> {errorMsg && (
             <Alert variant="danger" className='mt-3'>
@@ -149,7 +155,7 @@ const Dashboard = (props) => {
                         { daoCardDetails?.data?.map((item) => (
                             <Col lg={3} md={6} xs={12} className='mt-md-3' key={item?.daoId}>
                                 {<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={item?.daoId} >
-                                    <Card.Img variant="top" src={item?.logo || profileavathar} onClick={() => goToProposalList(item)} />
+                                    <Card.Img variant="top" src={item?.logo || profileavathar}  onClick={() => isDeployed(item) } />
                                     <Card.Body>
                                         <Card.Text className='mb-1 '>
                                             <p className='m-0 font-bold'>Name : <span className='m-0 font-regular '>{item.name}</span></p>
@@ -157,12 +163,18 @@ const Dashboard = (props) => {
                                         {/* <Card.Text className='card-description d-flex mb-1'>
                                             <p className='m-0 col-3'>members :</p> <p className='m-0 '>{item?.members?.toLocaleString()}</p>
                                         </Card.Text>  */}
-                                        {!isAdmin?.isInvestor&&<> 
-                                        {item?.status?.toLowerCase() == "approved" && <Button className='button-secondary w-100 mt-2' onClick={() => handleDeployDao(item)}>{(deployContractLoader && selectedDaoId == item?.daoId) && <span><Spinner size='sm' className='text-light mr-1' /></span>} Deploy</Button>}
-                                        {(item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed") && <Button className='button-secondary w-100 mt-2' onClick={() => goToProposalList(item)}>{item?.status}</Button>}
-                                        </>}
-                                     { isAdmin?.isInvestor && (item?.status?.toLowerCase() == "deploying" || item?.status?.toLowerCase() == "deployed" || item?.status?.toLowerCase() == "approved" ) && 
-                                     <Button className='button-secondary w-100 mt-2' onClick={() => goToProposalList(item)}>{item?.status}</Button>}
+                                        {item?.projectstatus?.toLowerCase() === 'deploying' &&
+                                            <span className='card-state bg-success'>
+                                            Deploying</span>
+                                        }
+                                        {item?.status?.toLowerCase() == "deployed" &&
+                                            <span className='card-state bg-success' >Deployed</span>
+                                        }
+                                        {!isAdmin?.isInvestor && ( item?.projectstatus?.toLowerCase() === 'approved') &&
+                                            <span className='card-state bg-warning' >View</span>
+                                        }
+                                     { isAdmin?.isInvestor && ( item?.status?.toLowerCase() == "approved" ) && 
+                                     <Button className='button-secondary w-100 mt-2' onClick={() => handleDeployDao(item)}>Deploy</Button>}
                                     </Card.Body>
                                 </Card>}
                             </Col>

@@ -107,6 +107,9 @@ export  const erc20FormValidation = (obj) => {
     if(!nftImagesCount || nftImagesCount ==''){
       newErrors.nftImagesCount = 'Is required';
     }
+    else if (parseInt(nftImagesCount) === 0) {
+      newErrors.nftImagesCount = 'Count must be greater than zero';
+    }
     return newErrors;
   };
 

@@ -487,6 +487,7 @@ const Projects = (props) => {
     dispatch({ type: 'projectSaveDetails', payload:{ ...state.projectSaveDetails,[field]: value }  })
     if (errors[field]) {
       setErrors({ ...errors, [field]: null })
+      dispatch({ type: 'errors', payload: { ...state.errors,[field]: null } })
     }
   }
 
