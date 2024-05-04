@@ -1275,7 +1275,7 @@ return (<>
                    value={state.projectSaveDetails?.nftImagesCount}
                     name='nftImagesCount'
                     allowNegative={false}
-                    thousandSeparator={true}
+                    thousandSeparator={false}
                     type="text" placeholder="Member Ship Count"
                     isInvalid={!!errors?.nftImagesCount}
                     maxLength={5 }
