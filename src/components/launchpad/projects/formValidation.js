@@ -183,7 +183,8 @@ export  const erc20FormValidation = (obj) => {
     }else if (timeDate(publicStartDate) === timeDate(privateEndDate)) {
       if (publicStartingTimeInSeconds < privateEndingTimeInSeconds) {
         errorMsg = 'Round One End time cannot be greater than the Round Two Start time.';
-
+      }else if(publicStartingTimeInSeconds === privateEndingTimeInSeconds){
+        errorMsg =  'Round One End time cannot be greater than or equal to the Round Two start time.';
       }
     }
     if (errorMsg.trim() !== '') {
