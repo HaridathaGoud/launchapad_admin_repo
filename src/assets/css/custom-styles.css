@@ -554,6 +554,7 @@ th .k-link{cursor: default !important;}
 .button-secondary:disabled:hover{background-color: transparent !important;}
 .card-state{position: absolute;top: 0;right: 0; color: #fff; padding: 2px 8px; border-radius: 0 10px 0 10px;min-width: 100px;  text-align: center;}
 .card-desc{overflow: hidden;  text-overflow: ellipsis;  display: -webkit-box;  -webkit-line-clamp: 3;  -webkit-box-orient: vertical;}
+.invaliid-textstyle{ font-size: 0.875em;color: #e55353;}
 @media (min-width: 768px) {
   .profile-size{ width: 106px;}
   .profile-size, .customer-pfview{width: 258px;}

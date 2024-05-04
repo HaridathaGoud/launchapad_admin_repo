@@ -1290,8 +1290,7 @@ return (<>
                       || isIdeoRequest
                     )}
                   />
-                  <Form.Control.Feedback type="invalid">{errors?.nftImagesCount || state?.errors?.nftImagesCount}</Form.Control.Feedback>
-
+                  {(errors?.nftImagesCount || state?.errors?.nftImagesCount) &&<span className='invaliid-textstyle'>{errors?.nftImagesCount || state?.errors?.nftImagesCount}</span>}
                 </Col>
               </Row>
             </Col>
