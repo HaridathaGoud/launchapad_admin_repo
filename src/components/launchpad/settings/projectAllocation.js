@@ -60,7 +60,7 @@ const PeojectAllocation = () => {
         const res = await factory.allocation(address);
         setTxHash(res.hash)
         res.wait().then(async () => {
-          setSuccess("Allocated successfully");
+          setSuccess("Allocated Successfully");
           setIsTransactionSuccess(true)
           setTimeout(function () {
             setIsTransactionSuccess(false)
