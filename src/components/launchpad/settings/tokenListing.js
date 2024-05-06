@@ -6,14 +6,14 @@ import { useSelector } from 'react-redux';
 import store from 'src/store/index';
 import { showSettings } from 'src/reducers/authReducer';
 const TokenListing = () => {
-  const projectItem= useSelector(reducerstate =>  reducerstate.projectDetails?.project)
+  const isAdmin = useSelector(state => state.oidc?.adminDetails)
   const userId = sessionStorage.getItem('userId');
   const navigate = useNavigate();
 
 
   const redirection=()=>{
     store.dispatch(showSettings(false));
-    navigate(`/launchpad/investors/projects/${projectItem?.id||userId}`)
+    navigate(`/launchpad/projects/${isAdmin?.id||userId}`)
   }
 
   return (<div>

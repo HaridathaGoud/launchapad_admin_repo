@@ -7,11 +7,11 @@ import { showSettings } from 'src/reducers/authReducer';
 import store from 'src/store/index';
 const RoundOneEnd = () => {
   const navigate = useNavigate();
-  const projectItem= useSelector(reducerstate =>  reducerstate.projectDetails?.project)
+  const isAdmin = useSelector(state => state.oidc?.adminDetails)
   const userId = sessionStorage.getItem('userId');
   const redirection=()=>{
     store.dispatch(showSettings(false));
-    navigate(`/launchpad/investors/projects/${projectItem?.id||userId}`)
+    navigate(`/launchpad/projects/${isAdmin?.id||userId}`)
   }
 
   return (<div>

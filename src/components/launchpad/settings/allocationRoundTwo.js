@@ -22,6 +22,7 @@ const AllocationRoundTwo = () => {
   const { connectWallet } = useConnectWallet();
   const projectContractDetails = useSelector((store) => store.launchpad.projectDetails?.data?.projectsViewModel)
   const projectItem= useSelector(reducerstate =>  reducerstate.projectDetails?.project)
+  const isAdmin = useSelector(state => state.oidc?.adminDetails);
   const userId = sessionStorage.getItem('userId');
   const [btnLoader, setBtnLoader] = useState(false);
   const [errorMgs, setErrorMgs] = useState(null);
@@ -79,7 +80,7 @@ const AllocationRoundTwo = () => {
 
   const redirection=()=>{
     store.dispatch(showSettings(false));
-    navigate(`/launchpad/investors/projects/${projectItem?.id||userId}`)
+    navigate(`/launchpad/projects/${isAdmin?.id||userId}`)
   }
 
   return (
