@@ -49,7 +49,10 @@ const reducers =(state ,action )=>{
   const [errors, setErrors] = useState({});
   const currentDate = new Date().toISOString().slice(0, 16);
   const [errorMsg, setErrorMsg] = useState(false);
-  const [options, setOptions] = useState([{options: null,Id:"00000000-0000-0000-0000-000000000000",optionhash:null}]);
+  const [options, setOptions] = useState([
+    {options: null,Id:"00000000-0000-0000-0000-000000000000",optionhash:null},
+    {options: null,Id:"00000000-0000-0000-0000-000000000000",optionhash:null}
+  ]);
   const [attributes, setAttributes] = useState([]);
   const { getAddress } = UseEthers();
   const [walletAddres, setWalletAddres]=useState()
@@ -91,7 +94,7 @@ const reducers =(state ,action )=>{
 }
   const addOption = () => {
     if (options.length >= 4) {
-      dispatch({ type: 'modalError', payload: "Maximum four options are allowed." });
+      dispatch({ type: 'modalError', payload: "You can add up to 4 options only" });
       return;
     }
     const newFields = [...options, { value: null,Id:"00000000-0000-0000-0000-000000000000",optionhash:null }];
@@ -110,19 +113,19 @@ const reducers =(state ,action )=>{
   const deleteOption = (index) => {
     const updatedOptions = options.filter((_, i) => i !== index);
     if(updatedOptions?.length <2){      
-      dispatch({type:'modalError',payload:"Please provide at least two option to continue."})
+      dispatch({type:'modalError',payload:"Please input atleast two options"})
     }else if(updatedOptions?.length >4){      
-      dispatch({type:'modalError',payload:"Maximum four options are allowed."})
+      dispatch({type:'modalError',payload:"You can add up to 4 options only"})
     }else{
       setOptions(updatedOptions);
     }    
 }; 
 const optionSave = ()=>{
   if (options.length < 2) {
-    return dispatch({ type: 'modalError', payload: "Please provide at least two options to continue." });
+    return dispatch({ type: 'modalError', payload: "Please input atleast two options" });
   }
   if (options.length > 4) {
-    return dispatch({ type: 'modalError', payload: "Maximum four options are allowed." })
+    return dispatch({ type: 'modalError', payload: "You can add up to 4 options only" })
   }
   let isUpdate = false;
   let _properties = [...options];
@@ -215,7 +218,9 @@ const optionSave = ()=>{
       }
       setOptions(_attributes);
     } else{
-      setOptions([{ value: null,Id:"00000000-0000-0000-0000-000000000000",optionhash:null }])
+      setOptions([{ value: null,Id:"00000000-0000-0000-0000-000000000000",optionhash:null },
+                  { value: null,Id:"00000000-0000-0000-0000-000000000000",optionhash:null }
+      ])
     }  
 }
 
