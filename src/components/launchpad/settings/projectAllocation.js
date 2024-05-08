@@ -56,6 +56,8 @@ const PeojectAllocation = () => {
       if (projectAddress.ok) {
         const provider = new ethers.providers.Web3Provider(window?.ethereum)
         const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
+        console.log('provider',provider);
+        console.log('factory',factory);
         const address = [...projectAddress.data];
         const res = await factory.allocation(address);
         setTxHash(res.hash)
