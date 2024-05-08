@@ -1171,7 +1171,7 @@ return (<>
                   </Row>
                 </Col>
               </Row>
-              // }
+            {/* } */}
             {selectedTokeType =='ERC-721' && 
             <Row className='mb-4 Token-Details'>
             <Col lg={6} md={12} className='mb-0'>
