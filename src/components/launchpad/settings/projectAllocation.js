@@ -48,6 +48,7 @@ const PeojectAllocation = () => {
   const updateData = async () => {
     setErrorMgs(null);
     try {
+      debugger
       setSuccess(null);
       setBtnLoader(true)
       setTxHash(null)
