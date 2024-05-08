@@ -908,7 +908,7 @@ return (<>
                 </div>
               </Row>
               <h3 className='section-title mb-2 mt-5'>Token Details</h3>
-           <Col lg={6} md={12}>
+           {/* <Col lg={6} md={12}>
             <Form.Label className='input-label'>Token Type<span className="text-danger">*</span></Form.Label>
              <Dropdown className='matic-dropdown' onSelect={handleTokenType}>
               <Dropdown.Toggle variant="secondary" id="dropdown-basic"
@@ -926,23 +926,8 @@ return (<>
                 ))}
               </Dropdown.Menu>
             </Dropdown> 
-            {/* <Dropdown className='matic-dropdown' defaultValue={"ERC-20"} value="ERC-20">
-              <Dropdown.Toggle variant="secondary" id="dropdown-basic"
-                disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                  || state.projectSaveDetails?.projectStatus == "Rejected"
-                  || state.projectSaveDetails?.projectStatus == "Approved"
-                  || state.projectSaveDetails?.projectStatus == "Deploying"
-                )}
-              > ERC-20
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-              <Dropdown.Item >
-              ERC-20
-              </Dropdown.Item >
-              </Dropdown.Menu>
-            </Dropdown> */}
-          </Col> 
-              {selectedTokeType =='ERC-20' &&
+          </Col>  */}
+              {/* {selectedTokeType =='ERC-20' && */}
               <Row className='mb-4 Token-Details'>
                 <Col lg={6} md={12} className='mb-0'>
                   <Form.Label className="input-label upload-file">Upload Token Image<span className="text-danger">*</span></Form.Label>
@@ -983,7 +968,7 @@ return (<>
                     }
                     {state.projectCardImages && !state.cardImgLoader &&
                       <div
-                        className={`${isIdeoRequest ?
+                        className={`${(state.projectSaveDetails?.projectStatus == "Deployed" || state.projectSaveDetails?.projectStatus == "Deploying" ||isIdeoRequest) ?
                           'onhover-upload c-notallowed' :
                           'onhover-upload'}`}>
                         <div className='bring-front'>
@@ -995,8 +980,6 @@ return (<>
                             onChange={(e) => uploadToClient(e, 'CARD')}
                             isInvalid={!!state.errors.cardImage}
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                              || state.projectSaveDetails?.projectStatus == "Rejected"
-                              || state.projectSaveDetails?.projectStatus == "Approved"
                               || state.projectSaveDetails?.projectStatus == "Deploying"
                               || isIdeoRequest
                             )}
@@ -1188,7 +1171,7 @@ return (<>
                   </Row>
                 </Col>
               </Row>
-              }
+              // }
             {selectedTokeType =='ERC-721' && 
             <Row className='mb-4 Token-Details'>
             <Col lg={6} md={12} className='mb-0'>
