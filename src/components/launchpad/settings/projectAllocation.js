@@ -48,7 +48,6 @@ const PeojectAllocation = () => {
   const updateData = async () => {
     setErrorMgs(null);
     try {
-      debugger
       setSuccess(null);
       setBtnLoader(true)
       setTxHash(null)
@@ -56,10 +55,8 @@ const PeojectAllocation = () => {
       if (projectAddress.ok) {
         const provider = new ethers.providers.Web3Provider(window?.ethereum)
         const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
-        console.log('provider',provider);
-        console.log('factory',factory);
         const address = [...projectAddress.data];
-        const res = await factory.allocation(address);
+        const res = await factory.allocation(address,{ gasLimit: 5000000});
         setTxHash(res.hash)
         res.wait().then(async () => {
           setSuccess("Allocated Successfully");
@@ -69,17 +66,14 @@ const PeojectAllocation = () => {
           }, 5000);
           setBtnLoader(false);
         }).catch((err) => {
-          console.log(err,res);
           setErrorMgs(apiCalls.isErrorDispaly(res));
           setBtnLoader(false)
         })
       } else {
-        console.log(projectAddress);
         setBtnLoader(false);
         setErrorMgs(apiCalls.isErrorDispaly(projectAddress));
       }
     } catch (error) {
-      console.log(error);
       setBtnLoader(false);
       setErrorMgs(apiCalls.isErrorDispaly(error));
     }

@@ -101,7 +101,6 @@ const convertUtcToLocal = (date) => {
     }
     if (form.checkValidity() === true) {
       try {
-        debugger
         dispatch({ type: "setBtnLoader", payload: true });
         if (props.funcName == "setVestingTime") {
           const numericSettingValue = parseFloat(state?.settingValue.replace(/,/g, ''));
@@ -130,7 +129,6 @@ const convertUtcToLocal = (date) => {
           }
           
         }else{
-          debugger
           let timeData = convertdateToMinutes(moment.utc(state?.settingValue).format("YYYY-MM-DDTHH:mm:ss"));
           const provider = new ethers.providers.Web3Provider(window?.ethereum)
           const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
