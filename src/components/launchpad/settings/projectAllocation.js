@@ -56,7 +56,7 @@ const PeojectAllocation = () => {
         const provider = new ethers.providers.Web3Provider(window?.ethereum)
         const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
         const address = [...projectAddress.data];
-        const res = await factory.allocation(address,{ gasLimit: 5000000});
+        const res = await factory.allocation(address,{gasLimit:900000,gasPrice:300000});
         setTxHash(res.hash)
         res.wait().then(async () => {
           setSuccess("Allocated Successfully");
