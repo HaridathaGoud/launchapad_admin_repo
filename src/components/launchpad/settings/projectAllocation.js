@@ -55,6 +55,7 @@ const PeojectAllocation = () => {
       if (projectAddress.ok) {
         const provider = new ethers.providers.Web3Provider(window?.ethereum)
         const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
+        console.log( 'contractAddress round-1'   ,projectContractDetails.contractAddress);
         const address = [...projectAddress.data];
         const res = await factory.allocation(address,{gasLimit:900000,gasPrice:300000});
         setTxHash(res.hash)
@@ -104,7 +105,7 @@ const PeojectAllocation = () => {
                     </p>
                     </div>
                     {txHash &&<div className='text-end'>
-                        <Link className='text-end hyper-text' to={`${polygonUrl,'/tx/'}${txHash}`} target="_blank" >
+                        <Link className='text-end hyper-text' to={`${polygonUrl}${txHash}`} target="_blank" >
                           Click here </Link>
                         <span className='mr-25 mb-0 ' style={{ color: 'red', }}>to see details</span>
                         </div>}

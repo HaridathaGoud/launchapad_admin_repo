@@ -55,6 +55,7 @@ const AllocationRoundTwo = () => {
       if (projectAddress.ok) {
         const provider = new ethers.providers.Web3Provider(window?.ethereum)
         const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
+        console.log( 'contractAddress round-2'   ,projectContractDetails.contractAddress);
         const res = await factory.allocationRoundTwo({gasLimit:900000,gasPrice:300000});
         setTxHash(res.hash)
         res.wait().then(async (receipt) => {
