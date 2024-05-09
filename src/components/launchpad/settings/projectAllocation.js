@@ -66,7 +66,7 @@ const PeojectAllocation = () => {
           }, 5000);
           setBtnLoader(false);
         }).catch((err) => {
-          console.log('res',res);
+          console.log('err=>',err);
           setErrorMgs(apiCalls.isErrorDispaly(res));
           setBtnLoader(false)
         })
