@@ -57,7 +57,7 @@ import { getIpRegisteryData } from './reducers/authReducer';
 import MintWhitelist from './components/minting/whitelist';
 import Mintingsidemenu from './components/minting/minting';
 import MintGeneral from './components/minting/mintgeneral';
-import { WagmiConfig, createConfig, mainnet } from 'wagmi'
+import { WagmiConfig, createConfig,configureChains, mainnet } from 'wagmi'
 import { createPublicClient, http } from 'viem'
 import Referral from './components/minting/referral';
 import Dao from './components/dao.component/proposalCards';
@@ -76,20 +76,44 @@ import ProjectsTokenClaim from './components/launchpad/projects/projectTokenClai
 import ProjectTokenDetails from './components/launchpad/projects/projectTokenDetails';
 import ErrorPage from './components/errorPage/errorPage'; 
 import PropTypes from 'prop-types'
-
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+import { amoyNetwork } from './utils/amoyConfig';
+import { polygon} from 'viem/chains';
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>
   </div>
 )
+// const config = createConfig({
+//   autoConnect: true,
+//   publicClient: createPublicClient({
+//     chain: mainnet,
+//     transport: http()
+//   }),
+// })
+const { chains, publicClient } = configureChains(
+  [polygon,amoyNetwork],
+  [
+    jsonRpcProvider({
+      rpc: () => ({
+        http: process.env.REACT_APP_RPC_URL || '',
+      }),
+    }),
+  ],
+)
 const config = createConfig({
   autoConnect: true,
-  publicClient: createPublicClient({
-    chain: mainnet,
-    transport: http()
-  }),
-})
-
+  connectors: [
+    new InjectedConnector({
+      chains,
+      options: {
+        name: 'Browser Wallet',
+      },
+    }),
+  ],
+  publicClient
+});
 const router = createBrowserRouter([
   {
     path: "/",

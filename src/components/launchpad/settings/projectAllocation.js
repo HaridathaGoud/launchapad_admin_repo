@@ -104,7 +104,7 @@ const PeojectAllocation = () => {
                     </p>
                     </div>
                     {txHash &&<div className='text-end'>
-                        <Link className='text-end hyper-text' to={`${polygonUrl}${txHash}`} target="_blank" >
+                        <Link className='text-end hyper-text' to={`${polygonUrl,'/tx/'}${txHash}`} target="_blank" >
                           Click here </Link>
                         <span className='mr-25 mb-0 ' style={{ color: 'red', }}>to see details</span>
                         </div>}
