@@ -205,7 +205,6 @@ const Projects = (props) => {
     setErrors({});
   }
 
-
   const getClaimsandAllocations = (projectObj) => {
     let obj = projectObj;
     if (projectObj?.projectStatus == "Submitted" ||
@@ -259,7 +258,7 @@ const Projects = (props) => {
         "initialSupply": state.projectSaveDetails?.initialSupply || null,
         "cast_Crews": state.castCrewDataList,
         "category": "string",
-        "tokenType": selectedTokeType || null,
+        "tokenType": selectedTokeType || 'ERC-20',
         "nftImagesCount": state.projectSaveDetails?.nftImagesCount || null,
         "projectStatus" : state.projectSaveDetails?.projectStatus,
       }
@@ -352,7 +351,6 @@ const Projects = (props) => {
     window.scroll(0, 0);
 
   }
-
 
   const uploadToClient = (event, type) => {
     setImageError(null)
@@ -482,7 +480,6 @@ const Projects = (props) => {
     setSelectedValues(countries)
   }
 
-
   const handleChange = (field, value) => {
     dispatch({ type: 'projectSaveDetails', payload:{ ...state.projectSaveDetails,[field]: value }  })
     if (errors[field]) {
@@ -538,8 +535,6 @@ const Projects = (props) => {
     dispatch({ type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, role: selectedRoleNames } })
   };
   
-
-
   const handleCastCrewDataSave = async (event) => {
     event.preventDefault();
     const validatingForm = { ...state.cast_CrewsFormDeatils };
@@ -908,7 +903,7 @@ return (<>
                 </div>
               </Row>
               <h3 className='section-title mb-2 mt-5'>Token Details</h3>
-           {/* <Col lg={6} md={12}>
+           <Col lg={6} md={12}>
             <Form.Label className='input-label'>Token Type<span className="text-danger">*</span></Form.Label>
              <Dropdown className='matic-dropdown' onSelect={handleTokenType}>
               <Dropdown.Toggle variant="secondary" id="dropdown-basic"
@@ -926,8 +921,8 @@ return (<>
                 ))}
               </Dropdown.Menu>
             </Dropdown> 
-          </Col>  */}
-              {/* {selectedTokeType =='ERC-20' && */}
+          </Col> 
+              {selectedTokeType =='ERC-20' &&
               <Row className='mb-4 Token-Details'>
                 <Col lg={6} md={12} className='mb-0'>
                   <Form.Label className="input-label upload-file">Upload Token Image<span className="text-danger">*</span></Form.Label>
@@ -1171,7 +1166,7 @@ return (<>
                   </Row>
                 </Col>
               </Row>
-            {/* } */}
+            }
             {selectedTokeType =='ERC-721' && 
             <Row className='mb-4 Token-Details'>
             <Col lg={6} md={12} className='mb-0'>

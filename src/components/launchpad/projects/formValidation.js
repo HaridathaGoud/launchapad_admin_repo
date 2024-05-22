@@ -125,16 +125,16 @@ export  const erc20FormValidation = (obj) => {
     const publicStartingTimeInSeconds = parseTime(publicStartDate);
     
     if(tokenType != 'ERC-721'){
-      if (!noofSlots || noofSlots === ''|| noofSlots ==undefined) {
+      if (!noofSlots || noofSlots === ''|| noofSlots ===undefined) {
         newErrors.noofSlots = 'Is required';
       }
-      if (!vestingDays || vestingDays === ''||vestingDays ==undefined) {
+      if (!vestingDays || vestingDays === ''||vestingDays ===undefined) {
         newErrors.vestingDays = 'Is required';
       }
-      if (noofSlots == 0) {
+      if (noofSlots === 0 || noofSlots === '0') {
         newErrors.noofSlots = 'claim slots should be greater than zero.' 
       }
-      if (vestingDays == 0) {
+      if (vestingDays === 0 ||vestingDays === '0') {
         newErrors.vestingDays = 'claim vesting time should be greater than zero.'
       }
     }

@@ -66,17 +66,14 @@ const PeojectAllocation = () => {
           }, 5000);
           setBtnLoader(false);
         }).catch((err) => {
-          console.log('err=>',err);
           setErrorMgs(apiCalls.isErrorDispaly(res));
           setBtnLoader(false)
         })
       } else {
-        console.log('projectAddress',projectAddress);
         setBtnLoader(false);
         setErrorMgs(apiCalls.isErrorDispaly(projectAddress));
       }
     } catch (error) {
-      console.log('error',error);
       setBtnLoader(false);
       setErrorMgs(apiCalls.isErrorDispaly(error));
     }
