@@ -302,7 +302,7 @@ const UserProfile = (props) => {
                   <Col xl={4} sm={12} md={6}>
                     <label htmlFor="Phone"className="profile-label">Phone No</label>
                     <p className="profile-value">
-                      {adminDetails?.phoneNo ? adminDetails?.phoneNo : "--"}
+                      {(adminDetails?.phoneNo&&adminDetails?.countryCode) ? (adminDetails?.countryCode+' '+adminDetails?.phoneNo) : "--"}
                     </p>
                   </Col>
                   <Col xl={4} sm={12} md={6}>
