@@ -15,10 +15,11 @@ import store from 'src/store/index';
 import { fcfsStartTime } from 'src/reducers/authReducer';
 import ToasterMessage from "src/utils/toasterMessages";
 import { NumericFormat } from 'react-number-format';
-import { useAccount } from 'wagmi'
+import { useAccount ,useNetwork} from 'wagmi'
 import { useConnectWallet } from 'src/hooks/useConnectWallet';
-import { fetchTiersData,initialState } from './settingsReducer';
-import settingsReducer from './settingsReducer';
+import { fetchTiersData,initialState,settingsReducer } from './settingsReducer';
+import { switchNetwork } from 'wagmi/actions';
+
 const SettingsComponent = (props) => {
   const { isConnected } = useAccount()
   const { connectWallet } = useConnectWallet();
@@ -28,24 +29,41 @@ const SettingsComponent = (props) => {
   const settingLoader = useSelector(state => state.oidc?.isSettingsLoading)
   const projectDetails = useSelector((reducerstate) => reducerstate?.projectDetails?.details)
   const tiersData = useSelector((state)=> state.settings?.allTiersData)
+  const { chain } = useNetwork();
   // useEffect(()=>{
   //     props.fetchAllTiersData()
   // },[])
-  const getWalletAddress = async () => {
-    if (isConnected) {
-      updateData()
-    }
-    else {
-      try {
-        dispatch({ type: "setBtnLoader", payload: true });
-        await connectWallet();
-        updateData()
-      } catch (error) {
-        dispatch({ type: "setErrorMgs", payload: error?.reason });
-        dispatch({ type: "setBtnLoader", payload: false });
+  async function handleNetwork() {
+    try {
+      if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
+        await switchNetwork({
+          chainId: Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID) || 0,
+        });
+      } else {
+        return true;
       }
+    } catch (error) {
+      dispatch({ type: "setBtnLoader", payload: false });
+      dispatch({ type: "setErrorMgs", payload: "User rejected transaction." });
+      throw new Error('User rejected transaction.');
     }
   }
+  const getWalletAddress = async () => {
+    dispatch({ type: "setErrorMgs", payload: null });
+    dispatch({ type: "setBtnLoader", payload: true });
+    try {
+      if (isConnected) {
+        await handleNetwork();
+      } else {
+        await connectWallet();
+      }
+      updateData();
+    } catch (error) {
+      dispatch({ type: "setErrorMgs", payload: "User rejected transaction." });
+      dispatch({ type: "setBtnLoader", payload: false });
+    }
+  }
+
   const handleChange = (event) => {
     dispatch({ type: "setValidated", payload: false });
     dispatch({ type: "setErrorMgs", payload: null });

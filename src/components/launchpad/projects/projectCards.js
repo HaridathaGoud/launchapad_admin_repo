@@ -16,14 +16,15 @@ import Spinner from 'react-bootstrap/Spinner';
 import moment from 'moment';
 import { CBreadcrumb, CBreadcrumbItem, CLink, } from '@coreui/react'
 import store from 'src/store/index';
-import { isProjectCardsId, showSettings } from 'src/reducers/authReducer';
+import { isProjectCardsId } from 'src/reducers/authReducer';
 import defaultLogo from '../../../assets/images/default-avatar.jpg';
 import UseCopyToClipboard from '../../../utils/copyClipboard';
-import { projectDetailsSave, projectePayment, viewedProjects } from "src/components/launchpad/launchpadReducer/launchpadReducer"
+import { projectDetailsSave, projectePayment } from "src/components/launchpad/launchpadReducer/launchpadReducer"
 import ToasterMessage from "src/utils/toasterMessages";
 import { useConnectWallet } from '../../../hooks/useConnectWallet';
-import { useAccount } from 'wagmi'
+import { useAccount,useNetwork } from 'wagmi'
 import shimmers from 'src/components/shimmers/shimmers';
+import { switchNetwork } from 'wagmi/actions';
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMgs":
@@ -95,8 +96,23 @@ const ProjectCards = () => {
   const [search, setSearch] = useState();
   const { isConnected } = useAccount()
   const { connectWallet } = useConnectWallet();
+  const { chain } = useNetwork();
 
-
+  async function handleNetwork() {
+    try {
+      if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
+        await switchNetwork({
+          chainId: Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID) || 0,
+        });
+      } else {
+        return true;
+      }
+    } catch (error) {
+      dispatch({ type: 'btnLoader', payload: false })
+      dispatch({ type: 'previewErrorMsg', payload: "User rejected transaction." })
+      throw new Error('User rejected transaction.');
+    }
+  }
   useEffect(() => {
     window.scroll(0, 0);
     store.dispatch(projectDetailsSave(null));
@@ -115,12 +131,8 @@ const ProjectCards = () => {
   };
 
   const getOnePersonDetailsBasedOnId = (val) => {
-    // if (window.location.pathname.includes('/investors') ) {
       navigate(`/launchpad/investors/projects/${val.id}/projectsDetails`)
       store.dispatch(isProjectCardsId(params?.projectId))
-    // } else {
-    //   navigate(`/launchpad/idorequest/projectDetails/${val.id}`)
-    // }
   }
 
   const getOwenersProjects = async (pageNum, pageListSize, searchProject) => {
@@ -225,6 +237,8 @@ const ProjectCards = () => {
   const handleDeployContract = async () => {
     dispatch({ type: 'previewErrorMsg', payload: null })
     if (isConnected) {
+      dispatch({ type: 'btnLoader', payload: true })
+      await handleNetwork();
       if (state.detailsPreview?.tokenType == 'ERC-20') {
         deployErc20Contract();
       } else {
@@ -233,6 +247,7 @@ const ProjectCards = () => {
     }
     else {
       try {
+        dispatch({ type: 'btnLoader', payload: true })
         await connectWallet();
         if (state.detailsPreview?.tokenType == 'ERC-20') {
           deployErc20Contract();
@@ -241,7 +256,7 @@ const ProjectCards = () => {
         }
         dispatch({ type: 'previewErrorMsg', payload: null })
       } catch (error) {
-        dispatch({ type: 'previewErrorMsg', payload: error?.reason })
+        dispatch({ type: 'previewErrorMsg', payload: "User rejected transaction." })
         dispatch({ type: 'btnLoader', payload: false })
       }
     }

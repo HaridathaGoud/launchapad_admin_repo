@@ -8,7 +8,7 @@ import authReducer from 'src/reducers/authReducer';
 import applicationReducer from 'src/reducers/applicationReducer';
 import proposalReducer from 'src/components/proposalReducer/proposalReducer';
 import launchPadReducer from "src/components/launchpad/launchpadReducer/launchpadReducer"
-import settingsReducer from 'src/components/launchpad/settings/settingsReducer';
+import {settingsReducer} from 'src/components/launchpad/settings/settingsReducer';
 import projectDetailsReducer from "src/reducers/projectDetailsReducer"
 const persistConfig = {
   key: 'root',

@@ -11,8 +11,9 @@ import Alert from 'react-bootstrap/Alert';
 import ToasterMessage from 'src/utils/toasterMessages';
 import { showSettings } from 'src/reducers/authReducer';
 import store from 'src/store/index';
-import { useAccount } from 'wagmi'
+import { useAccount,useNetwork } from 'wagmi'
 import { useConnectWallet } from 'src/hooks/useConnectWallet';
+import { switchNetwork } from 'wagmi/actions';
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
 
 const AllocationRoundTwo = () => {
@@ -29,20 +30,37 @@ const AllocationRoundTwo = () => {
   const [isTransactionSuccess, setIsTransactionSuccess] = useState(false);
   const [success, setSuccess] = useState(null);
   const [txHash,setTxHash]=useState(null);
+  const { chain } = useNetwork();
+
+  async function handleNetwork() {
+    try {
+      if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
+        await switchNetwork({
+          chainId: Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID) || 0,
+        });
+      } else {
+        return true;
+      }
+    } catch (error) {
+      setBtnLoader(false)
+      setErrorMgs("User rejected transaction.");
+      throw new Error('User rejected transaction.');
+    }
+  }
 
   const getWalletAddress = async () => {
-    if (isConnected) {
-      updateData()
-    }
-    else {
-      try {
-        setBtnLoader(true)
+    setErrorMgs(null);
+    setBtnLoader(true);
+    try {
+      if (isConnected) {
+        await handleNetwork();
+      } else {
         await connectWallet();
-        updateData()
-      } catch (error) {
-        setErrorMgs(error?.reason)
-        setBtnLoader(false)
       }
+      updateData();
+    } catch (error) {
+      setErrorMgs("User rejected transaction.");
+      setBtnLoader(false);
     }
   }
   const updateData = async () => {

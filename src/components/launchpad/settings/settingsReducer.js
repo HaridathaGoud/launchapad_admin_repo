@@ -55,5 +55,4 @@ const setAllTiersData = (payload) => {
     }
     return state;
   };
-  export default settingsReducer;
-export {fetchTiersData}
+export {fetchTiersData,settingsReducer}

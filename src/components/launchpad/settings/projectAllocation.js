@@ -32,29 +32,34 @@ const PeojectAllocation = () => {
   const [txHash,setTxHash]=useState(null)
   const { chain } = useNetwork();
 
-   async function handleNetwork() {
-    if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
-      await switchNetwork({
-        chainId: Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID) || 0,
-      });
-    }else{
-      return true;
+  async function handleNetwork() {
+    try {
+      if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
+        await switchNetwork({
+          chainId: Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID) || 0,
+        });
+      } else {
+        return true;
+      }
+    } catch (error) {
+      setBtnLoader(false)
+      setErrorMgs("User rejected transaction.");
+      throw new Error('User rejected transaction.');
     }
   }
   const getWalletAddress = async () => {
-    if (isConnected) {
-      await handleNetwork();
-      updateData()
-    }
-    else {
-      try {
-        setBtnLoader(true)
+    setErrorMgs(null);
+    setBtnLoader(true);
+    try {
+      if (isConnected) {
+        await handleNetwork();
+      } else {
         await connectWallet();
-        updateData()
-      } catch (error) {
-        setErrorMgs(error?.reason)
-        setBtnLoader(false)
       }
+      updateData();
+    } catch (error) {
+      setErrorMgs("User rejected transaction.");
+      setBtnLoader(false);
     }
   }
   const updateData = async () => {
