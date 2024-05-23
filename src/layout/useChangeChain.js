@@ -1,5 +1,5 @@
 export function changeNetwork() {
-    async function switchNetwork() {
+    async function switchNetworkk() {
       return await window?.ethereum.request({
         method: 'wallet_addEthereumChain',
         params: [
@@ -17,6 +17,6 @@ export function changeNetwork() {
         ],
       });
     }
-    return { switchNetwork };
+    return { switchNetworkk };
   }
   
