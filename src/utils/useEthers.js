@@ -31,7 +31,26 @@ export default function useEthers() {
         store.dispatch(setUserInfo(null))
         navigate("/home")
     }
-    
+     const getRewardBalance = async (
+        readRewardBalance,
+        address
+      ) => {
+        const response = await readRewardBalance(address);
+        if (response) {
+          let _amt = response.toString();
+          if (_amt) {
+            return { amount:parseFloat(ethers.utils.formatEther(_amt)), balanceError: null };
+          }
+        }
+        return { balanceError: response, amount: null };
+      };
+      const getOwnerAddress = async (getOwner, address) => {
+        const response = await getOwner(address);
+        if (response) {
+          return { ownerAddress: response, error: null };
+        }
+        return { error: response, amount: null };
+      };
 
-    return { isConnectd, getAddress, disConnect }
+    return { isConnectd, getAddress, disConnect,getRewardBalance ,getOwnerAddress}
 }

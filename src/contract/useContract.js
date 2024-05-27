@@ -1,9 +1,9 @@
 import VotingContract from './voting.json';
-import { prepareWriteContract, writeContract } from 'wagmi/actions';
+import { prepareWriteContract, writeContract,readContract } from 'wagmi/actions';
 import{ ethers } from 'ethers';
 import Contract from './mint.json';
 import { useSelector } from 'react-redux';
-
+import reward from './rewards.json'
 export function useContract() {
  const selectedDAO = useSelector((state) => state?.oidc?.defaultData);
  async function addQuestion(contractAddress,questionHash, oprionHash, startTime, endTime) {
@@ -78,7 +78,25 @@ async function proposalCalculation(contractAddress,args1) {
      alert('Please Install the Metamask to your browser');
    }
  }
-
+ async function readRewardBalance(contract) {
+  const address = await getAddress();
+  const _result = await readContract({
+    address: contract,
+    abi: reward.abi,
+    functionName: "balanceOf",
+    args: [address],
+  });
+  return _result;
+}
+async function getOwner(contract) {
+  const _result = await readContract({
+    address: contract,
+    abi: reward.abi,
+    functionName: "owner",
+    args: [],
+  });
+  return _result;
+}
  return {
-   addQuestion,castVote, voteCalculation,parseError,getSafeMintMultipleKOL };
+   addQuestion,castVote, voteCalculation,parseError,getSafeMintMultipleKOL,readRewardBalance,getOwner };
  }

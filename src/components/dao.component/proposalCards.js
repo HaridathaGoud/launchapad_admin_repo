@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useReducer } from 'react';
+import React, { useState, useEffect,useReducer,useMemo } from 'react';
 import { useAccount, useConnect} from 'wagmi'
 import {MetaMaskConnector} from "wagmi/connectors/metaMask"
 import Container from 'react-bootstrap/Container';
@@ -24,7 +24,7 @@ import moment from 'moment';
 import ErrorPage from "../../../src/views/pages/unauthorizederror/unauthorizederror"
 import PropTypes from 'prop-types'
 import shimmers from '../shimmers/shimmers';
-
+import useEthers from 'src/utils/useEthers';
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
  
 const reducers = (state, action) => {
@@ -39,8 +39,8 @@ const reducers = (state, action) => {
             return { ...state, status: action.payload };
         case 'dateStatus':
             return { ...state, dateStatus: action.payload };
-        case 'votingContractAddress':
-            return { ...state, votingContractAddress: action.payload };
+        case 'setDaoDeatils':
+            return { ...state, daoDetails: action.payload };
     }
 }
 const take = 8;
@@ -51,6 +51,7 @@ const Dao = (props) => {
     const [success, setSuccess] = useState(null);
     const startDate="";
     const endDate = "";
+    const router = useNavigate();
     const [status, setStatus] = useState("all")
     const [pageNo, setPageNo] = useState(1);
     const [errorMsg, setErrorMsg] = useState(null)
@@ -61,9 +62,10 @@ const Dao = (props) => {
     const  DaoDetail =  useSelector((state) => state?.proposal?.daoCards?.data);
     const [loading, setLoading]=useState(false)
     const [state, dispatch] = useReducer(reducers, { modalShow: false, status: "all", statusLu: [],
-     date: null, dateStatus: false,votingContractAddress:'' })
+     date: null, dateStatus: false,daoDetails:{} })
         const [votingOwner,setVotingOwner]=useState(false)
-    const { voteCalculation } = useContract();
+    const { voteCalculation,getOwner,readRewardBalance } = useContract();
+    const { getRewardBalance,getOwnerAddress } = useEthers();
     const [proposalCardList,setProposalCardList]=useState([])
         const [btnLoader, setBtnLoader] = useState(false);
     const [txHash,setTxHash]=useState(null)
@@ -73,11 +75,12 @@ const Dao = (props) => {
     const [selection, setSelection]=useState(null);
         const { address, isConnected } = useAccount()
     const [shimmerLoading,setShimmerLoading] = useState(true)
+    const [userDetailsFromContract, setUserDetailsFromContract] =useState(null);
     const { connect } = useConnect({
       connector: new MetaMaskConnector(),
     })
     useEffect(()=>{
-        if(UserInfo?.role=="Admin" && !isAdmin.isInvestor){
+        if(!isConnected){
             connect()
         }      
         window.scrollTo(0,0)
@@ -127,12 +130,13 @@ const Dao = (props) => {
 
     const getDaoItem = () => {
         let daoData = DaoDetail?.find((item) => item?.daoId == params.id?.toLocaleLowerCase())
-        dispatch({ type: 'votingContractAddress', payload: daoData?.contractAddress })
-        getVotingOwner()
+        dispatch({ type: 'setDaoDeatils', payload: daoData })
+        getVotingOwner(daoData)
+        getDetails(daoData)
     }
 
-    async function getVotingOwner() {
-      let contractAddress=state.votingContractAddress;
+    async function getVotingOwner(daoData) {
+      let contractAddress=daoData?.contractAddress;
         try {
             const _connector = window?.ethereum;
             const _provider = new ethers.providers.Web3Provider(_connector);
@@ -149,10 +153,8 @@ const Dao = (props) => {
         } catch (error) {  
         }
     }
-    const router = useNavigate();
     const handleRedirect = () => {
         router(`/dao/createpraposal/${params.id}`)
-
     }
 
     const handletest = (item) => {
@@ -227,8 +229,6 @@ const Dao = (props) => {
         }
     }
 
-   
-
     const getEndDateProposalData = (e) => {
         setShimmerLoading(true)
         setLookUpError(false);
@@ -292,7 +292,7 @@ const Dao = (props) => {
         setErrorMsg(null)
         setTxHash(null)
         try {
-        const response = await voteCalculation(state?.votingContractAddress,item.titleHash);
+        const response = await voteCalculation(state?.daoDetails?.contractAddress,item.titleHash);
         const _connector = window?.ethereum;
         const provider = new ethers.providers.Web3Provider(_connector);
             const txResponse = await provider.waitForTransaction(response.hash);
@@ -356,6 +356,49 @@ const Dao = (props) => {
             default: "close-text",
           };
 
+
+          const getDetails = async (daoData) => {
+            const { amount, balanceError } = await getRewardBalance(
+              readRewardBalance,
+              daoData?.contractAddress
+            );
+            const { ownerAddress, error } = await getOwnerAddress(
+              getOwner,
+              daoData?.contractAddress
+            );
+            let detailsToUpdate = userDetailsFromContract
+              ? userDetailsFromContract
+              : {};
+            if (amount) {
+              detailsToUpdate = { ...detailsToUpdate, balance: amount };
+              setUserDetailsFromContract({ ...detailsToUpdate, balance: amount });
+            } else {
+                setErrorMsg(balanceError);
+            }
+            if (ownerAddress) {
+              detailsToUpdate = { ...detailsToUpdate, owner: ownerAddress };
+            } else {
+                setErrorMsg( error);
+            }
+            if (Object.keys(detailsToUpdate).length > 0) {
+              setUserDetailsFromContract(detailsToUpdate);
+            }
+          };
+    const isEligibleForProposal = useMemo(() => {
+        return (
+            isConnected &&
+            address &&
+            isAdmin?.id &&
+            state.daoDetails?.contractAddress &&
+            userDetailsFromContract &&
+            (userDetailsFromContract?.owner === address ||
+                (userDetailsFromContract?.balance &&
+                    userDetailsFromContract?.balance >
+                    Number(state.daoDetails?.proposalCreationBalance)))
+        );
+    }, [address, isConnected, userDetailsFromContract, state.daoDetails, isAdmin?.id]);
+
+
     return (
         <>{params.id == "null" ? <ErrorPage /> :
             <>
@@ -399,7 +442,7 @@ const Dao = (props) => {
                                             className={`mb-0 ms-2 back-text cursor-pointer ${UserInfo?.role == "Super Admin" && "c-pointer"}`}
                                              onClick={handledashboard}>Proposals</span></div>
 
-                                        {(UserInfo?.role == "Admin" ) && <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
+                                        {isEligibleForProposal && ( <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>)}
                                     </div>
 
                                 </Col>
@@ -535,7 +578,7 @@ const Dao = (props) => {
 
                             </Row>
 
-                        </div> : <FirstPraposal handleRedirect={handleRedirect} votingOwner={votingOwner} />}
+                        </div> : <FirstPraposal handleRedirect={handleRedirect} votingOwner={votingOwner}isEligibleForProposal={isEligibleForProposal} />}
 
                 </div>}
             </>

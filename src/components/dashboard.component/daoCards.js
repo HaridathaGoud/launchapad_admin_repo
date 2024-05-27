@@ -17,9 +17,9 @@ import apiCalls from 'src/api/apiCalls';
 import PropTypes from 'prop-types'
 import shimmers from '../shimmers/shimmers';
 import { useAccount } from 'wagmi'
+import { switchNetwork } from 'wagmi/actions';
 import { useConnectWallet } from 'src/hooks/useConnectWallet';
 const take = 8;
-
 const Dashboard = (props) => {
     const loading = useSelector((state) => state?.proposal?.daoCards?.loading)
     const daoCardDetails = useSelector((state) => state?.proposal?.daoCards);
@@ -31,7 +31,21 @@ const Dashboard = (props) => {
     const router = useNavigate();
     const { isConnected } = useAccount()
     const { connectWallet } = useConnectWallet();
-
+    async function handleNetwork() {
+        try {
+          if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
+            await switchNetwork({
+              chainId: Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID) || 0,
+            });
+          } else {
+            return true;
+          }
+        } catch (error) {
+          setDeployContractLoader(false)
+          setErrorMsg("User rejected transaction.");
+          throw new Error('User rejected transaction.');
+        }
+      }
     const getDaosList = async (data,page) => {
         await props.trackWallet({
           page: page,
@@ -70,25 +84,22 @@ const Dashboard = (props) => {
     const goToProposalList = (item) => {
         router(`/dao/proposal/${item?.daoId}`);
     }
-    const handleDeployDao = async (item) => {
+    const getWalletAddress = async (item) => {
         setErrorMsg(null);
-        if (isConnected) {
-            deployDAO(item);
-            setSelectedDaoId(item?.daoId)
-        }
-        else {
-          try {
+        setDeployContractLoader(true);
+        setSelectedDaoId(item?.daoId);
+        try {
+          if (isConnected) {
+            await handleNetwork();
+          } else {
             await connectWallet();
-            deployDAO(item);
-            setSelectedDaoId(item?.daoId)
-            setErrorMsg(null);
-          } catch (error) {
-            setSelectedDaoId(null)
-            setErrorMsg(apiCalls.isErrorDispaly(error));
-            setDeployContractLoader(false);
-            setDeployingCardId(null);
           }
-    
+          deployDAO(item);
+        } catch (error) {
+            setSelectedDaoId(null)
+            setErrorMsg("User rejected transaction.");
+           setDeployContractLoader(false);
+           setDeployContractLoader(false);
         }
       }
 
@@ -176,7 +187,7 @@ const Dashboard = (props) => {
                                         }
                                         {isAdmin?.isInvestor && (item?.status?.toLowerCase() == "approved") &&
                                             <Button className='button-secondary w-100 mt-2'
-                                             onClick={() => handleDeployDao(item)}
+                                             onClick={() => getWalletAddress(item)}
                                              disabled={selectedDaoId === item.daoId}>
                                             <span>{selectedDaoId === item.daoId  && <Spinner className={`loaderStyle  ${deployContractLoader ? 'text-black' : 'text-light'}`}></Spinner>}</span>
                                             <span>Deploy </span></Button>}
