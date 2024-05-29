@@ -1,5 +1,5 @@
 import { validateContentRules } from "src/utils/custom.validator";
-
+import { validateUrl } from "src/utils/validations";
 export  const erc20FormValidation = (obj) => {
     const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, contractAddress,
       tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply  } = obj;
@@ -218,8 +218,6 @@ export  const erc20FormValidation = (obj) => {
  export const validateCastCrewForm = (validatingForm) => {
     const { name, role, bio, webisite, facebook, instagram } = validatingForm ;
     const newErrors = {};
-    const urlRegex = /^(?:(?:https?|ftp|file):\/\/|www\.)[^\s/$.?#].[^\s]*$/;
-    const emojiRegex = /\p{Emoji}/u;
     const numbersOnly = /^\d+$/;
     const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
 
@@ -236,17 +234,14 @@ export  const erc20FormValidation = (obj) => {
           newErrors.bio = 'Accepts alphanumeric and special chars.';
       }
   }
-    if (webisite && (emojiRegex.test(webisite) || !urlRegex.test(webisite))) {
+    if (webisite && validateUrl(webisite)) {
       newErrors.webisite ='please provide valid content for website';
     }
-    if (facebook && (emojiRegex.test(facebook) || !urlRegex.test(facebook))) {
-      newErrors.facebook ='please provide valid content for facebook';
-    }
-    if (instagram && (emojiRegex.test(instagram) || !urlRegex.test(instagram))) {
+    if (instagram && validateUrl(instagram)) {
       newErrors.instagram ='please provide valid content for instagram';
     }
-    if (facebook && !urlRegex.test(facebook)) {
-      newErrors.facebook = 'please provide valid content for facebook';
+    if (facebook && validateUrl(facebook)) {
+      newErrors.facebook ='please provide valid content for facebook';
     }
     return newErrors;
   }
