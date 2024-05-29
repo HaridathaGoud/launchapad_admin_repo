@@ -276,7 +276,6 @@ const ProjectCards = () => {
     const publicPrice = ethers.utils.parseUnits(tokenAmountPublic, tokenDecimals);
     // const tierWaight = [10, 10, 10, 30, 30, 30, 40, 40, 40, 60, 60, 60, 80, 80, 80, 120, 120, 120];
     const tierWaight = [1, 1, 1, 2, 2, 2, 3, 3, 4, 6, 6, 7, 8, 9, 10, 11, 11, 13];
-    const listingTime = convertDateToMinutesUTC(moment(state.detailsPreview?.listTime).format("YYYY-MM-DDTHH:mm"))
     const timeSolts = state.detailsPreview?.noOfSlots
     const hours = Number(state.detailsPreview?.vestingDays);
     const secondsInHour = 60 * 60;
@@ -293,7 +292,7 @@ const ProjectCards = () => {
         rewardsToken,
         totalSupply,
         tierWaight,
-        listingTime,
+        rndStart,
         timeSolts,
         totalSeconds,
         rndStart,
