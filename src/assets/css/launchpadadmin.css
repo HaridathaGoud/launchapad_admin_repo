@@ -328,7 +328,7 @@ body.mceContentBody {
 .height-flex .detailview-leftpanel{padding-bottom: 0 !important;}
 .label-secondary{ color: hsla(0,0%,100%,.6);}
 .alert{padding: 20px;}
-.alert p{margin-bottom: 0;}
+.alert p{margin-bottom: 0;text-transform: capitalize !important;}
 .settings-popover .popover-body div{margin-bottom: 8px;cursor: pointer;padding: 4px 14px;}
 .badge-style div{flex-grow: 1;flex-basis: 0;padding: 0 12px;}
 .project-card button{flex: auto;}

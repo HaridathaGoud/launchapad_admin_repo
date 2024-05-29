@@ -561,7 +561,7 @@ th .k-link{cursor: default !important;}
   .dao-shimmer{width: 23%;}
   table{width: 100% !important;}
 .token-listing .was-validated .form-control:invalid{padding-right: 16px !important;}
-  .allocation-error{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 700px;}
+  .allocation-error{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis;max-width: 700px;text-transform: capitalize}
 /* referrals start  */
 .label-value {
   font-weight: 700!important;
