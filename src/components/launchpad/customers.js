@@ -87,14 +87,14 @@ class LaunchpadCustomers extends Component {
             title: "Country",
             filter: true,
             sortable: true,
-            width: 200,
+            width: 150,
         },
         {
             field: "kycStatus",
             title: "KYC Status",
             filter: true,
             sortable: true,
-            width: 120,
+            width: 140,
         },
     ];
     handleBlur = (e) => {

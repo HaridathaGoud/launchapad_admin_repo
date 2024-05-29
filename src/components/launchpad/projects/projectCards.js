@@ -349,7 +349,7 @@ const ProjectCards = () => {
     const nativePriceFeeAddres = '0x001382149eBa3441043c1c66972b4772963f5D43';
     const secondaryPriceFeeAdres = '0xF0d50568e3A7e8259E16663972b11910F89BD8e7';
     const platformFee = 5;
-    const ercCustomToken = '0x4eFFBaAeF9a35d151c88FbE8C3daf21B98672f16';
+    const ercCustomToken = '0x41CF89e47Ee08a09D8bc168c5072358e87B2eBf8';
     const baseFiatPrice = ethers.utils.parseEther('50');
     const provider = new ethers.providers.Web3Provider(window?.ethereum)
     const factory = new ethers.Contract(MintFactory.contractAddress, MintFactory.abi, provider.getSigner());
@@ -524,7 +524,7 @@ const ProjectCards = () => {
                         {isAdmin && val?.projectstatus?.toLowerCase() === 'approved' &&
                           <span className='card-state bg-warning' >View</span>
                         }
-                        {val?.projectstatus?.toLowerCase() === 'submitted' && <> <span className='card-state bg-warning'>Submitted</span> </>}
+                        {val?.projectstatus?.toLowerCase() === 'submitted' && <> <span className='card-state bg-primary'>Submitted</span> </>}
                         {!isAdmin && val?.projectstatus?.toLowerCase() === 'approved' &&
                           <Button className='button-secondary w-100 mb-2' onClick={() => getProjectDetails(val.id)} >
                             Deploy</Button>

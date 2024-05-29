@@ -52,29 +52,29 @@ function LaunchPadMenu(props){
         <Popover id="popover-basic" className='settings-popover'>
           <Popover.Header as="h3" className='bg-transparent'>Settings</Popover.Header>
           <Popover.Body>
-                <div>
-                    <button className='btn-transparent' onClick={() => handlenavigatemenu('fcfs')}>Set FCFS Start Time</button>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('fcfs')}>
+                    Set FCFS Start Time
                 </div>
-                <div>
-                    <button className='btn-transparent' onClick={() => handlenavigatemenu('fcfsendtime')}>Set FCFS End Time</button>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('fcfsendtime')}>
+                    Set FCFS End Time
                 </div>
-                <div>
-                    <button className='btn-transparent' onClick={() => handlenavigatemenu('vestingtime')}>Set Vesting Time</button>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('vestingtime')}>
+                    Set Vesting Time
                 </div>
-                <div>
-                    <button className='btn-transparent' onClick={() => handlenavigatemenu('tokenlisting')}>Set Token Listing Time</button>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('tokenlisting')}>
+                    Set Token Listing Time
                 </div>
-                <div>
-                    <button className='btn-transparent' onClick={() => handlenavigatemenu('roundonestart')}>Set Round One Start Time</button>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('roundonestart')}>
+                    Set Round One Start Time
                 </div>
-                <div>
-                    <button className='btn-transparent' onClick={() => handlenavigatemenu('roundoneend')}>Set Round One End Time</button>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('roundoneend')}>
+                    Set Round One End Time
                 </div>
-                <div>
-                    <button className='btn-transparent' onClick={() => handlenavigatemenu('allocation')}>Allocation</button>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('allocation')}>
+                    Allocation
                 </div>
-                <div>
-                    <button className='btn-transparent' onClick={() => handlenavigatemenu('allocationroundtwo')}>Round Two Allocation</button>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('allocationroundtwo')}>
+                    Round Two Allocation
                 </div>
           </Popover.Body>
         </Popover>
