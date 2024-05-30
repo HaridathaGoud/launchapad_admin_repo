@@ -1,7 +1,7 @@
 import { validateContentRules } from "src/utils/custom.validator";
 import { validateUrl } from "src/utils/validations";
 export  const erc20FormValidation = (obj) => {
-    const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, contractAddress,
+    const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, tokenContractAddress,
       tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply  } = obj;
     const newErrors = {};
     const numbersOnly = /^\d+$/;
@@ -41,9 +41,9 @@ export  const erc20FormValidation = (obj) => {
     }else if (!validateContentRules('', description)|| description?.match(specialCharsOnly) || description?.match(numbersOnly) ) {
       newErrors.description = 'Accepts alphanumeric and special chars.';
     }
-    if (!contractAddress || contractAddress == '') {
+    if (!tokenContractAddress || tokenContractAddress == '') {
       newErrors.tokenContractAddress = 'Is required';
-    } else if (!validateContentRules("", contractAddress) || (emojiRejex.test(contractAddress))|| contractAddress?.match(specialCharsOnly) || contractAddress?.match(numbersOnly) ) {
+    } else if (!validateContentRules("", tokenContractAddress) || (emojiRejex.test(tokenContractAddress))|| tokenContractAddress?.match(specialCharsOnly) || tokenContractAddress?.match(numbersOnly) ) {
       newErrors.tokenContractAddress = 'Accepts alphanumeric and special chars.';
     }
     if (!tokenName || tokenName == '') {

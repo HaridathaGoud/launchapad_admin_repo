@@ -236,7 +236,7 @@ const Projects = (props) => {
       dispatch({ type: 'buttonLoader', payload: true })
       let obj = {
         "id": projectSaveDetails?.id != null ? projectSaveDetails.id : (pId ?? "00000000-0000-0000-0000-000000000000"),
-        "contractAddress": state.projectSaveDetails?.tokenContractAddress,
+        "contractAddress": state.projectSaveDetails?.contractAddress ||null,
         "tokenName": state.projectSaveDetails?.tokenName || null,
         "tokenSymbol": state.projectSaveDetails?.tokenSymbol || null,
         "tokenLogo": state.projectLogoImages,
