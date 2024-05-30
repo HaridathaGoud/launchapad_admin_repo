@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Image,  } from 'react-bootstrap';
 import platinum from '../../../assets/images/platinum.svg'
 import daimond from '../../../assets/images/daimond.svg'
+import bluedaimond from '../../../assets/images/blue-daimond.svg'
 
 const TiersData = () => {
   return (<>   
@@ -56,7 +57,7 @@ const TiersData = () => {
         <div className='col-lg-3 p-md-0 col-md-5'>
           <div className='card-blue-daimond '>
           <div className='d-flex align-items-center gap-2'>
-           <Image src={daimond} />
+           <Image src={bluedaimond} />
           <div>
           <p className=' status-text mb-0'>Tier Name</p>
            <span className='bg-blue-diamond '>Blue Diamond</span>
@@ -122,7 +123,7 @@ const TiersData = () => {
         <div className='col-lg-3 p-md-0 col-md-5'>
           <div className='card-blue-daimond '>
           <div className='d-flex align-items-center gap-2'>
-           <Image src={daimond} />
+           <Image src={bluedaimond} />
           <div>
           <p className=' status-text mb-0'>Tier Name</p>
            <span className='bg-bronze '>Bronze</span>
