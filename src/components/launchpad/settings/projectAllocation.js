@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import { Spinner } from 'react-bootstrap';
+import { Image, Spinner } from 'react-bootstrap';
 import { useParams, useNavigate,Link } from 'react-router-dom';
 import { ethers } from 'ethers';
 import { useSelector } from 'react-redux';
@@ -14,6 +14,9 @@ import store from 'src/store';
 import { useConnectWallet } from 'src/hooks/useConnectWallet';
 import { useAccount,useNetwork } from 'wagmi'
 import { switchNetwork } from 'wagmi/actions';
+import platinum from '../../../assets/images/platinum.svg'
+import daimond from '../../../assets/images/daimond.svg'
+import TiersData from './tiersdata';
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
 
 
@@ -128,7 +131,8 @@ const PeojectAllocation = () => {
         </Alert>
       )}
     
-    <Button className='filled-btn' onClick={() => getWalletAddress()} disabled={btnLoader} >{btnLoader && <Spinner size='sm' className={`${btnLoader ? "text-black" : "text-light"}`} />} Allocate</Button>
+    <div className='text-end'><Button className='filled-btn' onClick={() => getWalletAddress()} disabled={btnLoader} >{btnLoader && <Spinner size='sm' className={`${btnLoader ? "text-black" : "text-light"}`} />} Allocate</Button></div>
+    <TiersData/>
     {isTransactionSuccess && (
         <div >
         <ToasterMessage isShowToaster={isTransactionSuccess} success={success}></ToasterMessage>
