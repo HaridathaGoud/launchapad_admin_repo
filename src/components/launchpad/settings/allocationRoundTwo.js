@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Spinner } from 'react-bootstrap';
 import { useParams, useNavigate,Link } from 'react-router-dom';
@@ -31,7 +31,13 @@ const AllocationRoundTwo = () => {
   const [success, setSuccess] = useState(null);
   const [txHash,setTxHash]=useState(null);
   const { chain } = useNetwork();
+  const [pageloader,setPageLoader] =  useState(true);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setPageLoader(false);
+    }, 1000);
+  }, []);
   async function handleNetwork() {
     try {
       if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
@@ -102,42 +108,45 @@ const AllocationRoundTwo = () => {
   }
 
   return (
-    //{loader && <div className="text-center"><Spinner ></Spinner></div> }
     <div>
-      <CBreadcrumb>
-        <CBreadcrumbItem>
-          <CLink href="#" onClick={() => redirection()}>Projects</CLink>
-        </CBreadcrumbItem>
-        <CBreadcrumbItem>
-          Settings
-        </CBreadcrumbItem>
-        <CBreadcrumbItem active>Round Two Allocation</CBreadcrumbItem>
-      </CBreadcrumb>
-      {errorMgs && (
-        <Alert variant="danger" className='d-lg-flex justify-content-between mobile-block'>
-          <div className="d-flex align-items-center flex-1">
-            <span className="icon error-alert me-2 alert-error mt-0"></span>
-            <p style={{ color: 'red', }} className="error-align mb-0 allocation-error">
-              {errorMgs}
-            </p>
-          </div>
-          {txHash && <div className='text-end'>
-            <Link className='text-end hyper-text' to={`${polygonUrl}${txHash}`} target="_blank" >
-              Click here </Link>
-            <span className='mr-25 mb-0 ' style={{ color: 'red', }}>to see details</span>
-          </div>}
-        </Alert>
-      )}
+      {pageloader && <div className="text-center"><Spinner ></Spinner></div>}
+      {!pageloader &&
+        <>
+          <CBreadcrumb>
+            <CBreadcrumbItem>
+              <CLink href="#" onClick={() => redirection()}>Projects</CLink>
+            </CBreadcrumbItem>
+            <CBreadcrumbItem>
+              Settings
+            </CBreadcrumbItem>
+            <CBreadcrumbItem active>Round Two Allocation</CBreadcrumbItem>
+          </CBreadcrumb>
+          {errorMgs && (
+            <Alert variant="danger" className='d-lg-flex justify-content-between mobile-block'>
+              <div className="d-flex align-items-center flex-1">
+                <span className="icon error-alert me-2 alert-error mt-0"></span>
+                <p style={{ color: 'red', }} className="error-align mb-0 allocation-error">
+                  {errorMgs}
+                </p>
+              </div>
+              {txHash && <div className='text-end'>
+                <Link className='text-end hyper-text' to={`${polygonUrl}${txHash}`} target="_blank" >
+                  Click here </Link>
+                <span className='mr-25 mb-0 ' style={{ color: 'red', }}>to see details</span>
+              </div>}
+            </Alert>
+          )}
 
-      <Button className='filled-btn' onClick={() => getWalletAddress()} disabled={btnLoader} >{btnLoader && <Spinner size='sm' className={`${btnLoader ? "text-black" : "text-light"}`} />} Allocate</Button>
-      {isTransactionSuccess && (
-        <div >
-          <ToasterMessage isShowToaster={isTransactionSuccess} success={success}></ToasterMessage>
-        </div>
-      )}
+          <Button className='filled-btn' onClick={() => getWalletAddress()} disabled={btnLoader} >{btnLoader && <Spinner size='sm' className={`${btnLoader ? "text-black" : "text-light"}`} />} Allocate</Button>
+          {isTransactionSuccess && (
+            <div >
+              <ToasterMessage isShowToaster={isTransactionSuccess} success={success}></ToasterMessage>
+            </div>
+          )}
+        </>
+      }
     </div>
   )
-
 }
 
 export default AllocationRoundTwo;

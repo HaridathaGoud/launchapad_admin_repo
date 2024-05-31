@@ -1,6 +1,5 @@
-import React, { useState, useEffect,useReducer,useMemo } from 'react';
-import { useAccount, useConnect} from 'wagmi'
-import {MetaMaskConnector} from "wagmi/connectors/metaMask"
+import React, { useState, useEffect,useReducer } from 'react';
+import { useAccount,useNetwork} from 'wagmi'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -24,7 +23,8 @@ import moment from 'moment';
 import ErrorPage from "../../../src/views/pages/unauthorizederror/unauthorizederror"
 import PropTypes from 'prop-types'
 import shimmers from '../shimmers/shimmers';
-import useEthers from 'src/utils/useEthers';
+import { useConnectWallet } from '../../hooks/useConnectWallet';
+import { switchNetwork } from 'wagmi/actions';
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
  
 const reducers = (state, action) => {
@@ -63,29 +63,49 @@ const Dao = (props) => {
     const [loading, setLoading]=useState(false)
     const [state, dispatch] = useReducer(reducers, { modalShow: false, status: "all", statusLu: [],
      date: null, dateStatus: false,daoDetails:{} })
-        const [votingOwner,setVotingOwner]=useState(false)
-    const { voteCalculation,getOwner,readRewardBalance } = useContract();
-    const { getRewardBalance,getOwnerAddress } = useEthers();
+    const [votingOwner,setVotingOwner]=useState(false)
+    const { voteCalculation } = useContract();
     const [proposalCardList,setProposalCardList]=useState([])
-        const [btnLoader, setBtnLoader] = useState(false);
+    const [btnLoader, setBtnLoader] = useState(false);
     const [txHash,setTxHash]=useState(null)
     const isAdmin = useSelector(reducerState => reducerState.oidc?.adminDetails)
     const [loadMore,setLoadMore] = useState(false)
     const [hide,setHide] = useState(false)
     const [selection, setSelection]=useState(null);
-        const { address, isConnected } = useAccount()
+    const { address, isConnected } = useAccount()
     const [shimmerLoading,setShimmerLoading] = useState(true)
-    const [userDetailsFromContract, setUserDetailsFromContract] =useState(null);
-    const { connect } = useConnect({
-      connector: new MetaMaskConnector(),
-    })
-    useEffect(()=>{
-        if(!isConnected){
-            connect()
-        }      
-        window.scrollTo(0,0)
-    },[address])
-
+    const { connectWallet } = useConnectWallet();
+    const { chain } = useNetwork();
+  
+    async function handleNetwork() {
+      try {
+        if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
+          await switchNetwork({
+            chainId: Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID) || 0,
+          });
+        } else {
+          return true;
+        }
+      } catch (error) {
+        setErrorMsg( "User rejected transaction.");
+        throw new Error('User rejected transaction.');
+      }
+    }
+    useEffect(() => {
+        getApprovedProposalData(status)
+        setLoading(true)
+        props?.lookUp((callback) => {
+            dispatch({ type: 'statusLu', payload: callback })
+            setLoading(false)
+            window.scrollTo(0,0)
+        })
+        if (isAdmin?.isInvestor === true) {
+           getInvestorDaosList(null,1);
+         }else{
+            getDaosList(null,1);            
+        }
+        getDaoItem();
+    }, [address,txHash])
     const getDaosList = async (data,page) => {
         await props.trackWallet({
           page: page,
@@ -100,21 +120,6 @@ const Dao = (props) => {
           data: data ,
         },isAdmin?.id);
       };
-    useEffect(() => {
-        getApprovedProposalData(status)
-        setLoading(true)
-        props?.lookUp((callback) => {
-            dispatch({ type: 'statusLu', payload: callback })
-            setLoading(false)
-            window.scrollTo(0,0)
-        })
-        if (isAdmin?.isInvestor === true) {
-           getInvestorDaosList(null,1);
-         }else{
-            getDaosList(null,1);            
-        }
-    }, [address,txHash])
-
 
     useEffect(() => {
         const updatedList = proposalData.map((item) => {
@@ -125,14 +130,18 @@ const Dao = (props) => {
             return { ...item, dateEnded: isCurrentGreater };
           });
           setProposalCardList(updatedList);
-          getDaoItem();
     }, [proposalData])
 
-    const getDaoItem = () => {
+    const getDaoItem = async () => {
         let daoData = DaoDetail?.find((item) => item?.daoId == params.id?.toLocaleLowerCase())
         dispatch({ type: 'setDaoDeatils', payload: daoData })
-        getVotingOwner(daoData)
-        getDetails(daoData)
+        if(isConnected){
+            await handleNetwork();
+            getVotingOwner(daoData)
+        }else{
+            await connectWallet();
+            getVotingOwner(daoData)
+        }
     }
 
     async function getVotingOwner(daoData) {
@@ -356,49 +365,6 @@ const Dao = (props) => {
             default: "close-text",
           };
 
-
-          const getDetails = async (daoData) => {
-            const { amount, balanceError } = await getRewardBalance(
-              readRewardBalance,
-              daoData?.contractAddress
-            );
-            const { ownerAddress, error } = await getOwnerAddress(
-              getOwner,
-              daoData?.contractAddress
-            );
-            let detailsToUpdate = userDetailsFromContract
-              ? userDetailsFromContract
-              : {};
-            if (amount) {
-              detailsToUpdate = { ...detailsToUpdate, balance: amount };
-              setUserDetailsFromContract({ ...detailsToUpdate, balance: amount });
-            } else {
-                setErrorMsg(balanceError);
-            }
-            if (ownerAddress) {
-              detailsToUpdate = { ...detailsToUpdate, owner: ownerAddress };
-            } else {
-                setErrorMsg( error);
-            }
-            if (Object.keys(detailsToUpdate).length > 0) {
-              setUserDetailsFromContract(detailsToUpdate);
-            }
-          };
-    const isEligibleForProposal = useMemo(() => {
-        return (
-            isConnected &&
-            address &&
-            isAdmin?.id &&
-            state.daoDetails?.contractAddress &&
-            userDetailsFromContract &&
-            (userDetailsFromContract?.owner === address ||
-                (userDetailsFromContract?.balance &&
-                    userDetailsFromContract?.balance >
-                    Number(state.daoDetails?.proposalCreationBalance)))
-        );
-    }, [address, isConnected, userDetailsFromContract, state.daoDetails, isAdmin?.id]);
-
-
     return (
         <>{params.id == "null" ? <ErrorPage /> :
             <>
@@ -442,7 +408,7 @@ const Dao = (props) => {
                                             className={`mb-0 ms-2 back-text cursor-pointer ${UserInfo?.role == "Super Admin" && "c-pointer"}`}
                                              onClick={handledashboard}>Proposals</span></div>
 
-                                        {isEligibleForProposal && ( <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>)}
+                                        {isAdmin?.isInvestor && ( <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>)}
                                     </div>
 
                                 </Col>
@@ -578,7 +544,7 @@ const Dao = (props) => {
 
                             </Row>
 
-                        </div> : <FirstPraposal handleRedirect={handleRedirect} votingOwner={votingOwner}isEligibleForProposal={isEligibleForProposal} />}
+                        </div> : <FirstPraposal handleRedirect={handleRedirect} votingOwner={votingOwner}isEligibleForProposal={isAdmin?.isInvestor} />}
 
                 </div>}
             </>

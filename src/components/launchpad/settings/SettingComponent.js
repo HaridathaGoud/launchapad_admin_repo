@@ -1,11 +1,11 @@
-import React, { useEffect,useReducer } from 'react';
+import React, { useEffect,useReducer, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import apiCalls from 'src/api/apiCalls';
 import Alert from 'react-bootstrap/Alert';
-import { Spinner } from 'react-bootstrap';
+import Spinner from 'react-bootstrap/esm/Spinner';
 import { ethers } from 'ethers';
 import { useSelector ,connect} from 'react-redux';
 import PropTypes from 'prop-types'
@@ -19,20 +19,29 @@ import { useAccount ,useNetwork} from 'wagmi'
 import { useConnectWallet } from 'src/hooks/useConnectWallet';
 import { fetchTiersData,initialState,settingsReducer } from './settingsReducer';
 import { switchNetwork } from 'wagmi/actions';
+import { useParams } from 'react-router-dom';
+import { projectDetailsData } from '../launchpadReducer/launchpadReducer';
 
 const SettingsComponent = (props) => {
   const { isConnected } = useAccount()
   const { connectWallet } = useConnectWallet();
   const [state, dispatch] = useReducer(settingsReducer, initialState);
-  const projectContractDetails = useSelector((reducerstore) => reducerstore.launchpad.projectDetails?.data?.projectsViewModel)
   const currentDate = new Date().toISOString().slice(0, 16);
-  const settingLoader = useSelector(state => state.oidc?.isSettingsLoading)
-  const projectDetails = useSelector((reducerstate) => reducerstate?.projectDetails?.details)
   const tiersData = useSelector((state)=> state.settings?.allTiersData)
+  const [data,setData] = useState();
   const { chain } = useNetwork();
-  // useEffect(()=>{
-  //     props.fetchAllTiersData()
-  // },[])
+  let { pId } = useParams();
+
+
+  useEffect(() => {
+    dispatch({ type: "setPageLoader", payload: true });
+    props.fetchAllTiersData()
+    props.projectDetailsReducerData(pId, (callback) => {
+      setData(callback.data)
+      dispatch({ type: "setPageLoader", payload: false })
+    })
+  }, []) 
+
   async function handleNetwork() {
     try {
       if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
@@ -95,7 +104,7 @@ const convertUtcToLocal = (date) => {
     const currentDatetime = Math.floor(new Date().getTime() / 1000);
     if (state?.settingValue && !props.funcName == "setVestingTime") {
       store.dispatch(fcfsStartTime(state?.settingValue));
-      const projectDetailsStartDate = convertUtcToLocal(projectDetails?.publicStartDate);
+      const projectDetailsStartDate = convertUtcToLocal(data?.claimsAndAllocations?.publicStartDate);
       const inputDatetime = convertdateToMinutes(moment.utc(state?.settingValue).format("YYYY-MM-DDTHH:mm"));
       const projectsStartDateTime = convertdateToMinutes(moment.utc(projectDetailsStartDate).format("YYYY-MM-DDTHH:mm"));
       if (inputDatetime < currentDatetime && props?.funcName?.includes('setfcfsstarttime')) {
@@ -125,7 +134,7 @@ const convertUtcToLocal = (date) => {
           if (numericSettingValue > 0) {
             let timeData = numericSettingValue * 60 * 60 * 24;
             const provider = new ethers.providers.Web3Provider(window?.ethereum)
-            const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
+            const factory = new ethers.Contract(data?.projectsViewModel?.contractAddress, project.abi, provider.getSigner());
             const res = await factory[props.funcName](timeData);
             res.wait().then(async (receipt) => {
               dispatch({ type: "setSettingValue", payload: null });
@@ -149,7 +158,7 @@ const convertUtcToLocal = (date) => {
         }else{
           let timeData = convertdateToMinutes(moment.utc(state?.settingValue).format("YYYY-MM-DDTHH:mm:ss"));
           const provider = new ethers.providers.Web3Provider(window?.ethereum)
-          const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
+          const factory = new ethers.Contract(data?.projectsViewModel?.contractAddress, project.abi, provider.getSigner());
           const res = await factory[props.funcName](timeData);
           res.wait().then(async () => {
             dispatch({ type: "setSettingValue", payload: null });
@@ -175,10 +184,11 @@ const convertUtcToLocal = (date) => {
     }
     
   }
+
   return (
     
     <>
-    {settingLoader? <div className="text-center"><Spinner ></Spinner></div> : <>
+    {state.pageLoader ? <div className="text-center"><Spinner ></Spinner></div> : <>
     <div className='token-listing'>
       {state.errorMgs && (
         <Alert variant="danger">
@@ -188,7 +198,7 @@ const convertUtcToLocal = (date) => {
           </div>
         </Alert>
       )}
-      {/* {loader && <div className="text-center"><Spinner ></Spinner></div> } */}
+
       <Form noValidate validated={state.validated} action="" name="settingsForm" >
         <Row className='mt-5'>
         {props.funcName !="setVestingTime"&&  <Col lg={6} md={12}>
@@ -254,7 +264,7 @@ SettingsComponent.propTypes = {
   placeholder: PropTypes.string,
   funcName: PropTypes.string,
   fetchAllTiersData: PropTypes.any,
-
+  projectDetailsReducerData: PropTypes.any,
 }
 
 const connectStateToProps = ({ auth,settings,launchpad }) => {
@@ -264,6 +274,9 @@ const connectDispatchToProps = (dispatch) => {
   return {
     fetchAllTiersData: () => {
       dispatch(fetchTiersData())
+    },
+    projectDetailsReducerData: (id, callback) => {
+      dispatch(projectDetailsData(id, callback))
     },
   }
 }

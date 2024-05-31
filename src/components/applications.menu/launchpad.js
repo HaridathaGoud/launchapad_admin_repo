@@ -10,7 +10,8 @@ import { useParams,useNavigate } from "react-router-dom";
 function LaunchPadMenu(props){
   const {pId} = useParams();
   const isAdmin = useSelector(state => state.oidc?.adminDetails);
-  const viewedProject = useSelector(state => state.launchpad?.viewedProject)
+  const projectContractDetails = useSelector((reducerstore) => reducerstore.launchpad.projectDetails?.data?.projectsViewModel)
+
   const navigate = useNavigate();
 
     const renderTooltipDashboard = (props) => (
@@ -149,7 +150,7 @@ function LaunchPadMenu(props){
                         <CNavLink onClick={() => handleMenuNavigate(`launchpad/projects/${isAdmin.id}`, false, app_name)}><span className="icon ido-request me-0" /></CNavLink>
                     </OverlayTrigger>
                 </CNavItem>}
-                {viewedProject?.projectStatus == "Deployed" && pId &&
+                {projectContractDetails?.projectStatus == "Deployed" && pId &&
                     <> {locationSplit[1] == "launchpad" &&
                         <OverlayTrigger
                             placement="right"

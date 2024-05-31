@@ -24,7 +24,8 @@ const setAllTiersData = (payload) => {
     validated:false,
     isTransactionSuccess:false,
     success:null,
-    allTiersData:{ loading: false, data: []}
+    allTiersData:{ loading: false, data: []},
+    pageLoader:false,
   };
   
    const settingsReducer = (state=initialState, action) => {
@@ -46,6 +47,9 @@ const setAllTiersData = (payload) => {
         break;
         case "setSuccess":
         state = { ...state, success: action.payload };
+        break;
+      case "setPageLoader":
+        state = { ...state, pageLoader: action.payload };
         break;
       case SET_ALL_TIERS_DATA:
         state = { ...state, allTiersData: action.payload };

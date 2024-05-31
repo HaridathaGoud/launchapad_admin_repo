@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { Image, Spinner } from 'react-bootstrap';
 import { useParams, useNavigate,Link } from 'react-router-dom';
 import { ethers } from 'ethers';
-import { useSelector } from 'react-redux';
+import { useSelector,connect } from 'react-redux';
 import { CBreadcrumb, CBreadcrumbItem, CLink } from '@coreui/react'
 import apiCalls from '../../../api/apiCalls';
 import project from '../../../contract/project.json';
@@ -17,23 +17,37 @@ import { switchNetwork } from 'wagmi/actions';
 import platinum from '../../../assets/images/platinum.svg'
 import daimond from '../../../assets/images/daimond.svg'
 import TiersData from './tiersdata';
+import { projectDetailsData } from '../launchpadReducer/launchpadReducer';
+import { fetchTiersData, } from './settingsReducer';
+import PropTypes from 'prop-types'
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
 
 
-const PeojectAllocation = () => {
+const PeojectAllocation = (props) => {
   const { isConnected } = useAccount()
   const { connectWallet } = useConnectWallet();
   const navigate = useNavigate();
   const params = useParams();
-  const projectContractDetails = useSelector((store) => store.launchpad.projectDetails?.data?.projectsViewModel)
    const userId = sessionStorage.getItem('userId');
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails);
+  const tiersData = useSelector((state)=> state.settings?.allTiersData)
   const [btnLoader, setBtnLoader] = useState(false);
   const [errorMgs, setErrorMgs] = useState(null);
   const [isTransactionSuccess, setIsTransactionSuccess] = useState(false);
   const [success, setSuccess] = useState(null);
   const [txHash,setTxHash]=useState(null)
   const { chain } = useNetwork();
+  const [data,setData] = useState();
+  const [pageloader,setPageLoader] =  useState(false);
+  useEffect(() => {
+    setPageLoader(true);
+    props.fetchAllTiersData()
+    props.projectDetailsReducerData(params?.pId, (callback) => {
+      setData(callback.data)
+      setPageLoader(false);
+    })
+  }, [params?.pId]) 
+
 
   async function handleNetwork() {
     try {
@@ -74,7 +88,7 @@ const PeojectAllocation = () => {
       const projectAddress = await apiCalls.getAllocation(params?.pId, isAdmin.id)
       if (projectAddress.ok) {
         const provider = new ethers.providers.Web3Provider(window?.ethereum)
-        const factory = new ethers.Contract(projectContractDetails.contractAddress, project.abi, provider.getSigner());
+        const factory = new ethers.Contract(data?.projectsViewModel?.contractAddress, project.abi, provider.getSigner());
         const address = [...projectAddress.data];
         const res = await factory.allocation(address,{gasLimit:5000000});//gasLimit:900000,gasPrice:300000
         setTxHash(res.hash)
@@ -104,7 +118,8 @@ const PeojectAllocation = () => {
     navigate(`/launchpad/projects/${isAdmin?.id||userId}`)
   }
   return (<>
-    {/* {loader && <div className="text-center"><Spinner ></Spinner></div> }  */}
+    {pageloader && <div className="text-center"><Spinner ></Spinner></div> } 
+  {!pageloader && 
   <div>
     <CBreadcrumb>
       <CBreadcrumbItem>
@@ -131,17 +146,35 @@ const PeojectAllocation = () => {
         </Alert>
       )}
     
-    <div className='text-end'><Button className='filled-btn' onClick={() => getWalletAddress()} disabled={btnLoader} >{btnLoader && <Spinner size='sm' className={`${btnLoader ? "text-black" : "text-light"}`} />} Allocate</Button></div>
-    <TiersData/>
+    {/* <div className='text-end'> */}
+      <div>
+      <Button className='filled-btn' onClick={() => getWalletAddress()} disabled={btnLoader} >{btnLoader && <Spinner size='sm' className={`${btnLoader ? "text-black" : "text-light"}`} />} Allocate</Button></div>
+    {/* <TiersData tiersData={tiersData?.data}/> */}
     {isTransactionSuccess && (
         <div >
         <ToasterMessage isShowToaster={isTransactionSuccess} success={success}></ToasterMessage>
         </div>
       )}
-  </div>
+  </div>}
   </>
   )
 
 }
-
-export default PeojectAllocation;
+PeojectAllocation.propTypes = {
+  fetchAllTiersData: PropTypes.any,
+  projectDetailsReducerData: PropTypes.any,
+}
+const connectStateToProps = ({ oidc,launchpad,settings }) => {
+  return { oidc: oidc,launchpad:launchpad,settings:settings };
+};
+const connectDispatchToProps = (dispatch) => {
+  return {
+    fetchAllTiersData: () => {
+      dispatch(fetchTiersData())
+    },
+    projectDetailsReducerData: (id, callback) => {
+      dispatch(projectDetailsData(id, callback))
+    },
+  }
+}
+export default connect(connectStateToProps, connectDispatchToProps)(PeojectAllocation);
