@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useReducer } from 'react';
+import React, { useState, useEffect,useReducer,useMemo } from 'react';
 import { useAccount,useNetwork} from 'wagmi'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -105,7 +105,7 @@ const Dao = (props) => {
             getDaosList(null,1);            
         }
         getDaoItem();
-    }, [address,txHash])
+    }, [address])
     const getDaosList = async (data,page) => {
         await props.trackWallet({
           page: page,
@@ -364,6 +364,16 @@ const Dao = (props) => {
             Publishing: "pending-text",
             default: "close-text",
           };
+          const isEligibleForProposal = useMemo(() => {
+            return (
+              isConnected &&
+              address &&
+              isAdmin?.isInvestor &&
+              state?.daoDetails?.contractAddress &&
+              (state?.daoDetails?.tokenType==='ERC-721'&& state?.daoDetails?.members >2 ) ||
+              (state?.daoDetails?.tokenType==='ERC-20' && true )
+            );
+          }, [address, isConnected, state?.daoDetails,isAdmin?.isInvestor]);
 
     return (
         <>{params.id == "null" ? <ErrorPage /> :
@@ -408,7 +418,7 @@ const Dao = (props) => {
                                             className={`mb-0 ms-2 back-text cursor-pointer ${UserInfo?.role == "Super Admin" && "c-pointer"}`}
                                              onClick={handledashboard}>Proposals</span></div>
 
-                                        {isAdmin?.isInvestor && ( <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>)}
+                                        {isEligibleForProposal && ( <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>)}
                                     </div>
 
                                 </Col>
@@ -544,7 +554,7 @@ const Dao = (props) => {
 
                             </Row>
 
-                        </div> : <FirstPraposal handleRedirect={handleRedirect} votingOwner={votingOwner}isEligibleForProposal={isAdmin?.isInvestor} />}
+                        </div> : <FirstPraposal handleRedirect={handleRedirect} votingOwner={votingOwner}isEligibleForProposal={isEligibleForProposal} />}
 
                 </div>}
             </>

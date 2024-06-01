@@ -16,7 +16,7 @@ import { ethers } from 'ethers';
 import apiCalls from 'src/api/apiCalls';
 import PropTypes from 'prop-types'
 import shimmers from '../shimmers/shimmers';
-import { useAccount } from 'wagmi'
+import { useAccount,useNetwork } from 'wagmi'
 import { switchNetwork } from 'wagmi/actions';
 import { useConnectWallet } from 'src/hooks/useConnectWallet';
 const take = 8;
@@ -31,6 +31,8 @@ const Dashboard = (props) => {
     const router = useNavigate();
     const { isConnected } = useAccount()
     const { connectWallet } = useConnectWallet();
+    const { chain } = useNetwork();
+
     async function handleNetwork() {
         try {
           if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
