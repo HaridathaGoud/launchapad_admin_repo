@@ -25,6 +25,7 @@ import { useConnectWallet } from '../../../hooks/useConnectWallet';
 import { useAccount,useNetwork } from 'wagmi'
 import shimmers from 'src/components/shimmers/shimmers';
 import { switchNetwork } from 'wagmi/actions';
+import ConvertLocalFormat from 'src/utils/convertToLocal';
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMgs":
@@ -639,8 +640,8 @@ const ProjectCards = () => {
                       <div className="view-data">
                         <label htmlFor="listingTime" className='profile-label'>Listing Time</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.listTime ?
-                          moment(state.detailsPreview?.listTime).format("DD-MM-YYYY HH:mm")
-                          : '-'} (UTC)</h6>
+                          ConvertLocalFormat(state.detailsPreview?.listTime)
+                          : '--'}</h6>
                       </div>
                     </Col>
                     {state.detailsPreview.noOfSlots !=0 &&
@@ -662,29 +663,31 @@ const ProjectCards = () => {
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="roundOneStartTimePrivate" className='profile-label'>Round One Start Time(Private)</label>
-                        <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.privateStartDate ? moment(state.detailsPreview?.privateStartDate).format("DD-MM-YYYY HH:mm") : '-'} (UTC)</h6>
+                        <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.privateStartDate ? 
+                        ConvertLocalFormat(state.detailsPreview?.privateStartDate) : '--'}</h6>
                       </div>
                     </Col>
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="roundOneEndTimePrivate" className='profile-label'>Round One End Time(Private)</label>
-                        <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.privateEndDate ? moment(state.detailsPreview?.privateEndDate).format("DD-MM-YYYY HH:mm") : '-'} (UTC)</h6>
+                        <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.privateEndDate ? 
+                        ConvertLocalFormat(state.detailsPreview?.privateEndDate) : '--'}</h6>
                       </div>
                     </Col>
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="roundTwoStartTime" className='profile-label'>Round Two Start Time(Public)</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.publicStartDate ?
-                          moment(state.detailsPreview?.publicStartDate).format("DD-MM-YYYY HH:mm")
-                          : '-'} (UTC)</h6>
+                          ConvertLocalFormat(state.detailsPreview?.publicStartDate)
+                          : '--'}</h6>
                       </div>
                     </Col>
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="roundTwoEndTime" className='profile-label'>Round Two End Time(Public)</label>
                         <h6 className='about-label text-overflow mb-0'>{state.detailsPreview?.publicEndDate ?
-                          moment(state.detailsPreview?.publicEndDate).format("DD-MM-YYYY HH:mm")
-                          : '-'} (UTC)</h6>
+                          ConvertLocalFormat(state.detailsPreview?.publicEndDate)
+                          : '--'}</h6>
                       </div>
                     </Col>
                   </Row>
