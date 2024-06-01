@@ -59,12 +59,12 @@ function LaunchPadMenu(props){
                 <div className='btn-transparent' onClick={() => handlenavigatemenu('fcfsendtime')}>
                     Set FCFS End Time
                 </div>
-                <div className='btn-transparent' onClick={() => handlenavigatemenu('vestingtime')}>
+                {/* <div className='btn-transparent' onClick={() => handlenavigatemenu('vestingtime')}>
                     Set Vesting Time
-                </div>
+                </div> 
                 <div className='btn-transparent' onClick={() => handlenavigatemenu('tokenlisting')}>
                     Set Token Listing Time
-                </div>
+                </div>*/}
                 <div className='btn-transparent' onClick={() => handlenavigatemenu('roundonestart')}>
                     Set Round One Start Time
                 </div>
