@@ -85,6 +85,7 @@ const ProjectTokenDetails = (props) => {
     dispatch({ type: 'paymentDetails', payload:{ ...state.paymentDetails,[field]: value }  })
     if (errors[field]) {
       setErrors({ ...errors, [field]: null })
+      dispatch({ type: 'errors', payload: { ...state.errors,[field]: null } })
     }
   }
 
@@ -92,13 +93,23 @@ const ProjectTokenDetails = (props) => {
     dispatch({type:'projectsPoolsStaking',payload:false})
   }
   const validateForm = (obj) => {
-    const { privateTokenEquivalentToPaymentType,publicTokenEquivalentToPaymentType } = obj;
+    const { privateTokenEquivalentToPaymentType,publicTokenEquivalentToPaymentType } = obj;//
     const newErrors = {};
-    if (!privateTokenEquivalentToPaymentType || privateTokenEquivalentToPaymentType === '') {
+    if ( privateTokenEquivalentToPaymentType === '' ||
+     privateTokenEquivalentToPaymentType ===undefined ||
+     privateTokenEquivalentToPaymentType === null ||
+     isNaN(privateTokenEquivalentToPaymentType)) {
       newErrors.privateTokenEquivalentToPaymentType = 'Is required';
+    }else if(privateTokenEquivalentToPaymentType === 0 || privateTokenEquivalentToPaymentType === '0'){
+      newErrors.privateTokenEquivalentToPaymentType = 'Private Token Equivalent to Payment Type must be greater than zero';
     }
-    if (!publicTokenEquivalentToPaymentType || publicTokenEquivalentToPaymentType === '') {
+    if ( publicTokenEquivalentToPaymentType === '' ||
+     publicTokenEquivalentToPaymentType ===undefined ||
+     publicTokenEquivalentToPaymentType === null ||
+     isNaN(publicTokenEquivalentToPaymentType)) {
       newErrors.publicTokenEquivalentToPaymentType = 'Is required';
+    }else if(publicTokenEquivalentToPaymentType === 0 || publicTokenEquivalentToPaymentType === '0'){
+      newErrors.publicTokenEquivalentToPaymentType = 'Public Token Equivalent to Payment Type must be greater than zero';
     }
     return newErrors;
   };
@@ -261,7 +272,7 @@ const ProjectTokenDetails = (props) => {
                 onChange={(e) => handleChange('privateTokenEquivalentToPaymentType', e.currentTarget.value)}
                 onBlur={(e) => handleChange('privateTokenEquivalentToPaymentType', e.target.value.trim())}
                 required
-                isInvalid={!!errors?.privateTokenEquivalentToPaymentType}
+                isInvalid={!!(errors?.privateTokenEquivalentToPaymentType||state?.errors?.privateTokenEquivalentToPaymentType)}
                 disabled={(projectSaveDetails?.projectStatus == "Deployed"
                   || projectSaveDetails?.projectStatus == "Rejected"
                   || projectSaveDetails?.projectStatus == "Approved"
@@ -269,9 +280,11 @@ const ProjectTokenDetails = (props) => {
                   || props?.isIdeoRequest
                 )}
               />
-              <Form.Control.Feedback type="invalid">{errors?.privateTokenEquivalentToPaymentType ||
-               state?.errors?.privateTokenEquivalentToPaymentType}</Form.Control.Feedback>
-
+              {/* <Form.Control.Feedback type="invalid">{errors?.privateTokenEquivalentToPaymentType ||
+               state?.errors?.privateTokenEquivalentToPaymentType}</Form.Control.Feedback> */}
+              {(errors?.privateTokenEquivalentToPaymentType || state?.errors?.privateTokenEquivalentToPaymentType) && <span className='invaliid-textstyle'>
+                {errors?.privateTokenEquivalentToPaymentType ||
+                  state?.errors?.privateTokenEquivalentToPaymentType}</span>}
           </Col>
           <Col lg={6} md={12}>
           <Form.Label
@@ -291,7 +304,7 @@ const ProjectTokenDetails = (props) => {
                 onChange={(e) => handleChange('publicTokenEquivalentToPaymentType', e.currentTarget.value)}
                 onBlur={(e) => handleChange('publicTokenEquivalentToPaymentType', e.target.value.trim())}
                 required
-                isInvalid={!!errors?.publicTokenEquivalentToPaymentType}
+                isInvalid={!!(errors?.publicTokenEquivalentToPaymentType ||state?.errors?.privateTokenEquivalentToPaymentType)}
                 disabled={(projectSaveDetails?.projectStatus == "Deployed"
                   || projectSaveDetails?.projectStatus == "Rejected"
                   || projectSaveDetails?.projectStatus == "Approved"
@@ -299,8 +312,11 @@ const ProjectTokenDetails = (props) => {
                   || props?.isIdeoRequest
                 )}
               />
-              <Form.Control.Feedback type="invalid">{errors?.publicTokenEquivalentToPaymentType ||
-               state?.errors?.publicTokenEquivalentToPaymentType}</Form.Control.Feedback>
+              {/* <Form.Control.Feedback type="invalid">{errors?.publicTokenEquivalentToPaymentType ||
+               state?.errors?.publicTokenEquivalentToPaymentType}</Form.Control.Feedback> */}
+               {(errors?.publicTokenEquivalentToPaymentType || state?.errors?.publicTokenEquivalentToPaymentType) && <span className='invaliid-textstyle'>
+                {errors?.publicTokenEquivalentToPaymentType ||
+                  state?.errors?.publicTokenEquivalentToPaymentType}</span>}
           </Col>
         </Row>
         <div className='footer-btns mt-xl-5 mb-5 d-flex justify-content-end'>

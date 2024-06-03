@@ -51,6 +51,14 @@ export default function useEthers() {
         }
         return { error: response, amount: null };
       };
+      const getmintedCount = async (mintedCountt, address) => {
+        const response = await mintedCountt(address);
+        if (response) {
+          return { mintedCount: response, mintedCountError: null };
+        }
+        return { mintedCountError: response, mintedCount: null };
+      };
 
-    return { isConnectd, getAddress, disConnect,getRewardBalance ,getOwnerAddress}
+
+    return { isConnectd, getAddress, disConnect,getRewardBalance ,getOwnerAddress,getmintedCount}
 }

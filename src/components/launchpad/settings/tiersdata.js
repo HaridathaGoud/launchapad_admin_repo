@@ -4,19 +4,39 @@ import platinum from '../../../assets/images/platinum.svg'
 import daimond from '../../../assets/images/daimond.svg'
 import bluedaimond from '../../../assets/images/blue-daimond.svg'
 
-const TiersData = () => {
+const TiersData = ({tiersData}) => {
+  const getImageForTier = (name) => {
+    switch (name) {
+      case 
+      "Bronze":
+        return ' '; 
+      case "Silver":
+        return ' ';
+      case "Gold":
+        return ' ';
+      case "Platinum":
+        return platinum;
+      case "Diamond":
+        return daimond;
+      case "Blue Diamond":
+        return bluedaimond;
+      default:
+        return daimond;
+    }
+  };
   return (<>   
   <div>
     <div>
       <h1 className='page-title mb-5 fs-3 text-center'>13 members Are Interested In this Project.</h1>
       <div className='row gap-4 justify-content-center mb-4'>
+      {tiersData?.map((item)=>(
         <div className='col-lg-3 p-md-0 col-md-5'>
           <div className='card-platinum '>
           <div className='d-flex align-items-center gap-2'>
-           <Image src={platinum} />
+           <Image src={getImageForTier(item?.name)} />
           <div>
           <p className=' status-text mb-0'>Tier Name</p>
-           <span className='bg-platinum '>Platinum</span>
+           <span className='bg-platinum '>{item?.name}</span>
           </div>
           </div>
           <hr/>
@@ -32,7 +52,8 @@ const TiersData = () => {
           </div>
           </div>
         </div>
-        <div className='col-lg-3 p-md-0 col-md-5'>
+      ))}
+        {/* <div className='col-lg-3 p-md-0 col-md-5'>
           <div className='card-daimond '>
           <div className='d-flex align-items-center gap-2'>
            <Image src={daimond} />
@@ -54,6 +75,7 @@ const TiersData = () => {
           </div>
           </div>
         </div>
+
         <div className='col-lg-3 p-md-0 col-md-5'>
           <div className='card-blue-daimond '>
           <div className='d-flex align-items-center gap-2'>
@@ -76,6 +98,7 @@ const TiersData = () => {
           </div>
           </div>
         </div>
+
         <div className='col-lg-3 p-md-0 col-md-5'>
           <div className='card-platinum '>
           <div className='d-flex align-items-center gap-2'>
@@ -98,6 +121,7 @@ const TiersData = () => {
           </div>
           </div>
         </div>
+
         <div className='col-lg-3 p-md-0 col-md-5'>
           <div className='card-daimond '>
           <div className='d-flex align-items-center gap-2'>
@@ -120,6 +144,7 @@ const TiersData = () => {
           </div>
           </div>
         </div>
+
         <div className='col-lg-3 p-md-0 col-md-5'>
           <div className='card-blue-daimond '>
           <div className='d-flex align-items-center gap-2'>
@@ -141,7 +166,8 @@ const TiersData = () => {
            </div>
           </div>
           </div>
-        </div>
+        </div> */}
+
       </div>
     </div>
     

@@ -25,6 +25,7 @@ import PropTypes from 'prop-types'
 import shimmers from '../shimmers/shimmers';
 import { useConnectWallet } from '../../hooks/useConnectWallet';
 import { switchNetwork } from 'wagmi/actions';
+import useEthers from '../../utils/useEthers'
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
  
 const reducers = (state, action) => {
@@ -64,7 +65,7 @@ const Dao = (props) => {
     const [state, dispatch] = useReducer(reducers, { modalShow: false, status: "all", statusLu: [],
      date: null, dateStatus: false,daoDetails:{} })
     const [votingOwner,setVotingOwner]=useState(false)
-    const { voteCalculation } = useContract();
+    const { voteCalculation ,readRewardBalance, getOwner,mintedCountt} = useContract();
     const [proposalCardList,setProposalCardList]=useState([])
     const [btnLoader, setBtnLoader] = useState(false);
     const [txHash,setTxHash]=useState(null)
@@ -76,7 +77,8 @@ const Dao = (props) => {
     const [shimmerLoading,setShimmerLoading] = useState(true)
     const { connectWallet } = useConnectWallet();
     const { chain } = useNetwork();
-  
+    const {getRewardBalance,getOwnerAddress,getmintedCount} = useEthers()
+    const [userDetailsFromContract, setUserDetailsFromContract] =useState(null);
     async function handleNetwork() {
       try {
         if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
@@ -105,7 +107,7 @@ const Dao = (props) => {
             getDaosList(null,1);            
         }
         getDaoItem();
-    }, [address])
+    }, [isConnected, address,isAdmin?.id])
     const getDaosList = async (data,page) => {
         await props.trackWallet({
           page: page,
@@ -138,12 +140,14 @@ const Dao = (props) => {
         if(isConnected){
             await handleNetwork();
             getVotingOwner(daoData)
+            if(daoData){
+                getDetails(daoData)
+            }
         }else{
             await connectWallet();
             getVotingOwner(daoData)
         }
     }
-
     async function getVotingOwner(daoData) {
       let contractAddress=daoData?.contractAddress;
         try {
@@ -364,16 +368,57 @@ const Dao = (props) => {
             Publishing: "pending-text",
             default: "close-text",
           };
+
+
+          const getDetails = async (data) => {
+              let detailsToUpdate = userDetailsFromContract ? userDetailsFromContract : {};
+              let amount, balanceError, ownerAddress, ownerError, mintedCount, mintedCountError;
+
+                  if (data.tokenType === 'ERC-20') {
+                      const rewardBalance = await getRewardBalance(readRewardBalance, data?.votingContractAddress);
+                      amount = rewardBalance.amount;
+                      balanceError = rewardBalance.balanceError;
+
+                      const ownerInfo = await getOwnerAddress(getOwner, data?.votingContractAddress);
+                      ownerAddress = ownerInfo.ownerAddress;
+                      ownerError = ownerInfo.error;
+                  } else {
+                      const mintedInfo = await getmintedCount(mintedCountt, data?.contractAddress);
+                      mintedCount = mintedInfo.mintedCount;
+                      mintedCountError = mintedInfo.mintedCountError;
+                  }
+            if (amount) {
+              detailsToUpdate = { ...detailsToUpdate, balance: amount };
+              setUserDetailsFromContract({ ...detailsToUpdate, balance: amount });
+            } else {
+              setErrorMsg(balanceError);
+            }
+            if (ownerAddress) {
+              detailsToUpdate = { ...detailsToUpdate, owner: ownerAddress };
+            } else {
+              setErrorMsg(ownerError);
+            }
+            if(mintedCount){
+                detailsToUpdate = { ...detailsToUpdate, mintedCount: mintedCount };
+            }else{
+                setErrorMsg(mintedCountError);
+            }
+            if (Object.keys(detailsToUpdate).length > 0) {
+              setUserDetailsFromContract(detailsToUpdate);
+            }
+          };
           const isEligibleForProposal = useMemo(() => {
             return (
               isConnected &&
               address &&
               isAdmin?.isInvestor &&
               state?.daoDetails?.contractAddress &&
+              (userDetailsFromContract?.owner === address ||
               (state?.daoDetails?.tokenType==='ERC-721'&& state?.daoDetails?.members >2 ) ||
-              (state?.daoDetails?.tokenType==='ERC-20' && true )
-            );
-          }, [address, isConnected, state?.daoDetails,isAdmin?.isInvestor]);
+              (state?.daoDetails?.tokenType==='ERC-20' &&  userDetailsFromContract?.balance >=
+              Number(state.daoDetails?.proposalCreationBalance ) ) )
+            )
+          }, [address, isConnected,userDetailsFromContract, state?.daoDetails,isAdmin?.isInvestor]);
 
     return (
         <>{params.id == "null" ? <ErrorPage /> :

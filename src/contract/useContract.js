@@ -4,6 +4,7 @@ import{ ethers } from 'ethers';
 import Contract from './mint.json';
 import { useSelector } from 'react-redux';
 import reward from './rewards.json'
+import daoMintedCount from './daoMintedCount.json';
 export function useContract() {
  const selectedDAO = useSelector((state) => state?.oidc?.defaultData);
  async function addQuestion(contractAddress,questionHash, oprionHash, startTime, endTime) {
@@ -97,6 +98,15 @@ async function getOwner(contract) {
   });
   return _result;
 }
+async function mintedCountt(contract) {
+  const _result = await readContract({
+    address: contract,
+    abi: daoMintedCount.abi,
+    functionName: "mintedCount",
+    args: [],
+  });
+  return _result;
+}
  return {
-   addQuestion,castVote, voteCalculation,parseError,getSafeMintMultipleKOL,readRewardBalance,getOwner };
+   addQuestion,castVote, voteCalculation,parseError,getSafeMintMultipleKOL,readRewardBalance,getOwner,mintedCountt };
  }
