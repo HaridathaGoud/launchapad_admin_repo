@@ -22,7 +22,6 @@ const AllocationRoundTwo = () => {
   const { isConnected } = useAccount()
   const { connectWallet } = useConnectWallet();
   const projectContractDetails = useSelector((store) => store.launchpad.projectDetails?.data?.projectsViewModel)
-  const projectItem= useSelector(reducerstate =>  reducerstate.projectDetails?.project)
   const isAdmin = useSelector(state => state.oidc?.adminDetails);
   const userId = sessionStorage.getItem('userId');
   const [btnLoader, setBtnLoader] = useState(false);
@@ -31,11 +30,11 @@ const AllocationRoundTwo = () => {
   const [success, setSuccess] = useState(null);
   const [txHash,setTxHash]=useState(null);
   const { chain } = useNetwork();
-  const [pageloader,setPageLoader] =  useState(true);
+  const [pageloader, setPageloader] =  useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setPageLoader(false);
+      setPageloader(false);
     }, 1000);
   }, []);
   async function handleNetwork() {
@@ -53,7 +52,6 @@ const AllocationRoundTwo = () => {
       throw new Error('User rejected transaction.');
     }
   }
-
   const getWalletAddress = async () => {
     setErrorMgs(null);
     setBtnLoader(true);
@@ -107,6 +105,7 @@ const AllocationRoundTwo = () => {
     navigate(`/launchpad/projects/${isAdmin?.id||userId}`)
   }
 
+  
   return (
     <div>
       {pageloader && <div className="text-center"><Spinner ></Spinner></div>}

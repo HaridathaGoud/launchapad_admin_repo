@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import { Image, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ethers } from 'ethers';
 import { useSelector, connect } from 'react-redux';
@@ -14,18 +14,21 @@ import store from 'src/store';
 import { useConnectWallet } from 'src/hooks/useConnectWallet';
 import { useAccount, useNetwork } from 'wagmi'
 import { switchNetwork } from 'wagmi/actions';
-import platinum from '../../../assets/images/platinum.svg'
-import daimond from '../../../assets/images/daimond.svg'
 import TiersData from './tiersdata';
 import { projectDetailsData } from '../launchpadReducer/launchpadReducer';
 import { fetchTiersData, } from './settingsReducer';
 import PropTypes from 'prop-types'
+import useEthers from 'src/utils/useEthers';
+import { useContract } from 'src/contract/useContract';
+import shimmers from 'src/components/shimmers/shimmers';
 const polygonUrl = process.env.REACT_APP_ENV === "production" ? process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL : process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
-
+const stakingAdress  = process.env.REACT_APP_STAKING_CONTRACT;
 
 const PeojectAllocation = (props) => {
   const { isConnected } = useAccount()
+  const {getTotalStakers,getPoolDeatails} = useEthers()
   const { connectWallet } = useConnectWallet();
+  const { totalstakescount,pooldetails} = useContract();
   const navigate = useNavigate();
   const params = useParams();
   const userId = sessionStorage.getItem('userId');
@@ -38,13 +41,15 @@ const PeojectAllocation = (props) => {
   const [txHash, setTxHash] = useState(null)
   const { chain } = useNetwork();
   const [data, setData] = useState();
-  const [pageloader, setPageLoader] = useState(false);
+  const [pageloader, setPageloader] = useState(false);
+  const [detailsFromContract, setDetailsFromContract] =useState(null);
   useEffect(() => {
-    setPageLoader(true);
+    setPageloader(true);
     props.fetchAllTiersData()
     props.projectDetailsReducerData(params?.pId, (callback) => {
       setData(callback.data)
-      setPageLoader(false);
+      setPageloader(false);
+      getDetails(callback.data?.projectsViewModel)
     })
   }, [params?.pId])
 
@@ -117,8 +122,147 @@ const PeojectAllocation = (props) => {
     store.dispatch(showSettings(false));
     navigate(`/launchpad/projects/${isAdmin?.id || userId}`)
   }
+
+
+  // const getDetails = async (Details) => {
+  //   setPageloader(true);
+  //   let detailsToUpdate = detailsFromContract ? detailsFromContract : {};
+  //   let stakersCount, stakersCountError, poolInfo = [], poolInfoError;
+  //   let tier1Participants = 0;
+  //   let tier2Participants = 0;
+  //   let tier3Participants = 0;
+  //   const stakersInfo = await getTotalStakers(totalstakescount, Details?.contractAddress);
+
+  //   for (let tierId = 1; tierId <= 3; tierId++) {
+  //     let tierParticipants = 0;
+  //     for (let poolLevel = 1; poolLevel <= 3; poolLevel++) {
+  //       const poolData = await getPoolDeatails(pooldetails, stakingAdress, tierId, poolLevel);
+  //       if (poolData?.poolInfo !== null || poolData?.poolInfo === 0) {
+  //         tierParticipants += poolData?.poolInfo;
+  //         poolInfo?.push({ tierId, poolLevel, participants: poolData?.poolInfo });
+  //       } else {
+  //         poolInfoError = poolData?.poolInfoError;
+  //       }
+  //     }
+  //     if (tierId === 1) {
+  //       tier1Participants = tierParticipants;
+  //     } else if (tierId === 2) {
+  //       tier2Participants = tierParticipants;
+  //     } else if (tierId === 3) {
+  //       tier3Participants = tierParticipants;
+  //     }
+  //   }
+  //   setPageloader(false);
+
+  //   stakersCount = stakersInfo?.stakersCount;
+  //   stakersCountError = stakersInfo?.stakersCountError;
+
+  //   if (stakersCount) {
+  //     detailsToUpdate = { ...detailsToUpdate, stakersCount: stakersCount };
+  //   } else {
+  //     setErrorMgs(stakersCountError);
+  //   }
+  //   if (poolInfo?.length > 0) {
+  //     detailsToUpdate = {
+  //       ...detailsToUpdate,
+  //       poolInfo: poolInfo,
+  //       tier1Participants: tier1Participants,
+  //       tier2Participants: tier2Participants,
+  //       tier3Participants: tier3Participants
+  //     };
+  //   } else {
+  //     setErrorMgs(poolInfoError);
+  //   }
+  //   if (Object.keys(detailsToUpdate)?.length > 0) {
+  //     setDetailsFromContract(detailsToUpdate);
+  //   }
+  // };
+  const getDetails = async (Details) => {
+    setPageloader(true);
+    let detailsToUpdate = detailsFromContract ? detailsFromContract : {};
+    
+    const stakersInfo = await getTotalStakers(totalstakescount, Details?.contractAddress);
+    const { poolInfo, tierParticipants, poolInfoError } = await getAllPoolDetails();
+  
+    setPageloader(false);
+  
+    updateStakersCount(detailsToUpdate, stakersInfo);
+  
+    if (poolInfo?.length > 0) {
+      detailsToUpdate = {
+        ...detailsToUpdate,
+        poolInfo: poolInfo,
+        ...tierParticipants
+      };
+    } else {
+      setErrorMgs(poolInfoError);
+    }
+  
+    if (Object.keys(detailsToUpdate)?.length > 0) {
+      setDetailsFromContract(detailsToUpdate);
+    }
+  };
+  
+  const getAllPoolDetails = async () => {
+    let poolInfo = [];
+    let poolInfoError = null;
+    let tier1Participants = 0;
+    let tier2Participants = 0;
+    let tier3Participants = 0;
+    let tier4Participants = 0;
+    let tier5Participants = 0;
+    let tier6Participants = 0;
+  
+    for (let tierId = 1; tierId <= 6; tierId++) {
+      let tierParticipants = 0;
+      for (let poolLevel = 1; poolLevel <= 3; poolLevel++) {
+        const poolData = await getPoolDeatails(pooldetails, stakingAdress, tierId, poolLevel);
+        if (poolData?.poolInfo !== null || poolData?.poolInfo === 0) {
+          tierParticipants += poolData?.poolInfo;
+          poolInfo.push({ tierId, poolLevel, participants: poolData?.poolInfo });
+        } else {
+          poolInfoError = poolData?.poolInfoError;
+        }
+      }
+  
+      if (tierId === 1) {
+        tier1Participants = tierParticipants;
+      } else if (tierId === 2) {
+        tier2Participants = tierParticipants;
+      } else if (tierId === 3) {
+        tier3Participants = tierParticipants;
+      } else if (tierId === 4) {
+        tier4Participants = tierParticipants;
+      } else if (tierId === 5) {
+        tier5Participants = tierParticipants;
+      }else if (tierId === 6) {
+        tier6Participants = tierParticipants;
+      }
+    }
+  
+    return { poolInfo, tierParticipants: { 
+      tier1Participants, tier2Participants, tier3Participants,tier4Participants, tier5Participants, tier6Participants
+     }, poolInfoError };
+  };
+  
+  const updateStakersCount = (detailsToUpdate, stakersInfo) => {
+    const stakersCount = stakersInfo?.stakersCount;
+    const stakersCountError = stakersInfo?.stakersCountError;
+  
+    if (stakersCount) {
+      detailsToUpdate.stakersCount = stakersCount;
+    } else {
+      setErrorMgs(stakersCountError);
+    }
+  };
+
   return (<>
-    {pageloader && <div className="text-center"><Spinner ></Spinner></div>}
+    {/* {pageloader && <div className="text-center"><Spinner ></Spinner></div>} */}
+    {pageloader &&
+          <div className='mt-4 mb-4'>
+            <shimmers.DaoCardShimmer count={6} />
+          </div>
+        }
     {!pageloader &&
       <div>
         <CBreadcrumb>
@@ -146,17 +290,17 @@ const PeojectAllocation = (props) => {
           </Alert>
         )}
 
-        {/* <div className='text-end'> */}
+        <div className='text-end'>
 
           <Button className='filled-btn' onClick={() => getWalletAddress()} disabled={btnLoader} >{btnLoader && <Spinner size='sm' className={`${btnLoader ? "text-black" : "text-light"}`} />} Allocate</Button>
-          {/* <TiersData tiersData={tiersData?.data} /> */}
+          <TiersData tiersData={tiersData?.data} detailsFromContract={detailsFromContract}/>
 
           {isTransactionSuccess && (
             <div >
               <ToasterMessage isShowToaster={isTransactionSuccess} success={success}></ToasterMessage>
             </div>
           )}
-        {/* </div> */}
+        </div>
       </div>}
   </>
   )

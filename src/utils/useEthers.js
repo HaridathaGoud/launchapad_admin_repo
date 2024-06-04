@@ -58,7 +58,20 @@ export default function useEthers() {
         }
         return { mintedCountError: response, mintedCount: null };
       };
+      const getTotalStakers = async (totalstakescount, address) => {
+        const response = await totalstakescount(address);
+        if (response) {
+          return { stakersCount: response, stakersCountError: null };
+        }
+        return { stakersCountError: response, stakersCount: null };
+      };
+      const getPoolDeatails = async (pooldetails, address,tierId, poolLevel) => {
+        const response = await pooldetails(address,tierId, poolLevel);
+        if (response) {
+          return { poolInfo: response, poolInfoError: null };
+        }
+        return { poolInfoError: response, poolInfo: null };
+      };
 
-
-    return { isConnectd, getAddress, disConnect,getRewardBalance ,getOwnerAddress,getmintedCount}
+    return { isConnectd, getAddress, disConnect,getRewardBalance ,getOwnerAddress,getmintedCount,getTotalStakers,getPoolDeatails}
 }

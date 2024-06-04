@@ -4,6 +4,7 @@ import{ ethers } from 'ethers';
 import Contract from './mint.json';
 import { useSelector } from 'react-redux';
 import reward from './rewards.json'
+import staking from "./staking.json";
 import daoMintedCount from './daoMintedCount.json';
 export function useContract() {
  const selectedDAO = useSelector((state) => state?.oidc?.defaultData);
@@ -107,6 +108,34 @@ async function mintedCountt(contract) {
   });
   return _result;
 }
+
+async function totalstakescount(address) {
+  const _result = await readContract({
+    address:'0xEEd04502a59D7867359e88439592C939e40F76aB',
+    abi: staking.abi,
+    functionName: "getTotalParticipants",
+  });
+  return Number(_result);
+}
+async function pooldetails(address,tierId, poolLevel) {
+  const _result = await readContract({
+    address:'0xEEd04502a59D7867359e88439592C939e40F76aB',
+    abi: staking.abi,
+    functionName: "getParticipantsByTierId",
+    args: [tierId, poolLevel],
+  });
+  return Number(_result);
+}
  return {
-   addQuestion,castVote, voteCalculation,parseError,getSafeMintMultipleKOL,readRewardBalance,getOwner,mintedCountt };
+   addQuestion,
+   castVote, 
+   voteCalculation,
+   parseError,
+   getSafeMintMultipleKOL,
+   readRewardBalance,
+   getOwner,
+   mintedCountt,
+   totalstakescount,
+   pooldetails 
+  };
  }
