@@ -90,7 +90,7 @@ const ProjectCards = () => {
   const selectedProject = useSelector(state => state.projectDetails.project);
   const userName = sessionStorage.getItem('userName');
   const prjctName = selectedProject?.name || userName;
-  const projectName = AdminDetails?.isAdmin ? prjctName :AdminDetails?.firstName;
+  const projectName = AdminDetails?.isAdmin ? prjctName :AdminDetails?.firstName+' '+AdminDetails?.lastName;
   const params = useParams();
   const [loadMore, setLoadMore] = useState(false);
   const [hide, setHide] = useState(false);
@@ -429,7 +429,7 @@ const ProjectCards = () => {
   const intValue = Math.floor(val);
   const formattedValue = intValue.toLocaleString('en-IN');
   return formattedValue;
- }
+ };
 
   return (
     <div>
