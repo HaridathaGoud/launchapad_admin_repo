@@ -238,13 +238,14 @@ const AllocationRoundTwo = (props) => {
             </Alert>
           )}
         <div className='text-end'>
-          <Button className='filled-btn' onClick={() => getWalletAddress()}
-           disabled={(state.data?.tokenType ==="ERC-20"&&state.detailsFromContract?.isAllocated !==1) ||state.btnLoader}>
-            {state.btnLoader && 
-            <Spinner size='sm' className={`${state.btnLoader ? "text-black" : "text-light"}`} />}
-             Allocate
-             </Button>
+          
           <TiersData tiersData={tiersData?.data} detailsFromContract={state.detailsFromContract}/>
+          <Button className='filled-btn' onClick={() => getWalletAddress()}
+            disabled={(state.data?.tokenType === "ERC-20" && state.detailsFromContract?.isAllocated !== 1) || state.btnLoader}>
+            {state.btnLoader &&
+              <Spinner size='sm' className={`${state.btnLoader ? "text-black" : "text-light"}`} />}
+            Allocate
+          </Button>
           {state.isTransactionSuccess && (
             <div >
               <ToasterMessage isShowToaster={state.isTransactionSuccess} success={state.success}></ToasterMessage>
