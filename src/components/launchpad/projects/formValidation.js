@@ -174,17 +174,17 @@ export  const erc20FormValidation = (obj) => {
     }
      else if (timeDate(publicStartDate) === timeDate(publicEndDate)) {
       if (publicStartingTimeInSeconds >= publicEndingTimeInSeconds) {
-        errorMsg =  'Public Start time cannot be greater than or equal to the end time.';
+        errorMsg =  'Public start time cannot be greater than or equal to the end time.';
       }
     }
     if (timeDate(publicStartDate) < timeDate(privateEndDate)) {
-      errorMsg = 'Round One End Date cannot be greater than the Round Two Start Date.' ;
+      errorMsg = 'Round one end date cannot be greater than the round two start date.' ;
 
     }else if (timeDate(publicStartDate) === timeDate(privateEndDate)) {
       if (publicStartingTimeInSeconds < privateEndingTimeInSeconds) {
-        errorMsg = 'Round One End time cannot be greater than the Round Two Start time.';
+        errorMsg = 'Round one end time cannot be greater than the round two start time.';
       }else if(publicStartingTimeInSeconds === privateEndingTimeInSeconds){
-        errorMsg =  'Round One End time cannot be greater than or equal to the Round Two start time.';
+        errorMsg =  'Round one end time cannot be greater than or equal to the round two start time.';
       }
     }
     if (errorMsg.trim() !== '') {
