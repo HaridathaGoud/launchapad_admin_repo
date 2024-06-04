@@ -7,88 +7,15 @@ import PropTypes from 'prop-types'
 import { connect } from "react-redux";
 
 const TiersData = ({tiersData,detailsFromContract}) => {
-  const getImageForTier = (name) => {
-    switch (name) {
-      case 
-      "Bronze":
-        return ' '; 
-      case "Silver":
-        return ' ';
-      case "Gold":
-        return ' ';
-      case "Platinum":
-        return platinum;
-      case "Diamond":
-        return daimond;
-      case "Blue Diamond":
-        return bluedaimond;
-      default:
-        return daimond;
-    }
-  };
-  const getTierParticipants = (tierName) => {
-    switch (tierName) {
-      case "Bronze":
-        return detailsFromContract?.tier1Participants || 0;
-      case "Silver":
-        return detailsFromContract?.tier2Participants || 0;
-      case "Gold":
-        return detailsFromContract?.tier3Participants || 0;
-        case "Platinum":
-        return detailsFromContract?.tier4Participants || 0;
-      case "Diamond":
-        return detailsFromContract?.tier5Participants || 0;
-      case "Blue Diamond":
-        return detailsFromContract?.tier6Participants || 0;
-      default:
-        return 0;
-    }
-  };
-  const getBgColorForTier = (name) => {
-    switch (name) {
-      case "Bronze":
-        return 'bg-bronze'; 
-      case "Silver":
-        return 'bg-diamond';
-      case "Gold":
-        return 'bg-gold';
-      case "Platinum":
-        return 'bg-platinum';
-      case "Diamond":
-        return 'bg-diamond';
-      case "Blue Diamond":
-        return 'bg-blue-diamond';
-      default:
-        return 'bg-platinum';
-    }
-  };
-  const getCardBgColorForTier = (name) => {
-    switch (name) {
-      case "Bronze":
-        return 'card-blue-daimond'; 
-      case "Silver":
-        return 'card-daimond';
-      case "Gold":
-        return 'card-platinum';
-      case "Platinum":
-        return 'card-platinum';
-      case "Diamond":
-        return 'card-daimond';
-      case "Blue Diamond":
-        return 'card-blue-daimond';
-      default:
-        return 'card-platinum';
-    }
-  };
   const getTierData = (name, type) => {
     const dataMapping = {
       image: {
-        Bronze: '',
-        Silver: '',
-        Gold: '',
+        Bronze: bluedaimond,
+        Silver: daimond,
+        Gold: platinum,
         Platinum: platinum,
-        Diamond: diamond,
-        'Blue Diamond': blueDiamond,
+        Diamond: daimond,
+        'Blue Diamond': bluedaimond,
       },
       participants: {
         Bronze: detailsFromContract?.tier1Participants || 0,
@@ -101,21 +28,20 @@ const TiersData = ({tiersData,detailsFromContract}) => {
       bgColor: {
         Bronze: 'bg-bronze',
         Silver: 'bg-diamond',
-        Gold: 'bg-gold',
+        Gold:    'bg-gold',
         Platinum: 'bg-platinum',
-        Diamond: 'bg-diamond',
+        Diamond:  'bg-diamond',
         'Blue Diamond': 'bg-blue-diamond',
       },
       cardBgColor: {
-        Bronze: 'card-blue-diamond',
-        Silver: 'card-diamond',
+        Bronze: 'card-blue-daimond',
+        Silver: 'card-daimond',
         Gold: 'card-platinum',
         Platinum: 'card-platinum',
-        Diamond: 'card-diamond',
-        'Blue Diamond': 'card-blue-diamond',
+        Diamond: 'card-daimond',
+        'Blue Diamond': 'card-blue-daimond',
       },
     };
-  
     return dataMapping[type][name] || '';
   };
 
@@ -127,19 +53,19 @@ const TiersData = ({tiersData,detailsFromContract}) => {
 
       {tiersData?.map((item)=>(
         <div className='col-lg-3 p-md-0 col-md-5' key={item?.name}>
-          <div className={`${getCardBgColorForTier(item?.name)}`}>
+          <div className={`${getTierData(item?.name, 'cardBgColor')}`}>
           <div className='d-flex align-items-center gap-2'>
-           <Image src={getImageForTier(item?.name)} />
+           <Image src={getTierData(item?.name, 'image')} />
           <div>
           <p className=' status-text mb-0'>Tier Name</p>
-           <span className={`${getBgColorForTier(item?.name)}`}>{item?.name}</span>
+           <span className={`${getTierData(item?.name, 'bgColor')}`}>{item?.name}</span>
           </div>
           </div>
           <hr/>
           <div className='d-flex justify-content-between align-items-center mt-4'>
            <div>
            <p className='status-text mb-0'>Members In this Tier</p>
-           <p className='status-value text-left'>{getTierParticipants(item?.name)}</p>
+           <p className='status-value text-left'>{`${getTierData(item?.name, 'participants')}`}</p>
            </div>
            <div>
            <p className='status-text mb-0'>Token count</p>
