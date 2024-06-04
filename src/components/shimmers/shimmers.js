@@ -29,6 +29,26 @@ const DaoCardShimmer = ({count}) => {
     return html;
 
 };
+const TiersCardsShimmer = ({count}) => {
+    let countList = [0];
+    if (count) {
+        for (let i = 1; i < count; i++) {
+            countList.push(i)
+        }
+    }
+    const html = <div className='row gap-4 justify-content-center mb-4'>
+        {countList.map((item) => (
+                < div key={item} className=' col-lg-3 p-md-0 col-md-5'>
+                <Placeholder as={Card.Title} animation="glow">
+                    <Placeholder xs={12} className='cardimg-placeholder' />
+                </Placeholder>
+                
+            </div>  
+        ))}
+    </div>;
+    return html;
+
+};
 
 const ProposalCardShimmer = (count) => {
     let countList = [0];
@@ -150,6 +170,6 @@ const ProposalsShimmer = ({count}) => {
     return html;
 }
 
-const shimmers={ DaoCardShimmer,ProposalCardShimmer,PublishProposal,votingShimmer,ProposalsShimmer}
+const shimmers={ DaoCardShimmer,ProposalCardShimmer,PublishProposal,votingShimmer,ProposalsShimmer,TiersCardsShimmer}
 export default shimmers;
 

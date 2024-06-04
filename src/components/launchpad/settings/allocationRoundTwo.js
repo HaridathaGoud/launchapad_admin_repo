@@ -208,7 +208,7 @@ const AllocationRoundTwo = (props) => {
 
       {pageloader &&
           <div className='mt-4 mb-4'>
-            <shimmers.DaoCardShimmer count={6} />
+            <shimmers.TiersCardsShimmer count={6} />
           </div>
         }
       {!pageloader &&
