@@ -237,9 +237,10 @@ const AllocationRoundTwo = (props) => {
               </div>}
             </Alert>
           )}
-        <div className='text-end'>
+       
           
           <TiersData tiersData={tiersData?.data} detailsFromContract={state.detailsFromContract}/>
+          <div className='text-end pb-4 pe-5' >
           <Button className='filled-btn' onClick={() => getWalletAddress()}
             disabled={
               (state.data.projectsViewModel.tokenType === "ERC-20" && state.detailsFromContract?.isAllocated !== 1)

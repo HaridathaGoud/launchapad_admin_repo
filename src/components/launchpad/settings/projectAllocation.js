@@ -210,7 +210,7 @@ const PeojectAllocation = (props) => {
           <div className='mt-4 mb-4'>
             <shimmers.DaoCardShimmer count={6} />
           </div>
-        }
+         }
     {!pageloader &&
       <div>
         <CBreadcrumb>
@@ -238,9 +238,10 @@ const PeojectAllocation = (props) => {
           </Alert>
         )}
 
-        <div className='text-end'>
+        
 
           <TiersData tiersData={tiersData?.data} detailsFromContract={state.detailsFromContract}/>
+          <div className='text-end pe-5 pb-4'>
           <Button className='filled-btn'
             onClick={() => getWalletAddress()}
             disabled={
