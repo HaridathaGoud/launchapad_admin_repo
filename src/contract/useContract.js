@@ -5,6 +5,7 @@ import Contract from './mint.json';
 import { useSelector } from 'react-redux';
 import reward from './rewards.json'
 import staking from "./staking.json";
+import project from "./project.json";
 import daoMintedCount from './daoMintedCount.json';
 export function useContract() {
  const selectedDAO = useSelector((state) => state?.oidc?.defaultData);
@@ -111,7 +112,7 @@ async function mintedCountt(contract) {
 
 async function totalstakescount(address) {
   const _result = await readContract({
-    address:'0xEEd04502a59D7867359e88439592C939e40F76aB',
+    address:address,
     abi: staking.abi,
     functionName: "getTotalParticipants",
   });
@@ -119,10 +120,19 @@ async function totalstakescount(address) {
 }
 async function pooldetails(address,tierId, poolLevel) {
   const _result = await readContract({
-    address:'0xEEd04502a59D7867359e88439592C939e40F76aB',
+    address:address,
     abi: staking.abi,
     functionName: "getParticipantsByTierId",
     args: [tierId, poolLevel],
+  });
+  return Number(_result);
+}
+async function roundoneallocation(address) {
+  const _result = await readContract({
+    address: address,
+    abi: project.abi,
+    functionName: "isAllocationEnd",
+    args:[]
   });
   return Number(_result);
 }
@@ -136,6 +146,7 @@ async function pooldetails(address,tierId, poolLevel) {
    getOwner,
    mintedCountt,
    totalstakescount,
-   pooldetails 
+   pooldetails ,
+   roundoneallocation
   };
  }

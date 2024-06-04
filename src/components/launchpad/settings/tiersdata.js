@@ -44,7 +44,6 @@ const TiersData = ({tiersData,detailsFromContract}) => {
         return 0;
     }
   };
-  // console.log('detailsFromContract=>',detailsFromContract);
 
   return ( 
   <div>

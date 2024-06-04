@@ -73,5 +73,21 @@ export default function useEthers() {
         return { poolInfoError: response, poolInfo: null };
       };
 
-    return { isConnectd, getAddress, disConnect,getRewardBalance ,getOwnerAddress,getmintedCount,getTotalStakers,getPoolDeatails}
+      const isRound1AllocationEnd = async (roundoneallocation, address) => {
+        const response = await roundoneallocation(address);
+        if (response) {
+          return { isallocationEnd: response, isallocationEndError: null };
+        }
+        return { isallocationEndError: response, isallocationEnd: false };
+      };
+    return { isConnectd, 
+      getAddress, 
+      disConnect,
+      getRewardBalance ,
+      getOwnerAddress,
+      getmintedCount,
+      getTotalStakers,
+      getPoolDeatails,
+      isRound1AllocationEnd
+    }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useReducer } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Spinner } from 'react-bootstrap';
 import { useParams, useNavigate, Link } from 'react-router-dom';
@@ -16,7 +16,7 @@ import { useAccount, useNetwork } from 'wagmi'
 import { switchNetwork } from 'wagmi/actions';
 import TiersData from './tiersdata';
 import { projectDetailsData } from '../launchpadReducer/launchpadReducer';
-import { fetchTiersData, } from './settingsReducer';
+import { fetchTiersData,settingsReducer,initialState } from './settingsReducer';
 import PropTypes from 'prop-types'
 import useEthers from 'src/utils/useEthers';
 import { useContract } from 'src/contract/useContract';
@@ -25,6 +25,7 @@ const polygonUrl = process.env.REACT_APP_ENV === "production" ? process.env.REAC
 const stakingAdress  = process.env.REACT_APP_STAKING_CONTRACT;
 
 const PeojectAllocation = (props) => {
+  const [state, dispatch] = useReducer(settingsReducer, initialState);
   const { isConnected } = useAccount()
   const {getTotalStakers,getPoolDeatails} = useEthers()
   const { connectWallet } = useConnectWallet();
@@ -34,25 +35,18 @@ const PeojectAllocation = (props) => {
   const userId = sessionStorage.getItem('userId');
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails);
   const tiersData = useSelector((state) => state.settings?.allTiersData)
-  const [btnLoader, setBtnLoader] = useState(false);
-  const [errorMgs, setErrorMgs] = useState(null);
-  const [isTransactionSuccess, setIsTransactionSuccess] = useState(false);
-  const [success, setSuccess] = useState(null);
-  const [txHash, setTxHash] = useState(null)
-  const { chain } = useNetwork();
-  const [data, setData] = useState();
   const [pageloader, setPageloader] = useState(false);
-  const [detailsFromContract, setDetailsFromContract] =useState(null);
+  const { chain } = useNetwork();
+
   useEffect(() => {
     setPageloader(true);
     props.fetchAllTiersData()
     props.projectDetailsReducerData(params?.pId, (callback) => {
-      setData(callback.data)
+      dispatch({ type: 'setData', payload: callback.data })
       setPageloader(false);
       getDetails(callback.data?.projectsViewModel)
     })
   }, [params?.pId])
-
 
   async function handleNetwork() {
     try {
@@ -64,14 +58,14 @@ const PeojectAllocation = (props) => {
         return true;
       }
     } catch (error) {
-      setBtnLoader(false)
-      setErrorMgs("User rejected transaction.");
-      throw new Error('User rejected transaction.');
+      dispatch({ type: 'setBtnLoader', payload: false })
+      dispatch({ type: 'setErrorMgs', payload: "User Rejected Transaction." })
+      throw new Error("User Rejected Transaction.");
     }
   }
   const getWalletAddress = async () => {
-    setErrorMgs(null);
-    setBtnLoader(true);
+    dispatch({ type: 'setErrorMgs', payload: null })
+    dispatch({ type: 'setBtnLoader', payload: true })
     try {
       if (isConnected) {
         await handleNetwork();
@@ -80,41 +74,43 @@ const PeojectAllocation = (props) => {
       }
       updateData();
     } catch (error) {
-      setErrorMgs("User rejected transaction.");
-      setBtnLoader(false);
+      dispatch({ type: 'setErrorMgs', payload: "User Rejected Transaction." })
+      dispatch({ type: 'setBtnLoader', payload: false })
     }
   }
   const updateData = async () => {
-    setErrorMgs(null);
+    dispatch({ type: 'setErrorMgs', payload: null })
     try {
-      setSuccess(null);
-      setBtnLoader(true)
-      setTxHash(null)
+      dispatch({ type: 'setSuccess', payload: null })
+      dispatch({ type: 'setBtnLoader', payload: true })
+      dispatch({ type: 'setTxHash', payload: null })
       const projectAddress = await apiCalls.getAllocation(params?.pId, isAdmin.id)
       if (projectAddress.ok) {
         const provider = new ethers.providers.Web3Provider(window?.ethereum)
         const factory = new ethers.Contract(data?.projectsViewModel?.contractAddress, project.abi, provider.getSigner());
         const address = [...projectAddress.data];
         const res = await factory.allocation(address, { gasLimit: 5000000 });//gasLimit:900000,gasPrice:300000
-        setTxHash(res.hash)
+
+        dispatch({ type: 'setTxHash', payload: res.hash })
         res.wait().then(async () => {
-          setSuccess("Allocated Successfully");
-          setIsTransactionSuccess(true)
+          dispatch({ type: 'setSuccess', payload: "Allocated Successfully" })
+          dispatch({ type: 'setIsTransactionSuccess', payload: true })
           setTimeout(function () {
             setIsTransactionSuccess(false)
+            dispatch({ type: 'setIsTransactionSuccess', payload: false })
           }, 5000);
-          setBtnLoader(false);
+          dispatch({ type: 'setBtnLoader', payload: false })
         }).catch((err) => {
-          setErrorMgs(apiCalls.isErrorDispaly(res));
-          setBtnLoader(false)
+          dispatch({ type: 'setBtnLoader', payload: false })
+          dispatch({ type: 'setErrorMgs', payload: apiCalls.isErrorDispaly(res) })
         })
       } else {
-        setBtnLoader(false);
-        setErrorMgs(apiCalls.isErrorDispaly(projectAddress));
+        dispatch({ type: 'setBtnLoader', payload: false })
+        dispatch({ type: 'setErrorMgs', payload: apiCalls.isErrorDispaly(projectAddress) })
       }
     } catch (error) {
-      setBtnLoader(false);
-      setErrorMgs(apiCalls.isErrorDispaly(error));
+      dispatch({ type: 'setBtnLoader', payload: false })
+      dispatch({ type: 'setErrorMgs', payload: apiCalls.isErrorDispaly(error) })
     }
   }
 
@@ -123,71 +119,13 @@ const PeojectAllocation = (props) => {
     navigate(`/launchpad/projects/${isAdmin?.id || userId}`)
   }
 
-
-  // const getDetails = async (Details) => {
-  //   setPageloader(true);
-  //   let detailsToUpdate = detailsFromContract ? detailsFromContract : {};
-  //   let stakersCount, stakersCountError, poolInfo = [], poolInfoError;
-  //   let tier1Participants = 0;
-  //   let tier2Participants = 0;
-  //   let tier3Participants = 0;
-  //   const stakersInfo = await getTotalStakers(totalstakescount, Details?.contractAddress);
-
-  //   for (let tierId = 1; tierId <= 3; tierId++) {
-  //     let tierParticipants = 0;
-  //     for (let poolLevel = 1; poolLevel <= 3; poolLevel++) {
-  //       const poolData = await getPoolDeatails(pooldetails, stakingAdress, tierId, poolLevel);
-  //       if (poolData?.poolInfo !== null || poolData?.poolInfo === 0) {
-  //         tierParticipants += poolData?.poolInfo;
-  //         poolInfo?.push({ tierId, poolLevel, participants: poolData?.poolInfo });
-  //       } else {
-  //         poolInfoError = poolData?.poolInfoError;
-  //       }
-  //     }
-  //     if (tierId === 1) {
-  //       tier1Participants = tierParticipants;
-  //     } else if (tierId === 2) {
-  //       tier2Participants = tierParticipants;
-  //     } else if (tierId === 3) {
-  //       tier3Participants = tierParticipants;
-  //     }
-  //   }
-  //   setPageloader(false);
-
-  //   stakersCount = stakersInfo?.stakersCount;
-  //   stakersCountError = stakersInfo?.stakersCountError;
-
-  //   if (stakersCount) {
-  //     detailsToUpdate = { ...detailsToUpdate, stakersCount: stakersCount };
-  //   } else {
-  //     setErrorMgs(stakersCountError);
-  //   }
-  //   if (poolInfo?.length > 0) {
-  //     detailsToUpdate = {
-  //       ...detailsToUpdate,
-  //       poolInfo: poolInfo,
-  //       tier1Participants: tier1Participants,
-  //       tier2Participants: tier2Participants,
-  //       tier3Participants: tier3Participants
-  //     };
-  //   } else {
-  //     setErrorMgs(poolInfoError);
-  //   }
-  //   if (Object.keys(detailsToUpdate)?.length > 0) {
-  //     setDetailsFromContract(detailsToUpdate);
-  //   }
-  // };
   const getDetails = async (Details) => {
     setPageloader(true);
-    let detailsToUpdate = detailsFromContract ? detailsFromContract : {};
-    
-    const stakersInfo = await getTotalStakers(totalstakescount, Details?.contractAddress);
+    let detailsToUpdate = state.detailsFromContract ? state.detailsFromContract : {};
+    const stakersInfo = await getTotalStakers(totalstakescount, stakingAdress);
     const { poolInfo, tierParticipants, poolInfoError } = await getAllPoolDetails();
-  
     setPageloader(false);
-  
     updateStakersCount(detailsToUpdate, stakersInfo);
-  
     if (poolInfo?.length > 0) {
       detailsToUpdate = {
         ...detailsToUpdate,
@@ -195,11 +133,10 @@ const PeojectAllocation = (props) => {
         ...tierParticipants
       };
     } else {
-      setErrorMgs(poolInfoError);
+      dispatch({ type: 'setErrorMgs', payload: poolInfoError })
     }
-  
     if (Object.keys(detailsToUpdate)?.length > 0) {
-      setDetailsFromContract(detailsToUpdate);
+      dispatch({ type: 'setDetailsFromContract', payload: detailsToUpdate })
     }
   };
   
@@ -252,12 +189,12 @@ const PeojectAllocation = (props) => {
     if (stakersCount) {
       detailsToUpdate.stakersCount = stakersCount;
     } else {
-      setErrorMgs(stakersCountError);
+      dispatch({ type: 'setErrorMgs', payload: stakersCountError })
     }
   };
 
   return (<>
-    {/* {pageloader && <div className="text-center"><Spinner ></Spinner></div>} */}
+
     {pageloader &&
           <div className='mt-4 mb-4'>
             <shimmers.DaoCardShimmer count={6} />
@@ -274,16 +211,16 @@ const PeojectAllocation = (props) => {
           </CBreadcrumbItem>
           <CBreadcrumbItem active>Allocation</CBreadcrumbItem>
         </CBreadcrumb>
-        {errorMgs && (
+        {state.errorMgs && (
           <Alert variant="danger" className='d-lg-flex justify-content-between mobile-block'>
             <div className="d-flex align-items-center flex-1">
               <span className="icon error-alert me-2 alert-error mt-0"></span>
               <p style={{ color: 'red', }} className="error-align mb-0 allocation-error">
-                {errorMgs}
+                {state.errorMgs}
               </p>
             </div>
-            {txHash && <div className='text-end'>
-              <Link className='text-end hyper-text' to={`${polygonUrl}${txHash}`} target="_blank" >
+            {state.txHash && <div className='text-end'>
+              <Link className='text-end hyper-text' to={`${polygonUrl}${state.txHash}`} target="_blank" >
                 Click here </Link>
               <span className='mr-25 mb-0 ' style={{ color: 'red', }}>to see details</span>
             </div>}
@@ -292,14 +229,15 @@ const PeojectAllocation = (props) => {
 
         <div className='text-end'>
 
-          <Button className='filled-btn' onClick={() => getWalletAddress()} disabled={btnLoader} >{btnLoader && <Spinner size='sm' className={`${btnLoader ? "text-black" : "text-light"}`} />} Allocate</Button>
-          <TiersData tiersData={tiersData?.data} detailsFromContract={detailsFromContract}/>
+          <Button className='filled-btn' onClick={() => getWalletAddress()} disabled={state.btnLoader} >{state.btnLoader && <Spinner size='sm' className={`${state.btnLoader ? "text-black" : "text-light"}`} />} Allocate</Button>
+          <TiersData tiersData={tiersData?.data} detailsFromContract={state.detailsFromContract}/>
 
-          {isTransactionSuccess && (
+          {state.isTransactionSuccess && (
             <div >
-              <ToasterMessage isShowToaster={isTransactionSuccess} success={success}></ToasterMessage>
+              <ToasterMessage isShowToaster={state.isTransactionSuccess} success={state.success}></ToasterMessage>
             </div>
           )}
+
         </div>
       </div>}
   </>

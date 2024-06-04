@@ -26,10 +26,16 @@ const setAllTiersData = (payload) => {
     success:null,
     allTiersData:{ loading: false, data: []},
     pageLoader:false,
+    txHash:null,
+    data:null,
+    detailsFromContract:null,
   };
   
    const settingsReducer = (state=initialState, action) => {
     switch (action.type) {
+      case SET_ALL_TIERS_DATA:
+        state = { ...state, allTiersData: action.payload };
+        break;
       case "setErrorMgs":
         state = { ...state, errorMgs: action.payload };
         break;
@@ -51,12 +57,19 @@ const setAllTiersData = (payload) => {
       case "setPageLoader":
         state = { ...state, pageLoader: action.payload };
         break;
-      case SET_ALL_TIERS_DATA:
-        state = { ...state, allTiersData: action.payload };
-        break;
-      default:
-        state = { ...state };
-    }
-    return state;
+       case "setTxHash":
+         state = { ...state, txHash: action.payload };
+         break;
+       case "setData":
+         state = { ...state, data: action.payload };
+         break;
+       case "setDetailsFromContract":
+         state = { ...state, detailsFromContract: action.payload };
+         break;
+       default:
+         state = { ...state };
+     }
+     return state;
   };
+     
 export {fetchTiersData,settingsReducer}
