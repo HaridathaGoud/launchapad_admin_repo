@@ -27,9 +27,9 @@ const stakingAdress  = process.env.REACT_APP_STAKING_CONTRACT;
 const PeojectAllocation = (props) => {
   const [state, dispatch] = useReducer(settingsReducer, initialState);
   const { isConnected } = useAccount()
-  const {getTotalStakers,getPoolDeatails} = useEthers()
+  const {getTotalStakers,getPoolDeatails,isRound1AllocationEnd} = useEthers()
   const { connectWallet } = useConnectWallet();
-  const { totalstakescount,pooldetails} = useContract();
+  const { totalstakescount,pooldetails,roundoneallocation} = useContract();
   const navigate = useNavigate();
   const params = useParams();
   const userId = sessionStorage.getItem('userId');
@@ -123,6 +123,10 @@ const PeojectAllocation = (props) => {
     setPageloader(true);
     let detailsToUpdate = state.detailsFromContract ? state.detailsFromContract : {};
     const stakersInfo = await getTotalStakers(totalstakescount, stakingAdress);
+    if(Details.tokenType ==="ERC-20"){
+      const round1allocation = await isRound1AllocationEnd(roundoneallocation, Details.contractAddress)
+      updateRoud1Allocation(detailsToUpdate,round1allocation)
+    }
     const { poolInfo, tierParticipants, poolInfoError } = await getAllPoolDetails();
     setPageloader(false);
     updateStakersCount(detailsToUpdate, stakersInfo);
@@ -192,6 +196,13 @@ const PeojectAllocation = (props) => {
       dispatch({ type: 'setErrorMgs', payload: stakersCountError })
     }
   };
+  const updateRoud1Allocation = (detailsToUpdate, round1allocation) => {
+    const isAllocated = round1allocation?.isallocationEnd;
+    if (isAllocated) {
+      detailsToUpdate.isAllocated = isAllocated;
+      // dispatch({ type: 'setErrorMgs', payload: 'Round one allocation completed' })
+    }
+  };
 
   return (<>
 
@@ -232,7 +243,9 @@ const PeojectAllocation = (props) => {
           <TiersData tiersData={tiersData?.data} detailsFromContract={state.detailsFromContract}/>
           <Button className='filled-btn'
             onClick={() => getWalletAddress()}
-            disabled={state.btnLoader} >
+            disabled={
+              (state.data?.projectsViewModel?.tokenType === "ERC-20" && state.detailsFromContract?.isAllocated === 1)
+              ||state.btnLoader} >
             {state.btnLoader && <Spinner size='sm' className={`${state.btnLoader ? "text-black" : "text-light"}`} />}
             Allocate</Button>
           {state.isTransactionSuccess && (

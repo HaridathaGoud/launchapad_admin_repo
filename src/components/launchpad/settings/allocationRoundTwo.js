@@ -241,7 +241,9 @@ const AllocationRoundTwo = (props) => {
           
           <TiersData tiersData={tiersData?.data} detailsFromContract={state.detailsFromContract}/>
           <Button className='filled-btn' onClick={() => getWalletAddress()}
-            disabled={(state.data?.tokenType === "ERC-20" && state.detailsFromContract?.isAllocated !== 1) || state.btnLoader}>
+            disabled={
+              (state.data.projectsViewModel.tokenType === "ERC-20" && state.detailsFromContract?.isAllocated !== 1)
+               || state.btnLoader}>
             {state.btnLoader &&
               <Spinner size='sm' className={`${state.btnLoader ? "text-black" : "text-light"}`} />}
             Allocate
