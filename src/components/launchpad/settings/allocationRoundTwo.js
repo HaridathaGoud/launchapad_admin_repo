@@ -86,7 +86,7 @@ const AllocationRoundTwo = (props) => {
       const projectAddress = await apiCalls.getAllocation(params?.pId)
       if (projectAddress.ok) {
         const provider = new ethers.providers.Web3Provider(window?.ethereum)
-        const factory = new ethers.Contract(data?.projectsViewModel?.contractAddress, project.abi, provider.getSigner());
+        const factory = new ethers.Contract(state.data?.projectsViewModel?.contractAddress, project.abi, provider.getSigner());
         const res = await factory.allocationRoundTwo({gasLimit:900000,gasPrice:300000});
 
         dispatch({ type: 'setTxHash', payload: res.hash })

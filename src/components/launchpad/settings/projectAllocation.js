@@ -87,7 +87,7 @@ const PeojectAllocation = (props) => {
       const projectAddress = await apiCalls.getAllocation(params?.pId, isAdmin.id)
       if (projectAddress.ok) {
         const provider = new ethers.providers.Web3Provider(window?.ethereum)
-        const factory = new ethers.Contract(data?.projectsViewModel?.contractAddress, project.abi, provider.getSigner());
+        const factory = new ethers.Contract(state.data?.projectsViewModel?.contractAddress, project.abi, provider.getSigner());
         const address = [...projectAddress.data];
         const res = await factory.allocation(address, { gasLimit: 5000000 });//gasLimit:900000,gasPrice:300000
 
@@ -96,7 +96,6 @@ const PeojectAllocation = (props) => {
           dispatch({ type: 'setSuccess', payload: "Allocated Successfully" })
           dispatch({ type: 'setIsTransactionSuccess', payload: true })
           setTimeout(function () {
-            setIsTransactionSuccess(false)
             dispatch({ type: 'setIsTransactionSuccess', payload: false })
           }, 5000);
           dispatch({ type: 'setBtnLoader', payload: false })
