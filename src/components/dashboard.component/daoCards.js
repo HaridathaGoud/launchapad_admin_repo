@@ -209,7 +209,7 @@ const Dashboard = (props) => {
 
                 { !loading && daoCardDetails?.data?.length==0 &&  <div className='text-center'>
                     <img src={nodata} width={80} alt='' />
-                    <h4 className="text-center no-data-text">No Data Found</h4>
+                    <h4 className="text-center no-data-text">No DAOS available</h4>
                 </div>
                 }
                 {loading && <div className='text-center'>{loading && <Spinner size="sm" className='text-white text-center' />} </div>}
