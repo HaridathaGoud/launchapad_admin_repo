@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import reward from './rewards.json'
 import staking from "./staking.json";
 import project from "./project.json";
+import token from "./token.json";
 import daoMintedCount from './daoMintedCount.json';
 export function useContract() {
  const selectedDAO = useSelector((state) => state?.oidc?.defaultData);
@@ -18,6 +19,10 @@ async function castVote(contractAddress,questionHash, oprionHash) {
 async function voteCalculation(contractAddress,questionHash) {
 
  return proposalCalculation(contractAddress,questionHash);
+}
+
+async function balnceTransferToClaimable(senderAdr,reciverAdr,bal){
+  return transferAmountToClaimable(senderAdr,reciverAdr,bal)
 }
 function parseError(message) {
  let _message = message?.details || message?.cause?.reason || message?.message || message.fault;
@@ -145,6 +150,17 @@ async function roundtwoallocation(address) {
   });
   return Number(_result);
 }
+async function transferAmountToClaimable(senderAdr,reciverAdr,bal) {
+  const  request  = await prepareWriteContract({
+    address: senderAdr,
+    abi: token.abi,
+    functionName: "transfer",
+    args: [reciverAdr,bal],
+    gasLimit: 2700000,
+    gasPrice: 900000,
+  });
+  return writeContract(request);
+ }
  return {
    addQuestion,
    castVote, 
@@ -157,6 +173,7 @@ async function roundtwoallocation(address) {
    totalstakescount,
    pooldetails ,
    roundoneallocation,
-   roundtwoallocation
+   roundtwoallocation,
+   balnceTransferToClaimable,
   };
  }

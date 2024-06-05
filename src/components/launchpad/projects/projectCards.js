@@ -26,6 +26,8 @@ import { useAccount,useNetwork } from 'wagmi'
 import shimmers from 'src/components/shimmers/shimmers';
 import { switchNetwork } from 'wagmi/actions';
 import ConvertLocalFormat from 'src/utils/convertToLocal';
+import { useContract } from 'src/contract/useContract';
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "errorMgs":
@@ -78,11 +80,14 @@ const initialState = {
 };
 
 const ProjectCards = () => {
-  const [success, setSuccess] = useState(null);
+  const { isConnected,address } = useAccount()
+  const { connectWallet } = useConnectWallet();
+  const { chain } = useNetwork();
+  const {balnceTransferToClaimable} = useContract();
+  const params = useParams();
   const [state, dispatch] = useReducer(reducer, initialState);
   const navigate = useNavigate();
   const pageSize = 8;
-  const [pageNo, setPageNo] = useState(1);
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails?.isAdmin);
   const AdminDetails = useSelector((state)=>state.oidc?.adminDetails)
   const role = useSelector(reducerstate => reducerstate?.oidc?.user?.profile?.role)
@@ -91,13 +96,12 @@ const ProjectCards = () => {
   const userName = sessionStorage.getItem('userName');
   const prjctName = selectedProject?.name || userName;
   const projectName = AdminDetails?.isAdmin ? prjctName :AdminDetails?.firstName+' '+AdminDetails?.lastName;
-  const params = useParams();
+  const [pageNo, setPageNo] = useState(1);
+  const [success, setSuccess] = useState(null);
   const [loadMore, setLoadMore] = useState(false);
   const [hide, setHide] = useState(false);
   const [search, setSearch] = useState();
-  const { isConnected } = useAccount()
-  const { connectWallet } = useConnectWallet();
-  const { chain } = useNetwork();
+
 
   async function handleNetwork() {
     try {
@@ -315,7 +319,7 @@ const ProjectCards = () => {
           dispatch({ type: 'btnLoader', payload: false })
           getOwenersProjects(1, 8, null);
           handleClose();
-
+          // traferAmount({rewardsToken,updateProject,totalSupply})
           setSuccess(`Project deployed successfully`);
           setTimeout(function () {
             setSuccess(null);
@@ -431,6 +435,23 @@ const ProjectCards = () => {
   return formattedValue;
  };
 
+ const traferAmount=async (data)=>{
+  debugger
+  console.log(data,'address',address);
+  const transferFrom = address;
+  const transferTo = data.updateProject.contractAddress;
+  const amount = data.totalSupply;
+  const amountInGwei = ethers.utils.parseUnits(amount.toString(), "wei");
+  console.log('amountInGwei',amountInGwei);
+  try{
+   const response =  await balnceTransferToClaimable(address,transferTo,amountInGwei);
+   console.log('response',response);
+  }catch (error){
+    console.log(error);
+
+  }
+
+ }
   return (
     <div>
       <div className='Container'>
