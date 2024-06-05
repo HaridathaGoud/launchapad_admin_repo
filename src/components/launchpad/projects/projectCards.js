@@ -447,6 +447,7 @@ const ProjectCards = () => {
     console.log(error);;
   }
  }
+
   return (
     <div>
       <div className='Container'>
@@ -600,13 +601,14 @@ const ProjectCards = () => {
                       </div>
                     </div>
                   </Col>
-                  {state.detailsPreview.nftImagesCount &&
+                  { state.detailsPreview.nftImagesCount > 0 &&
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="nftImagesCountInput" className='profile-label'>NFT Images Counts</label>
                         <div className='d-flex align-items-center'>
                           <h6 className='about-label mb-0'>
-                            {state.detailsPreview?.nftImagesCount || '-'}</h6>
+                            {state.detailsPreview.nftImagesCount}
+                          </h6>
                         </div>
                       </div>
                     </Col>
