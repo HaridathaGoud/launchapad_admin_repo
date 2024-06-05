@@ -436,21 +436,16 @@ const ProjectCards = () => {
  };
 
  const traferAmount=async (data)=>{
-  debugger
-  console.log(data,'address',address);
-  const transferFrom = address;
+
   const transferTo = data.updateProject.contractAddress;
   const amount = data.totalSupply;
-  const amountInGwei = ethers.utils.parseUnits(amount.toString(), "wei");
-  console.log('amountInGwei',amountInGwei);
+  const amountInWei = ethers.utils.parseUnits(amount.toString(), 18);
   try{
-   const response =  await balnceTransferToClaimable(address,transferTo,amountInGwei);
+   const response =  await balnceTransferToClaimable(address,transferTo,amountInWei);
    console.log('response',response);
   }catch (error){
-    console.log(error);
-
+    console.log(error);;
   }
-
  }
   return (
     <div>
