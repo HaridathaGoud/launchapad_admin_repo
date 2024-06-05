@@ -136,6 +136,15 @@ async function roundoneallocation(address) {
   });
   return Number(_result);
 }
+async function roundtwoallocation(address) {
+  const _result = await readContract({
+    address: address,
+    abi: project.abi,
+    functionName: "isFCFSAllocationEnd",
+    args:[]
+  });
+  return Number(_result);
+}
  return {
    addQuestion,
    castVote, 
@@ -147,6 +156,7 @@ async function roundoneallocation(address) {
    mintedCountt,
    totalstakescount,
    pooldetails ,
-   roundoneallocation
+   roundoneallocation,
+   roundtwoallocation
   };
  }

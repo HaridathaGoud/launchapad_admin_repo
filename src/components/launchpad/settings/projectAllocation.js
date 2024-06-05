@@ -97,8 +97,10 @@ const PeojectAllocation = (props) => {
           dispatch({ type: 'setIsTransactionSuccess', payload: true })
           setTimeout(function () {
             dispatch({ type: 'setIsTransactionSuccess', payload: false })
-          }, 5000);
+            getDetails(state.data?.projectsViewModel)
+          }, 4000);
           dispatch({ type: 'setBtnLoader', payload: false })
+
         }).catch((err) => {
           dispatch({ type: 'setBtnLoader', payload: false })
           dispatch({ type: 'setErrorMgs', payload: apiCalls.isErrorDispaly(res) })
@@ -203,7 +205,7 @@ const PeojectAllocation = (props) => {
     }
   };
 
-  return (<>
+return (<>
 
     {pageloader &&
           <div className='mt-4 mb-4'>

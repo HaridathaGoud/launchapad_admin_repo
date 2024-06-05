@@ -30,8 +30,8 @@ const AllocationRoundTwo = (props) => {
   const params = useParams();
   const { isConnected } = useAccount()
   const { connectWallet } = useConnectWallet();
-  const {getTotalStakers,getPoolDeatails,isRound1AllocationEnd} = useEthers()
-  const { totalstakescount,pooldetails,roundoneallocation} = useContract();
+  const {getTotalStakers,getPoolDeatails,isRound1AllocationEnd,isRound2AllocationEnd} = useEthers()
+  const { totalstakescount,pooldetails,roundoneallocation,roundtwoallocation} = useContract();
   const isAdmin = useSelector(state => state.oidc?.adminDetails);
   const userId = sessionStorage.getItem('userId');
   const { chain } = useNetwork();
@@ -95,9 +95,9 @@ const AllocationRoundTwo = (props) => {
           dispatch({ type: 'setIsTransactionSuccess', payload: true})
           setTimeout(function () {
             dispatch({ type: 'setIsTransactionSuccess', payload: false})
-          }, 5000);
+            getDetails(state.data?.projectsViewModel)
+          }, 4000);
           dispatch({ type: 'setBtnLoader', payload: false })
-
         }).catch(() => {
           dispatch({ type: 'setBtnLoader', payload: false })
           dispatch({ type: 'setErrorMgs', payload: apiCalls.isErrorDispaly(res) })
@@ -123,7 +123,9 @@ const AllocationRoundTwo = (props) => {
     const stakersInfo = await getTotalStakers(totalstakescount, stakingAdress);
     if(Details.tokenType ==="ERC-20"){
       const round1allocation = await isRound1AllocationEnd(roundoneallocation, Details.contractAddress)
+      const round2allocation = await isRound2AllocationEnd(roundtwoallocation, Details.contractAddress)
       updateRoud1Allocation(detailsToUpdate,round1allocation)
+      updateRoud2Allocation(detailsToUpdate,round2allocation)
     }
     const { poolInfo, tierParticipants, poolInfoError } = await getAllPoolDetails();
     setPageloader(false);
@@ -202,7 +204,13 @@ const AllocationRoundTwo = (props) => {
       dispatch({ type: 'setErrorMgs', payload: 'Round one allocation not yet completed' })
     }
   };
-  
+  const updateRoud2Allocation = (detailsToUpdate, round2allocation) => {
+    const isAllocated = round2allocation?.isround2allocationEnd;
+    if (isAllocated) {
+      detailsToUpdate.isround2allocationEnd = isAllocated;
+    }
+  };
+
   return (
     <div>
 
@@ -243,8 +251,9 @@ const AllocationRoundTwo = (props) => {
           <div className='text-end pb-4 pe-5' >
           <Button className='filled-btn' onClick={() => getWalletAddress()}
             disabled={
-              (state.data.projectsViewModel.tokenType === "ERC-20" && state.detailsFromContract?.isAllocated !== 1)
-               || state.btnLoader}>
+              (state.data.projectsViewModel.tokenType === "ERC-20" && state.detailsFromContract?.isAllocated !== 1)||
+               (state.detailsFromContract?.isround2allocationEnd === 'true'||state.detailsFromContract?.isround2allocationEnd ===1) || 
+               state.btnLoader}>
             {state.btnLoader &&
               <Spinner size='sm' className={`${state.btnLoader ? "text-black" : "text-light"}`} />}
             Allocate

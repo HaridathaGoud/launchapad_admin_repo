@@ -80,6 +80,14 @@ export default function useEthers() {
         }
         return { isallocationEndError: response, isallocationEnd: false };
       };
+      const isRound2AllocationEnd = async (roundtwoallocation, address) => {
+        const response = await roundtwoallocation(address);
+        if (response) {
+          return { isround2allocationEnd: response, round2allocationEndError: null };
+        }
+        return { round2allocationEndError: response, isround2allocationEnd: false };
+      };
+
     return { isConnectd, 
       getAddress, 
       disConnect,
@@ -88,6 +96,7 @@ export default function useEthers() {
       getmintedCount,
       getTotalStakers,
       getPoolDeatails,
-      isRound1AllocationEnd
+      isRound1AllocationEnd,
+      isRound2AllocationEnd
     }
 }
