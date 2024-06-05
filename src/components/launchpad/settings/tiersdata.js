@@ -65,7 +65,7 @@ const TiersData = ({tiersData,detailsFromContract}) => {
           <div className='d-flex justify-content-between align-items-center mt-4'>
            <div>
            <p className='status-text mb-0'>Members In this Tier</p>
-           <p className='status-value text-left'>{`${getTierData(item?.name, 'participants')}`}</p>
+           <p className='status-value text-left'>{getTierData(item?.name, 'participants') || 0}</p>
            </div>
            <div>
            <p className='status-text mb-0'>Token count</p>

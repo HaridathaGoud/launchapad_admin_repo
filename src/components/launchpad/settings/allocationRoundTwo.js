@@ -138,7 +138,7 @@ const AllocationRoundTwo = (props) => {
         ...tierParticipants
       };
     } else {
-      dispatch({ type: 'setErrorMgs', payload: poolInfoError })
+      dispatch({ type: 'setErrorMgs', payload: poolInfoError !==0 ?poolInfoError:'' })
     }
     if (Object.keys(detailsToUpdate)?.length > 0) {
       dispatch({ type: 'setDetailsFromContract', payload: detailsToUpdate })
@@ -193,7 +193,7 @@ const AllocationRoundTwo = (props) => {
     if (stakersCount) {
       detailsToUpdate.stakersCount = stakersCount;
     } else {
-      dispatch({ type: 'setErrorMgs', payload: stakersCountError })
+      dispatch({ type: 'setErrorMgs', payload: stakersCountError !==0?stakersCountError:'' })
     }
   };
   const updateRoud1Allocation = (detailsToUpdate, round1allocation) => {
