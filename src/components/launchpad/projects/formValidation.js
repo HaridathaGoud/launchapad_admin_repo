@@ -33,8 +33,10 @@ export  const erc20FormValidation = (obj) => {
     if (!tokenListingDate || tokenListingDate === '') {
       newErrors.tokenListingDate = 'Is required';
     }
-    if (!initialSupply || initialSupply === '') {
+    if (initialSupply===null || initialSupply === ''||initialSupply ===undefined) {
       newErrors.initialSupply = 'Is required';
+    }else if(initialSupply ===0 || initialSupply ==='0'){
+      newErrors.initialSupply = 'Initial supply must be greater than zero';
     }
     if (!description || description == '') {
       newErrors.description = 'Is required';
@@ -56,14 +58,20 @@ export  const erc20FormValidation = (obj) => {
     } else if (!validateContentRules("", tokenSymbol) || (emojiRejex.test(tokenSymbol))|| tokenSymbol?.match(specialCharsOnly) || tokenSymbol?.match(numbersOnly) ) {
       newErrors.tokenSymbol = 'Accepts alphanumeric and special chars.';
     }
-    if (!tokenDecimal || tokenDecimal == '') {
+    if (tokenDecimal===null || tokenDecimal === '' || tokenDecimal === undefined) {
       newErrors.tokenDecimal = 'Is required';
-    } else if (tokenDecimal && (emojiRejex.test(tokenDecimal))) {
+    }else if(tokenDecimal ===0 || tokenDecimal ==='0'){
+      newErrors.tokenDecimal = 'Token decimal must be greater than zero';
+    }
+    else if (tokenDecimal && (emojiRejex.test(tokenDecimal))) {
       newErrors.tokenDecimal = 'Accepts alphanumeric and special chars.';
     }
-    if (!totalNumberOfTokens || totalNumberOfTokens == '') {
+    if (totalNumberOfTokens===null || totalNumberOfTokens === ''|| totalNumberOfTokens === undefined) {
       newErrors.totalNumberOfTokens = 'Is required';
-    } else if (totalNumberOfTokens && (emojiRejex.test(totalNumberOfTokens))) {
+    }else if(totalNumberOfTokens ===0 || totalNumberOfTokens ==='0'){
+      newErrors.totalNumberOfTokens = 'Total number of tokens must be greater than zero';
+    }
+    else if (totalNumberOfTokens && (emojiRejex.test(totalNumberOfTokens))) {
       newErrors.totalNumberOfTokens = 'Accepts alphanumeric and special chars.';
     }
     return newErrors;
@@ -169,7 +177,7 @@ export  const erc20FormValidation = (obj) => {
       }
     }
 
-    if (timeDate(publicStartDate) > timeDate(publicEndDate)) {
+    if (publicStartDate&&publicEndDate&& ( timeDate(publicStartDate) > timeDate(publicEndDate) )) {
       errorMsg = 'Public Start date cannot be greater than the end date.' ;
     }
      else if (timeDate(publicStartDate) === timeDate(publicEndDate)) {
@@ -177,14 +185,14 @@ export  const erc20FormValidation = (obj) => {
         errorMsg =  'Public start time cannot be greater than or equal to the end time.';
       }
     }
-    if (timeDate(publicStartDate) < timeDate(privateEndDate)) {
-      errorMsg = 'Round one end date cannot be greater than the round two start date.' ;
+    if (publicStartDate && privateEndDate && (timeDate(publicStartDate) < timeDate(privateEndDate) )) {
+      errorMsg = 'Private end date cannot be greater than the public start date.' ;
 
     }else if (timeDate(publicStartDate) === timeDate(privateEndDate)) {
       if (publicStartingTimeInSeconds < privateEndingTimeInSeconds) {
-        errorMsg = 'Round one end time cannot be greater than the round two start time.';
+        errorMsg = 'Private end time cannot be greater than the public start time.';
       }else if(publicStartingTimeInSeconds === privateEndingTimeInSeconds){
-        errorMsg =  'Round one end time cannot be greater than or equal to the round two start time.';
+        errorMsg =  'Private end time cannot be greater than or equal to the public start time.';
       }
     }
     if (errorMsg.trim() !== '') {

@@ -1099,8 +1099,8 @@ return (<>
                           || isIdeoRequest
                         )}
                       />
-                      <Form.Control.Feedback type="invalid">{errors?.tokenDecimal || state?.errors?.tokenDecimal}</Form.Control.Feedback>
-
+                      {/* <Form.Control.Feedback type="invalid">{errors?.tokenDecimal || state?.errors?.tokenDecimal}</Form.Control.Feedback> */}
+                      {(errors?.tokenDecimal || state?.errors?.tokenDecimal) &&<span className='invaliid-textstyle'>{errors?.tokenDecimal || state?.errors?.tokenDecimal}</span>}
                     </Col>
                     <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
@@ -1129,9 +1129,8 @@ return (<>
                           || isIdeoRequest
                         )}
                       />
-
-                      <Form.Control.Feedback type="invalid">{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</Form.Control.Feedback>
-
+                      {/* <Form.Control.Feedback type="invalid">{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</Form.Control.Feedback> */}
+                      {(errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens) &&<span className='invaliid-textstyle'>{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</span>}
                     </Col>
                     <Col lg={12} md={12}>
                       <Form.Label
@@ -1160,8 +1159,8 @@ return (<>
                           || isIdeoRequest
                         )}
                       />
-
-                      <Form.Control.Feedback type="invalid">{errors?.initialSupply || state?.errors?.initialSupply}</Form.Control.Feedback>
+                      {/* <Form.Control.Feedback type="invalid">{errors?.initialSupply || state?.errors?.initialSupply}</Form.Control.Feedback> */}
+                      {(errors?.initialSupply || state?.errors?.initialSupply) &&<span className='invaliid-textstyle'>{errors?.initialSupply || state?.errors?.initialSupply}</span>}
                     </Col>
                   </Row>
                 </Col>

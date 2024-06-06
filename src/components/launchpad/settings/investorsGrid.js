@@ -170,16 +170,16 @@ class InvestorsGrid extends Component {
         const newErrors = {};
         const numbersOnly = /^\d+$/;
         const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
-        if (!firstName || firstName === '') {
+        if (!firstName.trim() || firstName.trim() === '') {
             newErrors.firstName = "Is required";
         }
-        else if (!validateContentRules("", firstName) || firstName?.match(numbersOnly) || firstName?.match(specialCharsOnly)) {
+        else if (!validateContentRules("", firstName.trim()) || firstName.trim()?.match(numbersOnly) || firstName.trim()?.match(specialCharsOnly)) {
             newErrors.firstName = "Accepts alphanumeric and special chars.";
         }
-        if (!lastName || lastName === '') {
+        if (!lastName.trim() || lastName.trim() === '') {
             newErrors.lastName = "Is required";
         }
-        else if (!validateContentRules("", lastName)|| lastName?.match(numbersOnly) || lastName?.match(specialCharsOnly)) {
+        else if (!validateContentRules("", lastName.trim())|| lastName.trim()?.match(numbersOnly) || lastName.trim()?.match(specialCharsOnly)) {
             newErrors.lastName = "Accepts alphanumeric and special chars.";
         }
         if (!userName || userName === '') {
@@ -239,8 +239,13 @@ class InvestorsGrid extends Component {
             });
         } else {
             this.setState({ loaderform: true });
+            const { firstName, lastName, ...rest } = this.state.form;
+            const trimmedFirstName = firstName.trim();
+            const trimmedLastName = lastName.trim();
+            const updatedForm = { ...rest, firstName: trimmedFirstName, lastName: trimmedLastName };
+            
+            let obj = updatedForm;
 
-            let obj = { ...this.state.form };
             obj.id = "00000000-0000-0000-0000-000000000000";
             obj.userId = "00000000-0000-0000-0000-000000000000";
             obj.createdBy = `${this.state.form.firstName} ${this.state.form.lastName}`;
@@ -359,12 +364,12 @@ class InvestorsGrid extends Component {
                                                     placeholder="Enter First Name"
                                                     maxLength={49}
                                                     className=""
-                                                    onBlur={(e) => {
-                                                        this.setField(
-                                                          "firstName",
-                                                          e.target.value.trim().replace(/\s+/g, " ")
-                                                        );
-                                                      }}
+                                                    // onBlur={(e) => {
+                                                    //     this.setField(
+                                                    //       "firstName",
+                                                    //       e.target.value.trim().replace(/\s+/g, " ")
+                                                    //     );
+                                                    //   }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.firstName}</Form.Control.Feedback>
                                             </Form.Group>
@@ -383,12 +388,12 @@ class InvestorsGrid extends Component {
                                                     required
                                                     placeholder="Enter Last Name "
                                                     maxLength={49}
-                                                    onBlur={(e) => {
-                                                        this.setField(
-                                                          "lastName",
-                                                          e.target.value.trim().replace(/\s+/g, " ")
-                                                        );
-                                                      }}
+                                                    // onBlur={(e) => {
+                                                    //     this.setField(
+                                                    //       "lastName",
+                                                    //       e.target.value.trim().replace(/\s+/g, " ")
+                                                    //     );
+                                                    //   }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.lastName}</Form.Control.Feedback>
                                             </Form.Group>
