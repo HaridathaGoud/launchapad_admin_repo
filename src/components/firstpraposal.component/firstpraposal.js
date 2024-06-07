@@ -11,7 +11,7 @@ function FirstPraposal(props) {
                     <img src={praposalImage} width={300} alt=''/>
                     <p className='pra-description mt-4'>Get your community involved in the decision making process.<br />
                         Learn more in our proposal guide.</p>
-                  {props.isEligibleForProposal && <Button variant="primary mt-4 filled-btn" onClick={props.handleRedirect}>Create Your First Proposal</Button>}
+                  {(props.votingOwner ||props.isEligibleForProposal) && <Button variant="primary mt-4 filled-btn" onClick={props.handleRedirect}>Create Your First Proposal</Button>}
                 </div>
             </div>
         </div>
