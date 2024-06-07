@@ -58,10 +58,6 @@ const Dao = (props) => {
     const [pageNo, setPageNo] = useState(1);
     const [errorMsg, setErrorMsg] = useState(null)
     const [lookUpError,setLookUpError] = useState(false);
-    const proposalData = useSelector((reducerState) => reducerState?.proposal?.proposalDetailsList);
-    const loadData = useSelector((reducerState) => reducerState.proposal?.isCheckSeeMore);
-    const UserInfo = useSelector(reducerState => reducerState.oidc?.profile?.profile)
-    const  DaoDetail =  useSelector((state) => state?.proposal?.daoCards?.data);
     const [loading, setLoading]=useState(false)
     const [state, dispatch] = useReducer(reducers, { modalShow: false, status: "all", statusLu: [],
      date: null, dateStatus: false,daoDetails:{} })
@@ -71,6 +67,10 @@ const Dao = (props) => {
     const [btnLoader, setBtnLoader] = useState(false);
     const [txHash,setTxHash]=useState(null)
     const isAdmin = useSelector(reducerState => reducerState.oidc?.adminDetails)
+    const proposalData = useSelector((reducerState) => reducerState?.proposal?.proposalDetailsList);
+    const loadData = useSelector((reducerState) => reducerState.proposal?.isCheckSeeMore);
+    const UserInfo = useSelector(reducerState => reducerState.oidc?.profile?.profile)
+    const DaoDetail =  useSelector((state) => state?.proposal?.daoCards?.data);
     const [loadMore,setLoadMore] = useState(false)
     const [hide,setHide] = useState(false)
     const [selection, setSelection]=useState(null);
@@ -374,15 +374,15 @@ const Dao = (props) => {
               let amount, balanceError, ownerAddress, ownerError, mintedCount, mintedCountError;
 
                   if (data.tokenType === 'ERC-20') {
-                      const rewardBalance = await getRewardBalance(readRewardBalance, data?.contractAddress);
+                      const rewardBalance = await getRewardBalance(readRewardBalance,data?.contractAddress);
                       amount = rewardBalance.amount;
                       balanceError = rewardBalance.balanceError;
 
-                      const ownerInfo = await getOwnerAddress(getOwner, data?.contractAddress);
+                      const ownerInfo = await getOwnerAddress(getOwner,data?.contractAddress);
                       ownerAddress = ownerInfo.ownerAddress;
                       ownerError = ownerInfo.error;
                   } else {
-                      const mintedInfo = await getmintedCount(mintedCountt, data?.contractAddress);
+                      const mintedInfo = await getmintedCount(mintedCountt,data?.contractAddress);
                       mintedCount = mintedInfo.mintedCount;
                       mintedCountError = mintedInfo.mintedCountError;
                   }
@@ -417,7 +417,7 @@ const Dao = (props) => {
               (state?.daoDetails?.tokenType==='ERC-20' &&  userDetailsFromContract?.balance >=
               Number(state.daoDetails?.proposalCreationBalance ) ) )
             )
-          }, [address, isConnected,userDetailsFromContract, state?.daoDetails,isAdmin?.isInvestor]);
+          }, [address,isConnected,userDetailsFromContract,state?.daoDetails,isAdmin?.isInvestor]);
 
     return (
         <>{params.id == "null" ? <ErrorPage /> :

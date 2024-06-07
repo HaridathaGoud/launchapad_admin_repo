@@ -68,8 +68,8 @@ const TiersData = ({tiersData,detailsFromContract}) => {
            <p className='status-value text-left'>{getTierData(item?.name, 'participants') || 0}</p>
            </div>
            <div>
-           <p className='status-text mb-0'>Token count</p>
-           <p className='status-value text-left'>50</p>
+           <p className='status-text mb-0'>Approximate Allocation</p>
+           <p className='status-value text-left'>0</p>
            </div>
           </div>
           </div>
