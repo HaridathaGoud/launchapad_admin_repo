@@ -10,7 +10,7 @@ const Investors =()=>{
   const handleProjects=(val)=>{
     dispatchInvestors(setProject(val))
     sessionStorage.setItem('userId',val?.id)
-    sessionStorage.setItem('userName',val?.name)
+    sessionStorage.setItem('userName',val?.name?.split(/\s+/).filter(Boolean).join(' '))
     navigate(`/launchpad/investors/projects/${val?.id}`)
   }
   return(<>

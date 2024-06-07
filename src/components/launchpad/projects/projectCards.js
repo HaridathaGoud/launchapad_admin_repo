@@ -94,8 +94,8 @@ const ProjectCards = () => {
   const walletAddress = useSelector((reducerstate) => reducerstate.walletAddress?.walletAddress)
   const selectedProject = useSelector(state => state.projectDetails.project);
   const userName = sessionStorage.getItem('userName');
-  const prjctName = selectedProject?.name || userName;
-  const projectName = AdminDetails?.isAdmin ? prjctName :AdminDetails?.firstName+' '+AdminDetails?.lastName;
+  const prjctName = selectedProject?.name || userName?.split(/\s+/).filter(Boolean).join(' ');
+  const projectName = AdminDetails?.isAdmin ? prjctName :AdminDetails?.firstName?.replace(/\s+/g, '')+' '+AdminDetails?.lastName?.replace(/\s+/g, '');
   const [pageNo, setPageNo] = useState(1);
   const [success, setSuccess] = useState(null);
   const [loadMore, setLoadMore] = useState(false);
@@ -448,7 +448,7 @@ const ProjectCards = () => {
   }
  }
 
-  return (
+ return (
     <div>
       <div className='Container'>
         <div className=''>
