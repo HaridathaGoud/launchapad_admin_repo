@@ -73,7 +73,7 @@ class InvestorsGrid extends Component {
     ];
 
     handleBlur = (e) => {
-        let value = e.target.value.trim();
+        let value = e.target.value?.trim();
         e.target.value = value;
       };
     handleChange = (e) => {
@@ -87,7 +87,7 @@ class InvestorsGrid extends Component {
             if (value == "") {
                 searchObj.searchBy = null;
             } else {
-                let data = value.trim();
+                let data = value?.trim();
                 searchObj.searchBy = data;
             }
             this.setState({ ...this.state, searchObj });
@@ -170,16 +170,16 @@ class InvestorsGrid extends Component {
         const newErrors = {};
         const numbersOnly = /^\d+$/;
         const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
-        if (!firstName.trim() || firstName.trim() === '') {
+        if (!firstName?.trim() || firstName?.trim() === '') {
             newErrors.firstName = "Is required";
         }
-        else if (!validateContentRules("", firstName.trim()) || firstName.trim()?.match(numbersOnly) || firstName.trim()?.match(specialCharsOnly)) {
+        else if (!validateContentRules("", firstName?.trim()) || firstName?.trim()?.match(numbersOnly) || firstName?.trim()?.match(specialCharsOnly)) {
             newErrors.firstName = "Accepts alphanumeric and special chars.";
         }
-        if (!lastName.trim() || lastName.trim() === '') {
+        if (!lastName?.trim() || lastName?.trim() === '') {
             newErrors.lastName = "Is required";
         }
-        else if (!validateContentRules("", lastName.trim())|| lastName.trim()?.match(numbersOnly) || lastName.trim()?.match(specialCharsOnly)) {
+        else if (!validateContentRules("", lastName?.trim())|| lastName?.trim()?.match(numbersOnly) || lastName?.trim()?.match(specialCharsOnly)) {
             newErrors.lastName = "Accepts alphanumeric and special chars.";
         }
         if (!userName || userName === '') {
@@ -240,8 +240,8 @@ class InvestorsGrid extends Component {
         } else {
             this.setState({ loaderform: true });
             const { firstName, lastName, ...rest } = this.state.form;
-            const trimmedFirstName = firstName.trim();
-            const trimmedLastName = lastName.trim();
+            const trimmedFirstName = firstName?.trim();
+            const trimmedLastName = lastName?.trim();
             const updatedForm = { ...rest, firstName: trimmedFirstName, lastName: trimmedLastName };
             
             let obj = updatedForm;
