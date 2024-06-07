@@ -101,7 +101,6 @@ const Dashboard = (props) => {
             setSelectedDaoId(null)
             setErrorMsg("User rejected transaction.");
            setDeployContractLoader(false);
-           setDeployContractLoader(false);
         }
       }
 
@@ -110,7 +109,8 @@ const Dashboard = (props) => {
         try {
             const _provider = new ethers.providers.Web3Provider(window?.ethereum);
             const _contract = new ethers.Contract(votingFactory?.contractAddress, votingFactory.abi, _provider?.getSigner());
-            const contractRes = await _contract.deployVotingContract(daoDetails.contractAddress, 1, 2);
+            const votingBal = daoCardDetails.tokenType ==='ERC-20'? {bal:1000,amount:5000} : {bal:1,amount:2};
+            const contractRes = await _contract.deployVotingContract(daoDetails.contractAddress, votingBal.bal, votingBal.amount);
             contractRes.wait().then(async (receipt) => {
                 const address = receipt.logs[0].address;
                 const updateProject = {

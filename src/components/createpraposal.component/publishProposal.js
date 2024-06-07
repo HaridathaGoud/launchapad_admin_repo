@@ -12,15 +12,19 @@ import StartedSteps from './proposalSteps';
 import apiCalls from 'src/api/apiCalls';
 import { Spinner } from 'react-bootstrap';
 import { useContract } from 'src/contract/useContract';
-import { useAccount } from 'wagmi';
+import { useAccount,useNetwork } from 'wagmi';
 import UseEthers from '../../utils/useEthers';
 import Moment from 'react-moment';
 import { ethers } from 'ethers';
 import PropTypes from 'prop-types'
+import { switchNetwork } from 'wagmi/actions';
+import { useConnectWallet } from 'src/hooks/useConnectWallet';
 
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
 const take=8;
 function PublishProposal(props) {
+  const { connectWallet } = useConnectWallet();
+  const { chain } = useNetwork();
   const params = useParams()
   const { isConnected,address } = useAccount();
   const { getAddress } = UseEthers();
@@ -87,9 +91,24 @@ useEffect(() => {
     setTxHash(null)
     let daoData=DaoDetail?.find((item)=>item?.daoId==params.id?.toLocaleLowerCase())
     setDaoLogo(daoData?.logo)
-    setVotingContractAddress(daoData?.contractAddress)
+    setVotingContractAddress(daoData?.votingContractAddress)
   }
-  
+  async function handleNetwork() {
+    try {
+      if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
+        await switchNetwork({
+          chainId: Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID) || 0,
+        });
+      } else {
+        return true;
+      }
+    } catch (error) {
+      setBtnLoader(false)
+      setErrorMsg("User rejected transaction.");
+      throw new Error('User rejected transaction.');
+    }
+  }
+
   const getOptionHashes=()=>{
     let hashes=proposalDetails?.ProposalOptionDetails;
     for (let i in hashes) {
@@ -97,29 +116,24 @@ useEffect(() => {
        optionVotingHashs.push(_obj?.optionhash);
     }
   }
-  const getWalletAddress = async () => {
-    let walletAddress = await getAddress();
-    if (walletAddress) {
-     publishProposal(walletAddress);
+
+  const publishProposalWalletCOnnect = async () => {
+    setErrorMsg(null);
+    setDeployContractLoader(true);
+    try {
+      if (isConnected) {
+        await handleNetwork();
+      } else {
+        await connectWallet();
+      }
+      await publishProposal();
+    } catch (error) {
+      setErrorMsg("User rejected transaction.");
+      setBtnLoader(false);
     }
   }
-const publishProposalWalletCOnnect=async ()=>{
-  if (isConnected) {
-    getWalletAddress();
-}
-else {
-    try {
-         await getWalletAddress()
-    } catch (error) {
-        setErrorMsg(error?.reason);
-        setBtnLoader(false)
-    }
 
-}
-}
-
-
-const publishProposal =  async(walletAddress) => {
+const publishProposal =  async() => {
   setBtnLoader(true)
   getOptionHashes()
   let localDate = new Date(proposalDetails?.startdate); 
@@ -141,7 +155,7 @@ const publishProposal =  async(walletAddress) => {
     endTime: endDateData,
     membershipsCount:proposalDetails?.membershipsCount,
     proposalType:proposalDetails?.proposalType,
-    CreatorAddress:walletAddress,
+    CreatorAddress:address,
     image: daoLogo,
     creatorImage :adminDetails?.profilePicUrl ,
     proposalOptionDetails:proposalDetails?.ProposalOptionDetails
@@ -249,7 +263,7 @@ const publishProposal =  async(walletAddress) => {
               : <PlaceHolder contenthtml={PublishShimmers} />}
               <div className='d- justify-content-between mt-3'>
 
-                <Button variant="primary" disabled={btnLoader} className='float-end mb-4 filled-btn' onClick={publishProposalWalletCOnnect}>
+                <Button variant="primary" disabled={!isConnected || btnLoader} className='float-end mb-4 filled-btn' onClick={publishProposalWalletCOnnect}>
                 <span>{(saveProposal?.loading || btnLoader) && <Spinner size="sm" />} </span> Publish Proposal <span className='icon-dao btn-arrow'></span>
                 </Button>
               </div>

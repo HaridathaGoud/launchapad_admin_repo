@@ -280,31 +280,29 @@ const Dao = (props) => {
             props.proposalDetailsList(pageNo, pageSize, params.id, status?.toLowerCase(), search, startDate, endDate,handleSecondCallback)
         } 
     };
+
     const handleCalculateVote=async(item)=>{
         setErrorMsg(null)
         setSelection(item?.proposalId)
          setBtnLoader(true)
-        if (isConnected) {
-            handleVote(item);
-        }
-        else {
-            try {
-                handleVote(item);
-                setBtnLoader(false)
-                setErrorMsg(null)
-            } catch (error) {
-                setErrorMsg(error?.reason);
-                 setBtnLoader(false)
-            }
-        
-        }
+    try {
+      if (isConnected) {
+        await handleNetwork();
+      } else {
+        await connectWallet();
+      }
+      await  handleVote(item);
+    } catch (error) {
+      setErrorMsg("User rejected transaction.");
+      setBtnLoader(false);
+    }
       }
     const handleVote=async(item)=>{
         setSuccess(null);
         setErrorMsg(null)
         setTxHash(null)
         try {
-        const response = await voteCalculation(state?.daoDetails?.contractAddress,item.titleHash);
+        const response = await voteCalculation(state?.daoDetails?.votingContractAddress,item.titleHash);
         const _connector = window?.ethereum;
         const provider = new ethers.providers.Web3Provider(_connector);
             const txResponse = await provider.waitForTransaction(response.hash);
@@ -374,11 +372,11 @@ const Dao = (props) => {
               let amount, balanceError, ownerAddress, ownerError, mintedCount, mintedCountError;
 
                   if (data.tokenType === 'ERC-20') {
-                      const rewardBalance = await getRewardBalance(readRewardBalance, data?.votingContractAddress);
+                      const rewardBalance = await getRewardBalance(readRewardBalance, data?.contractAddress);
                       amount = rewardBalance.amount;
                       balanceError = rewardBalance.balanceError;
 
-                      const ownerInfo = await getOwnerAddress(getOwner, data?.votingContractAddress);
+                      const ownerInfo = await getOwnerAddress(getOwner, data?.contractAddress);
                       ownerAddress = ownerInfo.ownerAddress;
                       ownerError = ownerInfo.error;
                   } else {
@@ -571,7 +569,7 @@ const Dao = (props) => {
                                                                     <span>{(selection == item?.proposalId) && btnLoader && <Spinner size="sm" />}  </span>  Calculate Vote</Button>}
                                                             </>}</>} */}
 
-                                                        {UserInfo.role ==="Super Admin" && item.status == "Closed" && item?.dateEnded &&
+                                                        {UserInfo.role ==="Admin" && item.status == "Closed" && item?.dateEnded &&
                                                          <div className='text-end'>
                                                              <Button
                                                         disabled={btnLoader}
