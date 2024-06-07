@@ -25,6 +25,8 @@ import shimmers from '../shimmers/shimmers';
 import { useConnectWallet } from '../../hooks/useConnectWallet';
 import { switchNetwork } from 'wagmi/actions';
 import useEthers from '../../utils/useEthers'
+import ConvertLocalFormat from 'src/utils/convertToLocal';
+
 const polygonUrl=process.env.REACT_APP_ENV==="production"?process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL:process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
  
 const reducers = (state, action) => {
@@ -549,10 +551,10 @@ const Dao = (props) => {
                                                             {item?.description}</p>
                                                         <div className='d-flex align-items-center mb-block'>
                                                             <p className='para-text mt-3 me-3'>
-                                                                Start Date: <b><Moment format={"DD/MM/YYYY HH:mm"}>{item?.startDate}</Moment></b>
+                                                                Start Date: <b>{ConvertLocalFormat(item?.startDate)}</b>
                                                             </p>
                                                             <p className='para-text mt-3 me-3'>
-                                                                End Date: <b> <Moment format={"DD/MM/YYYY HH:mm"}>{item?.endDate}</Moment></b>
+                                                                End Date: <b> {ConvertLocalFormat(item?.endDate)}</b>
                                                             </p>
                                                         </div>
                                                         <div className='option-style'>

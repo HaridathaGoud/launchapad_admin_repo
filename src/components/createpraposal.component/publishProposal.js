@@ -119,7 +119,7 @@ useEffect(() => {
 
   const publishProposalWalletCOnnect = async () => {
     setErrorMsg(null);
-    setDeployContractLoader(true);
+    setBtnLoader(true);
     try {
       if (isConnected) {
         await handleNetwork();

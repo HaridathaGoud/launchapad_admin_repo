@@ -319,7 +319,7 @@ const ProjectCards = () => {
           dispatch({ type: 'btnLoader', payload: false })
           getOwenersProjects(1, 8, null);
           handleClose();
-          // traferAmount({rewardsToken,updateProject,totalSupply})
+          // traferAmount({rewardsToken,updateProject,totalSupply,tokenDecimals})
           setSuccess(`Project deployed successfully`);
           setTimeout(function () {
             setSuccess(null);
@@ -436,10 +436,10 @@ const ProjectCards = () => {
  };
 
  const traferAmount=async (data)=>{
-
   const transferTo = data.updateProject.contractAddress;
   const amount = data.totalSupply;
-  const amountInWei = ethers.utils.parseUnits(amount.toString(), 18);
+  const amountInWei = ethers.utils.parseUnits(amount.toString(), data.tokenDecimals);
+  console.log('amountInWei ',amountInWei);
   try{
    const response =  await balnceTransferToClaimable(address,transferTo,amountInWei);
    console.log('response',response);
