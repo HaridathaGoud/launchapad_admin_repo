@@ -59,8 +59,8 @@ const PeojectAllocation = (props) => {
       }
     } catch (error) {
       dispatch({ type: 'setBtnLoader', payload: false })
-      dispatch({ type: 'setErrorMgs', payload: "User Rejected Transaction." })
-      throw new Error("User Rejected Transaction.");
+      dispatch({ type: 'setErrorMgs', payload: "user rejected transaction." })
+      throw new Error("user rejected transaction.");
     }
   }
   const getWalletAddress = async () => {
@@ -74,7 +74,7 @@ const PeojectAllocation = (props) => {
       }
       updateData();
     } catch (error) {
-      dispatch({ type: 'setErrorMgs', payload: "User Rejected Transaction." })
+      dispatch({ type: 'setErrorMgs', payload: "user rejected transaction." })
       dispatch({ type: 'setBtnLoader', payload: false })
     }
   }
@@ -240,7 +240,7 @@ return (<>
 
         
 
-          <TiersData tiersData={tiersData?.data} detailsFromContract={state.detailsFromContract}/>
+          <TiersData tiersData={tiersData?.data} detailsFromContract={state.detailsFromContract} projectData={state.data}/>
           <div className='text-end pe-5 pb-4'>
           <Button className='filled-btn'
             onClick={() => getWalletAddress()}

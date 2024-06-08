@@ -6,8 +6,16 @@ import bluedaimond from '../../../assets/images/blue-daimond.svg'
 import PropTypes from 'prop-types'
 import { connect } from "react-redux";
 
-const TiersData = ({tiersData,detailsFromContract}) => {
-  const getTierData = (name, type) => {
+const TiersData = ({tiersData,detailsFromContract,projectData}) => {
+  const poolWeights = {
+    Bronze: 1,
+    Silver: 1,
+    Gold: 2,
+    Platinum: 2,
+    Diamond: 3,
+    'Blue Diamond': 4
+  };
+    const getTierData = (name, type) => {
     const dataMapping = {
       image: {
         Bronze: bluedaimond,
@@ -41,10 +49,25 @@ const TiersData = ({tiersData,detailsFromContract}) => {
         Diamond: 'card-daimond',
         'Blue Diamond': 'card-blue-daimond',
       },
+      approximateAllocate: {
+        Bronze: Allocation('Bronze') || 0,
+        Silver: Allocation('Silver') || 0,
+        Gold: Allocation('Gold') || 0,
+        Platinum: Allocation('Platinum') || 0,
+        Diamond: Allocation('Diamond') || 0,
+        'Blue Diamond': Allocation('Blue Diamond') || 0,
+      }
     };
     return dataMapping[type][name] || '';
   };
-
+  const Allocation = (name) => {
+    const totalSupply = projectData?.projectsViewModel?.totalNumberOfTokens || 0;
+    const poolWeight = poolWeights[name] || 0;
+    const participants = detailsFromContract?.[`tier${Object.keys(poolWeights).indexOf(name) + 1}Participants`] || 0;
+    if (participants === 0) return 0;
+    const allocatedAmount = Math.floor(totalSupply * poolWeight / 100 / participants);
+    return allocatedAmount;
+  };
   return ( 
   <div>
     <div>
@@ -69,7 +92,7 @@ const TiersData = ({tiersData,detailsFromContract}) => {
            </div>
            <div>
            <p className='status-text mb-0'>Approximate Allocation</p>
-           <p className='status-value text-left'>0</p>
+           <p className='status-value text-left'>{getTierData(item?.name, 'approximateAllocate') || 0} </p>
            </div>
           </div>
           </div>

@@ -7,6 +7,7 @@ import reward from './rewards.json'
 import staking from "./staking.json";
 import project from "./project.json";
 import token from "./token.json";
+import voting from "./voting.json";
 import daoMintedCount from './daoMintedCount.json';
 export function useContract() {
  const selectedDAO = useSelector((state) => state?.oidc?.defaultData);
@@ -105,6 +106,15 @@ async function getOwner(contract) {
   });
   return _result;
 }
+async function getDaoOwner(contract) {
+  const _result = await readContract({
+    address: contract,
+    abi: voting.abi,
+    functionName: "owner",
+    args: [],
+  });
+  return _result;
+}
 async function mintedCountt(contract) {
   const _result = await readContract({
     address: contract,
@@ -175,5 +185,6 @@ async function transferAmountToClaimable(senderAdr,reciverAdr,bal) {
    roundoneallocation,
    roundtwoallocation,
    balnceTransferToClaimable,
+   getDaoOwner,
   };
  }

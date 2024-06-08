@@ -247,7 +247,7 @@ const AllocationRoundTwo = (props) => {
           )}
        
           
-          <TiersData tiersData={tiersData?.data} detailsFromContract={state.detailsFromContract}/>
+          <TiersData tiersData={tiersData?.data} detailsFromContract={state.detailsFromContract} projectData={state.data}/>
           <div className='text-end pb-4 pe-5' >
           <Button className='filled-btn' onClick={() => getWalletAddress()}
             disabled={

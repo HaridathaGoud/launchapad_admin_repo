@@ -62,7 +62,7 @@ const Dao = (props) => {
     const [state, dispatch] = useReducer(reducers, { modalShow: false, status: "all", statusLu: [],
      date: null, dateStatus: false,daoDetails:{} })
     const [votingOwner,setVotingOwner]=useState(false)
-    const { voteCalculation ,readRewardBalance, getOwner,mintedCountt} = useContract();
+    const { voteCalculation ,readRewardBalance, getOwner,mintedCountt,getDaoOwner} = useContract();
     const [proposalCardList,setProposalCardList]=useState([])
     const [btnLoader, setBtnLoader] = useState(false);
     const [txHash,setTxHash]=useState(null)
@@ -78,7 +78,7 @@ const Dao = (props) => {
     const [shimmerLoading,setShimmerLoading] = useState(true)
     const { connectWallet } = useConnectWallet();
     const { chain } = useNetwork();
-    const {getRewardBalance,getOwnerAddress,getmintedCount} = useEthers()
+    const {getRewardBalance,getOwnerAddress,getmintedCount,getDaoOwnerAddress} = useEthers()
     const [userDetailsFromContract, setUserDetailsFromContract] =useState(null);
     async function handleNetwork() {
       try {
@@ -161,7 +161,6 @@ const Dao = (props) => {
             }else{
                 setVotingOwner(false);
             }
-           
             return _ownerAddress
         } catch (error) {  
         }
@@ -206,10 +205,9 @@ const Dao = (props) => {
             setErrorMsg("Start date cannot be greater than the end date.")
             setShimmerLoading(false)
         }else if (data) {
-            if (!state?.dateStatus && data != "all") {
+            if (!state?.dateStatus && data !== "all") {
                 let pageNo = 1
                 props?.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, startDate, endDate,handleCallback)
-               
             } else if( state?.dateStatus){
                 let pageNo = 1
                 props?.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, state?.date, state?.dateStatus,handleCallback
@@ -298,14 +296,14 @@ const Dao = (props) => {
       setBtnLoader(false);
     }
       }
-    const handleVote=async(item)=>{
+    const handleVote = async (item) => {
         setSuccess(null);
         setErrorMsg(null)
         setTxHash(null)
         try {
-        const response = await voteCalculation(state?.daoDetails?.votingContractAddress,item.titleHash);
-        const _connector = window?.ethereum;
-        const provider = new ethers.providers.Web3Provider(_connector);
+            const response = await voteCalculation(state?.daoDetails?.votingContractAddress, item.titleHash);
+            const _connector = window?.ethereum;
+            const provider = new ethers.providers.Web3Provider(_connector);
             const txResponse = await provider.waitForTransaction(response.hash);
             setTxHash(response.hash)
             if (txResponse && txResponse.status === 0) {
@@ -313,22 +311,19 @@ const Dao = (props) => {
                 setBtnLoader(false)
             } else {
                 setSuccess("Vote calculated successfully");
-                 setBtnLoader(false)
-                 window.scroll(0,0);
-                 props.proposalDetailsList(1, pageSize, params.id, status?.toLowerCase(), search, startDate, endDate,
-                 handleCallback)
-                 setTimeout(function () {
+                setBtnLoader(false)
+                window.scroll(0, 0);
+                props.proposalDetailsList(1, pageSize, params.id, status?.toLowerCase(), search, startDate, endDate,
+                    handleCallback)
+                setTimeout(function () {
                     setSuccess(null);
-                 }, 2000);
-               
-                                
+                }, 2000);
             }
         } catch (error) {
             setErrorMsg(apiCalls.isErrorDispaly((error)));
             setBtnLoader(false)
-            window.scroll(0,0);
-                    }
-        
+            window.scroll(0, 0);
+        }
     }
     const getRecorderValue = (recorder) => {
         const recorderValues = ["A", "B", "C", "D", "E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
@@ -370,7 +365,7 @@ const Dao = (props) => {
 
           const getDetails = async (data) => {
               let detailsToUpdate = userDetailsFromContract ? userDetailsFromContract : {};
-              let amount, balanceError, ownerAddress, ownerError, mintedCount, mintedCountError;
+              let amount, balanceError, ownerAddress, ownerError, mintedCount, mintedCountError,daoownerAddress,daoownerError;
 
                   if (data.tokenType === 'ERC-20') {
                       const rewardBalance = await getRewardBalance(readRewardBalance,data?.contractAddress);
@@ -380,6 +375,10 @@ const Dao = (props) => {
                       const ownerInfo = await getOwnerAddress(getOwner,data?.contractAddress);
                       ownerAddress = ownerInfo.ownerAddress;
                       ownerError = ownerInfo.error;
+
+                      const daoownerInfo = await getDaoOwnerAddress(getDaoOwner,data?.votingContractAddress);
+                      daoownerAddress = daoownerInfo.daoownerAddress;
+                      daoownerError = daoownerInfo.error; 
                   } else {
                       const mintedInfo = await getmintedCount(mintedCountt,data?.contractAddress);
                       mintedCount = mintedInfo.mintedCount;
@@ -396,6 +395,11 @@ const Dao = (props) => {
             } else {
               setErrorMsg(ownerError);
             }
+            if (daoownerAddress) {
+                detailsToUpdate = { ...detailsToUpdate, daoowner: daoownerAddress };
+              } else {
+                setErrorMsg(daoownerError);
+              }
             if(mintedCount){
                 detailsToUpdate = { ...detailsToUpdate, mintedCount: mintedCount };
             }else{
@@ -417,7 +421,6 @@ const Dao = (props) => {
               Number(state.daoDetails?.proposalCreationBalance ) ) )
             )
           }, [address,isConnected,userDetailsFromContract,state?.daoDetails,isAdmin?.isInvestor]);
-
 
     return (
         <>{params.id == "null" ? <ErrorPage /> :
@@ -571,7 +574,7 @@ const Dao = (props) => {
                                                                     <span>{(selection == item?.proposalId) && btnLoader && <Spinner size="sm" />}  </span>  Calculate Vote</Button>}
                                                             </>}</>} */}
 
-                                                        {UserInfo.role ==="Admin" && item.status == "Closed" && item?.dateEnded &&
+                                                        {userDetailsFromContract?.daoowner===address && UserInfo.role ==="Admin" && item.status == "Closed" && item?.dateEnded &&
                                                          <div className='text-end'>
                                                              <Button
                                                         disabled={btnLoader}

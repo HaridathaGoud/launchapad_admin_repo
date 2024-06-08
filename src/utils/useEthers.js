@@ -51,6 +51,13 @@ export default function useEthers() {
         }
         return { error: response, amount: null };
       };
+      const getDaoOwnerAddress = async (getDaoOwner, address) => {
+        const response = await getDaoOwner(address);
+        if (response) {
+          return { daoownerAddress: response, error: null };
+        }
+        return { error: response, amount: null };
+      };
       const getmintedCount = async (mintedCountt, address) => {
         const response = await mintedCountt(address);
         if (response) {
@@ -97,6 +104,7 @@ export default function useEthers() {
       getTotalStakers,
       getPoolDeatails,
       isRound1AllocationEnd,
-      isRound2AllocationEnd
+      isRound2AllocationEnd,
+      getDaoOwnerAddress
     }
 }
