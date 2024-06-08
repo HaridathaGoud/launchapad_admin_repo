@@ -140,7 +140,6 @@ const Dao = (props) => {
         dispatch({ type: 'setDaoDeatils', payload: daoData })
         if(isConnected){
             await handleNetwork();
-            getVotingOwner(daoData)
             if(daoData){
                 getDetails(daoData)
                 getVotingOwner(daoData)
