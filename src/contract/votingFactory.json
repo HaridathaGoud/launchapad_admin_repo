@@ -27,14 +27,14 @@
                     "type": "address"
                 },
                 {
-                    "internalType": "uint8",
+                    "internalType": "uint256",
                     "name": "voteBalance",
-                    "type": "uint8"
+                    "type": "uint256"
                 },
                 {
-                    "internalType": "uint8",
+                    "internalType": "uint256",
                     "name": "addQuestionBalance",
-                    "type": "uint8"
+                    "type": "uint256"
                 }
             ],
             "name": "deployVotingContract",
@@ -68,5 +68,5 @@
             "type": "function"
         }
     ],
-    "contractAddress": "0xeC28b0f089f713B60D2069DA9a16E5f7fe2D5403"
+    "contractAddress": "0x375077C04b76B02cc97a6bDb89Af4a1119312982"
 }

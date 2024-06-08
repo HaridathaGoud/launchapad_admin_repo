@@ -190,7 +190,6 @@ const publishProposal =  async() => {
       }
 }
 
-
   return (
     <div className='dao-mt'>
       <Link className=' title-width-fit' to={`/dao/createpraposal/${params.id}`}><div className='d-flex align-items-center title-width-fit'>  <span className='icon-dao back mr-2 c-pointer'></span><span className='mb-0 ms-2 back-text'>Create Proposal</span></div></Link>
