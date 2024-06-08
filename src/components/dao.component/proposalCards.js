@@ -143,10 +143,10 @@ const Dao = (props) => {
             getVotingOwner(daoData)
             if(daoData){
                 getDetails(daoData)
+                getVotingOwner(daoData)
             }
         }else{
             await connectWallet();
-            getVotingOwner(daoData)
         }
     }
     async function getVotingOwner(daoData) {
@@ -419,6 +419,7 @@ const Dao = (props) => {
             )
           }, [address,isConnected,userDetailsFromContract,state?.daoDetails,isAdmin?.isInvestor]);
 
+
     return (
         <>{params.id == "null" ? <ErrorPage /> :
             <>
@@ -462,7 +463,7 @@ const Dao = (props) => {
                                             className={`mb-0 ms-2 back-text cursor-pointer ${UserInfo?.role == "Super Admin" && "c-pointer"}`}
                                              onClick={handledashboard}>Proposals</span></div>
 
-                                        {(votingOwner ||isEligibleForProposal) && <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
+                                        {(votingOwner===address ||isEligibleForProposal) && <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
                                     </div>
 
                                 </Col>
