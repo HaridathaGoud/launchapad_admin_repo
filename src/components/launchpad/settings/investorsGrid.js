@@ -76,6 +76,10 @@ class InvestorsGrid extends Component {
         let value = e.target.value?.trim();
         e.target.value = value;
       };
+      trimField = (field) => {
+        let value = this.state.form[field]?.trim() || '';
+        this.setField(field, value);
+    };
     handleChange = (e) => {
         if (e.target.value == "") {
             let { searchObj } = this.state;
@@ -359,17 +363,12 @@ class InvestorsGrid extends Component {
                                                     defaultValue={this.state.form?.firstName}
                                                     autoComplete="off"
                                                     onChange={(e) => { this.setField('firstName', e.currentTarget.value) }}
+                                                    onBlur={() => this.trimField('firstName')}
                                                     isInvalid={!!this.state.errors.firstName}
                                                     required
                                                     placeholder="Enter First Name"
                                                     maxLength={49}
                                                     className=""
-                                                    // onBlur={(e) => {
-                                                    //     this.setField(
-                                                    //       "firstName",
-                                                    //       e.target.value.trim().replace(/\s+/g, " ")
-                                                    //     );
-                                                    //   }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.firstName}</Form.Control.Feedback>
                                             </Form.Group>
@@ -384,16 +383,11 @@ class InvestorsGrid extends Component {
                                                     value={this.state.form?.lastName}
                                                     defaultValue={this.state.form?.lastName}
                                                     onChange={(e) => { this.setField('lastName', e.currentTarget.value) }}
+                                                    onBlur={() => this.trimField('lastName')}
                                                     isInvalid={!!this.state.errors.lastName}
                                                     required
                                                     placeholder="Enter Last Name "
                                                     maxLength={49}
-                                                    // onBlur={(e) => {
-                                                    //     this.setField(
-                                                    //       "lastName",
-                                                    //       e.target.value.trim().replace(/\s+/g, " ")
-                                                    //     );
-                                                    //   }}
                                                 />
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.lastName}</Form.Control.Feedback>
                                             </Form.Group>

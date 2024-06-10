@@ -61,6 +61,10 @@ const UserProfile = (props) => {
       })
     }
   }
+  const trimField = (field) => {
+    let value = form[field]?.trim() || '';
+    setField(field, value);
+}
   const getAdminDetails = async () => {
     setLoader(true);
     const response = await apiCalls.fetchAdminDetails(params.id||props.profileData?.profile?.sub);
@@ -93,13 +97,13 @@ const UserProfile = (props) => {
     if (!firstName || firstName === '') {
       newErrors.firstName = "Is required";
     } 
-    else if(!validateContentRules("",firstName)|| firstName?.match(whiteSpace) || firstName?.match(numbersOnly) || firstName?.match(specialCharsOnly)) {
+    else if(!validateContentRules("",firstName) || firstName?.match(numbersOnly) || firstName?.match(specialCharsOnly)) {
       newErrors.firstName = "Accepts alphanumeric and special chars.";
     }
     if (!lastName || lastName === '') {
       newErrors.lastName = "Is required";
     } 
-    else if(!validateContentRules("",lastName) || lastName?.match(whiteSpace) || lastName?.match(numbersOnly) || lastName?.match(specialCharsOnly)){
+    else if(!validateContentRules("",lastName)  || lastName?.match(numbersOnly) || lastName?.match(specialCharsOnly)){
       newErrors.lastName = "Accepts alphanumeric and special chars.";
     }
     if (!phoneNo || phoneNo === '') {
@@ -368,6 +372,7 @@ const UserProfile = (props) => {
                                 defaultValue={form?.firstName || adminDetails?.firstName}
                                 autoComplete="off"
                                 onChange={(e) => { setField('firstName', e.currentTarget.value) }}
+                                onBlur={() => trimField('firstName')}
                                 isInvalid={!!errors.firstName}
                                 required
                                 placeholder="First Name"
@@ -385,6 +390,7 @@ const UserProfile = (props) => {
                       value={form?.lastName}
                       defaultValue={form?.lastName || adminDetails?.lastName}
                       onChange={(e) => { setField('lastName', e.currentTarget.value) }}
+                      onBlur={() => trimField('lastName')}
                       isInvalid={!!errors.lastName}
                       required
                       placeholder="Last Name"
