@@ -364,6 +364,7 @@ const Dao = (props) => {
 
 
           const getDetails = async (data) => {
+            setLoading(true)
               let detailsToUpdate = userDetailsFromContract ? userDetailsFromContract : {};
               let amount, balanceError, ownerAddress, ownerError, mintedCount, mintedCountError,daoownerAddress,daoownerError;
 
@@ -408,6 +409,7 @@ const Dao = (props) => {
             if (Object.keys(detailsToUpdate).length > 0) {
               setUserDetailsFromContract(detailsToUpdate);
             }
+            setLoading(false)
           };
           const isEligibleForProposal = useMemo(() => {
             return (
@@ -465,7 +467,7 @@ const Dao = (props) => {
                                             className={`mb-0 ms-2 back-text cursor-pointer ${UserInfo?.role == "Super Admin" && "c-pointer"}`}
                                              onClick={handledashboard}>Proposals</span></div>
 
-                                        {(votingOwner===address ||isEligibleForProposal) && <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
+                                        {(userDetailsFromContract?.owner===address ||isEligibleForProposal) && <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
                                     </div>
 
                                 </Col>
@@ -601,7 +603,7 @@ const Dao = (props) => {
 
                             </Row>
 
-                        </div> : <FirstPraposal handleRedirect={handleRedirect} votingOwner={votingOwner}isEligibleForProposal={isEligibleForProposal} />}
+                        </div> : <FirstPraposal handleRedirect={handleRedirect} votingOwner={votingOwner}isEligibleForProposal={userDetailsFromContract?.owner=== address ||isEligibleForProposal} />}
 
                 </div>}
             </>

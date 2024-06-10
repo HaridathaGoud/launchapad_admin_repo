@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Placeholder from 'react-bootstrap/Placeholder';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 
 function StartedSteps(props) {
     const[loader,setLoader]=useState()
-    setTimeout(() => {
-        setLoader(props?.formSteps)
-      }, 100);
+    setTimeout(() => {setLoader(props?.formSteps) }, 1000);
 
       const stepsOneListClassName =
   props?.stepsOne === "1" ? "step-list active" : "step-list success";
@@ -54,10 +53,10 @@ function StartedSteps(props) {
         </>
     );
 }
-StartedSteps.PropTypes = {
+StartedSteps.propTypes = {
     formSteps: PropTypes.number.isRequired,
     stepsOne: PropTypes.string.isRequired,
     stepsTwo: PropTypes.string.isRequired,
     stepsThree: PropTypes.string.isRequired,
   };
-export default StartedSteps;
+export default connect(null, null)(StartedSteps);

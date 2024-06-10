@@ -5,9 +5,9 @@ import { proposalViewData } from '../proposalReducer/proposalReducer';
 import shimmers from '../shimmers/shimmers';
 import PlaceHolder from '../shimmers/placeHolder';
 import { useParams } from "react-router-dom";
-import Moment from 'react-moment';
 import { useAccount } from 'wagmi';
 import PropTypes from 'prop-types'
+import ConvertLocalFormat from 'src/utils/convertToLocal';
 
 function TestingPraposalflow(props) {
    const proposalView = useSelector((state) => state?.proposal?.proViewData)
@@ -88,19 +88,13 @@ function TestingPraposalflow(props) {
             <div className='md-d-flex align-items-center justify-content-between mb-4'>
               <p className='kp-lbl'>Start Date & Time</p>
               <p className='kp-value'>
-              <Moment local={true} format={"DD/MM/YYYY HH:mm "}>
-                          {proposalView?.data?.startDate}
-                        </Moment>
+              {ConvertLocalFormat(proposalView?.data?.startDate)}{" "}
                 </p>
             </div>
             <div className='md-d-flex align-items-center justify-content-between mb-4'>
               <p className='kp-lbl'>End Date & Time</p>
               <p className='kp-value'> 
-              
-              <Moment local={true} format={"DD/MM/YYYY HH:mm "}>
-                          {proposalView?.data?.endDate}
-                        </Moment>
-              
+              {ConvertLocalFormat(proposalView?.data?.endDate)}{" "}
               </p>
             </div>
 
