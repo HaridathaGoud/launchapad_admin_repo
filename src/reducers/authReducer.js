@@ -223,7 +223,9 @@ const getWhiteListedData = (whitelistedId, callback) => {
     if (response.ok) {
       if (response.data) {
         dispatch(fetchwhitelistingdata({ key: 'fetchwhitelistingdata', loading: false, data: response.data, error: null }));
-        callback ? callback(response.data) : ""
+        if (callback) {
+          callback(response.data);
+        }
       }
 
     } else {
@@ -251,17 +253,6 @@ const saveWhitelist = (obj) => {
     }
   }
 
-}
-
-const saveAuditLogs = async (id) => {
-  let obj = {
-    projectOwnerId: id,
-    feature: 'sign In',
-    Type: "Admin",
-    info: JSON.stringify(auditInfo),
-    createdDate: new Date()
-  }
-  let response = await postAudit(`Projects/SaveAdminAuditLogs`, obj)
 }
 
 const getMetaDataDetails = (daoId,count, callback) => {
@@ -330,7 +321,7 @@ const walletAddressChecking = (walletAddress, callback) => {
     const res = await apiCalls.customerWalletAddressChecking(walletAddress);
     if (res) {
       dispatch(setCustomerWalletAddress({ key: 'getWalletAddressChecking', loading: false, data: res.data, error: null }));
-      callback ? callback(res.data) : ""
+      callback(res.data)
     } else {
       dispatch(
         setCustomerWalletAddress({

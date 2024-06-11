@@ -32,11 +32,11 @@ const AllocationRoundTwo = (props) => {
   const { connectWallet } = useConnectWallet();
   const {getTotalStakers,getPoolDeatails,isRound1AllocationEnd,isRound2AllocationEnd} = useEthers()
   const { totalstakescount,pooldetails,roundoneallocation,roundtwoallocation} = useContract();
-  const isAdmin = useSelector(state => state.oidc?.adminDetails);
+  const isAdmin = useSelector(stateinfo => stateinfo.oidc?.adminDetails);
   const userId = sessionStorage.getItem('userId');
   const { chain } = useNetwork();
   const [pageloader, setPageloader] =  useState(true);
-  const tiersData = useSelector((state) => state.settings?.allTiersData)
+  const tiersData = useSelector((statedata) => statedata.settings?.allTiersData)
 
   useEffect(() => {
     setPageloader(true);
