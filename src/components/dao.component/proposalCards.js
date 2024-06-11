@@ -205,19 +205,20 @@ const Dao = (props) => {
             setErrorMsg("Start date cannot be greater than the end date.")
             setShimmerLoading(false)
         }else if (data) {
+            setShimmerLoading(true)
             if (!state?.dateStatus && data !== "all") {
                 let pageNo = 1
                 props?.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, startDate, endDate,handleCallback)
+                setShimmerLoading(false)
             } else if( state?.dateStatus){
                 let pageNo = 1
-                props?.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, state?.date, state?.dateStatus,handleCallback
-                )
-              
+                props?.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, state?.date, state?.dateStatus,handleCallback)
+                setShimmerLoading(false);
             }else {
                 props?.proposalDetailsList(pageNo, pageSize, params.id, data?.toLowerCase(), search, startDate, endDate,handleCallback)
                 let _pageNo = pageNo + 1;
                 setPageNo(_pageNo);
-               
+                setShimmerLoading(false)
             }
         }
     }    
@@ -431,7 +432,6 @@ const Dao = (props) => {
                 <shimmers.ProposalsShimmer  count={3}/>
                 }
                 {!loading && <div className='dao-mt'>
-                    
                     {errorMsg && (
                         <Alert variant="danger" className="cust-alert-design">
                             <div className='d-flex align-items-center justify-content-between mobile-d-block'>
@@ -452,12 +452,10 @@ const Dao = (props) => {
                         || state?.status?.toLocaleLowerCase() == "declined"
                         || state?.status?.toLocaleLowerCase() == "pending"
                         || state?.status?.toLocaleLowerCase() == "closed"
+                        || state?.status?.toLocaleLowerCase() =="publishing"
                         || state?.dateStatus) ?
-
                         <div>
-
                             <Row>
-
                                 <Col sm={12} xs={12} md={12} lg={12} xl={12} xxl={12} className='text-end'>
                                     <div className='md-d-flex justify-content-between align-items-center'>
                                         <div className='d-flex align-items-center title-width-fit'><span 
@@ -469,7 +467,6 @@ const Dao = (props) => {
 
                                         {(userDetailsFromContract?.owner===address ||isEligibleForProposal) && <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
                                     </div>
-
                                 </Col>
 
                                 <Col sm={12} xs={12} md={12} lg={12} xl={12} xxl={12}>
@@ -499,12 +496,8 @@ const Dao = (props) => {
                                                 </div>
                                             </Col>
                                         </Row>
-
                                     </div>
-
-
                                 </Col>
-
                             </Row>
 
                             <Row className='mt-5'>
@@ -512,7 +505,6 @@ const Dao = (props) => {
                                     <ToasterMessage isShowToaster={success} success={success}></ToasterMessage>
                                 </div>
                                 }
-
                                 {proposalCardList != "" &&
                                     <>
                                         {proposalCardList?.map((item) => (
@@ -568,13 +560,6 @@ const Dao = (props) => {
                                                                 </p>
                                                             </div>))}
                                                         </div>
-                                                        {/* {UserInfo?.role == "Super Admin" ? "" : <>
-                                                            {item.status == "Closed" ? "" : <>
-                                                                {item?.dateEnded && <Button
-                                                                    disabled={btnLoader}
-                                                                    className='ustify-content-end' onClick={() => handleCalculateVote(item)}>
-                                                                    <span>{(selection == item?.proposalId) && btnLoader && <Spinner size="sm" />}  </span>  Calculate Vote</Button>}
-                                                            </>}</>} */}
 
                                                         {userDetailsFromContract?.daoowner===address && UserInfo.role ==="Admin" && item.status == "Closed" && item?.dateEnded &&
                                                          <div className='text-end'>
@@ -594,17 +579,13 @@ const Dao = (props) => {
                                                 </span></div>
                                             )}
                                     </>}
-
                                     {proposalCardList == "" &&<div className='text-center'>
                                         <img src={nodata} width={60} alt=''/>
                                         <h4 className="text-center no-data-text">No Data Found</h4>
                                     </div>
                                 }
-
                             </Row>
-
                         </div> : <FirstPraposal handleRedirect={handleRedirect} votingOwner={votingOwner}isEligibleForProposal={userDetailsFromContract?.owner=== address ||isEligibleForProposal} />}
-
                 </div>}
             </>
         }</>
