@@ -2,24 +2,26 @@ import React from 'react'
 import { CNavItem, CNavLink } from '@coreui/react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import PropTypes from 'prop-types'
+
 const Applications = (props) => {
-    const renderTooltipKyc = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
+    const renderTooltipKyc = (tooltipProps) => (
+        <Tooltip id="button-tooltip" {...tooltipProps}>
             Kyc
         </Tooltip>
     );
-    const renderTooltipLaunchPad = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
+    const renderTooltipLaunchPad = (tooltipProps) => (
+        <Tooltip id="button-tooltip" {...tooltipProps}>
             LaunchPad
         </Tooltip>
     );
-    const renderTooltipMinting = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
+    const renderTooltipMinting = (tooltipProps) => (
+        <Tooltip id="button-tooltip" {...tooltipProps}>
             Minting
         </Tooltip>
     );
-    const renderTooltipMarketPlace = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
+    const renderTooltipMarketPlace = (tooltipProps) => (
+        <Tooltip id="button-tooltip" {...tooltipProps}>
             MarketPlace
         </Tooltip>
     );
@@ -64,4 +66,7 @@ const Applications = (props) => {
         </React.Fragment>
     );
 }
+Applications.propTypes = {
+    handleMenuNavigate: PropTypes.any,
+  };
 export default Applications

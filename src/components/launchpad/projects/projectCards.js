@@ -355,7 +355,7 @@ const ProjectCards = () => {
     const secondaryPriceFeeAdres = '0xF0d50568e3A7e8259E16663972b11910F89BD8e7';
     const platformFee = 5;
     // const ercCustomToken = '0x41CF89e47Ee08a09D8bc168c5072358e87B2eBf8';
-    const ercCustomToken = '0xb417AbcC8b1302ADdD2fC12BAeD042400cEEC7CA';
+     const ercCustomToken = '0xb417AbcC8b1302ADdD2fC12BAeD042400cEEC7CA';
     const baseFiatPrice = ethers.utils.parseEther('50');
     const provider = new ethers.providers.Web3Provider(window?.ethereum)
     const factory = new ethers.Contract(MintFactory.contractAddress, MintFactory.abi, provider.getSigner());

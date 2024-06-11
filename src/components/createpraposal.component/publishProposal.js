@@ -13,7 +13,6 @@ import apiCalls from 'src/api/apiCalls';
 import { Spinner } from 'react-bootstrap';
 import { useContract } from 'src/contract/useContract';
 import { useAccount,useNetwork } from 'wagmi';
-import UseEthers from '../../utils/useEthers';
 import Moment from 'react-moment';
 import { ethers } from 'ethers';
 import PropTypes from 'prop-types'
@@ -27,7 +26,6 @@ function PublishProposal(props) {
   const { chain } = useNetwork();
   const params = useParams()
   const { isConnected,address } = useAccount();
-  const { getAddress } = UseEthers();
   const [btnLoader, setBtnLoader] = useState(false);
   const PublishShimmers = shimmers.PublishProposal(3);
   const contractData = useSelector((state) => state?.proposal?.contractDetails)

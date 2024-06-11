@@ -6,7 +6,7 @@ import MarketplaceMenu from "./marketplace";
 import DaoMenu from "./dao";
 import UserMenu from './userMenu';
 import SettingsMenu from "./settingsMenu";
-
+import PropTypes from 'prop-types'
 
 function AppMenu({handleMenuNavigate}) {
     const app_name = useSelector(state => state.application.app_name);
@@ -26,5 +26,7 @@ function AppMenu({handleMenuNavigate}) {
         </>
     )
 }
-
+AppMenu.propTypes = {
+    handleMenuNavigate: PropTypes.any,
+  };
 export default AppMenu

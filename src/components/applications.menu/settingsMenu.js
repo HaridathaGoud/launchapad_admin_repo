@@ -3,6 +3,7 @@ import { CNavItem, CNavLink } from '@coreui/react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { useSelector} from 'react-redux';
+import PropTypes from 'prop-types'
 
 const SettingsMenu = (props) => {
     const isAdmin = useSelector(state => state.oidc?.adminDetails);
@@ -97,4 +98,8 @@ const SettingsMenu = (props) => {
        )
     }
 }
+SettingsMenu.propTypes = {
+    handleMenuNavigate: PropTypes.any,
+    app_name: PropTypes.any,
+  };
 export default SettingsMenu;

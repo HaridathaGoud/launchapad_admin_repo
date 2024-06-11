@@ -3,12 +3,13 @@ import { CNavItem, CNavLink } from '@coreui/react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { useSelector} from 'react-redux';
+import PropTypes from 'prop-types'
 
 const DaoMenu = (props) => {
     const isAdmin = useSelector(state => state.oidc?.adminDetails);
 
-    const renderTooltipDashboard = (props) => (
-        <Tooltip id="button-tooltip" {...props}> 
+    const renderTooltipDashboard = (tooltipProps) => (
+        <Tooltip id="button-tooltip" {...tooltipProps}> 
             Dashboard
         </Tooltip>
     );
@@ -44,4 +45,8 @@ const DaoMenu = (props) => {
     }
     
 }
+DaoMenu.propTypes = {
+    handleMenuNavigate: PropTypes.any,
+    app_name : PropTypes.any,
+  };
 export default DaoMenu;

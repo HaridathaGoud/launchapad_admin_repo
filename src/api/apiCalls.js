@@ -80,32 +80,32 @@ const getInvestorDaoDetails=(investorId,take,skip)=> {
   return daoApiAdmin.get(ApiControllers.projects +`DaoDetails/${investorId}/${take}/${skip}`);
 }
 
-
 const isErrorDispaly = (objValue) => {
-  if ((objValue.status > 400 && objValue.status < 500) && objValue.status != 401) {
+  if ((objValue.status > 400 && objValue.status < 500) && objValue.status !== 401) {
     return "Something went wrong please try again!";
-  } else {
-    if (objValue.data && typeof objValue.data === "string") {
+  }
+  if (objValue.data) {
+    if (typeof objValue.data === "string") {
       return objValue.data;
-    } else if (objValue.data && objValue.data.title && typeof objValue.data.title) {
+    } else if (objValue.data.title && typeof objValue.data.title === "string") {
       return objValue.data.title;
-    }else if (objValue.title ) {
-      return objValue.title;
-    }
-    else if (objValue && objValue.shortMessage && typeof objValue.shortMessage) {
-      return objValue.shortMessage;
-    }
-     else if (
-      objValue.originalError &&
-      typeof objValue.originalError.message === "string"
-    ) {
-      return objValue.originalError.message;
-    } else {
-
-      return typeof (objValue) === "object" && objValue.reason ? objValue.reason : "Something went wrong please try again!";
     }
   }
+  if (objValue.title && typeof objValue.title === "string") {
+    return objValue.title;
+  }
+  if (objValue.shortMessage && typeof objValue.shortMessage === "string") {
+    return objValue.shortMessage;
+  }
+  if (objValue.originalError && typeof objValue.originalError.message === "string") {
+    return objValue.originalError.message;
+  }
+  if (typeof objValue === "object" && objValue.reason) {
+    return objValue.reason;
+  }
+  return "Something went wrong please try again!";
 };
+
 const uploadErrorDisplay = (objValue)=>{
 	if ((objValue?.status >= 400 && objValue?.status < 500) && objValue?.status != 401) {
 		return "Something went wrong please try again!";
