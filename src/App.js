@@ -85,13 +85,6 @@ const loading = (
     <div className="sk-spinner sk-spinner-pulse"></div>
   </div>
 )
-// const config = createConfig({
-//   autoConnect: true,
-//   publicClient: createPublicClient({
-//     chain: mainnet,
-//     transport: http()
-//   }),
-// })
 const { chains, publicClient } = configureChains(
   [polygon,amoyNetwork],
   [

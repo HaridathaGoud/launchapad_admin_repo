@@ -14,37 +14,37 @@ function LaunchPadMenu(props){
 
   const navigate = useNavigate();
 
-    const renderTooltipDashboard = (props) => (
+    const renderTooltipDashboard = () => (
         <Tooltip id="button-tooltip" {...props}> 
             Dashboard
         </Tooltip>
     );
-    const renderTooltipCustomers = (props) => (
+    const renderTooltipCustomers = () => (
         <Tooltip id="button-tooltip" {...props}>
             Customers
         </Tooltip>
     );
-    const renderTooltipInvestorPage = (props) => (
+    const renderTooltipInvestorPage = () => (
         <Tooltip id="button-tooltip" {...props}>
             Investors
         </Tooltip>
     );
-    const renderTooltipIdoRequest = (props) => (
+    const renderTooltipIdoRequest = () => (
         <Tooltip id="button-tooltip" {...props}>
             IDO Request
         </Tooltip>
     );
-    const renderTooltipProjects = (props) => (
+    const renderTooltipProjects = () => (
         <Tooltip id="button-tooltip" {...props}>
             Projects
         </Tooltip>
     );
-    const renderTooltipTransactions = (props) => (
+    const renderTooltipTransactions = () => (
         <Tooltip id="button-tooltip" {...props}>
             Transactions
         </Tooltip>
     );
-    const renderTooltipSettings = (props) => (
+    const renderTooltipSettings = () => (
         <Tooltip id="button-tooltip" {...props}>
             Settings
         </Tooltip>

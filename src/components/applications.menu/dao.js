@@ -12,11 +12,6 @@ const DaoMenu = (props) => {
             Dashboard
         </Tooltip>
     );
-    const renderTooltipCustomers = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            Customers
-        </Tooltip>
-    );
     const { handleMenuNavigate ,app_name} = props;
     let locationSplit = location?.pathname?.split('/');
     if (isAdmin?.isAdmin) { 

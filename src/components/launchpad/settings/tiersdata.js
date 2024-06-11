@@ -8,13 +8,14 @@ import { connect } from "react-redux";
 
 const TiersData = ({tiersData,detailsFromContract,projectData}) => {
   const poolWeights = {
-    Bronze: 1,
-    Silver: 1,
-    Gold: 2,
-    Platinum: 2,
-    Diamond: 3,
-    'Blue Diamond': 4
+    Bronze: { 1: 1, 2: 1, 3: 1 },
+    Silver: { 1: 2, 2: 2, 3: 2 },
+    Gold: { 1: 3, 2: 3, 3: 4 },
+    Platinum: { 1: 6, 2: 6, 3: 7 },
+    Diamond: { 1: 8, 2: 9, 3: 10 },
+    'Blue Diamond': { 1: 11, 2: 11, 3: 13 },
   };
+ 
     const getTierData = (name, type) => {
     const dataMapping = {
       image: {
@@ -49,23 +50,19 @@ const TiersData = ({tiersData,detailsFromContract,projectData}) => {
         Diamond: 'card-daimond',
         'Blue Diamond': 'card-blue-daimond',
       },
-      approximateAllocate: {
-        Bronze: Allocation('Bronze') || 0,
-        Silver: Allocation('Silver') || 0,
-        Gold: Allocation('Gold') || 0,
-        Platinum: Allocation('Platinum') || 0,
-        Diamond: Allocation('Diamond') || 0,
-        'Blue Diamond': Allocation('Blue Diamond') || 0,
-      }
     };
     return dataMapping[type][name] || '';
   };
-  const Allocation = (name) => {
+  const aggregateParticipants = (tierId) => {
+    return detailsFromContract?.poolInfo?.filter(pool => pool.tierId === tierId)?.reduce((sum, pool) => sum + pool.participants, 0);
+  };
+  const Allocation = (tierName, tierId) => {
     const totalSupply = projectData?.projectsViewModel?.totalNumberOfTokens || 0;
-    const poolWeight = poolWeights[name] || 0;
-    const participants = detailsFromContract?.[`tier${Object.keys(poolWeights).indexOf(name) + 1}Participants`] || 0;
-    if (participants === 0) return 0;
-    const allocatedAmount = Math.floor(totalSupply * poolWeight / 100 / participants);
+    const tierPools = detailsFromContract?.poolInfo?.filter(pool => pool.tierId === tierId);
+    const totalWeight = tierPools?.reduce((sum, pool) => sum + poolWeights[tierName][pool.poolLevel] * pool.participants, 0);
+    const totalParticipants = aggregateParticipants(tierId);
+    if (totalParticipants === 0) return 0;
+    const allocatedAmount = ((totalSupply * totalWeight / 100) / totalParticipants);
     return allocatedAmount;
   };
   return ( 
@@ -92,7 +89,7 @@ const TiersData = ({tiersData,detailsFromContract,projectData}) => {
            </div>
            <div>
            <p className='status-text mb-0'>Approximate Allocation</p>
-           <p className='status-value text-left'>{getTierData(item?.name, 'approximateAllocate') || 0} </p>
+           <p className='status-value text-left'> {Allocation(item?.name, item?.recorder)} </p>
            </div>
           </div>
           </div>
@@ -107,6 +104,7 @@ const TiersData = ({tiersData,detailsFromContract,projectData}) => {
 TiersData.propTypes = {
   tiersData: PropTypes.any,
   detailsFromContract: PropTypes.any,
+  projectData:PropTypes.any,
 }
 
 export default connect(null, null)(TiersData);

@@ -243,15 +243,15 @@ const publishProposal =  async() => {
                   <div className='md-d-flex align-items-center justify-content-between mb-4'>
                     <p className='kp-lbl'>Start Date & Time</p>
                     <p className='kp-value'>
-                    <Moment format={"DD/MM/YYYY HH:mm"}>
-                          {proposalDetails?.startdate}
-                        </Moment>
+                      <Moment format="DD/MM/YYYY hh:mm A">
+                        {proposalDetails?.startdate}
+                      </Moment>
                       </p>
                   </div>
                   <div className='md-d-flex align-items-center justify-content-between mb-4'>
                     <p className='kp-lbl'>End Date & Time</p>
                     <p className='kp-value'>
-                    <Moment format={"DD/MM/YYYY HH:mm"}>
+                    <Moment format="DD/MM/YYYY hh:mm A">
                           {proposalDetails?.enddate}
                         </Moment>
                      </p>

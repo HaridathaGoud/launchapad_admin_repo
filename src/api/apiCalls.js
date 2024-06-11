@@ -309,7 +309,7 @@ const getAllTiers = () =>{
   return launchpadApi.get(ApiControllers.projects + `alltiers`)
 }
 
-let apiCalls = {idoRequestStateChange,createInvestors,getAdminDashboarDataK,
+const apiCalls = {idoRequestStateChange,createInvestors,getAdminDashboarDataK,
   getLaunchPadProjectData,getTokenInfo,getClames,getAllocation,getAllocationDetails,
 totalBonus,updateRefferal,getProposalView,postCreateProposal,getProposalList,getStatusLu,getDaoDetails,getContractDetails,daoContractAddress,
   saveAuditLog,customerDetails, getAllcustomers, isErrorDispaly, getKYCInformation, saveAdmin, adminProfile, changePassword, fetchAdminDetails, encryptValue,
@@ -318,7 +318,7 @@ totalBonus,updateRefferal,getProposalView,postCreateProposal,getProposalList,get
   , savetiers, UpdateClaimsAndAllocation, getProjects, getTiers, getSuperAdminDetails, getUpcomingProjects,
   updateContractAddressStatus, adminOrSuperAdminDetails, getlaunchpadProjects, getLaunchpadProjectDetails, getProjectFeed,getUserProfile,
   apiUploadPost,metaDataDetails,memberTypes,memberPrice,updateTransaction,
-  getPeriodType,getWhiteListeddata,saveWhitelist,getPeriodsData,memberTypes,customerWalletAddressChecking,getProposalVoters,uploadErrorDisplay,
+  getPeriodType,getWhiteListeddata,saveWhitelist,getPeriodsData,customerWalletAddressChecking,getProposalVoters,uploadErrorDisplay,
   getCastCrewRolesLu,getInvestorDaoDetails,updateVotingContractAddress,tokenCollectionLu,getAllTiers}
 
 export default apiCalls
