@@ -200,7 +200,6 @@ const PeojectAllocation = (props) => {
     const isAllocated = round1allocation?.isallocationEnd;
     if (isAllocated) {
       detailsToUpdate.isAllocated = isAllocated;
-      // dispatch({ type: 'setErrorMgs', payload: 'Round one allocation completed' })
     }
   };
 

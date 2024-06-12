@@ -57,8 +57,7 @@ import { getIpRegisteryData } from './reducers/authReducer';
 import MintWhitelist from './components/minting/whitelist';
 import Mintingsidemenu from './components/minting/minting';
 import MintGeneral from './components/minting/mintgeneral';
-import { WagmiConfig, createConfig,configureChains, mainnet } from 'wagmi'
-import { createPublicClient, http } from 'viem'
+import { WagmiConfig, createConfig,configureChains } from 'wagmi'
 import Referral from './components/minting/referral';
 import Dao from './components/dao.component/proposalCards';
 import CreatePraposal from './components/createpraposal.component/createpraposal';

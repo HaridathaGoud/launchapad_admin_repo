@@ -7,7 +7,7 @@ import apiCalls from 'src/api/apiCalls';
 import Alert from 'react-bootstrap/Alert';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import { ethers } from 'ethers';
-import { useSelector ,connect} from 'react-redux';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 import moment from 'moment';
 import project from '../../../contract/project.json';
@@ -27,8 +27,7 @@ const SettingsComponent = (props) => {
   const { connectWallet } = useConnectWallet();
   const [state, dispatch] = useReducer(settingsReducer, initialState);
   const currentDate = new Date().toISOString().slice(0, 16);
-  const tiersData = useSelector((state)=> state.settings?.allTiersData)
-  const [data,setData] = useState();
+  const [data,setData] = useState({});
   const { chain } = useNetwork();
   let { pId } = useParams();
 
@@ -40,8 +39,8 @@ const SettingsComponent = (props) => {
       setData(callback.data)
       dispatch({ type: "setPageLoader", payload: false })
     })
-  }, []) 
-
+  }, [])
+  
   async function handleNetwork() {
     try {
       if (chain?.id !== Number(process.env.REACT_APP_POLYGON_CHAIN_NUMARIC_ID)) {
