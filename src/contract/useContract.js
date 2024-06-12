@@ -7,7 +7,6 @@ import reward from './rewards.json'
 import staking from "./staking.json";
 import project from "./project.json";
 import token from "./token.json";
-import voting from "./voting.json";
 import daoMintedCount from './daoMintedCount.json';
 export function useContract() {
  const selectedDAO = useSelector((state) => state?.oidc?.defaultData);
@@ -109,7 +108,7 @@ async function getOwner(contract) {
 async function getDaoOwner(contract) {
   const _result = await readContract({
     address: contract,
-    abi: voting.abi,
+    abi: VotingContract.abi,
     functionName: "owner",
     args: [],
   });

@@ -332,66 +332,68 @@ const Dao = (props) => {
           };
 
 
-          const getDetails = async (data) => {
-            dispatch({ type: 'setLoading', payload: true })
-              let detailsToUpdate = userDetailsFromContract || {};
-              let amount, balanceError, ownerAddress, ownerError, mintedCount, mintedCountError,daoownerAddress,daoownerError;
+    const getDetails = async (data) => {
+        dispatch({ type: 'setLoading', payload: true })
+        let detailsToUpdate = userDetailsFromContract || {};
+        let amount, balanceError, ownerAddress, ownerError, mintedCount, mintedCountError, daoownerAddress, daoownerError;
+        
+        const ownerInfo = await getOwnerAddress(getOwner, data?.contractAddress);
+        ownerAddress = ownerInfo.ownerAddress;
 
-                  if (data.tokenType === 'ERC-20') {
-                      const rewardBalance = await getRewardBalance(readRewardBalance,data?.contractAddress);
-                      amount = rewardBalance.amount;
-                      balanceError = rewardBalance.balanceError;
+        const daoownerInfo = await getDaoOwnerAddress(getDaoOwner, data?.votingContractAddress);
+        daoownerAddress = daoownerInfo.daoownerAddress;
+        daoownerError = daoownerInfo.error;
 
-                      const ownerInfo = await getOwnerAddress(getOwner,data?.contractAddress);
-                      ownerAddress = ownerInfo.ownerAddress;
-                      ownerError = ownerInfo.error;
+        ownerError = ownerInfo.error;
+        if (data.tokenType === 'ERC-20') {
+            const rewardBalance = await getRewardBalance(readRewardBalance, data?.contractAddress);
+            amount = rewardBalance.amount;
+            balanceError = rewardBalance.balanceError;
 
-                      const daoownerInfo = await getDaoOwnerAddress(getDaoOwner,data?.votingContractAddress);
-                      daoownerAddress = daoownerInfo.daoownerAddress;
-                      daoownerError = daoownerInfo.error; 
-                  } else {
-                      const mintedInfo = await getmintedCount(mintedCountt,data?.contractAddress);
-                      mintedCount = mintedInfo.mintedCount;
-                      mintedCountError = mintedInfo.mintedCountError;
-                  }
-            if (amount) {
-              detailsToUpdate = { ...detailsToUpdate, balance: amount };
-              setUserDetailsFromContract({ ...detailsToUpdate, balance: amount });
-            } else {
-              dispatch({ type: 'setErrorMsg', payload:balanceError})
-            }
-            if (ownerAddress) {
-              detailsToUpdate = { ...detailsToUpdate, owner: ownerAddress };
-            } else {
-              dispatch({ type: 'setErrorMsg', payload:ownerError})
-            }
-            if (daoownerAddress) {
-                detailsToUpdate = { ...detailsToUpdate, daoowner: daoownerAddress };
-              } else {
-                dispatch({ type: 'setErrorMsg', payload:daoownerError})
-              }
-            if(mintedCount){
-                detailsToUpdate = { ...detailsToUpdate, mintedCount: mintedCount };
-            }else{
-                dispatch({ type: 'setErrorMsg', payload:mintedCountError})
-            }
-            if (Object.keys(detailsToUpdate).length > 0) {
-              setUserDetailsFromContract(detailsToUpdate);
-            }
-            dispatch({ type: 'setLoading', payload: false })
-          };
-          const isEligibleForProposal = useMemo(() => {
-            return (
-              isConnected &&
-              address &&
-              isAdmin?.isInvestor &&
-              state?.daoDetails?.contractAddress &&
-              (userDetailsFromContract?.owner === address ||
-              (state?.daoDetails?.tokenType==='ERC-721'&& state?.daoDetails?.members >2 ) ||
-              (state?.daoDetails?.tokenType==='ERC-20' &&  userDetailsFromContract?.balance >=
-              Number(state.daoDetails?.proposalCreationBalance ) ) )
-            )
-          }, [address,isConnected,userDetailsFromContract,state?.daoDetails,isAdmin?.isInvestor]);
+        } else {
+            const mintedInfo = await getmintedCount(mintedCountt, data?.contractAddress);
+            mintedCount = mintedInfo.mintedCount;
+            mintedCountError = mintedInfo.mintedCountError;
+        }
+        if (amount) {
+            detailsToUpdate = { ...detailsToUpdate, balance: amount };
+            setUserDetailsFromContract({ ...detailsToUpdate, balance: amount });
+        } else {
+            dispatch({ type: 'setErrorMsg', payload: balanceError })
+        }
+        if (ownerAddress) {
+            detailsToUpdate = { ...detailsToUpdate, owner: ownerAddress };
+        } else {
+            dispatch({ type: 'setErrorMsg', payload: ownerError })
+        }
+        if (daoownerAddress) {
+            detailsToUpdate = { ...detailsToUpdate, daoowner: daoownerAddress };
+        } else {
+            dispatch({ type: 'setErrorMsg', payload: daoownerError })
+        }
+        if (mintedCount) {
+            detailsToUpdate = { ...detailsToUpdate, mintedCount: mintedCount };
+        } else {
+            dispatch({ type: 'setErrorMsg', payload: mintedCountError })
+        }
+        if (Object.keys(detailsToUpdate).length > 0) {
+            setUserDetailsFromContract(detailsToUpdate);
+        }
+        dispatch({ type: 'setLoading', payload: false })
+    };
+    const isEligibleForProposal = useMemo(() => {
+        return (
+            isConnected &&
+            address &&
+            isAdmin?.isInvestor &&
+            state?.daoDetails?.contractAddress &&
+            (userDetailsFromContract?.owner === address ||
+                (state?.daoDetails?.tokenType === 'ERC-20' && userDetailsFromContract?.balance >=
+                    Number(state.daoDetails?.proposalCreationBalance)) ||
+                (state?.daoDetails?.tokenType === 'ERC-721' && userDetailsFromContract?.mintedCount >=
+                    Number(state.daoDetails?.proposalCreationBalance)))
+        )
+    }, [address, isConnected, userDetailsFromContract, state?.daoDetails, isAdmin?.isInvestor]);
 
     return (
         <>{params.id == "null" ? <ErrorPage /> :
