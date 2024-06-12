@@ -62,7 +62,9 @@ const ProjectsTokenClaim = (props) => {
   const isProjectCardsId = useSelector(reducerstate => reducerstate.oidc?.isProjectCardsId)
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails);
   const projectSaveDetails = useSelector(reducerstate => reducerstate.launchpad?.projectSaveDetails);
-
+  const projectStatus = props?.projectInfo?.projectStatus;
+  const tosterMsg = (projectStatus === "Submitted" ||projectStatus === "Approved" ||projectStatus === "Rejected") ? 
+    "Project updated successfully." : "Project created successfully."
 
   useEffect(() => {
     dispatch({ type: 'claimloader', payload: true })
@@ -175,9 +177,9 @@ const ProjectsTokenClaim = (props) => {
           dispatch({ type: 'errorMsg', payload: null })
           dispatch({ type: 'success', payload: true })
           if (window.location.pathname.includes('idorequest')) {
-            dispatch({ type: 'successMessage', payload: "Project saved successfully" })
+            dispatch({ type: 'successMessage', payload: "Project saved successfully." })
           }else{
-            dispatch({ type: 'successMessage', payload: "Project created successfully" })
+            dispatch({ type: 'successMessage', payload: tosterMsg })
           }
           setTimeout(function () {
             if (isAdmin.isAdmin) {
@@ -210,7 +212,6 @@ const ProjectsTokenClaim = (props) => {
       props.closeProject(false)
     }
   }
- 
 
   return (
     <>
@@ -425,9 +426,7 @@ const ProjectsTokenClaim = (props) => {
                
                 ><span>{state.claimBtnLoader && <Spinner size="sm" className='text-light'/>} </span>
                   {(props?.projectInfo?.projectStatus == "Deployed" ||
-                      props?.projectInfo?.projectStatus == "Rejected" ||
                       props?.projectInfo?.projectStatus == "Deploying" ||
-                      props?.projectInfo?.projectStatus == "Approved" ||
                       props?.isIdeoRequest) ? "Close" : "Save & Next"}
                 </Button>{' '}
               </div>
