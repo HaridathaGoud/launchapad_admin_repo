@@ -555,7 +555,7 @@ const Dao = (props) => {
                                     </div>
                                 }
                             </Row>
-                        </div> : <FirstPraposal handleRedirect={handleRedirect} votingOwner={state?.votingOwner}isEligibleForProposal={userDetailsFromContract?.owner=== address ||isEligibleForProposal} />}
+                        </div> : <FirstPraposal handleRedirect={handleRedirect} isEligibleForProposal={userDetailsFromContract?.owner=== address ||isEligibleForProposal} />}
                 </div>}
             </>
         }</>
