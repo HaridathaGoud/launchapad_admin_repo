@@ -63,6 +63,7 @@ const Dao = (props) => {
       }
     }
     useEffect(() => {
+        connectCheck()
         getApprovedProposalData(state?.status)
         dispatch({ type: 'setLoading', payload: true })
         props?.lookUp((callback) => {
@@ -77,6 +78,13 @@ const Dao = (props) => {
         }
         getDaoItem();
     }, [isConnected, address,isAdmin?.id])
+    const connectCheck=async()=>{
+        if (isConnected) {
+           await handleNetwork();
+         } else {
+           await connectWallet();
+         }
+    }
     const getDaosList = async (data,page) => {
         await props.trackWallet({
           page: page,
@@ -106,14 +114,13 @@ const Dao = (props) => {
     const getDaoItem = async () => {
         let daoData = DaoDetail?.find((item) => item?.daoId == params.id?.toLocaleLowerCase())
         dispatch({ type: 'setDaoDeatils', payload: daoData })
-        if (isConnected) {
-            await handleNetwork();
-          } else {
-            await connectWallet();
-          }
-        if(daoData){
+        if(isConnected&& daoData){
            await getDetails(daoData)
            await getVotingOwner(daoData)
+        }else{
+            await connectCheck();
+            await getDetails(daoData);
+            await getVotingOwner(daoData);
         }
     }
     async function getVotingOwner(daoData) {

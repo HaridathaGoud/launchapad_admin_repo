@@ -29,7 +29,6 @@ function TestingPraposalflow(props) {
    
   }, [])
 
-  
   const Load = async ()=>{
     if (proposalView?.data) {     
      if (!proposalView?.data?.loading) {

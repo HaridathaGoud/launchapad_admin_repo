@@ -16,20 +16,20 @@ import { Placeholder } from 'react-bootstrap';
   const pageSize = 10;
   const proposarDetailas = useSelector((state) => state?.proposal?.fetchVotersData);
   const [loading,setloading] = useState(true);
-  useEffect(()=>{
-    Load()
-    window.scroll(0, 0);
-    props.proposalVotersDetails(pageNo,pageSize,params.id,(callback)=>{
- if(callback){
-  setErrorMsg(apiCalls.isErrorDispaly(callback))
-   window.scroll(0, 0);
- }else{
-  setErrorMsg(null)
- }
-    })
-    let _pageNo = pageNo + 1;
-    setPageNo(_pageNo);
-  },[]);
+   useEffect(() => {
+     Load()
+     window.scroll(0, 0);
+     props.proposalVotersDetails(pageNo, pageSize, params.id, (callback) => {
+       if (callback) {
+         setErrorMsg(apiCalls.isErrorDispaly(callback))
+         window.scroll(0, 0);
+       } else {
+         setErrorMsg(null)
+       }
+     })
+     let _pageNo = pageNo + 1;
+     setPageNo(_pageNo);
+   }, []);
 
   const Load = async ()=>{
     if(proposarDetailas){
@@ -64,7 +64,7 @@ import { Placeholder } from 'react-bootstrap';
         <div>
               <InfiniteScroll
         dataLength={proposarDetailas?.length}
-        next={fetchMoreData}
+        // next={fetchMoreData}
         hasMore={true}
       >
            <div className='status-section test-dao bg-transparent px-0 mb-5 p-0'>
