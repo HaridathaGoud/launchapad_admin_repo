@@ -62,7 +62,7 @@ const TiersData = ({tiersData,detailsFromContract,projectData}) => {
     const totalWeight = tierPools?.reduce((sum, pool) => sum + poolWeights[tierName][pool.poolLevel] * pool.participants, 0);
     const totalParticipants = aggregateParticipants(tierId);
     if (totalParticipants === 0) return 0;
-    const allocatedAmount = ((totalSupply * totalWeight / 100) / totalParticipants);
+    const allocatedAmount = Math.floor(((totalSupply * totalWeight / 100) / totalParticipants)/totalParticipants);
     return allocatedAmount;
   };
   return ( 
