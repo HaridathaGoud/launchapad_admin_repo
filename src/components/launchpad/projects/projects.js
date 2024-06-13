@@ -872,35 +872,29 @@ return (<>
                   />
                   <Form.Control.Feedback className='error-space' type="invalid">{errors?.description || state?.errors?.description}</Form.Control.Feedback>
 
-
                 </Col>
 
-
                 <div><h6 className='input-label section-title mb-2 mt-2'>Project Feed</h6></div>
-                <div className='projects-editor'>
-                  <Editor
-                    apiKey='sr9qzkyye574at479qfqi56rc3bprw5vols3fvpvmewh491f'
-                    // apiKey='myyg2t1wdqdsjfdk71z1cyy0ts5iwq5u638ze7ub8sccahbh'
-                    onInit={(evt, editor) => editorRef.current = editor}
-                    initialValue={state.projectSaveDetails?.introductionHtml}
-                    onChange={handledescription}
-                    init={{
-                      height: 500,
-                      menubar: false,
-                      plugins: [
-                        'advlist autolink lists link image charmap print preview anchor',
-                        'searchreplace visualblocks code fullscreen',
-                        'insertdatetime media table paste code help wordcount'
-                      ],
-                      toolbar: 'undo redo | formatselect | ' +
-                        'bold italic backcolor | alignleft aligncenter ' +
-                        'alignright alignjustify | bullist numlist outdent indent | ' +
-                        'removeformat | help',
-                      content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; color:#000;background:#fff;  }'
-                    }}
-                    disabled={isIdeoRequest}
-                  />
-                </div>
+            <div className='projects-editor'>
+              <Editor
+                apiKey='sr9qzkyye574at479qfqi56rc3bprw5vols3fvpvmewh491f'
+                onInit={(evt, editor) => editorRef.current = editor}
+                initialValue={state.projectSaveDetails?.introductionHtml}
+                onChange={handledescription}
+                init={{
+                  height: 500,
+                  menubar: false,
+                  plugins: 'advlist autolink lists link image charmap print preview anchor ' +
+                    'searchreplace visualblocks code fullscreen ' +
+                    'insertdatetime media table paste code help wordcount',
+                  toolbar: 'undo redo | formatselect | bold italic backcolor | ' +
+                    'alignleft aligncenter alignright alignjustify | ' +
+                    'bullist numlist outdent indent | removeformat | help',
+                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px; color:#000;background:#fff; }'
+                }}
+                disabled={isIdeoRequest}
+              />
+            </div>
               </Row>
               <h3 className='section-title mb-2 mt-5'>Token Details</h3>
            <Col lg={6} md={12}>

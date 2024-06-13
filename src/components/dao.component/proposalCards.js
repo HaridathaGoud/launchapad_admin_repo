@@ -106,14 +106,14 @@ const Dao = (props) => {
     const getDaoItem = async () => {
         let daoData = DaoDetail?.find((item) => item?.daoId == params.id?.toLocaleLowerCase())
         dispatch({ type: 'setDaoDeatils', payload: daoData })
-        if(isConnected){
+        if (isConnected) {
             await handleNetwork();
-            if(daoData){
-                getDetails(daoData)
-                getVotingOwner(daoData)
-            }
-        }else{
+          } else {
             await connectWallet();
+          }
+        if(daoData){
+           await getDetails(daoData)
+           await getVotingOwner(daoData)
         }
     }
     async function getVotingOwner(daoData) {

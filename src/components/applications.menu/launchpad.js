@@ -14,37 +14,37 @@ function LaunchPadMenu(props){
 
   const navigate = useNavigate();
 
-    const renderTooltipDashboard = () => (
+    const renderTooltipDashboard = (props) => (
         <Tooltip id="button-tooltip" {...props}> 
             Dashboard
         </Tooltip>
     );
-    const renderTooltipCustomers = () => (
+    const renderTooltipCustomers = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Customers
         </Tooltip>
     );
-    const renderTooltipInvestorPage = () => (
+    const renderTooltipInvestorPage = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Investors
         </Tooltip>
     );
-    const renderTooltipIdoRequest = () => (
+    const renderTooltipIdoRequest = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             IDO Request
         </Tooltip>
     );
-    const renderTooltipProjects = () => (
+    const renderTooltipProjects = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Projects
         </Tooltip>
     );
-    const renderTooltipTransactions = () => (
+    const renderTooltipTransactions = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Transactions
         </Tooltip>
     );
-    const renderTooltipSettings = () => (
+    const renderTooltipSettings = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             Settings
         </Tooltip>
@@ -150,7 +150,7 @@ function LaunchPadMenu(props){
                         <CNavLink onClick={() => handleMenuNavigate(`launchpad/projects/${isAdmin.id}`, false, app_name)}><span className="icon ido-request me-0" /></CNavLink>
                     </OverlayTrigger>
                 </CNavItem>}
-                {projectContractDetails?.projectStatus == "Deployed" && pId &&
+                {projectContractDetails?.projectStatus == "Deployed" && pId && projectContractDetails?.tokenType==="ERC-20"&&
                     <> {locationSplit[1] == "launchpad" &&
                         <OverlayTrigger
                             placement="right"
