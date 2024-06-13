@@ -639,9 +639,10 @@ return (<>
             {!state.loader && <><div className='launchpad-labels'>
 
               <div className='d-lg-flex align-items-center justify-content-between mb-2'><h3 className='section-title mb-1 mt-2'>Project Details</h3><p className='mb-0 page-number'><span className='active-number'>1</span> of 3</p></div>
+               
               <Row className='mb-4'>
                 <Col lg={3} md={12}>
-                  <Form.Label className="input-label upload-file">Project Card Image<span className="text-danger">*</span></Form.Label>
+                  <Form.Label className="input-label upload-file ms-2">Project Card Image<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`banner-size ${isIdeoRequest ?
                       'upload-img mb-2 position-relative c-notallowed' :
@@ -700,10 +701,10 @@ return (<>
                       </div>
                     }
                   </div>
-
+                 
                 </Col>
                 <Col lg={9} md={12}>
-                  <Form.Label className="input-label upload-file">Upload Banner Image<span className="text-danger">*</span></Form.Label>
+                  <Form.Label className="input-label upload-file ms-2">Upload Banner Image<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`banner-size ${isIdeoRequest ?
                       'upload-img mb-2 position-relative c-notallowed' :
@@ -765,7 +766,72 @@ return (<>
                 </Col>
               </Row>
               <Row>
-                <Col lg={6} md={12}>
+             
+                 <Row className='sm-p-0'>
+                 <Col lg={2} md={12}  >
+                  <Form.Label className="input-label upload-file ms-2">Upload Media Image<span className="text-danger">*</span></Form.Label>
+                  <div
+                    className={`media-image ${isIdeoRequest ?
+                      'upload-img mb-2 position-relative c-notallowed' :
+                      'upload-img mb-2 position-relative '}`}
+                  >
+                    {state.loading && <Spinner fallback={state.loading} className='position-absolute'></Spinner>}
+                    {state.projectLogoImages && !state.loading && <span className='imgupload-span'>
+                      <Image src={state.projectLogoImages} width="100" height="100" alt="" /></span>}
+                    {!state.projectLogoImages && !state.loading &&
+                      <div className="choose-image">
+                        <div>
+                          <Form.Control
+                            required
+                            className="d-none custom-btn active btn"
+                            type="file"
+                            ref={inputRef}
+                            isInvalid={!!state.errors.tokenLogo}
+                            onChange={(e) => uploadToClient(e, 'LOGO')}
+                            disabled={isIdeoRequest}
+                          />
+                          <span
+                            className="icon camera"
+                            onClick={() => inputRef.current?.click()}
+                          ></span>
+
+                          <p className="c-pointer pt-3">
+                            Jpg, Jpeg, Png, Gif, Webp
+
+                          </p>
+                          <Form.Control.Feedback type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback>
+                        </div>
+                      </div>
+                    }
+                    {state.projectLogoImages && !state.loading &&
+                      <div
+
+                        className={`${isIdeoRequest ?
+                          'onhover-upload c-notallowed' :
+                          'onhover-upload'}`}>
+                        <div className='bring-front'>
+                          <Form.Control
+                            required
+                            className="d-none custom-btn active btn"
+                            type="file"
+                            ref={inputRef}
+                            isInvalid={!!state.errors.tokenLogo}
+                            onChange={(e) => uploadToClient(e, 'LOGO')}
+                            disabled={isIdeoRequest}
+                          />
+                          <span
+                            className="icon camera"
+                            onClick={() => inputRef.current?.click()}
+                          ></span>
+                          <Form.Control.Feedback type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                  </Col>
+                  <Col lg={10} md={12}  >
+                  <Row>
+                  <Col lg={6} md={12}>
                   <Form.Label
                     controlId="floatingInput"
                     label="Project Name*"
@@ -852,6 +918,11 @@ return (<>
 
 
                 </Col>
+                </Row>
+                  </Col>
+                 </Row>
+               
+               
                 <Col lg={12} md={12} className='mb-3'>
 
                   <Form.Label
@@ -917,9 +988,9 @@ return (<>
             </Dropdown> 
           </Col> 
               {selectedTokeType =='ERC-20' &&
-              <Row className='mb-4 Token-Details'>
-                <Col lg={6} md={12} className='mb-0'>
-                  <Form.Label className="input-label upload-file">Upload Token Image<span className="text-danger">*</span></Form.Label>
+              <Row className='mb-4 Token-Details ERC-token mt-4'>
+                <Col lg={2} md={6} className='mb-0'>
+                  <Form.Label className="input-label upload-file ms-2">Upload Token Icon<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
                       || isIdeoRequest) ?
@@ -946,10 +1017,7 @@ return (<>
                           <span
                             className="icon camera"
                             onClick={() => inputRef2.current?.click()}
-                          ></span>
-                          <p className="c-pointer pt-3">
-                            Jpg, Jpeg, Png, Gif, Webp
-                          </p>
+                          ></span>                          
                           <Form.Control.Feedback className='error-space' type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
                         </div>
 
@@ -983,10 +1051,13 @@ return (<>
                       </div>
                     }
                   </div>
+                  <p className="image-types">
+                           <b>Note:</b> upload Jpg, <br/> Jpeg, Png, Gif, Webp
+                          </p>
                 </Col>
 
 
-                <Col lg={6} md={12} className='mb-0'>
+                <Col lg={5} md={12} className='mb-0'>
                   <Row >
                     <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
@@ -1067,7 +1138,12 @@ return (<>
                       <Form.Control.Feedback className='error-space' type="invalid">{errors?.tokenSymbol || state?.errors?.tokenSymbol}</Form.Control.Feedback>
 
                     </Col>
-                    <Col lg={12} md={12} className='mb-3'>
+                    
+                  </Row>
+                </Col>
+                <Col lg={5} md={12} className='mb-0'>
+                 <Row>
+                 <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
                         controlId="floatingInput"
                         label="Token Decimals*"
@@ -1156,12 +1232,12 @@ return (<>
                       {/* <Form.Control.Feedback type="invalid">{errors?.initialSupply || state?.errors?.initialSupply}</Form.Control.Feedback> */}
                       {(errors?.initialSupply || state?.errors?.initialSupply) &&<p className='invaliid-textstyle error-space'>{errors?.initialSupply || state?.errors?.initialSupply}</p>}
                     </Col>
-                  </Row>
+                 </Row>
                 </Col>
               </Row>
             }
             {selectedTokeType =='ERC-721' && 
-            <Row className='mb-4 Token-Details'>
+            <Row className='mb-4 Token-Details mt-4'>
             <Col lg={6} md={12} className='mb-0'>
               <Form.Label className="input-label upload-file">Upload NFT Image<span className="text-danger">*</span></Form.Label>
               <div
