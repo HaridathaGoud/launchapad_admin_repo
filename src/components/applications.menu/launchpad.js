@@ -150,7 +150,7 @@ function LaunchPadMenu(props){
                         <CNavLink onClick={() => handleMenuNavigate(`launchpad/projects/${isAdmin.id}`, false, app_name)}><span className="icon ido-request me-0" /></CNavLink>
                     </OverlayTrigger>
                 </CNavItem>}
-                {projectContractDetails?.projectStatus == "Deployed" && pId &&
+                {projectContractDetails?.projectStatus == "Deployed" && pId && projectContractDetails?.tokenType==="ERC-20"&&
                     <> {locationSplit[1] == "launchpad" &&
                         <OverlayTrigger
                             placement="right"
