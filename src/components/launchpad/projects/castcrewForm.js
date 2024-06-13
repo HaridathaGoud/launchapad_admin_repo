@@ -106,7 +106,7 @@ const CastCrewForm = (props) => {
                                             maxLength={50}
                                             disabled={props?.isIdeoRequest}
                                         />
-                                        <Form.Control.Feedback type="invalid">{props?.errors?.name}</Form.Control.Feedback>
+                                        <Form.Control.Feedback className="error-space" type="invalid">{props?.errors?.name}</Form.Control.Feedback>
                                     </Form.Group>
                                 </Col>
                                 <Col lg={12} md={12} className="mb-3">
@@ -122,7 +122,7 @@ const CastCrewForm = (props) => {
                                             isInvalid={!!props.errors.role}
                                             disable={props.isIdeoRequest}
                                         />
-                                        <Form.Control.Feedback type="invalid" className={`${props.errors?.role ? 'error-role' : ''}`}>{props?.errors?.role} </Form.Control.Feedback>
+                                        <Form.Control.Feedback type="invalid" className={` error-space ${props.errors?.role ? 'error-role' : ''}`}>{props?.errors?.role} </Form.Control.Feedback>
                                     </Form.Group>
 
                                 </Col>
@@ -141,7 +141,7 @@ const CastCrewForm = (props) => {
                                             maxLength={256}
                                             disabled={props?.isIdeoRequest}
                                         />
-                                        <Form.Control.Feedback type="invalid">{props?.errors?.bio}</Form.Control.Feedback>
+                                        <Form.Control.Feedback className="error-space" type="invalid">{props?.errors?.bio}</Form.Control.Feedback>
                                     </Form.Group>
                                 </Col>
                                 <Col xl={6} className="mb-3">
@@ -159,7 +159,7 @@ const CastCrewForm = (props) => {
                                             maxLength={50}
                                             disabled={props?.isIdeoRequest}
                                         />
-                                        <Form.Control.Feedback type="invalid">{props?.errors?.webisite}</Form.Control.Feedback>
+                                        <Form.Control.Feedback className="error-space" type="invalid">{props?.errors?.webisite}</Form.Control.Feedback>
                                     </Form.Group>
                                 </Col>
                                 <Col xl={6} className="mb-3">
@@ -177,7 +177,7 @@ const CastCrewForm = (props) => {
                                             maxLength={50}
                                             disabled={props?.isIdeoRequest}
                                         />
-                                        <Form.Control.Feedback type="invalid">{props?.errors?.instagram}</Form.Control.Feedback>
+                                        <Form.Control.Feedback className="error-space" type="invalid">{props?.errors?.instagram}</Form.Control.Feedback>
                                     </Form.Group>
 
                                 </Col>
@@ -196,7 +196,7 @@ const CastCrewForm = (props) => {
                                             maxLength={50}
                                             disabled={props?.isIdeoRequest}
                                         />
-                                        <Form.Control.Feedback type="invalid">{props.errors?.facebook}</Form.Control.Feedback>
+                                        <Form.Control.Feedback className="error-space" type="invalid">{props.errors?.facebook}</Form.Control.Feedback>
                                     </Form.Group>
                                 </Col>
 

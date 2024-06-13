@@ -641,9 +641,9 @@ return (<>
               <div className='d-lg-flex align-items-center justify-content-between mb-2'><h3 className='section-title mb-1 mt-2'>Project Details</h3><p className='mb-0 page-number'><span className='active-number'>1</span> of 3</p></div>
               <Row className='mb-4'>
                 <Col lg={3} md={12}>
-                  <Form.Label className="input-label upload-file">Upload Image<span className="text-danger">*</span></Form.Label>
+                  <Form.Label className="input-label upload-file">Project Card Image<span className="text-danger">*</span></Form.Label>
                   <div
-                    className={`${isIdeoRequest ?
+                    className={`banner-size ${isIdeoRequest ?
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
                   >
@@ -705,7 +705,7 @@ return (<>
                 <Col lg={9} md={12}>
                   <Form.Label className="input-label upload-file">Upload Banner Image<span className="text-danger">*</span></Form.Label>
                   <div
-                    className={`${isIdeoRequest ?
+                    className={`banner-size ${isIdeoRequest ?
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
                     role="button"
@@ -783,7 +783,7 @@ return (<>
                     isInvalid={!!errors?.projectName}
                     disabled={isIdeoRequest}
                   />
-                  <Form.Control.Feedback type="invalid">{errors?.projectName || state?.errors?.projectName}</Form.Control.Feedback>
+                  <Form.Control.Feedback className='error-space' type="invalid">{errors?.projectName || state?.errors?.projectName}</Form.Control.Feedback>
 
                 </Col>
                 <Col lg={6} md={12}>
@@ -802,7 +802,7 @@ return (<>
                     disable={isIdeoRequest}
                   />
                   {errors?.countryRestrictions == "Is required" && (
-                    <p style={{ color: "#e55353", fontSize: 14 }}>Is required</p>
+                    <p className='error-space'>Is required</p>
 
                   )}
                 </Col>
@@ -846,7 +846,7 @@ return (<>
                         || isIdeoRequest
                       )}
                     />
-                    <Form.Control.Feedback type="invalid">{errors?.tokenListingDate || state?.errors?.tokenListingDate}</Form.Control.Feedback>
+                    <Form.Control.Feedback className='error-space' type="invalid">{errors?.tokenListingDate || state?.errors?.tokenListingDate}</Form.Control.Feedback>
 
                   </Form.Group>
 
@@ -870,7 +870,7 @@ return (<>
                     required
                     disabled={isIdeoRequest}
                   />
-                  <Form.Control.Feedback type="invalid">{errors?.description || state?.errors?.description}</Form.Control.Feedback>
+                  <Form.Control.Feedback className='error-space' type="invalid">{errors?.description || state?.errors?.description}</Form.Control.Feedback>
 
 
                 </Col>
@@ -956,7 +956,7 @@ return (<>
                           <p className="c-pointer pt-3">
                             Jpg, Jpeg, Png, Gif, Webp
                           </p>
-                          <Form.Control.Feedback type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
+                          <Form.Control.Feedback className='error-space' type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
                         </div>
 
                       </div>
@@ -983,7 +983,7 @@ return (<>
                             className="icon camera"
                             onClick={() => inputRef2.current?.click()}
                           ></span>
-                          <Form.Control.Feedback type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
+                          <Form.Control.Feedback className='error-space' type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
                         </div>
 
                       </div>
@@ -1017,7 +1017,7 @@ return (<>
                           || isIdeoRequest
                         )}
                       />
-                      <Form.Control.Feedback type="invalid">{errors?.tokenContractAddress || state?.errors?.tokenContractAddress}</Form.Control.Feedback>
+                      <Form.Control.Feedback className='error-space' type="invalid">{errors?.tokenContractAddress || state?.errors?.tokenContractAddress}</Form.Control.Feedback>
 
 
                     </Col>
@@ -1044,7 +1044,7 @@ return (<>
                           || isIdeoRequest
                         )}
                       />
-                      <Form.Control.Feedback type="invalid">{errors?.tokenName || state?.errors?.tokenName}</Form.Control.Feedback>
+                      <Form.Control.Feedback className='error-space' type="invalid">{errors?.tokenName || state?.errors?.tokenName}</Form.Control.Feedback>
 
                     </Col>
                     <Col lg={12} md={12} className='mb-3'>
@@ -1070,7 +1070,7 @@ return (<>
                           || isIdeoRequest
                         )}
                       />
-                      <Form.Control.Feedback type="invalid">{errors?.tokenSymbol || state?.errors?.tokenSymbol}</Form.Control.Feedback>
+                      <Form.Control.Feedback className='error-space' type="invalid">{errors?.tokenSymbol || state?.errors?.tokenSymbol}</Form.Control.Feedback>
 
                     </Col>
                     <Col lg={12} md={12} className='mb-3'>
@@ -1130,7 +1130,7 @@ return (<>
                         )}
                       />
                       {/* <Form.Control.Feedback type="invalid">{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</Form.Control.Feedback> */}
-                      {(errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens) &&<span className='invaliid-textstyle'>{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</span>}
+                      {(errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens) &&<p className='invaliid-textstyle error-space'>{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</p>}
                     </Col>
                     <Col lg={12} md={12}>
                       <Form.Label
@@ -1160,7 +1160,7 @@ return (<>
                         )}
                       />
                       {/* <Form.Control.Feedback type="invalid">{errors?.initialSupply || state?.errors?.initialSupply}</Form.Control.Feedback> */}
-                      {(errors?.initialSupply || state?.errors?.initialSupply) &&<span className='invaliid-textstyle'>{errors?.initialSupply || state?.errors?.initialSupply}</span>}
+                      {(errors?.initialSupply || state?.errors?.initialSupply) &&<p className='invaliid-textstyle error-space'>{errors?.initialSupply || state?.errors?.initialSupply}</p>}
                     </Col>
                   </Row>
                 </Col>
@@ -1200,7 +1200,7 @@ return (<>
                       <p className="c-pointer pt-3">
                         Jpg, Jpeg, Png, Gif, Webp
                       </p>
-                      <Form.Control.Feedback type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
+                      <Form.Control.Feedback className='error-space' type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
                     </div>
 
                   </div>
@@ -1230,7 +1230,7 @@ return (<>
                         className="icon camera"
                         onClick={() => inputRef2.current?.click()}
                       ></span>
-                      <Form.Control.Feedback type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
+                      <Form.Control.Feedback className='error-space' type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
                     </div>
 
                   </div>
@@ -1267,7 +1267,7 @@ return (<>
                       || isIdeoRequest
                     )}
                   />
-                  {(errors?.nftImagesCount || state?.errors?.nftImagesCount) &&<span className='invaliid-textstyle'>{errors?.nftImagesCount || state?.errors?.nftImagesCount}</span>}
+                  {(errors?.nftImagesCount || state?.errors?.nftImagesCount) &&<p className='invaliid-textstyle error-space'>{errors?.nftImagesCount || state?.errors?.nftImagesCount}</p>}
                 </Col>
               </Row>
             </Col>

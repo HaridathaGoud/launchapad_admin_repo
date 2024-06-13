@@ -66,9 +66,9 @@ const TiersData = ({tiersData,detailsFromContract,projectData}) => {
     return allocatedAmount;
   };
   return ( 
-  <div>
+  <div className='allocation-page'>
     <div>
-      <h1 className='page-title mb-5 fs-3 text-center'>{detailsFromContract?.stakersCount || 0} members Are Interested In this Project.</h1>
+      <h1 className='page-title mb-5 fs-3 text-center'>{detailsFromContract?.stakersCount || 0} Members Are Interested In This Project.</h1>
       <div className='row gap-4 justify-content-center mb-4'>
 
       {tiersData?.map((item)=>(
@@ -82,7 +82,7 @@ const TiersData = ({tiersData,detailsFromContract,projectData}) => {
           </div>
           </div>
           <hr/>
-          <div className='d-flex justify-content-between align-items-center mt-4'>
+          <div className='d-flex justify-content-between align-items-center mt-4 gap-4'>
            <div>
            <p className='status-text mb-0'>Members In this Tier</p>
            <p className='status-value text-left'>{getTierData(item?.name, 'participants') || 0}</p>

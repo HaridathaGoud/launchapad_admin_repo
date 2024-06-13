@@ -502,7 +502,7 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 .token-listing .form-control::placeholder{color: #9AA0A6;}
 .token-listing .form-control{font-size: 18px;font-weight: 500;height: 47px;}
 .zindex1{z-index: 1 !important;}
-.launchpadadmin-modal .form-floating > .form-control,.form-control{height: 36px;border-radius: 28px;}
+.launchpadadmin-modal .form-floating > .form-control,.form-control{height: 36px;border-radius: 20px;}
 .change-passwordmodal .input-style input::-ms-reveal { display: none; }
 .change-passwordmodal .col-xl-12{margin-bottom: 16px;}
 .change-passwordmodal input.form-control:focus{box-shadow: none;}
@@ -1405,4 +1405,6 @@ select.k-picker{display: none;}
 .icon.facebook{background-position: -80px -731px;height: 20px !important;width: 20px !important;}
 .icon.website{background-position: -144px -731px;height: 20px !important;width: 20px !important;}
 .icon.instagram{background-position: -257px -731px;height: 20px !important;width: 20px !important;}
+.allocation-page .status-text,.allocation-page .status-value{white-space: wrap;}
+.error-space{padding-left: 15px;color: #e55353;}
 /* new styles end */
