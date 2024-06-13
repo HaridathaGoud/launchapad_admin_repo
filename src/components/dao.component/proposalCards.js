@@ -115,10 +115,11 @@ const Dao = (props) => {
         let daoData = DaoDetail?.find((item) => item?.daoId == params.id?.toLocaleLowerCase())
         dispatch({ type: 'setDaoDeatils', payload: daoData })
         if(isConnected&& daoData){
+            await connectCheck()
            await getDetails(daoData)
            await getVotingOwner(daoData)
         }else{
-            await connectCheck();
+            await connectCheck() ;
             await getDetails(daoData);
             await getVotingOwner(daoData);
         }
