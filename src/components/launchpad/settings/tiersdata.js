@@ -89,7 +89,7 @@ const TiersData = ({tiersData,detailsFromContract,projectData}) => {
            </div>
            <div>
            <p className='status-text mb-0'>Approximate Allocation</p>
-           <p className='status-value text-left'> {Allocation(item?.name, item?.recorder)} </p>
+           <p className='status-value text-left'> {Allocation(item?.name, item?.recorder)||0} </p>
            </div>
           </div>
           </div>

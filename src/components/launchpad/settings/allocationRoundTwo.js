@@ -201,7 +201,7 @@ const AllocationRoundTwo = (props) => {
     if (isAllocated) {
       detailsToUpdate.isAllocated = isAllocated;
     } else {
-      dispatch({ type: 'setErrorMgs', payload: 'Round one allocation not yet completed' })
+      dispatch({ type: 'setErrorMgs', payload: '' })
     }
   };
   const updateRoud2Allocation = (detailsToUpdate, round2allocation) => {
