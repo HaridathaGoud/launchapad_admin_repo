@@ -44,7 +44,7 @@ import PropTypes from 'prop-types'
                         <span className='icon website shrink-0'></span>
                         <p className="profile-value mb-0">{item?.webisite || "--"} </p>
                       </div>
-                      <div className='d-flex gap-2'>
+                      <div className='d-flex gap-2 mb-2'>
                         <span className='icon instagram shrink-0'></span>
                         <p className="profile-value mb-0">{item?.instagram || "--"} </p>
                       </div>
