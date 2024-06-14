@@ -33,6 +33,7 @@ class InvestorsGrid extends Component {
             value: '',
             showPassword:true,
             filteredCountries: [],
+            filteredPhnCodes :[],
         };
         this.gridRef = React.createRef();
     }
@@ -285,14 +286,26 @@ class InvestorsGrid extends Component {
     filterCountries = (event) => {
         const value = event.target.value;
         if (typeof value !== 'string') {
-            value = ''; // Ensure value is a string
+            value = ''; 
         }
         const filtered = jsonCountryCode?.filter(item =>
             item.name && item.name?.toLowerCase()?.includes(value?.toLowerCase())
-        ).slice(-10); // Get the latest 10 records
+        ).slice(-10); 
 
         this.setState({ filteredCountries: filtered });
         this.setField('country', value);
+    }
+    filterPhoneCodes= (event) => {
+        const value = event.target.value;
+        if (typeof value !== 'string') {
+            value = ''; 
+        }
+        const filtered = jsonPhoneCode?.filter(item =>
+            item.code && item.code?.toLowerCase()?.includes(value?.toLowerCase())
+        ).slice(-10); 
+
+        this.setState({ filteredPhnCodes: filtered });
+        this.setField('phoneNoCountryCode', value);
     }
 
     render() {
@@ -458,9 +471,10 @@ class InvestorsGrid extends Component {
                                                     }));
                                                 }} className={`icon ${this.state?.showPassword ? "pwd-eye-close" : "pwd-eye"} position-absolute c-pointer`}></span>
                                                 </div>
-                                                <Form.Control.Feedback type="invalid">{this.state.errors.password}</Form.Control.Feedback>
+                              {this.state.errors.password && <div className="text-invalid">{this.state.errors.password} </div>}
                                             </Form.Group>
                                         </Col>
+
                                         <Col xl={6} className="mb-3">
                                             <Form.Group className=" " controlId="exampleForm.ControlInput1">
                                                 <Form.Label >Email<span className="text-danger">*</span></Form.Label>
@@ -472,7 +486,7 @@ class InvestorsGrid extends Component {
                                                     onChange={(e) => { this.setField('email', e.currentTarget.value) }}
                                                     isInvalid={!!this.state.errors.email}
                                                     required
-                                                    placeholder="Email "
+                                                    placeholder="Enter Email "
                                                     maxLength={30}
                                                     onBlur={(e) => {
                                                         this.setField(
@@ -488,32 +502,22 @@ class InvestorsGrid extends Component {
                                         <Col xl={6} className="mb-3">
                                             <Form.Group >
                                                 <Form.Label >Phone No<span className="text-danger">*</span></Form.Label>
-                                                <InputGroup className="mb-2 input-style no-wrap mobile-noinput">
+                                                <InputGroup className="mb-2 input-style no-wrap mobile-noinput phone-select">
 
-                                                    <Form.Control
-                                                        required
-                                                        as="select"
-                                                        type="select"
-                                                        name="phoneNoCountryCode"
-                                                        className="code-width c-pointer zindex1 bg-transparent"
-                                                        aria-label="Default select example"
-                                                        onChange={(e) => { this.setField('phoneNoCountryCode', e.currentTarget.value) }}
+                                                    <AutoComplete
+                                                        className="form-control auto-complete-dropdown phone-code"
+                                                        data={this.state.filteredPhnCodes?.map(item => item?.code)}
                                                         value={this.state.form?.phoneNoCountryCode}
                                                         defaultValue={this.state.form?.phoneNoCountryCode}
-                                                        isInvalid={!!this.state.errors.phoneNoCountryCode}
-                                                    >
-                                                        <option>Select</option>
-                                                        {jsonPhoneCode.map((item) => (
-                                                            <option key={item?.id}>{item.code}</option>
-                                                        ))}
-
-                                                    </Form.Control>
-
-
+                                                        placeholder="Country Code..."
+                                                        style={{ width: "150px" }}
+                                                        onChange={this.filterPhoneCodes}
+                                                    />
                                                     <Form.Control
                                                         type="text"
                                                         className="form-number input-radius"
                                                         name={'Gold'}
+                                                        placeholder="Enter Phone Number"
                                                         onChange={(e) => { this.setField('phoneNo', e.currentTarget.value) }}
                                                         isInvalid={!!this.state.errors.phoneNo}
                                                         value={this.state.form?.phoneNo}
@@ -527,32 +531,32 @@ class InvestorsGrid extends Component {
                                                         autoComplete="off"
                                                         maxLength={12}
                                                     />
-                                                    <Form.Control.Feedback type="invalid">{this.state.errors.phoneNo}</Form.Control.Feedback>
+                                                    <Form.Control.Feedback className="phonecode-error" type="invalid">{this.state.errors.phoneNo}</Form.Control.Feedback>
 
                                                 </InputGroup>
                                             </Form.Group>
                                         </Col>
                                         <Col xl={6} className="mb-3">
-        <Form.Group controlId="floatingInput">
-          <Form.Label>Country<span className="text-danger">*</span></Form.Label>
-          <InputGroup className="input-style no-wrap mobile-noinput country-code-style">
-            <div className="w-100">
-              <AutoComplete
-                className="form-control auto-complete-dropdown"
-                data={this.state.filteredCountries?.map(item => item?.name)}
-                value={this.state.form?.country}
-                defaultValue={this.state.form?.country}
-                placeholder="Type to search..."
-                style={{ width: "100%" }}
-                onChange={this.filterCountries}
-              />
-            </div>
-            <Form.Control.Feedback type="invalid" style={{ display: this.state.errors.country ? 'block' : 'none' }}>
-              {this.state.errors.country}
-            </Form.Control.Feedback>
-          </InputGroup>
-        </Form.Group>
-      </Col>
+                                            <Form.Group controlId="floatingInput">
+                                                <Form.Label>Country<span className="text-danger">*</span></Form.Label>
+                                                <InputGroup className="input-style no-wrap mobile-noinput country-code-style">
+                                                    <div className="w-100">
+                                                        <AutoComplete
+                                                            className="form-control auto-complete-dropdown"
+                                                            data={this.state.filteredCountries?.map(item => item?.name)}
+                                                            value={this.state.form?.country}
+                                                            defaultValue={this.state.form?.country}
+                                                            placeholder="Enter Country"
+                                                            style={{ width: "100%" }}
+                                                            onChange={this.filterCountries}
+                                                        />
+                                                    </div>
+                                                    <Form.Control.Feedback type="invalid" style={{ display: this.state.errors.country ? 'block' : 'none' }}>
+                                                        {this.state.errors.country}
+                                                    </Form.Control.Feedback>
+                                                </InputGroup>
+                                            </Form.Group>
+                                        </Col>
                                     </Row>
                                 </Col>
                             </Row>

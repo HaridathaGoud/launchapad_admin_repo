@@ -566,6 +566,11 @@ th .k-link{cursor: default !important;}
 .card-platinum hr{background-color: #E9CBFF;border: 0;height: 1.5px;}
 .card-daimond hr,.card-blue-daimond hr{background-color: #BBD1CC;border: 0;height: 1.5px;}
 .allocation-error::first-letter{text-transform: uppercase !important;}
+.form-control.phone-code.auto-complete-dropdown{border-bottom-right-radius: 0 !important;border-top-right-radius: 0 !important;height: 36px !important;max-width: 120px !important;}
+.phonecode-error{position: absolute;bottom: -24px;}
+.text-invalid{color:#e55353;font-size: 0.875em;}
+.input-style .auto-complete-dropdown input{padding: 0 !important;}
+.phone-select{flex-wrap: nowrap !important;}
 @media (min-width: 768px) {
   .profile-size{ width: 106px;}
   .profile-size, .customer-pfview{width: 258px;}
@@ -1413,7 +1418,6 @@ select.k-picker{display: none;}
 .pwd-eye{background-position: -259px -493px;right: 4px;top: 2px;}
 .token-icon{width: 150px !important;height: 150px !important;border-radius: 50% !important;}
 .auto-complete-dropdown {
-  position: absolute;
   z-index: 1000; /* Adjust the value as needed */
 }
 .k-list-container {
