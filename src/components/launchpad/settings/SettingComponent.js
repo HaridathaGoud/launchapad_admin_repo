@@ -17,7 +17,7 @@ import ToasterMessage from "src/utils/toasterMessages";
 import { NumericFormat } from 'react-number-format';
 import { useAccount ,useNetwork} from 'wagmi'
 import { useConnectWallet } from 'src/hooks/useConnectWallet';
-import { fetchTiersData,initialState,settingsReducer } from './settingsReducer';
+import {initialState,settingsReducer } from './settingsReducer';
 import { switchNetwork } from 'wagmi/actions';
 import { useParams } from 'react-router-dom';
 import { projectDetailsData } from '../launchpadReducer/launchpadReducer';
@@ -34,7 +34,6 @@ const SettingsComponent = (props) => {
 
   useEffect(() => {
     dispatch({ type: "setPageLoader", payload: true });
-    props.fetchAllTiersData()
     props.projectDetailsReducerData(pId, (callback) => {
       setData(callback.data)
       dispatch({ type: "setPageLoader", payload: false })
@@ -262,7 +261,6 @@ SettingsComponent.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   funcName: PropTypes.string,
-  fetchAllTiersData: PropTypes.any,
   projectDetailsReducerData: PropTypes.any,
 }
 
@@ -271,9 +269,6 @@ const connectStateToProps = ({ auth,settings,launchpad }) => {
 };
 const connectDispatchToProps = (dispatch) => {
   return {
-    fetchAllTiersData: () => {
-      dispatch(fetchTiersData())
-    },
     projectDetailsReducerData: (id, callback) => {
       dispatch(projectDetailsData(id, callback))
     },

@@ -78,6 +78,10 @@ const reducer = (state, action) => {
       return { ...state, castCrewImageError: action.payload };
     case "castCrewFormLoader":
       return { ...state, castCrewFormLoader: action.payload };
+    case "MediaImage":
+      return { ...state, MediaImage: action.payload };
+    case "MediaImageLoader":
+    return { ...state, MediaImageLoader: action.payload };
     default:
       return state;
   }
@@ -114,6 +118,8 @@ const initialState = {
   castCrewDataList: [],
   castCrewImageError: '',
   castCrewFormLoader:false,
+  MediaImage:null,
+  MediaImageLoader:false,
 };
 const Projects = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -124,6 +130,7 @@ const Projects = (props) => {
   const inputRef1 = useRef();
   const inputRef2 = useRef();
   const inputRef3 = useRef();
+  const inputRef4 = useRef();
   const walletAddress = useSelector((state) => state.walletAddress.walletAddress)
   const projectDetails = useSelector((state) => state.launchpad.projectDetails)
   const isProjectCardsId = useSelector(state => state.oidc?.isProjectCardsId)
@@ -152,17 +159,20 @@ const Projects = (props) => {
     dispatch({ type: 'loader', payload: true })
     dispatch({ type: 'loading', payload: true })
     dispatch({ type: 'bannerImgLoader', payload: true })
+    dispatch({ type: 'MediaImageLoader', payload: true })
     dispatch({ type: 'cardImgLoader', payload: true })
     window.scroll(0, 0);
     props.projectDetailsReducerData(pId || props.informationProjectView, (callback) => {
       dispatch({ type: 'projectSaveDetails', payload: callback.data?.projectsViewModel })
       dispatch({ type: 'projectLogoImages', payload: callback.data?.projectsViewModel?.tokenLogo })
       dispatch({ type: 'projectBannerImages', payload: callback.data?.projectsViewModel?.bannerImage })
+      dispatch({ type: 'MediaImage', payload: callback.data?.projectsViewModel?.bannerImage })
       dispatch({ type: 'projectCardImages', payload: callback.data?.projectsViewModel?.cardImage })
       dispatch({ type: 'castCrewDataList', payload: callback.data?.projectsViewModel?.castCrews ? callback.data?.projectsViewModel?.castCrews : [] });
       dispatch({ type: 'projectDetails', payload: callback.data })
       dispatch({ type: 'loading', payload: false })
       dispatch({ type: 'bannerImgLoader', payload: false })
+      dispatch({ type: 'MediaImageLoader', payload: false })
       dispatch({ type: 'cardImgLoader', payload: false })
       dispatchData(setProjectDetail(callback?.data?.claimsAndAllocations))
       setSelectedValues(callback.data?.projectsViewModel?.countryRestrictions)
@@ -243,6 +253,7 @@ const Projects = (props) => {
         "tokenDecimal": state.projectSaveDetails?.tokenDecimal || null,
         "totalNumberOfTokens": state.projectSaveDetails?.totalNumberOfTokens || null,
         "bannerImage": state.projectBannerImages,
+        "mediaImage" : state.MediaImage,
         "cardImage": state.projectCardImages || null,
         "projectName": state.projectSaveDetails?.projectName,
         "networkSymbol": "Matic",
@@ -369,7 +380,7 @@ const Projects = (props) => {
       } else {
         uploadToServer(file, type);
         if (type === 'banner') {
-          dispatch({ type: 'bannerImgLoader', payload: true })
+          dispatch({ type: 'bannerImgLoader', payload: true }) 
           if (errors[type]) {
             setErrors({ ...errors, [field]: null })
           }
@@ -383,7 +394,13 @@ const Projects = (props) => {
           if (errors[type]) {
             dispatch({ type: 'castCrewImageError', payload:  null })
           }
-        } else {
+        }else if (type === 'MediaImage') {
+          dispatch({ type: 'MediaImageLoader', payload: true })
+          if (errors[type]) {
+            setErrors({ ...errors, [field]: null })
+          }
+        } 
+        else {
           dispatch({ type: 'cardImgLoader', payload: true })
           if (errors[type]) {
             setErrors({ ...errors, [field]: null })
@@ -403,6 +420,7 @@ const Projects = (props) => {
         dispatch({ type: 'cardImgLoader', payload: false })
         dispatch({ type: 'bannerImgLoader', payload: false })
         dispatch({ type: 'castImgLoader', payload: false })
+        dispatch({ type: 'MediaImageLoader', payload: false })
         if(type !='image'){
           dispatch({ type: 'errorMgs', payload: apiCalls.uploadErrorDisplay(res) })
         }else{
@@ -430,6 +448,11 @@ const Projects = (props) => {
           _obj.cardImage = data[0];
           dispatch({ type: 'castImgLoader', payload: false })
           dispatch({ type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, image: data[0] } })
+        } else if (type == "MediaImage") {
+          _obj.MediaImage = data[0];
+          dispatch({ type: 'errors', payload:{ ...state.errors,  MediaImage: ''}  });
+          dispatch({ type: 'MediaImageLoader', payload: false })
+          dispatch({ type: 'MediaImage', payload: data[0] })
         }
       }
     } catch (error) {
@@ -775,35 +798,35 @@ return (<>
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
                   >
-                    {state.loading && <Spinner fallback={state.loading} className='position-absolute'></Spinner>}
-                    {state.projectLogoImages && !state.loading && <span className='imgupload-span'>
-                      <Image src={state.projectLogoImages} width="100" height="100" alt="" /></span>}
-                    {!state.projectLogoImages && !state.loading &&
+                    {state.MediaImageLoader && <Spinner fallback={state.MediaImageLoader} className='position-absolute'></Spinner>}
+                    {state.MediaImage && !state.MediaImageLoader && <span className='imgupload-span'>
+                      <Image src={state.MediaImage} width="100" height="100" alt="" /></span>}
+                    {!state.MediaImage && !state.MediaImageLoader &&
                       <div className="choose-image">
                         <div>
                           <Form.Control
                             required
                             className="d-none custom-btn active btn"
                             type="file"
-                            ref={inputRef}
+                            ref={inputRef4}
                             isInvalid={!!state.errors.tokenLogo}
-                            onChange={(e) => uploadToClient(e, 'LOGO')}
+                            onChange={(e) => uploadToClient(e, 'MediaImage')}
                             disabled={isIdeoRequest}
                           />
                           <span
                             className="icon camera"
-                            onClick={() => inputRef.current?.click()}
+                            onClick={() => inputRef4.current?.click()}
                           ></span>
 
                           <p className="c-pointer pt-3">
                             Jpg, Jpeg, Png, Gif, Webp
 
                           </p>
-                          <Form.Control.Feedback type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback>
+                          <Form.Control.Feedback type="invalid">{state.errors.MediaImage}</Form.Control.Feedback>
                         </div>
                       </div>
                     }
-                    {state.projectLogoImages && !state.loading &&
+                    {state.MediaImage && !state.MediaImageLoader &&
                       <div
 
                         className={`${isIdeoRequest ?
@@ -814,16 +837,16 @@ return (<>
                             required
                             className="d-none custom-btn active btn"
                             type="file"
-                            ref={inputRef}
-                            isInvalid={!!state.errors.tokenLogo}
-                            onChange={(e) => uploadToClient(e, 'LOGO')}
+                            ref={inputRef4}
+                            isInvalid={!!state.errors.MediaImage}
+                            onChange={(e) => uploadToClient(e, 'MediaImage')}
                             disabled={isIdeoRequest}
                           />
                           <span
                             className="icon camera"
-                            onClick={() => inputRef.current?.click()}
+                            onClick={() => inputRef4.current?.click()}
                           ></span>
-                          <Form.Control.Feedback type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback>
+                          <Form.Control.Feedback type="invalid">{state.errors.MediaImage}</Form.Control.Feedback>
                         </div>
                       </div>
                     }

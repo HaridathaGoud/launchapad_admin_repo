@@ -2,7 +2,7 @@ import { validateContentRules } from "src/utils/custom.validator";
 import { validateUrl } from "src/utils/validations";
 export  const erc20FormValidation = (obj) => {
     const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, tokenContractAddress,
-      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply  } = obj;
+      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply,mediaImage  } = obj;
     const newErrors = {};
     const numbersOnly = /^\d+$/;
     const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
@@ -29,6 +29,9 @@ export  const erc20FormValidation = (obj) => {
     }
     if (!bannerImage || bannerImage == '') {
       newErrors.bannerImage = 'Is required';
+    }
+    if (!mediaImage || mediaImage == '') {
+      newErrors.mediaImage = 'Is required';
     }
     if (!tokenListingDate || tokenListingDate === '') {
       newErrors.tokenListingDate = 'Is required';
@@ -78,7 +81,7 @@ export  const erc20FormValidation = (obj) => {
   };
 
   export  const erc721FormValidation = (obj) => {
-    const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description,nftImagesCount  } = obj;
+    const { projectName, tokenLogo, cardImage, bannerImage,mediaImage, countryRestrictions, networkSymbol, tokenListingDate, description,nftImagesCount  } = obj;
     const newErrors = {};
     const numbersOnly = /^\d+$/;
     const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
@@ -103,6 +106,9 @@ export  const erc20FormValidation = (obj) => {
     }
     if (!bannerImage || bannerImage == '') {
       newErrors.bannerImage = 'Is required';
+    }
+    if (!mediaImage || mediaImage == '') {
+      newErrors.mediaImage = 'Is required';
     }
     if (!tokenListingDate || tokenListingDate === '') {
       newErrors.tokenListingDate = 'Is required';

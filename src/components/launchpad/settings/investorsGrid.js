@@ -31,7 +31,7 @@ class InvestorsGrid extends Component {
                 searchBy: null,
             },
             value: '',
-            showPassword:false,
+            showPassword:true,
         };
         this.gridRef = React.createRef();
     }
