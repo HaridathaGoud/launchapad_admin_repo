@@ -13,7 +13,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { validateContentRules, emailValidation, validateContent } from "src/utils/custom.validator";
 import apiCalls from 'src/api/apiCalls';
 import Alert from 'react-bootstrap/Alert';
-
+import { AutoComplete } from "@progress/kendo-react-dropdowns";
 class InvestorsGrid extends Component {
     constructor(props) {
         super(props);
@@ -32,6 +32,7 @@ class InvestorsGrid extends Component {
             },
             value: '',
             showPassword:true,
+            filteredCountries: [],
         };
         this.gridRef = React.createRef();
     }
@@ -281,6 +282,21 @@ class InvestorsGrid extends Component {
             this.setState({ validated: true, loaderform: false });
         }
     };
+    filterCountries = (event) => {
+        const value = event.target.value;
+        if (typeof value !== 'string') {
+            value = ''; // Ensure value is a string
+        }
+        const filtered = jsonCountryCode?.filter(item =>
+            item.name && item.name?.toLowerCase()?.includes(value?.toLowerCase())
+        ).slice(-10); // Get the latest 10 records
+
+        this.setState({ filteredCountries: filtered });
+    }
+
+    handleSelect = (value) => {
+        this.setField('country', value);
+    }
 
     render() {
         const { searchObj, gridUrl } = this.state;
@@ -520,36 +536,23 @@ class InvestorsGrid extends Component {
                                             </Form.Group>
                                         </Col>
                                         <Col xl={6} className="mb-3">
-                                            <Form.Group controlId="floatingInput"  >
-                                                <Form.Label >Country<span className="text-danger">*</span></Form.Label>
-                                                <InputGroup className="  input-style no-wrap mobile-noinput country-code-style">
-
-                                                    <Form.Control
-                                                        required
-                                                        as="select"
-                                                        type="select"
-                                                        name="country"
-                                                        className="c-pointer zindex1"
-                                                        aria-label="Default select example"
+                                            <Form.Group controlId="floatingInput">
+                                                <Form.Label>Country<span className="text-danger">*</span></Form.Label>
+                                                <InputGroup className="input-style no-wrap mobile-noinput country-code-style">
+                                                    <AutoComplete
+                                                       className="auto-complete-dropdown"
+                                                        data={this.state.filteredCountries?.map(item => item?.name)}
                                                         value={this.state.form?.country}
                                                         defaultValue={this.state.form?.country}
-                                                        maxLength={20}
-                                                        isInvalid={!!this.state.errors.country}
-                                                        onChange={(e) => { this.setField('country', e.currentTarget.value) }}
-                                                    >
-                                                        <option>Select Country</option>
-                                                        {jsonCountryCode.map((item) => (
-                                                            <option key={item?.id}>{item.name}</option>
-                                                        ))}
-                                                    </Form.Control>
-
-
-                                                    <Form.Control.Feedback type="invalid">{this.state.errors.country}</Form.Control.Feedback>
+                                                        placeholder="Type to search..."
+                                                        style={{ width: "100%" }}
+                                                        onChange={this.filterCountries}
+                                                        onSelect={this.handleSelect}
+                                                    />
+                                                    {this.state.errors.country && <div className="invalid-feedback">{this.state.errors.country}</div>}
                                                 </InputGroup>
                                             </Form.Group>
                                         </Col>
-
-                                        
                                     </Row>
                                 </Col>
                             </Row>

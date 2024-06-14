@@ -1412,4 +1412,15 @@ select.k-picker{display: none;}
 .pwd-eye-close{background-position: -224px -493px;right: 4px;top: 2px;}
 .pwd-eye{background-position: -259px -493px;right: 4px;top: 2px;}
 .token-icon{width: 150px !important;height: 150px !important;border-radius: 50% !important;}
+.auto-complete-dropdown {
+  position: absolute;
+  z-index: 1000; /* Adjust the value as needed */
+}
+.k-list-container {
+  z-index: 9999 !important; /* Adjust the z-index as needed */
+}
+.k-autocomplete input{border: none !important;}
+.k-autocomplete {border: 1px solid #9fa2b4 !important;border-radius: 20px !important;align-items: center;}
+.k-autocomplete .k-icon {padding-right: 12px;}
+/* .k-autocomplete .k-state-focused {border: none !important;box-shadow: none !important;background-color: transparent !important;padding: 0 !important} */
 /* new styles end */
