@@ -292,9 +292,6 @@ class InvestorsGrid extends Component {
         ).slice(-10); // Get the latest 10 records
 
         this.setState({ filteredCountries: filtered });
-    }
-
-    handleSelect = (value) => {
         this.setField('country', value);
     }
 
@@ -536,23 +533,26 @@ class InvestorsGrid extends Component {
                                             </Form.Group>
                                         </Col>
                                         <Col xl={6} className="mb-3">
-                                            <Form.Group controlId="floatingInput">
-                                                <Form.Label>Country<span className="text-danger">*</span></Form.Label>
-                                                <InputGroup className="input-style no-wrap mobile-noinput country-code-style">
-                                                    <AutoComplete
-                                                       className="auto-complete-dropdown"
-                                                        data={this.state.filteredCountries?.map(item => item?.name)}
-                                                        value={this.state.form?.country}
-                                                        defaultValue={this.state.form?.country}
-                                                        placeholder="Type to search..."
-                                                        style={{ width: "100%" }}
-                                                        onChange={this.filterCountries}
-                                                        onSelect={this.handleSelect}
-                                                    />
-                                                    {this.state.errors.country && <div className="invalid-feedback">{this.state.errors.country}</div>}
-                                                </InputGroup>
-                                            </Form.Group>
-                                        </Col>
+        <Form.Group controlId="floatingInput">
+          <Form.Label>Country<span className="text-danger">*</span></Form.Label>
+          <InputGroup className="input-style no-wrap mobile-noinput country-code-style">
+            <div className="w-100">
+              <AutoComplete
+                className="form-control auto-complete-dropdown"
+                data={this.state.filteredCountries?.map(item => item?.name)}
+                value={this.state.form?.country}
+                defaultValue={this.state.form?.country}
+                placeholder="Type to search..."
+                style={{ width: "100%" }}
+                onChange={this.filterCountries}
+              />
+            </div>
+            <Form.Control.Feedback type="invalid" style={{ display: this.state.errors.country ? 'block' : 'none' }}>
+              {this.state.errors.country}
+            </Form.Control.Feedback>
+          </InputGroup>
+        </Form.Group>
+      </Col>
                                     </Row>
                                 </Col>
                             </Row>
