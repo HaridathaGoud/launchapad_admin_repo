@@ -62,8 +62,18 @@ const Dao = (props) => {
         throw new Error('User rejected transaction.');
       }
     }
-    useEffect(() => {
+    useEffect(()=>{
         connectCheck()
+    },[isConnected, address])
+
+    const connectCheck=async()=>{
+        if (isConnected) {
+           await handleNetwork();
+         } else {
+           await connectWallet();
+         }
+    }
+    useEffect(() => {
         getApprovedProposalData(state?.status)
         dispatch({ type: 'setLoading', payload: true })
         props?.lookUp((callback) => {
@@ -77,14 +87,8 @@ const Dao = (props) => {
             getDaosList(null,1);            
         }
         getDaoItem();
-    }, [isConnected, address,isAdmin?.id])
-    const connectCheck=async()=>{
-        if (isConnected) {
-           await handleNetwork();
-         } else {
-           await connectWallet();
-         }
-    }
+    }, [isAdmin?.id])
+   
     const getDaosList = async (data,page) => {
         await props.trackWallet({
           page: page,
