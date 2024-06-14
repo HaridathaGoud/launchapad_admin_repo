@@ -968,7 +968,7 @@ return (<>
             </div>
               </Row>
               <h3 className='section-title mb-2 mt-5'>Token Details</h3>
-           <Col lg={6} md={12}>
+           <Col lg={7} md={12} className='pe-2' >
             <Form.Label className='input-label'>Token Type<span className="text-danger">*</span></Form.Label>
              <Dropdown className='matic-dropdown' onSelect={handleTokenType}>
               <Dropdown.Toggle variant="secondary" id="dropdown-basic"
@@ -988,11 +988,11 @@ return (<>
             </Dropdown> 
           </Col> 
               {selectedTokeType =='ERC-20' &&
-              <Row className='mb-4 Token-Details ERC-token mt-4'>
+              <Row className='mb-4 Token-Details mt-4'>
                 <Col lg={2} md={6} className='mb-0'>
                   <Form.Label className="input-label upload-file ms-2">Upload Token Icon<span className="text-danger">*</span></Form.Label>
                   <div
-                    className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
+                    className={`media-image ${(state.projectSaveDetails?.projectStatus == "Deployed"
                       || isIdeoRequest) ?
                       'upload-img token-upload mb-2 c-notallowed' :
                       'upload-img token-upload mb-2'}`}
