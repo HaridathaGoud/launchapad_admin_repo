@@ -992,7 +992,7 @@ return (<>
                 <Col lg={2} md={6} className='mb-0'>
                   <Form.Label className="input-label upload-file ms-2">Upload Token Icon<span className="text-danger">*</span></Form.Label>
                   <div
-                    className={`media-image ${(state.projectSaveDetails?.projectStatus == "Deployed"
+                    className={`token-icon ${(state.projectSaveDetails?.projectStatus == "Deployed"
                       || isIdeoRequest) ?
                       'upload-img token-upload mb-2 c-notallowed' :
                       'upload-img token-upload mb-2'}`}

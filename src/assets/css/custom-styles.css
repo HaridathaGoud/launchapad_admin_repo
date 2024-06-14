@@ -518,7 +518,7 @@ html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 .k-svg-icon > svg{fill: #fff;}
 .cancel-btn{border: 1px solid #000;color: #000;border-radius: 28px;padding: 8px 20px;font-size: 18px;  font-weight: 600;}
 .cancel-btn:hover,.button-secondary:hover,.button-secondary:focus-visible,.button-secondary:active,:not(.btn-check) + .btn:active,.button-secondary:active,.button-secondary.btn:focus-visible{background-color: #000 !important;border: 1px solid #000 !important;box-shadow: none;color: #fff;}
-.button-secondary{border: 1px solid #000 !important;background-color: #000 !important;border-radius: 28px;padding: 8px 20px;font-size: 18px;  font-weight: 600;color: #fff;}
+.button-secondary{border: 1px solid #000 !important;background-color: #000 !important;border-radius: 28px;padding: 8px 20px;font-size: 14px;  font-weight: 600;color: #fff;}
 .text-secondary{color: #000 !important;}
 .highlightOption{background-color: #D60000 !important;}
 .multiSelectContainer li:hover{background-color: #D60000 !important;}
@@ -1409,4 +1409,7 @@ select.k-picker{display: none;}
 .allocation-page .status-text,.allocation-page .status-value{white-space: wrap;}
 .error-space{padding-left: 15px;color: #e55353;}
 .media-image{width: 100% !important;height: 150px !important;}
+.pwd-eye-close{background-position: -224px -493px;right: 4px;top: 2px;}
+.pwd-eye{background-position: -259px -493px;right: 4px;top: 2px;}
+.token-icon{width: 150px !important;height: 150px !important;border-radius: 50% !important;}
 /* new styles end */

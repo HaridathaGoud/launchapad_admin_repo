@@ -418,6 +418,7 @@ class InvestorsGrid extends Component {
                                         <Col xl={6} className="mb-3">
                                             <Form.Group className=" " controlId="exampleForm.ControlInput1">
                                                 <Form.Label >Password<span className="text-danger">*</span></Form.Label>
+                                                <div className="p-relative">
                                                 <Form.Control
                                                     type="text"
                                                     name="password"
@@ -436,6 +437,8 @@ class InvestorsGrid extends Component {
                                                         );
                                                       }}
                                                 />
+                                                <span className="icon pwd-eye position-absolute"></span>
+                                                </div>
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.password}</Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
