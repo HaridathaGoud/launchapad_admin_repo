@@ -86,8 +86,7 @@ async function proposalCalculation(contractAddress,args1) {
      alert('Please Install the Metamask to your browser');
    }
  }
- async function readRewardBalance(contract) {
-  const address = await getAddress();
+ async function readRewardBalance(contract,address) {
   const _result = await readContract({
     address: contract,
     abi: reward.abi,

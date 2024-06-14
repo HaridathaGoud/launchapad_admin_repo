@@ -358,7 +358,7 @@ const Dao = (props) => {
 
         ownerError = ownerInfo.error;
         if (data.tokenType === 'ERC-20') {
-            const rewardBalance = await getRewardBalance(readRewardBalance, data?.contractAddress);
+            const rewardBalance = await getRewardBalance(readRewardBalance, data?.contractAddress,address);
             amount = rewardBalance.amount;
             balanceError = rewardBalance.balanceError;
 
@@ -406,7 +406,7 @@ const Dao = (props) => {
                     Number(state.daoDetails?.proposalCreationBalance)))
         )
     }, [address, isConnected, userDetailsFromContract, state?.daoDetails, isAdmin?.isInvestor]);
-
+ 
     return (
         <>{params.id == "null" ? <ErrorPage /> :
             <>

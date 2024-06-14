@@ -33,9 +33,10 @@ export default function useEthers() {
     }
      const getRewardBalance = async (
         readRewardBalance,
+        contractaddress,
         address
       ) => {
-        const response = await readRewardBalance(address);
+        const response = await readRewardBalance(contractaddress,address);
         if (response) {
           let _amt = response.toString();
           if (_amt) {

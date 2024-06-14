@@ -258,12 +258,12 @@ const publishProposal =  async() => {
                 </div>
               </div> 
               : <PlaceHolder contenthtml={PublishShimmers} />}
+              {!contractData?.loading &&
               <div className='d- justify-content-between mt-3'>
-
                 <Button variant="primary" disabled={!isConnected || btnLoader} className='float-end mb-4 filled-btn' onClick={publishProposalWalletCOnnect}>
                 <span>{(saveProposal?.loading || btnLoader) && <Spinner size="sm" />} </span> Publish Proposal <span className='icon-dao btn-arrow'></span>
                 </Button>
-              </div>
+              </div>}
             </div>
           </Col>
         </Row>
