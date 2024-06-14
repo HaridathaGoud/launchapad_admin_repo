@@ -31,6 +31,7 @@ class InvestorsGrid extends Component {
                 searchBy: null,
             },
             value: '',
+            showPassword:false,
         };
         this.gridRef = React.createRef();
     }
@@ -420,7 +421,7 @@ class InvestorsGrid extends Component {
                                                 <Form.Label >Password<span className="text-danger">*</span></Form.Label>
                                                 <div className="p-relative">
                                                 <Form.Control
-                                                    type="text"
+                                                    type={this.state?.showPassword ? "password" : "text"}
                                                     name="password"
                                                     value={this.state.form?.password}
                                                     defaultValue={this.state.form?.password}
@@ -437,7 +438,12 @@ class InvestorsGrid extends Component {
                                                         );
                                                       }}
                                                 />
-                                                <span className="icon pwd-eye position-absolute"></span>
+                                                <span onClick={()=>{
+                                                    this.setState(prevState => ({
+                                                        ...prevState,
+                                                        showPassword: !prevState.showPassword
+                                                    }));
+                                                }} className={`icon ${this.state?.showPassword ? "pwd-eye-close" : "pwd-eye"} position-absolute c-pointer`}></span>
                                                 </div>
                                                 <Form.Control.Feedback type="invalid">{this.state.errors.password}</Form.Control.Feedback>
                                             </Form.Group>
