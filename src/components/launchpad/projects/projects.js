@@ -166,7 +166,7 @@ const Projects = (props) => {
       dispatch({ type: 'projectSaveDetails', payload: callback.data?.projectsViewModel })
       dispatch({ type: 'projectLogoImages', payload: callback.data?.projectsViewModel?.tokenLogo })
       dispatch({ type: 'projectBannerImages', payload: callback.data?.projectsViewModel?.bannerImage })
-      dispatch({ type: 'MediaImage', payload: callback.data?.projectsViewModel?.bannerImage })
+      dispatch({ type: 'MediaImage', payload: callback.data?.projectsViewModel?.mediaImage })
       dispatch({ type: 'projectCardImages', payload: callback.data?.projectsViewModel?.cardImage })
       dispatch({ type: 'castCrewDataList', payload: callback.data?.projectsViewModel?.castCrews ? callback.data?.projectsViewModel?.castCrews : [] });
       dispatch({ type: 'projectDetails', payload: callback.data })
