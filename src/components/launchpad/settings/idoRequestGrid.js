@@ -85,7 +85,7 @@ class IdoRequestGrid extends Component {
 
         {
             field: "emailId",
-            title: "Email Id",
+            title: "Email",
             filter: true,
             sortable: true,
             width: 200,

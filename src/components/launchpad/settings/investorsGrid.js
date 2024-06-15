@@ -48,7 +48,7 @@ class InvestorsGrid extends Component {
         },
         {
             field: "mailId",
-            title: "EMail Id",
+            title: "Email",
             filter: true,
             sortable: true,
             width: 200,
