@@ -397,7 +397,7 @@ const Projects = (props) => {
         }else if (type === 'MediaImage') {
           dispatch({ type: 'MediaImageLoader', payload: true })
           if (errors[type]) {
-            setErrors({ ...errors, [field]: null })
+            setErrors({ ...errors, MediaImage: null })
           }
         } 
         else {
@@ -809,7 +809,7 @@ return (<>
                             className="d-none custom-btn active btn"
                             type="file"
                             ref={inputRef4}
-                            isInvalid={!!state.errors.tokenLogo}
+                            isInvalid={!!state.errors.MediaImage}
                             onChange={(e) => uploadToClient(e, 'MediaImage')}
                             disabled={isIdeoRequest}
                           />

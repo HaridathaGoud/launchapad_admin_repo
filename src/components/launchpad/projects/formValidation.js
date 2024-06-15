@@ -14,7 +14,6 @@ export  const erc20FormValidation = (obj) => {
     } else if (!validateContentRules('', projectName) || projectName?.match(numbersOnly) || projectName?.match(specialCharsOnly)) {
       newErrors.projectName = 'Accepts alphanumeric and special chars.';
     }
-
     if (!countryRestrictions || countryRestrictions === '' || countryRestrictions?.length == 0) {
       newErrors.countryRestrictions = 'Is required';
     }
@@ -31,7 +30,7 @@ export  const erc20FormValidation = (obj) => {
       newErrors.bannerImage = 'Is required';
     }
     if (!mediaImage || mediaImage == '') {
-      newErrors.mediaImage = 'Is required';
+      newErrors.MediaImage = 'Is required';
     }
     if (!tokenListingDate || tokenListingDate === '') {
       newErrors.tokenListingDate = 'Is required';
@@ -108,7 +107,7 @@ export  const erc20FormValidation = (obj) => {
       newErrors.bannerImage = 'Is required';
     }
     if (!mediaImage || mediaImage == '') {
-      newErrors.mediaImage = 'Is required';
+      newErrors.MediaImage = 'Is required';
     }
     if (!tokenListingDate || tokenListingDate === '') {
       newErrors.tokenListingDate = 'Is required';
