@@ -17,6 +17,8 @@ import 'react-multi-carousel/lib/styles.css';
 import nodata from "src/assets/images/no-data.png"
 import CopyToClipboard from 'react-copy-to-clipboard';
 import defaultLogo from '../../assets/images/default-avatar.jpg';
+import Alert from 'react-bootstrap/Alert';
+
 const ProfileView = () => {
     let {tokenId, collectionContractAddress,id} = useParams();
     const [errorMsg, setErrorMsg] = useState(null);
@@ -116,7 +118,8 @@ const ProfileView = () => {
       const getNFTProperties = async (nftTokenId,nftCollectionContractAddress) => {
         let response = await getMarketPlaceData(`NFTProperties/${nftTokenId}/${nftCollectionContractAddress}`);
         if (response) {
-          setnftAttributes(JSON.parse(response?.data?.attributes));
+          // setnftAttributes(JSON.parse(response?.data?.attributes));
+          setnftAttributes([])
         } else {
           setErrorMsg(isErrorDispaly(response));
         }
@@ -150,7 +153,6 @@ const ProfileView = () => {
     }
    
    
-     
       const getNFTImageUrl = (file) => {
         const filePath = file?.replace('ipfs://', '');
         return `https://ipfs.io/ipfs/${filePath}`;
@@ -195,7 +197,7 @@ const ProfileView = () => {
         setCopySelections(dataItem)
         setTimeout(() => setCopied(false), 1000)
     }
-   
+   console.log('nftPropAttributes ',nftPropAttributes);
     return (
         <div className="profile-container">
             {errorMsg && (

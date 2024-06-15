@@ -328,7 +328,7 @@ padding-right: 2.5rem !important;
   /* font-family: 'Prosto One' !important; */
   font-weight: 400;
   font-size: 40px;
-  color: #ffffff;
+  color: #000;
   text-transform: capitalize;
 }
 .detail-label {
@@ -362,7 +362,7 @@ padding-right: 2.5rem !important;
   font-weight: 600;
   font-size: 16px;
   line-height: 22px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
 }
 .detail-view-label {
   display: inline-block;
@@ -433,7 +433,7 @@ padding-right: 2.5rem !important;
 .address-label {
   font-weight: 600;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .tab-border {
