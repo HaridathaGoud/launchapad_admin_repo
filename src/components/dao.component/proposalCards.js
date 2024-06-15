@@ -468,12 +468,14 @@ const Dao = (props) => {
                                                         <input type="date" 
                                                         className={startDateClass}
                                                         format='DD/MM/YYYY'
+                                                        max="9999-12-31"
                                                           placeholder='Start Date' onChange={(e) => getStartDateProposalData(e)} />
                                                         <span></span>
                                                     </Form.Group>
                                                     <Form.Group className="d-flex-1 position-relative" controlId="formBasicPassword">
                                                         <input type="date" disabled={!state.date}
-                                                         className={endDateClass} 
+                                                         className={endDateClass}
+                                                         max="9999-12-31" 
                                                          placeholder='End date' onChange={(e) => getEndDateProposalData(e)} />
                                                     </Form.Group>
                                                 </div>

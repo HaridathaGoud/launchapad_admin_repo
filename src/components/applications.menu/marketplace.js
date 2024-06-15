@@ -31,7 +31,7 @@ const MarketplaceMenu = (props) => {
                 </OverlayTrigger>
             </CNavItem>
             }
-            {locationSplit[1]=="marketplace" && <CNavItem className={locationSplit[2] == "customers" ? "active" : ""}>
+            {locationSplit[1]=="marketplace" && <CNavItem className={(locationSplit[2] == "customers"||locationSplit[2] == "creator"||locationSplit[2] == "currentOwner") ? "active" : ""}>
                 <OverlayTrigger
                     placement="right"
                     overlay={renderTooltipCustomers}

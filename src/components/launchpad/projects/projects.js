@@ -928,12 +928,7 @@ return (<>
                       onChange={(e)=>handleChange('tokenListingDate',e.currentTarget.value)}
                       min={currentDate}
                       max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
-                      disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                        || state.projectSaveDetails?.projectStatus == "Rejected"
-                        || state.projectSaveDetails?.projectStatus == "Approved"
-                        || state.projectSaveDetails?.projectStatus == "Deploying"
-                        || isIdeoRequest
-                      )}
+                      disabled={ isIdeoRequest}
                     />
                     <Form.Control.Feedback className='error-space' type="invalid">{errors?.tokenListingDate || state?.errors?.tokenListingDate}</Form.Control.Feedback>
 
