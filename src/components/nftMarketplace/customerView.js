@@ -197,7 +197,7 @@ const ProfileView = () => {
         setCopySelections(dataItem)
         setTimeout(() => setCopied(false), 1000)
     }
-   console.log('nftPropAttributes ',nftPropAttributes);
+
     return (
         <div className="profile-container">
             {errorMsg && (
