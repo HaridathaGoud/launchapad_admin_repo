@@ -1,73 +1,24 @@
 {
-  "contractAddress": "0x06F55ab9cCFcBFA40D625834f278142bFE64fdFC",
+  "contractAddress": "0x325eFfdbCE9C7284E4aA21D892C501e5122b8473",
   "abi": [
     {
+      "anonymous": false,
       "inputs": [
         {
+          "indexed": false,
           "internalType": "address",
-          "name": "customToken",
+          "name": "previousAdmin",
           "type": "address"
         },
         {
-          "internalType": "uint256",
-          "name": "baseFiatPrice",
-          "type": "uint256"
-        },
-        {
+          "indexed": false,
           "internalType": "address",
-          "name": "nativePriceFeedAddress",
+          "name": "newAdmin",
           "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "secondaryPriceFeedAddress",
-          "type": "address"
-        },
-        {
-          "internalType": "uint16",
-          "name": "platformFee",
-          "type": "uint16"
-        },
-        {
-          "components": [
-            {
-              "internalType": "uint16",
-              "name": "minnapadShare",
-              "type": "uint16"
-            },
-            {
-              "internalType": "uint16",
-              "name": "daoShare",
-              "type": "uint16"
-            },
-            {
-              "internalType": "uint16",
-              "name": "legendShare",
-              "type": "uint16"
-            },
-            {
-              "internalType": "address",
-              "name": "minnapadAddr",
-              "type": "address"
-            },
-            {
-              "internalType": "address",
-              "name": "daoAddr",
-              "type": "address"
-            },
-            {
-              "internalType": "address",
-              "name": "legendAddr",
-              "type": "address"
-            }
-          ],
-          "internalType": "struct IMembershipToken.SharesDetails",
-          "name": "sharesAndAddresses",
-          "type": "tuple"
         }
       ],
-      "stateMutability": "nonpayable",
-      "type": "constructor"
+      "name": "AdminChanged",
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -123,6 +74,38 @@
       "anonymous": false,
       "inputs": [
         {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_fromTokenId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_toTokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "BatchMetadataUpdate",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "beacon",
+          "type": "address"
+        }
+      ],
+      "name": "BeaconUpgraded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
           "indexed": true,
           "internalType": "address",
           "name": "delegator",
@@ -171,83 +154,45 @@
     },
     {
       "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "drainer",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "DrainedNative",
+      "inputs": [],
+      "name": "EIP712DomainChanged",
       "type": "event"
     },
     {
       "anonymous": false,
       "inputs": [
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "drainer",
-          "type": "address"
-        },
-        {
           "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
+          "internalType": "uint8",
+          "name": "version",
+          "type": "uint8"
         }
       ],
-      "name": "DrainedSecondary",
+      "name": "Initialized",
       "type": "event"
     },
     {
       "anonymous": false,
       "inputs": [
         {
-          "indexed": true,
-          "internalType": "enum IMembershipToken.ContractState",
-          "name": "state",
-          "type": "uint8"
-        },
-        {
           "indexed": false,
           "internalType": "uint256",
-          "name": "discount",
+          "name": "_tokenId",
           "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint8",
-          "name": "walletLimit",
-          "type": "uint8"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint8",
-          "name": "perTrnMintLimit",
-          "type": "uint8"
         }
       ],
+      "name": "MetadataUpdate",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [],
       "name": "MintPeriodDetailsSet",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "enum IMembershipToken.ContractState",
-          "name": "state",
-          "type": "uint8"
-        }
-      ],
+      "inputs": [],
       "name": "MintPeriodSet",
       "type": "event"
     },
@@ -293,45 +238,6 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amt",
-          "type": "uint256"
-        }
-      ],
-      "name": "NativeCurrencyReceived",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "nativePriceFeedsAddress",
-          "type": "address"
-        }
-      ],
-      "name": "NativePriceFeedChanged",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "newPrice",
-          "type": "uint256"
-        }
-      ],
-      "name": "NewBaseUSDPriceSet",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
           "indexed": true,
           "internalType": "address",
           "name": "previousOwner",
@@ -349,228 +255,37 @@
     },
     {
       "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint16",
-          "name": "newFee",
-          "type": "uint16"
-        }
-      ],
+      "inputs": [],
       "name": "PlatformFeeSet",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "tokenAddress",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "tokenPriceFeedsAddress",
-          "type": "address"
-        }
-      ],
-      "name": "SecondaryTokenChanged",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "minter",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "startingTokenId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [],
       "name": "SentNativeToDao",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "minter",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "startingTokenId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [],
       "name": "SentNativeToLegend",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "minter",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "startingTokenId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [],
       "name": "SentNativeToMinnapad",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "minter",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "startingTokenId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
+      "inputs": [],
       "name": "SentSecondaryToDao",
       "type": "event"
     },
     {
       "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "minter",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "startingTokenId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "SentSecondaryToLegend",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "minter",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "startingTokenId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "SentSecondaryToMinnapad",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "components": [
-            {
-              "internalType": "uint16",
-              "name": "minnapadShare",
-              "type": "uint16"
-            },
-            {
-              "internalType": "uint16",
-              "name": "daoShare",
-              "type": "uint16"
-            },
-            {
-              "internalType": "uint16",
-              "name": "legendShare",
-              "type": "uint16"
-            },
-            {
-              "internalType": "address",
-              "name": "minnapadAddr",
-              "type": "address"
-            },
-            {
-              "internalType": "address",
-              "name": "daoAddr",
-              "type": "address"
-            },
-            {
-              "internalType": "address",
-              "name": "legendAddr",
-              "type": "address"
-            }
-          ],
-          "indexed": false,
-          "internalType": "struct IMembershipToken.SharesDetails",
-          "name": "newShareDetails",
-          "type": "tuple"
-        }
-      ],
+      "inputs": [],
       "name": "ShareDetailsChanged",
       "type": "event"
     },
@@ -600,8 +315,34 @@
       "type": "event"
     },
     {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        }
+      ],
+      "name": "Upgraded",
+      "type": "event"
+    },
+    {
       "stateMutability": "payable",
       "type": "fallback"
+    },
+    {
+      "inputs": [],
+      "name": "CLOCK_MODE",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
     },
     {
       "inputs": [],
@@ -614,6 +355,13 @@
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "__SignatureUtilityUpgradeable_init",
+      "outputs": [],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -725,10 +473,23 @@
     },
     {
       "inputs": [],
+      "name": "clock",
+      "outputs": [
+        {
+          "internalType": "uint48",
+          "name": "",
+          "type": "uint48"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "currentState",
       "outputs": [
         {
-          "internalType": "enum IMembershipToken.ContractState",
+          "internalType": "enum IMembershipTokenUpgradeable.ContractState",
           "name": "",
           "type": "uint8"
         }
@@ -807,6 +568,49 @@
       "type": "function"
     },
     {
+      "inputs": [],
+      "name": "eip712Domain",
+      "outputs": [
+        {
+          "internalType": "bytes1",
+          "name": "fields",
+          "type": "bytes1"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "version",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "chainId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "verifyingContract",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "salt",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "extensions",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "uint256",
@@ -829,7 +633,7 @@
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "blockNumber",
+          "name": "timepoint",
           "type": "uint256"
         }
       ],
@@ -853,7 +657,7 @@
         },
         {
           "internalType": "uint256",
-          "name": "blockNumber",
+          "name": "timepoint",
           "type": "uint256"
         }
       ],
@@ -943,6 +747,39 @@
       "inputs": [
         {
           "internalType": "address",
+          "name": "customToken",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "baseFiatPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "nativePriceFeedAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "secondaryPriceFeedAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint16",
+          "name": "platformFee",
+          "type": "uint16"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
           "name": "owner",
           "type": "address"
         },
@@ -966,7 +803,7 @@
     {
       "inputs": [
         {
-          "internalType": "enum IMembershipToken.ContractState",
+          "internalType": "enum IMembershipTokenUpgradeable.ContractState",
           "name": "",
           "type": "uint8"
         }
@@ -1076,6 +913,19 @@
     },
     {
       "inputs": [],
+      "name": "proxiableUUID",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
       "name": "renounceOwnership",
       "outputs": [],
       "stateMutability": "nonpayable",
@@ -1106,7 +956,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct SignatureUtility.Sign",
+          "internalType": "struct SignatureUtilityUpgradeable.Sign",
           "name": "sig",
           "type": "tuple"
         }
@@ -1159,7 +1009,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct SignatureUtility.Sign",
+          "internalType": "struct SignatureUtilityUpgradeable.Sign",
           "name": "sig",
           "type": "tuple"
         }
@@ -1267,7 +1117,7 @@
     {
       "inputs": [
         {
-          "internalType": "enum IMembershipToken.ContractState",
+          "internalType": "enum IMembershipTokenUpgradeable.ContractState",
           "name": "newState",
           "type": "uint8"
         }
@@ -1280,7 +1130,7 @@
     {
       "inputs": [
         {
-          "internalType": "enum IMembershipToken.ContractState",
+          "internalType": "enum IMembershipTokenUpgradeable.ContractState",
           "name": "state",
           "type": "uint8"
         },
@@ -1353,7 +1203,7 @@
               "type": "address"
             }
           ],
-          "internalType": "struct IMembershipToken.SharesDetails",
+          "internalType": "struct IMembershipTokenUpgradeable.SharesDetails",
           "name": "newShareDetails",
           "type": "tuple"
         }
@@ -1486,6 +1336,37 @@
       "name": "transferOwnership",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newImplementation",
+          "type": "address"
+        }
+      ],
+      "name": "upgradeTo",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newImplementation",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "upgradeToAndCall",
+      "outputs": [],
+      "stateMutability": "payable",
       "type": "function"
     },
     {
