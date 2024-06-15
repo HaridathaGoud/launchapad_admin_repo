@@ -15,13 +15,12 @@ import defaultLogo from '../../assets/images/default-avatar.jpg';
 
 const CreatedList = (props) => {
   const [nftcollections, setNftCollections] = useState([]);
-  const [errorMsg, setErrorMsg] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
   const pageSize = 10;
   const [pageNo, setPageNo] = useState(1);
   const [search, setSearch] = useState(null);
   const [type, setType] = useState();
   const [loader, setLoader] = useState(false);
-  const [profileDetails, setProfileDetails] = useState({});
   const [nftSearch,NftSearch]=useState(null)
   const navigate = useNavigate();
 
@@ -31,26 +30,12 @@ const CreatedList = (props) => {
     if (shouldLog.current) {
       shouldLog.current = false;
       GetNfts(1, 10, type, null);
-      getCustomerDetails()}
+    }
   }, [props.activeTab]);
 
   const fetchMoreData = () => {
     GetNfts(pageNo, pageSize, type, search);
   };
-
-  const getCustomerDetails = async () => {
-    setLoader(true);
-    await apiCalls.customerDetails(props?.walletAddress)
-      .then((response) => {
-        setProfileDetails(response.data);
-        setErrorMsg(null);
-        setLoader(false);
-      })
-      .catch((error) => {
-        setLoader(false);
-      });
-  };
-
 
   const GetNfts = async (pageNum, pageListSize, nftType, searchProject) => {
     if (nftcollections?.length == 0) {
@@ -67,6 +52,7 @@ const CreatedList = (props) => {
         let mergeData = pageNum == 1 ? [...response.data] : [...nftcollections, ...response.data];
         setNftCollections(mergeData);
         setLoader(false);
+        setErrorMsg(null)
       })
       .catch(() => {
         setLoader(false);
@@ -181,7 +167,7 @@ const CreatedList = (props) => {
                         <div className="col-md-6 col-lg-3 col-xl-3 mt-3" key={idx}>
                         
                          
-                      <Card className="creator-bg c-pointer"  onClick={() => navigate(`/marketplace/customers/profileinfo/${item.tokenId}/${item?.collectionContractAddress}/${profileDetails.id}/view`)}>
+                      <Card className="creator-bg c-pointer"  onClick={() => navigate(`/marketplace/customers/profileinfo/${item.tokenId}/${item?.collectionContractAddress}/${props?.userDetails?.id}/view`)}>
                         <div >
                           <div className="account-card-img">
                             {' '}

@@ -61,6 +61,7 @@ const NftKycDetails = (props) => {
       return 'image-setup imagefit-contain';
     }
   };
+
   return (<>
    <>
    {(props?.userDetailsId?.kycStatus?.toLowerCase() == "completed" ||props?.userDetailsId.kycStatus?.toLowerCase() == "pending"||props?.userDetailsId.kycStatus?.toLowerCase()) !="init" ? <>

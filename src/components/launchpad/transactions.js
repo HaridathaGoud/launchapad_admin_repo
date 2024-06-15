@@ -181,7 +181,7 @@ class Transactions extends Component {
           <Form className="d-flex grid-search">
           <Form.Control name='searchBy'
             type="text"
-            placeholder="Search by Wallet, Transition Type"
+            placeholder="Search By Wallet, Transition Type"
             className="search-style"
             aria-label="Search"
             onChange={(e) => this.handleChange(e)}

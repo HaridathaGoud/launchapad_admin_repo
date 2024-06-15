@@ -9,7 +9,7 @@ import { getMarketPlaceData,post  } from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 import nodata from "src/assets/images/no-data.png"
 import defaultLogo from '../../assets/images/default-avatar.jpg';
-import apiCalls from 'src/api/apiCalls';
+
 const owned = (props) => {
   const [ownedNftCollection, setOwnedNftCollection] = useState([]);
   const [errorMsg, setErrorMsg] = useState(false);
@@ -18,7 +18,6 @@ const owned = (props) => {
   const [search, setSearch] = useState(null);
   const [type, setType] = useState();
   const [loader, setLoader] = useState(false);
-  const [profileDetails, setProfileDetails] = useState({});
   const [nftSearch,NftSearch]=useState(null)
   const navigate = useNavigate();
 
@@ -28,7 +27,6 @@ const owned = (props) => {
       shouldLog.current = false;
       
     if (props.activeTab == 'Owned') {
-      getCustomerDetails(props?.walletAddress)
       getOwnedNfts(1, 10, type, null);
     }}
   }, [props.activeTab]);
@@ -107,22 +105,8 @@ const owned = (props) => {
     }
   };
 
-
-  const getCustomerDetails = async (walletAddress) => {
-    setLoader(true);
-    await apiCalls.customerDetails(walletAddress)
-      .then((response) => {
-        setProfileDetails(response.data);
-        setErrorMsg(null);
-        setLoader(false);
-      })
-      .catch((error) => {
-        setLoader(false);
-      });
-  };
-
   const handleSelect=(item)=>{
-   navigate(`/marketplace/customers/profileinfo/${item?.tokenId}/${item?.collectionContractAddress}/${profileDetails.id}/view`)
+   navigate(`/marketplace/customers/profileinfo/${item?.tokenId}/${item?.collectionContractAddress}/${props?.userDetails?.id}/view`)
   }
   return (
     <>

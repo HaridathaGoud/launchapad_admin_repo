@@ -6,9 +6,8 @@ import Owned from "./owned"
 import Favorited from "./favorited"
 import { useParams } from 'react-router-dom';
 import { getMarketPlaceData } from '../../utils/api';
-import { setUserInfo } from 'src/reducers/profileReducer';
-import {  useDispatch,useSelector } from 'react-redux';
-import apiCalls from "src/api/apiCalls";
+import { useSelector } from 'react-redux';
+
 const Nfts = (props) => {
   const [activeTab, setActiveTab] = useState('Created');
   let { address } = useParams();
@@ -19,7 +18,6 @@ const Nfts = (props) => {
 const [walletAddress,setWalletAddress]=useState()
 
 const shouldLog = useRef(true);
-  const dispatch = useDispatch()
   useEffect(() => {
     if (shouldLog.current) {
       shouldLog.current = false;
@@ -28,7 +26,7 @@ const shouldLog = useRef(true);
     getCreatedCount(walletAdd);
     getFavoritedCount(walletAdd);
     getOwnedCount(walletAdd);
-    getCustomerDetails(walletAdd)}
+  }
   }, []);
 
   const handleTabChange = (e) => {
@@ -61,14 +59,6 @@ const shouldLog = useRef(true);
       });
   };
 
-  const getCustomerDetails = async (walletAddS) => {
-    await  apiCalls.customerDetails(walletAddS)
-      .then((response) => {
-        dispatch(setUserInfo(response.data));
-      })
-      .catch(() => {
-      });
-  };
     return(
         <>
         <div>

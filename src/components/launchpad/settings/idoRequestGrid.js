@@ -355,7 +355,7 @@ class IdoRequestGrid extends Component {
                             onKeyDown={(e) => this.handleEnterSearch(e)}
                             onBlur={(e) => this.handleBlur(e)}
                             maxLength={250}
-                            placeholder="Search by Project Name"
+                            placeholder="Search By Project Name"
                         />
                         <i className="icon search-icon" onClick={()=>this.handleSearch(this.state.searchObj.searchBy)}></i>
                     </Form>

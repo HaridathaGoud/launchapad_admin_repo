@@ -1193,7 +1193,7 @@ return (<>
                         )}
                       />
                       {/* <Form.Control.Feedback type="invalid">{errors?.tokenDecimal || state?.errors?.tokenDecimal}</Form.Control.Feedback> */}
-                      {(errors?.tokenDecimal || state?.errors?.tokenDecimal) &&<span className='invaliid-textstyle'>{errors?.tokenDecimal || state?.errors?.tokenDecimal}</span>}
+                      {(errors?.tokenDecimal || state?.errors?.tokenDecimal) &&<span className='error-space'>{errors?.tokenDecimal || state?.errors?.tokenDecimal}</span>}
                     </Col>
                     <Col lg={12} md={12} className='mb-3'>
                       <Form.Label

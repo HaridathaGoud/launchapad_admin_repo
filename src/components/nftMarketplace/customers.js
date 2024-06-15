@@ -12,8 +12,12 @@ import Nfts from './nfts'
 import CopyToClipboard from 'react-copy-to-clipboard';
 import Referrals from "../minting/referrals";
 import ProfileViewShimmer from "../shimmers/profileviewshimmer";
+import { setUserInfo } from 'src/reducers/profileReducer';
+import { useDispatch } from "react-redux";
+
 const CustomersInfo = () => {
   const inputRef = useRef(null);
+  const dispatch = useDispatch()
   let { address,key} = useParams();
   const [loader, setLoader] = useState(false);
   const [userDetails, setUserDetails] = useState({});
@@ -52,6 +56,7 @@ const CustomersInfo = () => {
     setLoader(true);
     await apiCalls.customerDetails(address)
       .then((response) => {
+        dispatch(setUserInfo(response.data));
         setUserDetails(response.data);
         setLoader(false);
       })
@@ -60,6 +65,7 @@ const CustomersInfo = () => {
       setLoader(false);
       });
   };
+   
   const handleUpload = () => {
     inputRef.current?.click();
   };

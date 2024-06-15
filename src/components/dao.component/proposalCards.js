@@ -467,6 +467,7 @@ const Dao = (props) => {
                                                     <Form.Group className="d-flex-1 position-relative" controlId="formBasicPassword">
                                                         <input type="date" 
                                                         className={startDateClass}
+                                                        format='DD/MM/YYYY'
                                                           placeholder='Start Date' onChange={(e) => getStartDateProposalData(e)} />
                                                         <span></span>
                                                     </Form.Group>

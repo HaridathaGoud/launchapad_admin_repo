@@ -325,7 +325,7 @@ class InvestorsGrid extends Component {
                             onKeyDown={(e) => this.handleEnterSearch(e)}
                             onBlur={(e) => this.handleBlur(e)}
                             maxLength={250}
-                            placeholder="Search by Name "
+                            placeholder="Search By Name "
                         />
                         <i className="icon search-icon" onClick={()=>this.handleSearch(this.state.searchObj.searchBy)}></i>
                     </Form>

@@ -156,7 +156,7 @@ class MarketplaceCustomers extends Component {
 							onChange={(e) => this.handleChange(e)}
 							onKeyDown={(e) => this.handleEnterSearch(e)}
 							maxLength={250}
-							placeholder="Search by Name, Email and Wallet Address" />
+							placeholder="Search By Name, Email and Wallet Address" />
 						<i className="icon search-icon" onClick={this.handleSearch}></i>
 					</Form>
 

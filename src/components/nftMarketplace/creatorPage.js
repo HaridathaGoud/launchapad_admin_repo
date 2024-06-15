@@ -9,7 +9,6 @@ import Image from 'react-bootstrap/Image';
 import defaultBanner from "../../assets/images/banner-default.jpg"
 import apiCalls from 'src/api/apiCalls';
 const creatorPage = () => {
-  
     let { address } = useParams();
     const [errorMessage, setErrorMessage] = useState(null);
     const [loader, setLoader] = useState(false);
@@ -136,7 +135,7 @@ const creatorPage = () => {
             </div></div>
 
             <div className="creator-tabs ss creatorby-banner-title">
-                  <Nfts />
+                  <Nfts userDetailsId={profileDetails}/>
             </div>
        </div>
        </>}

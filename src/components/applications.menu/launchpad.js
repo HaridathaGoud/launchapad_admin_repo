@@ -143,7 +143,7 @@ function LaunchPadMenu(props){
                         </CNavLink>
                     </OverlayTrigger>
                 </CNavItem>}
-                {locationSplit[1] == "launchpad" && <CNavItem className={locationSplit[2] == "projects" ? "active" : ""}>
+                {locationSplit[1] == "launchpad" && <CNavItem className={(locationSplit[2] == "investors" || locationSplit[2] == "projects") ? "active" : ""}>
                     <OverlayTrigger
                         placement="right"
                         overlay={renderTooltipProjects} >

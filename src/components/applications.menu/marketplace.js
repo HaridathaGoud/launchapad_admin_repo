@@ -2,6 +2,8 @@ import React from 'react';
 import { CNavItem, CNavLink } from '@coreui/react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import PropTypes from 'prop-types'
+
 const MarketplaceMenu = (props) => {
     const renderTooltipDashboard = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -43,4 +45,8 @@ const MarketplaceMenu = (props) => {
         </div>
     )
 }
+MarketplaceMenu.propTypes = {
+    handleMenuNavigate: PropTypes.any,
+    app_name: PropTypes.any,
+  };
 export default MarketplaceMenu;

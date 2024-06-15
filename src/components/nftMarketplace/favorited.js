@@ -10,7 +10,6 @@ import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from "react-router-dom";
 import nodata from "src/assets/images/no-data.png";
 import defaultLogo from '../../assets/images/default-avatar.jpg';
-import apiCalls from 'src/api/apiCalls';
 
 const favorited = (props) => {
   const [favouritecollections, setFavouriteCollections] = useState([]);
@@ -21,34 +20,16 @@ const favorited = (props) => {
   const [search, setSearch] = useState(null);
   const [loader, setLoader] = useState(false);
   const [showPutOnSale, setShowPutOnSale] = useState(false);
-  const [profileDetails, setProfileDetails] = useState({});
   const [nftSearch,NftSearch]=useState(null)
   const navigate = useNavigate();
-
-
-
   const shouldLog = useRef(true);
+
   useEffect(() => {
     if (shouldLog.current) {
       shouldLog.current = false;
-    getCustomerDetails()
       getFavourites(1, 10, type, null);
     }
-    
   }, [props.activeTab]);
-
-  const getCustomerDetails = async () => {
-    setLoader(true);
-    await apiCalls.customerDetails(props?.walletAddress)
-      .then((response) => {
-        setProfileDetails(response.data);
-        setErrorMsg(null);
-        setLoader(false);
-      })
-      .catch((error) => {
-        setLoader(false);
-      });
-  };
 
   const fetchMoreData = () => {
     getFavourites(pageNo, pageSize, type, search);
@@ -113,7 +94,6 @@ const favorited = (props) => {
     getFavourites(1, 10, type, null);
   };
 
-
   return (
     <div>
      
@@ -170,7 +150,7 @@ const favorited = (props) => {
                     {favouritecollections?.length > 0 ? (
                       favouritecollections?.map((item, idx) => (
                         <div className="col-md-6 col-lg-3 col-xl-3 mt-3" key={idx}>
-                           <Card className="creator-bg c-pointer"  onClick={() => navigate(`/marketplace/customers/profileinfo/${item.tokenId}/${item?.collectionContractAddress}/${profileDetails.id}/view`)}>
+                           <Card className="creator-bg c-pointer"  onClick={() => navigate(`/marketplace/customers/profileinfo/${item.tokenId}/${item?.collectionContractAddress}/${props?.userDetails?.id}/view`)}>
                         <div >
                           <div className="account-card-img">
                             {' '}

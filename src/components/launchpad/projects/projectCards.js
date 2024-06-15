@@ -355,19 +355,25 @@ const ProjectCards = () => {
     const secondaryPriceFeeAdres = '0xF0d50568e3A7e8259E16663972b11910F89BD8e7';
     const platformFee = 5;
     // const ercCustomToken = '0x41CF89e47Ee08a09D8bc168c5072358e87B2eBf8';
-     const ercCustomToken = '0xb417AbcC8b1302ADdD2fC12BAeD042400cEEC7CA';
-    const baseFiatPrice = ethers.utils.parseEther('50');
+     const ercCustomToken = '0xb01b478297325353b66FE099f65C298D0870eB16';
+    const baseFiatPrice = ethers.utils.parseEther('0.0005');
     const provider = new ethers.providers.Web3Provider(window?.ethereum)
     const factory = new ethers.Contract(MintFactory.contractAddress, MintFactory.abi, provider.getSigner());
     try {
+      console.log(ercCustomToken,
+        baseFiatPrice,
+        nativePriceFeeAddres,
+        secondaryPriceFeeAdres,
+        platformFee,
+        'gasLimit: 3000000');
       const contractRes = await factory.deployMembershipToken(
         ercCustomToken,
         baseFiatPrice,
         nativePriceFeeAddres,
         secondaryPriceFeeAdres,
         platformFee,
-        shareDetails,
-        { gasLimit: 9000000, gasPrice: 300000 });
+        // { gasLimit: 3000000 , gasPrice: 300000});
+      )
       contractRes.wait().then(async (receipt) => {
         const address = receipt.logs[0].address;
         const updateProject = {
@@ -482,7 +488,7 @@ const ProjectCards = () => {
         <div className='d-md-flex mt-4 justify-content-between'>
           <Form className="d-flex grid-search">
             <Form.Control
-              placeholder="Search by Project Name"
+              placeholder="Search By Project Name"
               className="search-style"
               aria-label="Search"
               onKeyUp={(e) => handleChange(e)}
@@ -602,7 +608,7 @@ const ProjectCards = () => {
                       </div>
                     </div>
                   </Col>
-                  { state.detailsPreview.nftImagesCount > 0 &&
+                  { state.detailsPreview.nftImagesCount > 0 && state.detailsPreview?.tokenType == 'ERC-721'&&
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="nftImagesCountInput" className='profile-label'>NFT Images Counts</label>
@@ -615,7 +621,7 @@ const ProjectCards = () => {
                     </Col>
                   }
 
-                  {state.detailsPreview.tokenContractAddress &&
+                  {state.detailsPreview.tokenContractAddress && state.detailsPreview?.tokenType == 'ERC-20'&&
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="tokenContractAddressInput" className='profile-label'>Token Contract Address</label>
@@ -631,7 +637,7 @@ const ProjectCards = () => {
                       </div>
                     </Col>
                   }
-                  {state.detailsPreview.totalSupply &&
+                  {state.detailsPreview.totalSupply && state.detailsPreview?.tokenType == 'ERC-20'&&
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="totalSupplyInput" className='profile-label'>Total Supply</label>
@@ -663,7 +669,7 @@ const ProjectCards = () => {
                           : '--'}</h6>
                       </div>
                     </Col>
-                    {state.detailsPreview.noOfSlots !=0 &&
+                    {state.detailsPreview.noOfSlots !=0 && state.detailsPreview?.tokenType == 'ERC-20'&&
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="claimSlotsInput" className='profile-label'>Claim Slots</label>
@@ -671,7 +677,7 @@ const ProjectCards = () => {
                       </div>
                     </Col>
                     }
-                    {state.detailsPreview.vestingDays !=0 &&
+                    {state.detailsPreview.vestingDays !=0 && state.detailsPreview?.tokenType == 'ERC-20'&&
                     <Col lg={4} md={12}>
                       <div className="view-data">
                         <label htmlFor="vestingTimeInput" className='profile-label'>Vesting Time</label>
