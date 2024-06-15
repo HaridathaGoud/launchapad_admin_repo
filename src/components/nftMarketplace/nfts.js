@@ -15,19 +15,17 @@ const Nfts = (props) => {
   const [favouritesCount, setFavouritesCount] = useState(0);
   const [ownedCount, setOwnedCount] = useState(0);
   const UserProfile = useSelector(state => state?.profile?.user)
-const [walletAddress,setWalletAddress]=useState()
+  const walletAddress = address ? address : UserProfile?.walletAddress
+  const shouldLog = useRef(true);
 
-const shouldLog = useRef(true);
   useEffect(() => {
     if (shouldLog.current) {
       shouldLog.current = false;
-    const walletAdd = address ? address : UserProfile?.walletAddress
-    setWalletAddress(walletAdd)
-    getCreatedCount(walletAdd);
-    getFavoritedCount(walletAdd);
-    getOwnedCount(walletAdd);
-  }
-  }, [walletAddress]);
+      getCreatedCount(walletAddress);
+      getFavoritedCount(walletAddress);
+      getOwnedCount(walletAddress);
+    }
+  }, []);
 
   const handleTabChange = (e) => {
     setActiveTab(e);
@@ -64,7 +62,7 @@ const shouldLog = useRef(true);
         <div>
       <Tabs defaultActiveKey="Created" activeKey={activeTab} onSelect={handleTabChange}   className="mb-3 mt-3 sub-tabs marketplace-tabs" id="uncontrolled-tab-example">
       <Tab eventKey="Created" title={`Created (${creatorscount == null ? 0 :creatorscount})`} className="sub-override">
-      {activeTab === 'Created' && <Created activeTab={activeTab} walletAddress={address||UserProfile?.walletAddress} userDetails={props.userDetailsId} />}
+      {activeTab === 'Created' && <Created activeTab={activeTab} walletAddress={walletAddress} userDetails={props.userDetailsId} />}
       </Tab>
       <Tab eventKey="Favorited" title={`Favorited (${favouritesCount == null ? 0 : favouritesCount})`} className="sub-override">
       {activeTab === 'Favorited' && <Favorited activeTab={activeTab} walletAddress={walletAddress} userDetails={props.userDetailsId}/>}

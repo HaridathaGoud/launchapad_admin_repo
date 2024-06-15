@@ -23,9 +23,8 @@ const CreatedList = (props) => {
   const [loader, setLoader] = useState(false);
   const [nftSearch,NftSearch]=useState(null)
   const navigate = useNavigate();
-
-
   const shouldLog = useRef(true);
+
   useEffect(() => {
     if (shouldLog.current) {
       shouldLog.current = false;
@@ -151,7 +150,7 @@ const CreatedList = (props) => {
         <InfiniteScroll
         className='infinite-scroll-none'
           dataLength={nftcollections?.length}
-          next={fetchMoreData}
+          // next={fetchMoreData}
           hasMore={nftcollections?.length < 70}
           loader={<h4 className="text-center"></h4>}
           scrollThreshold="0.8"
