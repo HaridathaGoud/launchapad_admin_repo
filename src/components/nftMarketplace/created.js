@@ -31,7 +31,7 @@ const CreatedList = (props) => {
       shouldLog.current = false;
       GetNfts(1, 10, type, null);
     }
-  }, [props.activeTab]);
+  }, []);
 
   const fetchMoreData = () => {
     GetNfts(pageNo, pageSize, type, search);

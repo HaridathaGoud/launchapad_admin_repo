@@ -27,7 +27,7 @@ const shouldLog = useRef(true);
     getFavoritedCount(walletAdd);
     getOwnedCount(walletAdd);
   }
-  }, []);
+  }, [walletAddress]);
 
   const handleTabChange = (e) => {
     setActiveTab(e);

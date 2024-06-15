@@ -29,7 +29,7 @@ const owned = (props) => {
     if (props.activeTab == 'Owned') {
       getOwnedNfts(1, 10, type, null);
     }}
-  }, [props.activeTab]);
+  }, []);
 
   const fetchMoreData = () => {
     getOwnedNfts(pageNo, pageSize, type, search);
