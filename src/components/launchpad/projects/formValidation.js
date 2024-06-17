@@ -239,7 +239,7 @@ export  const erc20FormValidation = (obj) => {
     } else if (!validateContentRules('', name)  || name?.match(numbersOnly) || name?.match(specialCharsOnly)) {
       newErrors.name = 'Accepts alphanumeric and special chars.';
     }
-    if (!role || role === '') {
+    if (!role || role === ''|| !role.length) {
       newErrors.role = 'Is required';
     }
     if (bio && bio.trim() !== '') {

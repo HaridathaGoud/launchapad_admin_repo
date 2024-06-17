@@ -556,6 +556,7 @@ const Projects = (props) => {
     const selectedRoleNames = selectedList?.map(item => item.role).flat();
     setSelectedroleValues(selectedList);
     dispatch({ type: 'cast_CrewsFormDeatils', payload: { ...state.cast_CrewsFormDeatils, role: selectedRoleNames } })
+    setErrors({ ...errors, role: null })
   };
   
   const handleCastCrewDataSave = async (event) => {
