@@ -27,7 +27,7 @@ const owned = (props) => {
       shouldLog.current = false;
       getOwnedNfts(1, 10, type, null);
   }
-  }, [props.activeTab]);
+  }, []);
 
   const fetchMoreData = () => {
     getOwnedNfts(pageNo, pageSize, type, search);

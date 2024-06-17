@@ -29,7 +29,7 @@ const favorited = (props) => {
       shouldLog.current = false;
       getFavourites(1, 10, type, null);
     }
-  }, [props.activeTab]);
+  }, []);
 
   const fetchMoreData = () => {
     getFavourites(pageNo, pageSize, type, search);

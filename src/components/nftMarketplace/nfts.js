@@ -23,7 +23,7 @@ const Nfts = (props) => {
       shouldLog.current = true;
       fetchData();
     }
-  }, [activeTab]);
+  }, []);
 
   const handleTabChange = (e) => {
     setActiveTab(e);
