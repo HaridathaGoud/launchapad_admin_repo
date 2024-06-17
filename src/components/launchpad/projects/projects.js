@@ -950,7 +950,7 @@ return (<>
                     className="text-area-input"
                   >Description<span className="text-danger">*</span></Form.Label>
                   <Form.Control value={state.projectSaveDetails?.description}
-                    name='description' className='project-description'
+                    name='description' className='project-description ps-3'
                     as="textarea"
                     placeholder="Description"
                     onChange={(e)=>handleChange('description',e.currentTarget.value)}

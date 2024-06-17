@@ -364,7 +364,7 @@ if (isMobile) {
                     onBlur={(e) => setField('proposal',e.target.value.trim().replace(/\s+/g, " "))}
                      />
 
-                  <Form.Control.Feedback type="invalid">{errors.proposal}</Form.Control.Feedback>
+                  <Form.Control.Feedback className='error-space' type="invalid">{errors.proposal}</Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -377,7 +377,7 @@ if (isMobile) {
                     isInvalid={!!errors.summary}
                     onChange={(e) => { setField('summary', e.currentTarget.value) }}
                     onBlur={(e) => setField('summary',e.target.value.trim().replace(/\s+/g, " "))} />
-                   <Form.Control.Feedback type="invalid">{errors.summary}</Form.Control.Feedback>
+                   <Form.Control.Feedback className='error-space' type="invalid">{errors.summary}</Form.Control.Feedback>
                   </Form.Group>
                   <div>
                 <Form.Label className='starlabel mb-0'>Select Your Proposal Type</Form.Label> 
@@ -418,7 +418,7 @@ if (isMobile) {
                       isInvalid={!!errors.startdate}
                       onChange={(e) => startDate(e)}
                     />
-                    <Form.Control.Feedback type="invalid">{errors.startdate}</Form.Control.Feedback></Form.Group>
+                    <Form.Control.Feedback className='error-space' type="invalid">{errors.startdate}</Form.Control.Feedback></Form.Group>
                     <Form.Group className="mb-3 d-flex-1 position-relative" controlId="formBasicPassword">
                       <Form.Label className='starlabel mb-0'>End Date & Time (Local time zone)</Form.Label>
                       <Form.Control type="datetime-local" 
@@ -429,7 +429,7 @@ if (isMobile) {
                       isInvalid={!!errors.enddate}
                       onChange={(e) => endDate(e)}
                     />
-                    <Form.Control.Feedback type="invalid">{errors.enddate}</Form.Control.Feedback></Form.Group>
+                    <Form.Control.Feedback className='error-space' type="invalid">{errors.enddate}</Form.Control.Feedback></Form.Group>
                   </div>
                   <div className='d-flex justify-content-end align-items-center mt-2 btn-width'>
                     <Link to={`/dao/proposal/${params.id}`} className='cancel-btn me-3 mb-4'>Cancel</Link>

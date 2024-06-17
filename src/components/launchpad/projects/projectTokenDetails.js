@@ -282,7 +282,7 @@ const ProjectTokenDetails = (props) => {
               />
               {/* <Form.Control.Feedback type="invalid">{errors?.privateTokenEquivalentToPaymentType ||
                state?.errors?.privateTokenEquivalentToPaymentType}</Form.Control.Feedback> */}
-              {(errors?.privateTokenEquivalentToPaymentType || state?.errors?.privateTokenEquivalentToPaymentType) && <span className='invaliid-textstyle'>
+              {(errors?.privateTokenEquivalentToPaymentType || state?.errors?.privateTokenEquivalentToPaymentType) && <span className='error-space'>
                 {errors?.privateTokenEquivalentToPaymentType ||
                   state?.errors?.privateTokenEquivalentToPaymentType}</span>}
           </Col>
@@ -314,7 +314,7 @@ const ProjectTokenDetails = (props) => {
               />
               {/* <Form.Control.Feedback type="invalid">{errors?.publicTokenEquivalentToPaymentType ||
                state?.errors?.publicTokenEquivalentToPaymentType}</Form.Control.Feedback> */}
-               {(errors?.publicTokenEquivalentToPaymentType || state?.errors?.publicTokenEquivalentToPaymentType) && <span className='invaliid-textstyle'>
+               {(errors?.publicTokenEquivalentToPaymentType || state?.errors?.publicTokenEquivalentToPaymentType) && <span className='error-space'>
                 {errors?.publicTokenEquivalentToPaymentType ||
                   state?.errors?.publicTokenEquivalentToPaymentType}</span>}
           </Col>

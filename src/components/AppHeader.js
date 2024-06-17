@@ -270,7 +270,7 @@ function AppHeader(props){
               </span>
             </div>
             <div className='mb-hide '>
-              <div className='user-head profile-value text-light'>{UserProfile?.name}</div>
+              <p className='user-head profile-value text-light mb-0'>{UserProfile?.name}</p>
             </div>
           </div>}
           id="dropdown-menu-align-end">
