@@ -7,10 +7,12 @@ import Favorited from "./favorited"
 import { useParams } from 'react-router-dom';
 import { getMarketPlaceData } from '../../utils/api';
 import { useSelector } from 'react-redux';
+import Spinner from 'react-bootstrap/Spinner';
 
 const Nfts = (props) => {
   const [activeTab, setActiveTab] = useState('Created');
   let { address } = useParams();
+  const [pageLoader,setPageLoader] = useState(false)
   const [creatorscount, setCreatorsCount] = useState(0);
   const [favouritesCount, setFavouritesCount] = useState(0);
   const [ownedCount, setOwnedCount] = useState(0);
@@ -29,9 +31,11 @@ const Nfts = (props) => {
     setActiveTab(e);
   };
   const fetchData = async () => {
+    setPageLoader(true);
     await getCreatedCount(walletAddress);
     await getFavoritedCount(walletAddress);
     await getOwnedCount(walletAddress);
+    setPageLoader(false)
   };
 
   const getCreatedCount = async (walletAddS) => {
@@ -62,7 +66,9 @@ const Nfts = (props) => {
   };
 
     return(
-        <div>
+    <div>
+      {pageLoader&&<div className="text-center"> <Spinner></Spinner></div> }
+       {!pageLoader && <div>
       <Tabs defaultActiveKey="Created" activeKey={activeTab} onSelect={handleTabChange}   className="mb-3 mt-3 sub-tabs marketplace-tabs" id="uncontrolled-tab-example">
       <Tab eventKey="Created" title={`Created (${creatorscount == null ? 0 :creatorscount})`} className="sub-override">
       {activeTab === 'Created' && <Created activeTab={activeTab} walletAddress={walletAddress} userDetails={props.userDetailsId} />}
@@ -73,7 +79,8 @@ const Nfts = (props) => {
       <Tab eventKey="Owned" title={`Owned (${ownedCount == null ? 0 : ownedCount})`} className="sub-override">
       {activeTab === 'Owned' && <Owned activeTab={activeTab} walletAddress={walletAddress} userDetails={props.userDetailsId}/>}
       </Tab>
-    </Tabs></div>
+    </Tabs></div>}
+    </div>
     );
 
 }

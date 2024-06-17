@@ -14,6 +14,7 @@ import nodata from "src/assets/images/no-data.png"
 import defaultLogo from '../../assets/images/default-avatar.jpg';
 
 const CreatedList = (props) => {
+  const shouldLog = useRef(true);
   const [nftcollections, setNftCollections] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
   const pageSize = 10;
@@ -23,7 +24,6 @@ const CreatedList = (props) => {
   const [loader, setLoader] = useState(false);
   const [nftSearch,NftSearch]=useState(null)
   const navigate = useNavigate();
-  const shouldLog = useRef(true);
 
   useEffect(() => {
     if (shouldLog.current) {
