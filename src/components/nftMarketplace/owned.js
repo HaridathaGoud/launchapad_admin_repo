@@ -20,16 +20,14 @@ const owned = (props) => {
   const [loader, setLoader] = useState(false);
   const [nftSearch,NftSearch]=useState(null)
   const navigate = useNavigate();
-
   const shouldLog = useRef(true);
+
   useEffect(() => {
     if (shouldLog.current) {
       shouldLog.current = false;
-      
-    if (props.activeTab == 'Owned') {
       getOwnedNfts(1, 10, type, null);
-    }}
-  }, []);
+  }
+  }, [props.activeTab]);
 
   const fetchMoreData = () => {
     getOwnedNfts(pageNo, pageSize, type, search);

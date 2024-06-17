@@ -23,12 +23,13 @@ const CreatedList = (props) => {
   const [loader, setLoader] = useState(false);
   const [nftSearch,NftSearch]=useState(null)
   const navigate = useNavigate();
-  const shouldLog = useRef(false);
+  const shouldLog = useRef(true);
 
   useEffect(() => {
-    if (shouldLog.current) return;
-    shouldLog.current = true;
-    GetNfts(pageNo, pageSize, type, null);
+    if (shouldLog.current) {
+      shouldLog.current = false;
+      GetNfts(1, pageSize, null, null);
+    }
   }, []);
 
   const fetchMoreData = () => {

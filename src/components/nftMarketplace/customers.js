@@ -101,13 +101,14 @@ const CustomersInfo = () => {
 }
   return (
     <div className=''>
-       <h5 className="mt-3 page-title mb-3">Personal info</h5>
+       <h5 className="mt-3 page-title mb-3">Personal Info</h5>
       <div className='profile-container'>
       <CBreadcrumb>
           <CBreadcrumbItem className="c-pointer">
             <CLink  onClick={() => navigate('/marketplace/customers')}>Customers</CLink>
           </CBreadcrumbItem>
-          <CBreadcrumbItem>Personal info</CBreadcrumbItem>
+          <CBreadcrumbItem>Personal Info</CBreadcrumbItem>
+          <CBreadcrumbItem>{userDetails?.firstName || "unnamed"}</CBreadcrumbItem>
         </CBreadcrumb>
        
         {errorMessage && (

@@ -103,14 +103,14 @@ const handleTabChange = (tab) => {
 };
   return (
     <div className=''>
-       <h5 className="mt-3 page-title mb-3">Personal info</h5>
+       <h5 className="mt-3 page-title mb-3">Personal Info</h5>
       <div className='profile-container'>
       <CBreadcrumb>
           <CBreadcrumbItem>
           {window.location.pathname.includes('launchpad') ?
           <CLink href="#" onClick={() => navigate('/launchpad/customers')}>Customers</CLink>:<CLink href="#" onClick={() => navigate('/kyc/customers')}>Customers</CLink>}
           </CBreadcrumbItem>
-          <CBreadcrumbItem>Personal info</CBreadcrumbItem>
+          <CBreadcrumbItem>Personal Info</CBreadcrumbItem>
           <CBreadcrumbItem>{userDetails?.firstName ? userDetails?.firstName : "unnamed"}</CBreadcrumbItem>
         </CBreadcrumb>
        

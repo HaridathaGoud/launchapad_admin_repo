@@ -19,10 +19,11 @@ const Nfts = (props) => {
   const shouldLog = useRef(false);
 
   useEffect(() => {
-    if (shouldLog.current) return;
-    shouldLog.current = true;
-    fetchData();
-  }, []);
+    if (!shouldLog.current) {
+      shouldLog.current = true;
+      fetchData();
+    }
+  }, [activeTab]);
 
   const handleTabChange = (e) => {
     setActiveTab(e);
