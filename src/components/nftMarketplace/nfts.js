@@ -15,21 +15,24 @@ const Nfts = (props) => {
   const [favouritesCount, setFavouritesCount] = useState(0);
   const [ownedCount, setOwnedCount] = useState(0);
   const UserProfile = useSelector(state => state?.profile?.user)
-  const walletAddress = address ? address : UserProfile?.walletAddress
-  const shouldLog = useRef(true);
+  const walletAddress = address || UserProfile?.walletAddress;
+  const shouldLog = useRef(false);
 
   useEffect(() => {
-    if (shouldLog.current) {
-      shouldLog.current = false;
-      getCreatedCount(walletAddress);
-      getFavoritedCount(walletAddress);
-      getOwnedCount(walletAddress);
-    }
+    if (shouldLog.current) return;
+    shouldLog.current = true;
+    fetchData();
   }, []);
 
   const handleTabChange = (e) => {
     setActiveTab(e);
   };
+  const fetchData = async () => {
+    await getCreatedCount(walletAddress);
+    await getFavoritedCount(walletAddress);
+    await getOwnedCount(walletAddress);
+  };
+
   const getCreatedCount = async (walletAddS) => {
     await getMarketPlaceData(`CreatorsCount/${walletAddS}`)
       .then((response) => {
@@ -58,7 +61,6 @@ const Nfts = (props) => {
   };
 
     return(
-        <>
         <div>
       <Tabs defaultActiveKey="Created" activeKey={activeTab} onSelect={handleTabChange}   className="mb-3 mt-3 sub-tabs marketplace-tabs" id="uncontrolled-tab-example">
       <Tab eventKey="Created" title={`Created (${creatorscount == null ? 0 :creatorscount})`} className="sub-override">
@@ -71,7 +73,6 @@ const Nfts = (props) => {
       {activeTab === 'Owned' && <Owned activeTab={activeTab} walletAddress={walletAddress} userDetails={props.userDetailsId}/>}
       </Tab>
     </Tabs></div>
-        </>
     );
 
 }
