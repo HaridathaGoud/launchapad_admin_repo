@@ -18,6 +18,7 @@ import { adminProfileImg } from '../../reducers/authReducer'
 import store from 'src/store/index';
 import ToasterMessage from "src/utils/toasterMessages";
 import { validateContentRules } from "src/utils/custom.validator";
+import { AutoComplete } from "@progress/kendo-react-dropdowns";
 
 const UserProfile = (props) => {
   const [adminDetails, setAdminDetails] = useState({});
@@ -33,6 +34,9 @@ const UserProfile = (props) => {
   const [form, setForm] = useState({});
   const [detailsData,setDetailsData]=useState();
   const [picLoader,setPicLoader]=useState(false);
+  const [filteredPhnCodes,setFilteredPhnCodes]=useState([])
+  const [filteredCountries,setFilteredCountries]=useState([])
+
   let params = useParams();
   const [profile, setProfile] = useState({
     firstName: '',
@@ -112,8 +116,8 @@ const UserProfile = (props) => {
     else if(!validateContentRules("",phoneNo) || phoneNo.length <6){
       newErrors.phoneNo = "Invalid phone number";
     }
-    else if((!countryCode||countryCode==="select")){
-        newErrors.phoneNo = "Invalid phone code";
+    else if ((!countryCode || countryCode === " ") ||countryCode ==="Select" || countryCode===undefined) {
+      newErrors.phoneNo = "Is required";
     }
     if(!country || country === "Select Country"){
       newErrors.country = "Is required";
@@ -223,7 +227,30 @@ const UserProfile = (props) => {
     setErrors({});
     setForm({});
   }
+  const filterPhoneCodes = (event) => {
+    const value = event.target.value;
+    if (typeof value !== 'string') {
+      value = '';
+    }
+    const filtered = jsonPhoneCode?.filter(item =>
+      item.code && item.code?.toLowerCase()?.includes(value?.toLowerCase())
+    ).slice(-10);
 
+    setFilteredPhnCodes(filtered);
+    setField('countryCode', value);
+  }
+  const filterCountries = (event) => {
+    const value = event.target.value;
+    if (typeof value !== 'string') {
+        value = ''; 
+    }
+    const filtered = jsonCountryCode?.filter(item =>
+        item.name && item.name?.toLowerCase()?.includes(value?.toLowerCase())
+    ).slice(-10); 
+
+    setFilteredCountries( filtered );
+    setField('country', value);
+}
   return (
    <>
     <div className='container'>
@@ -404,25 +431,15 @@ const UserProfile = (props) => {
                           <Form.Label >Phone No<span className="text-danger">*</span></Form.Label>
                     <InputGroup className="mb-2 input-style no-wrap mobile-noinput">
 
-                      <Form.Control
-                        required
-                        as="select"
-                        type="select"
-                        name="country"
-                        className="code-width c-pointer"
-                        aria-label="Default select example"
-                        onChange={(e) => { setField('countryCode', e.currentTarget.value) }}
-                        value={form?.countryCode}
-                        defaultValue={form?.countryCode || adminDetails?.countryCode}
-                        isInvalid={!!errors.countryCode}
-                      >
-                        <option>select</option>
-                        {jsonPhoneCode.map((item, index) => (<>
-                          <option key={index}>{item.code}</option>
-                        </>
-                        ))}
-                        
-                      </Form.Control>
+                                  <AutoComplete
+                                    className="form-control auto-complete-dropdown phone-code"
+                                    data={filteredPhnCodes?.map(item => item?.code)}
+                                    value={form?.countryCode}
+                                    defaultValue={form?.countryCode}
+                                    placeholder="Country Code..."
+                                    style={{ width: "150px" }}
+                                    onChange={filterPhoneCodes}
+                                  />
                       <Form.Control.Feedback type="invalid">{errors.countryCode}</Form.Control.Feedback>
                      
                       <Form.Control
@@ -451,25 +468,15 @@ const UserProfile = (props) => {
                           
                           <Form.Label >Country<span className="text-danger">*</span></Form.Label>
                               <InputGroup className="mb-3 input-style no-wrap mobile-noinput country-code-style">
-
-                                <Form.Control
-                                  required
-                                  as="select"
-                                  type="select"
-                                  name="country"
-                                  className="c-pointer"
-                                  aria-label="Default select example"
-                                  value={form?.country}
-                                  defaultValue={form?.country || adminDetails?.country}
-                                  maxLength={20}
-                                  isInvalid={!!errors.country}
-                                  onChange={(e) => { setField('country', e.currentTarget.value) }}
-                                >
-                                  <option>Select Country</option>
-                                  {jsonCountryCode.map((item, index) => (
-                                    <option key={index}>{item.name}</option>
-                                  ))}
-                                </Form.Control>
+                                  <AutoComplete
+                                    className="form-control auto-complete-dropdown"
+                                    data={filteredCountries?.map(item => item?.name)}
+                                    value={form?.country}
+                                    defaultValue={form?.country}
+                                    placeholder="Enter Country"
+                                    style={{ width: "100%" }}
+                                    onChange={filterCountries}
+                                  />
                                 {/* <span className="icon downarrow-white"></span> */}
                                
                                 <Form.Control.Feedback type="invalid">{errors.country}</Form.Control.Feedback>
