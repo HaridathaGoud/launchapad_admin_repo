@@ -9,6 +9,7 @@ const ToasterMessage = (props) => {
                 position='bottom-center'
                 bg='Success'
                 delay={3000} autohide
+                className="border-none"
             >
                 <Toast.Body><span className="icon success me-2"></span>{props?.success}</Toast.Body>
             </Toast>

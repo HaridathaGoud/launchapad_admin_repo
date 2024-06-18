@@ -42,15 +42,15 @@ import PropTypes from 'prop-types'
                   <Col md={12}>
                       <div className='d-flex gap-2 mb-2'>
                         <span className='icon website shrink-0'></span>
-                        <p className="profile-value mb-0">{item?.webisite || "--"} </p>
+                        <p className="profile-value mb-0" title={item?.webisite}>{item?.webisite || "--"} </p>
                       </div>
                       <div className='d-flex gap-2 mb-2'>
                         <span className='icon instagram shrink-0'></span>
-                        <p className="profile-value mb-0">{item?.instagram || "--"} </p>
+                        <p className="profile-value mb-0" title={item?.instagram}>{item?.instagram || "--"} </p>
                       </div>
                       <div className='d-flex gap-2 mb-2'>
                         <span className='icon facebook shrink-0'></span>
-                        <p className="profile-value mb-0">{item?.facebook || "--"}</p>
+                        <p className="profile-value mb-0" title={item?.facebook}>{item?.facebook || "--"}</p>
                       </div>
                   </Col>
                 </Row>
