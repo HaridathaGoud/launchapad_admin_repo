@@ -571,6 +571,7 @@ th .k-link{cursor: default !important;}
 .text-invalid{color:#e55353;font-size: 0.875em;}
 .input-style .auto-complete-dropdown input{padding: 0 !important;}
 .phone-select{flex-wrap: nowrap !important;}
+.deploy-loader{width: 16px !important;height: 16px !important;font-size: 14px;}
 @media (min-width: 768px) {
   .profile-size{ width: 106px;}
   .profile-size, .customer-pfview{width: 258px;}
