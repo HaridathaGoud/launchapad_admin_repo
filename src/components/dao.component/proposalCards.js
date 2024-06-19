@@ -206,20 +206,27 @@ const Dao = (props) => {
     const getStartDateProposalData = (e) => {
         dispatch({ type: 'setLookUpError', payload: false })
         let stData = e.target.value;
-        dispatch({ type: 'date', payload: stData })
-        if(stData &&  state.dateStatus < stData){
-            dispatch({ type: 'setErrorMsg', payload: "Start date cannot be greater than the end date." })
-            dispatch({ type: 'setLookUpError', payload: true })
-            window.scroll(0,0);
-            dispatch({ type: 'setShimmerLoading', payload: false})
-          }else if(stData && state?.dateStatus){
-            dispatch({ type: 'setShimmerLoading', payload: true})
-            dispatch({ type: 'setErrorMsg', payload: null})
-            dispatch({ type: 'setPageNo', payload: 2 })
-            props.proposalDetailsList(1, pageSize, params.id, state?.status, search, stData, state.dateStatus,handleCallback)
-        }else if(!stData && state?.dateStatus){
-            props.proposalDetailsList(1, pageSize, params.id,  state?.status, search, stData, state.dateStatus,handleCallback)
+        if(stData){
+            dispatch({ type: 'date', payload: stData })
+            if((stData && state.dateStatus) &&  state.dateStatus < stData){
+                dispatch({ type: 'setErrorMsg', payload: "Start date cannot be greater than the end date." })
+                dispatch({ type: 'setLookUpError', payload: true })
+                window.scroll(0,0);
+                dispatch({ type: 'setShimmerLoading', payload: false})
+              }else if(stData && state?.dateStatus){
+                dispatch({ type: 'setShimmerLoading', payload: true})
+                dispatch({ type: 'setErrorMsg', payload: null})
+                dispatch({ type: 'setPageNo', payload: 2 })
+                props.proposalDetailsList(1, pageSize, params.id, state?.status, search, stData, state.dateStatus,handleCallback)
+            }else if(!stData && state?.dateStatus){
+                props.proposalDetailsList(1, pageSize, params.id,  state?.status, search, stData, state.dateStatus,handleCallback)
+            }
+        }else{
+            dispatch({ type: 'setLoading', payload: true})
+            dispatch({ type: 'date', payload: null })
+         setTimeout(()=>{ dispatch({ type: 'setLoading', payload: false})},1000)
         }
+        
     }
     const getEndDateProposalData = (e) => {
         dispatch({ type: 'setShimmerLoading', payload: true})
