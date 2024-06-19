@@ -164,10 +164,10 @@ const Projects = (props) => {
     window.scroll(0, 0);
     props.projectDetailsReducerData(pId || props.informationProjectView, (callback) => {
       dispatch({ type: 'projectSaveDetails', payload: callback.data?.projectsViewModel })
-      dispatch({ type: 'projectLogoImages', payload: callback.data?.projectsViewModel?.tokenLogo })
+      dispatch({ type: 'projectLogoImages', payload: callback.data?.projectsViewModel?.cardImage })
       dispatch({ type: 'projectBannerImages', payload: callback.data?.projectsViewModel?.bannerImage })
       dispatch({ type: 'MediaImage', payload: callback.data?.projectsViewModel?.mediaImage })
-      dispatch({ type: 'projectCardImages', payload: callback.data?.projectsViewModel?.cardImage })
+      dispatch({ type: 'projectCardImages', payload: callback.data?.projectsViewModel?.tokenLogo })
       dispatch({ type: 'castCrewDataList', payload: callback.data?.projectsViewModel?.castCrews ? callback.data?.projectsViewModel?.castCrews : [] });
       dispatch({ type: 'projectDetails', payload: callback.data })
       dispatch({ type: 'loading', payload: false })
@@ -249,12 +249,12 @@ const Projects = (props) => {
         "contractAddress": state.projectSaveDetails?.contractAddress ||null,
         "tokenName": state.projectSaveDetails?.tokenName || null,
         "tokenSymbol": state.projectSaveDetails?.tokenSymbol || null,
-        "tokenLogo": state.projectLogoImages,
+        "tokenLogo": state.projectCardImages,
         "tokenDecimal": state.projectSaveDetails?.tokenDecimal || null,
         "totalNumberOfTokens": state.projectSaveDetails?.totalNumberOfTokens || null,
         "bannerImage": state.projectBannerImages,
         "mediaImage" : state.MediaImage,
-        "cardImage": state.projectCardImages || null,
+        "cardImage":state.projectLogoImages || null,
         "projectName": state.projectSaveDetails?.projectName,
         "networkSymbol": "Matic",
         "vestingDetails": "string",
