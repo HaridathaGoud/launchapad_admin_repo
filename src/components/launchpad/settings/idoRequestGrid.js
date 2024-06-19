@@ -456,7 +456,7 @@ class IdoRequestGrid extends Component {
                         </Modal.Title>
                         <span className="icon close" onClick={() => this.handleCloseProjectInformationView()}></span>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body className='project-details-popup'>
                         <div className="row">
                             <Projects informationProjectView={this.state.informationProjectView} closeProject={this.closeProject} />
                         </div>
