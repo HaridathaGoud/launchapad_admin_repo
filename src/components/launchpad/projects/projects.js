@@ -664,11 +664,73 @@ return (<>
 
               <div className='d-lg-flex align-items-center justify-content-between mb-2'><h3 className='section-title mb-1 mt-2'>Project Details</h3><p className='mb-0 page-number'><span className='active-number'>1</span> of 3</p></div>
                
-              <Row className='mb-4'>
-                <Col lg={3} md={12}>
+              <Row className='mb-4 border p-3 rounded'>
+                <Col lg={4} md={12}>
+                <div>
+                  <Form.Label className="input-label upload-file ms-2">Upload Media Image<span className="text-danger">*</span></Form.Label>
+                  <div
+                    className={`media-image ${isIdeoRequest ?
+                      'upload-img mb-2 position-relative c-notallowed' :
+                      'upload-img mb-2 position-relative '}`}
+                  >
+                    {state.MediaImageLoader && <Spinner fallback={state.MediaImageLoader} className='position-absolute'></Spinner>}
+                    {state.MediaImage && !state.MediaImageLoader && <span className='imgupload-span'>
+                      <Image src={state.MediaImage} width="100" height="100" alt="" /></span>}
+                    {!state.MediaImage && !state.MediaImageLoader &&
+                      <div className="choose-image">
+                        <div>
+                          <Form.Control
+                            required
+                            className="d-none custom-btn active btn"
+                            type="file"
+                            ref={inputRef4}
+                            isInvalid={!!state.errors.MediaImage}
+                            onChange={(e) => uploadToClient(e, 'MediaImage')}
+                            disabled={isIdeoRequest}
+                          />
+                          <span
+                            className="icon camera"
+                            onClick={() => inputRef4.current?.click()}
+                          ></span>
+                        </div>
+                        
+                      </div>                      
+                    }
+                    {state.MediaImage && !state.MediaImageLoader &&
+                      <div
+
+                        className={`${isIdeoRequest ?
+                          'onhover-upload c-notallowed' :
+                          'onhover-upload'}`}>
+                        <div className='bring-front'>
+                          <Form.Control
+                            required
+                            className="d-none custom-btn active btn"
+                            type="file"
+                            ref={inputRef4}
+                            isInvalid={!!state.errors.MediaImage}
+                            onChange={(e) => uploadToClient(e, 'MediaImage')}
+                            disabled={isIdeoRequest}
+                          />
+                          <span
+                            className="icon camera"
+                            onClick={() => inputRef4.current?.click()}
+                          ></span>
+                          <Form.Control.Feedback type="invalid">{state.errors.MediaImage}</Form.Control.Feedback>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                  <p className='error-space ps-0 text-center' type="invalid">{state.errors.MediaImage}</p>
+                  <p className="image-types text-center">
+                       Jpg, Jpeg, Png, Gif, Webp<br/>
+                       46*46
+                      </p>
+                      
+                  </div>
                   <Form.Label className="input-label upload-file ms-2">Project Card Image<span className="text-danger">*</span></Form.Label>
                   <div
-                    className={`banner-size ${isIdeoRequest ?
+                    className={`Project-Card ${isIdeoRequest ?
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
                   >
@@ -693,7 +755,7 @@ return (<>
                           ></span>
 
                           <p className="c-pointer pt-3">
-                            Jpg, Jpeg, Png, Gif, Webp
+                            Jpg, Jpeg, Png, Gif, Webp <br/>345*199
 
                           </p>
                           <Form.Control.Feedback type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback>
@@ -727,7 +789,7 @@ return (<>
                   </div>
                  
                 </Col>
-                <Col lg={9} md={12}>
+                <Col lg={8} md={12}>
                   <Form.Label className="input-label upload-file ms-2">Upload Banner Image<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`banner-size ${isIdeoRequest ?
@@ -755,7 +817,7 @@ return (<>
                             onClick={() => inputRef1.current?.click()}
                           ></span>
                           <p className="c-pointer pt-3">
-                            Jpg, Jpeg, Png, Gif, Webp
+                            Jpg, Jpeg, Png, Gif, Webp <br/>790*380
 
                           </p>
                           <Form.Control.Feedback type="invalid">{state.errors.bannerImage}</Form.Control.Feedback>
@@ -790,70 +852,6 @@ return (<>
                 </Col>
               </Row>
               <Row>
-             
-                 <Row className='sm-p-0'>
-                 <Col lg={2} md={12}  >
-                  <Form.Label className="input-label upload-file ms-2">Upload Media Image<span className="text-danger">*</span></Form.Label>
-                  <div
-                    className={`media-image ${isIdeoRequest ?
-                      'upload-img mb-2 position-relative c-notallowed' :
-                      'upload-img mb-2 position-relative '}`}
-                  >
-                    {state.MediaImageLoader && <Spinner fallback={state.MediaImageLoader} className='position-absolute'></Spinner>}
-                    {state.MediaImage && !state.MediaImageLoader && <span className='imgupload-span'>
-                      <Image src={state.MediaImage} width="100" height="100" alt="" /></span>}
-                    {!state.MediaImage && !state.MediaImageLoader &&
-                      <div className="choose-image">
-                        <div>
-                          <Form.Control
-                            required
-                            className="d-none custom-btn active btn"
-                            type="file"
-                            ref={inputRef4}
-                            isInvalid={!!state.errors.MediaImage}
-                            onChange={(e) => uploadToClient(e, 'MediaImage')}
-                            disabled={isIdeoRequest}
-                          />
-                          <span
-                            className="icon camera"
-                            onClick={() => inputRef4.current?.click()}
-                          ></span>
-
-                          <p className="c-pointer pt-3">
-                            Jpg, Jpeg, Png, Gif, Webp
-
-                          </p>
-                          <Form.Control.Feedback type="invalid">{state.errors.MediaImage}</Form.Control.Feedback>
-                        </div>
-                      </div>
-                    }
-                    {state.MediaImage && !state.MediaImageLoader &&
-                      <div
-
-                        className={`${isIdeoRequest ?
-                          'onhover-upload c-notallowed' :
-                          'onhover-upload'}`}>
-                        <div className='bring-front'>
-                          <Form.Control
-                            required
-                            className="d-none custom-btn active btn"
-                            type="file"
-                            ref={inputRef4}
-                            isInvalid={!!state.errors.MediaImage}
-                            onChange={(e) => uploadToClient(e, 'MediaImage')}
-                            disabled={isIdeoRequest}
-                          />
-                          <span
-                            className="icon camera"
-                            onClick={() => inputRef4.current?.click()}
-                          ></span>
-                          <Form.Control.Feedback type="invalid">{state.errors.MediaImage}</Form.Control.Feedback>
-                        </div>
-                      </div>
-                    }
-                  </div>
-                  </Col>
-                  <Col lg={10} md={12}  >
                   <Row>
                   <Col lg={6} md={12}>
                   <Form.Label
@@ -938,11 +936,7 @@ return (<>
 
                 </Col>
                 </Row>
-                  </Col>
-                 </Row>
-               
-               
-                <Col lg={12} md={12} className='mb-3 mt-3'>
+                <Col lg={12} md={12} className='mb-3'>
 
                   <Form.Label
                     controlId="floatingTextarea"
@@ -987,9 +981,9 @@ return (<>
             </div>
               </Row>
               <h3 className='section-title mb-2 mt-5'>Token Details</h3>
-           <Col lg={7} md={12} className='pe-2' >
+           <Col lg={6} md={12} className='pe-2' >
             <Form.Label className='input-label'>Token Type<span className="text-danger">*</span></Form.Label>
-             <Dropdown className='matic-dropdown' onSelect={handleTokenType}>
+             <Dropdown className={`matic-dropdown ${selectedTokeType =='ERC-721' ? 'token-type':''}`} onSelect={handleTokenType}>
               <Dropdown.Toggle variant="secondary" id="dropdown-basic"
                 disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                   || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -1008,7 +1002,7 @@ return (<>
           </Col> 
               {selectedTokeType =='ERC-20' &&
               <Row className='mb-4 Token-Details mt-4'>
-                <Col lg={2} md={6} className='mb-0'>
+                <Col lg={12} md={12} className='mb-0'>
                   <Form.Label className="input-label upload-file ms-2">Upload Token Icon<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`token-icon ${(state.projectSaveDetails?.projectStatus == "Deployed"
@@ -1037,7 +1031,6 @@ return (<>
                             className="icon camera"
                             onClick={() => inputRef2.current?.click()}
                           ></span>                          
-                          <Form.Control.Feedback className='error-space' type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
                         </div>
 
                       </div>
@@ -1070,13 +1063,15 @@ return (<>
                       </div>
                     }
                   </div>
-                  <p className="image-types">
-                           <b>Note:</b> upload Jpg, <br/> Jpeg, Png, Gif, Webp
+                  <p className='error-space ps-0' type="invalid">{state.errors.cardImage}</p>
+
+                  <p className="image-types text-start">
+                          Jpg, Jpeg, Png, Gif, Webp<br/>  50*50
                           </p>
                 </Col>
 
 
-                <Col lg={5} md={12} className='mb-0'>
+                <Col lg={6} md={12} className='mb-0'>
                   <Row >
                     <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
@@ -1160,7 +1155,7 @@ return (<>
                     
                   </Row>
                 </Col>
-                <Col lg={5} md={12} className='mb-0'>
+                <Col lg={6} md={12} className='mb-0'>
                  <Row>
                  <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
@@ -1221,7 +1216,7 @@ return (<>
                       {/* <Form.Control.Feedback type="invalid">{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</Form.Control.Feedback> */}
                       {(errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens) &&<p className='invaliid-textstyle error-space'>{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</p>}
                     </Col>
-                    <Col lg={12} md={12}>
+                    <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
                         controlId="floatingInput"
                         label="Initial Supply*"
@@ -1257,10 +1252,10 @@ return (<>
             }
             {selectedTokeType =='ERC-721' && 
             <Row className='mb-4 Token-Details mt-4'>
-            <Col lg={6} md={12} className='mb-0'>
+            <Col lg={5} md={12} className='mb-0'>
               <Form.Label className="input-label upload-file">Upload NFT Image<span className="text-danger">*</span></Form.Label>
               <div
-                className={`${(state.projectSaveDetails?.projectStatus == "Deployed"
+                className={`nft-img ${(state.projectSaveDetails?.projectStatus == "Deployed"
                   || isIdeoRequest) ?
                   'upload-img token-upload mb-2 c-notallowed' :
                   'upload-img token-upload mb-2'}`}
@@ -1287,7 +1282,7 @@ return (<>
                         onClick={() => inputRef2.current?.click()}
                       ></span>
                       <p className="c-pointer pt-3">
-                        Jpg, Jpeg, Png, Gif, Webp
+                        Jpg, Jpeg, Png, Gif, Webp <br/> 516*516
                       </p>
                       <Form.Control.Feedback className='error-space' type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
                     </div>
@@ -1328,7 +1323,7 @@ return (<>
             </Col>
 
 
-            <Col lg={6} md={12} className='mb-0'>
+            <Col lg={7} md={12} className='mb-0'>
               <Row >
                 <Col lg={12} md={12} className='mb-3'>
                   <Form.Label

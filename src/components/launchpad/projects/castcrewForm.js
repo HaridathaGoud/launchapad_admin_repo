@@ -13,14 +13,14 @@ import PropTypes from 'prop-types'
 const CastCrewForm = (props) => {
     return (
         <Form>
-            <Modal.Header className="d-flex justify-content-between">
+            <Modal.Header className="d-flex justify-content-between px-4">
                 <Modal.Title id="example-custom-modal-styling-title">
                     Add Cast and Crew
                 </Modal.Title>
                 <span className="icon close" onClick={props.handleCancell} ></span>
 
             </Modal.Header>
-            <Modal.Body className="launchpadadmin-modal">
+            <Modal.Body className="launchpadadmin-modal px-4">
                 {props.castCrewImageError && (
                     <Alert variant="danger">
                         <div className='d-flex align-items-center'>
@@ -32,10 +32,10 @@ const CastCrewForm = (props) => {
                 <div className="text-center">{props.castCrewFormLoader && <Spinner className='text-center'></Spinner>}</div>
                 {!props.castCrewFormLoader &&
                     <Row>
-                        <Col xl={4} className="mb-4">
+                        <Col xl={5} className="mb-2">
                             <Form.Group>
                                 <div
-                                    className={`${props?.isIdeoRequest ?
+                                    className={`cast-img ${props?.isIdeoRequest ?
                                         'upload-img mb-2 position-relative c-notallowed' :
                                         'upload-img mb-2 position-relative '}`}
                                 >
@@ -58,7 +58,7 @@ const CastCrewForm = (props) => {
                                                     onClick={() => props.inputRef3.current?.click()}
                                                 ></span>
                                                 <p className="c-pointer pt-3">
-                                                    Jpg, Jpeg, Png, Gif, Webp
+                                                    Jpg, Jpeg, Png, Gif, Webp <br/>260*255
 
                                                 </p>
                                             </div>
@@ -88,7 +88,7 @@ const CastCrewForm = (props) => {
                                 </div>
                             </Form.Group>
                         </Col>
-                        <Col xl={8}>
+                        <Col xl={7}>
                             <Row>
                                 <Col xl={12} className="mb-3">
                                     <Form.Group className=" " controlId="exampleForm.ControlInput1">
@@ -126,25 +126,7 @@ const CastCrewForm = (props) => {
                                     </Form.Group>
 
                                 </Col>
-                                <Col xl={12} className="mb-3">
-                                    <Form.Group className=" " controlId="exampleForm.ControlInput1">
-                                        <Form.Label >Bio</Form.Label>
-                                        <Form.Control
-                                            value={props?.cast_CrewsFormDeatils?.bio || ''}
-                                            as="textarea"
-                                            name='bio'
-                                            placeholder="Enter Bio"
-                                            style={{ height: '100px' }}
-                                            onChange={(e) => props.handlecastCrewData('bio', e.currentTarget.value)}
-                                            onBlur={(e) => props.handlecastCrewData('bio', e.target.value.trim().replace(/\s+/g, " "))}
-                                            isInvalid={!!props.errors.bio}
-                                            maxLength={256}
-                                            disabled={props?.isIdeoRequest}
-                                        />
-                                        <Form.Control.Feedback className="error-space" type="invalid">{props?.errors?.bio}</Form.Control.Feedback>
-                                    </Form.Group>
-                                </Col>
-                                <Col xl={6} className="mb-3">
+                                <Col lg={12} md={12} className="mb-3">
                                     <Form.Group className=" " controlId="exampleForm.ControlInput1">
                                         <Form.Label >Website Link</Form.Label>
                                         <Form.Control
@@ -162,7 +144,28 @@ const CastCrewForm = (props) => {
                                         <Form.Control.Feedback className="error-space" type="invalid">{props?.errors?.webisite}</Form.Control.Feedback>
                                     </Form.Group>
                                 </Col>
-                                <Col xl={6} className="mb-3">
+
+                            </Row>
+                        </Col>
+                        <Col xl={12} className="mb-3">
+                                    <Form.Group className=" " controlId="exampleForm.ControlInput1">
+                                        <Form.Label >Bio</Form.Label>
+                                        <Form.Control
+                                            value={props?.cast_CrewsFormDeatils?.bio || ''}
+                                            as="textarea"
+                                            name='bio'
+                                            placeholder="Enter Bio"
+                                            style={{ height: '100px' }}
+                                            onChange={(e) => props.handlecastCrewData('bio', e.currentTarget.value)}
+                                            onBlur={(e) => props.handlecastCrewData('bio', e.target.value.trim().replace(/\s+/g, " "))}
+                                            isInvalid={!!props.errors.bio}
+                                            maxLength={256}
+                                            disabled={props?.isIdeoRequest}
+                                        />
+                                        <Form.Control.Feedback className="error-space" type="invalid">{props?.errors?.bio}</Form.Control.Feedback>
+                                    </Form.Group>
+                                </Col>                                
+                                <Col xl={12} className="mb-3">
                                     <Form.Group className=" " controlId="exampleForm.ControlInput1">
                                         <Form.Label >Instagram Link</Form.Label>
                                         <Form.Control
@@ -181,7 +184,7 @@ const CastCrewForm = (props) => {
                                     </Form.Group>
 
                                 </Col>
-                                <Col xl={6} className="mb-3">
+                                <Col xl={12} className="mb-3">
                                     <Form.Group className=" " controlId="exampleForm.ControlInput1">
                                         <Form.Label >FaceBook Link</Form.Label>
                                         <Form.Control
@@ -199,9 +202,6 @@ const CastCrewForm = (props) => {
                                         <Form.Control.Feedback className="error-space" type="invalid">{props.errors?.facebook}</Form.Control.Feedback>
                                     </Form.Group>
                                 </Col>
-
-                            </Row>
-                        </Col>
                     </Row>
                 }
 
