@@ -664,6 +664,7 @@ return (<>
 
               <div className='d-lg-flex align-items-center justify-content-between mb-2'><h3 className='section-title mb-1 mt-2'>Project Details</h3><p className='mb-0 page-number'><span className='active-number'>1</span> of 3</p></div>
                
+              <div className='px-2'>
               <Row className='mb-4 border p-3 rounded'>
                 <Col lg={4} md={12} className='col-width' >
                 <div>
@@ -851,8 +852,9 @@ return (<>
 
                 </Col>
               </Row>
+              </div>
               <Row>
-                  <Row>
+                 
                   <Col lg={6} md={12}>
                   <Form.Label
                     controlId="floatingInput"
@@ -935,7 +937,7 @@ return (<>
 
 
                 </Col>
-                </Row>
+              
                 <Col lg={12} md={12} className='mb-3'>
 
                   <Form.Label
