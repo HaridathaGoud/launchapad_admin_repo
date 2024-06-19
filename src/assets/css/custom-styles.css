@@ -575,6 +575,7 @@ th .k-link{cursor: default !important;}
 .cast-img{height: 255px !important;}
 .launchpad-labels .rounded{border-radius: 14px;}
 @media (min-width: 768px) { 
+  .banner-size { height: 352px !important;}
   .token-type{width: 508px;}
   .profile-size{ width: 106px;}
   .profile-size, .customer-pfview{width: 258px;}
@@ -676,7 +677,8 @@ html:not([dir=rtl]) .sidebar.hide:not(.sidebar-end){ margin-left: 0 !important  
   /* .profile-container{width: 1180px;margin: 0 auto;} */
   /* .custom-grid.marketplace-grid .k-grid-table, .custom-grid.marketplace-grid .k-grid-header-table{width: 1344px;} */
 }
-@media (min-width: 1400px) {
+@media (min-width: 1400px) {  
+  .col-width{width: 380px;}
   .token-type{width: 516px;}
   .Project-Card{width: 345px !important;}
   .banner-size { width: 790px !important;}

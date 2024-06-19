@@ -665,7 +665,7 @@ return (<>
               <div className='d-lg-flex align-items-center justify-content-between mb-2'><h3 className='section-title mb-1 mt-2'>Project Details</h3><p className='mb-0 page-number'><span className='active-number'>1</span> of 3</p></div>
                
               <Row className='mb-4 border p-3 rounded'>
-                <Col lg={4} md={12}>
+                <Col lg={4} md={12} className='col-width' >
                 <div>
                   <Form.Label className="input-label upload-file ms-2">Upload Media Image<span className="text-danger">*</span></Form.Label>
                   <div

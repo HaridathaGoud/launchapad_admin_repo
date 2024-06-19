@@ -359,7 +359,6 @@ select[type='select'].code-width.form-control{ padding-right: 2.2rem !important;
   .project-description.form-control{min-height: 130px !important;}
   .upload-img.token-upload{height: 397px;}
   html:not([dir=rtl]) .sidebar.sidebar-fixed:not(.sidebar-end) { left: 16px;top: 4px;}
-  .banner-size{height: 350px;}
  }
 @media (max-width:1400px){.projects-section .project-detail:before {
 height: 7%;
