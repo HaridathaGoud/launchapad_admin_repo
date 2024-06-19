@@ -87,7 +87,7 @@ const Dao = (props) => {
             getDaosList(null,1);            
         }
         getDaoItem();
-    }, [isAdmin?.id])
+    }, [isAdmin?.id,address])
    
     const getDaosList = async (data,page) => {
         await props.trackWallet({
