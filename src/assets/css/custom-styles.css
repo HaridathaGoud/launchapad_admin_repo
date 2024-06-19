@@ -575,7 +575,8 @@ th .k-link{cursor: default !important;}
 .cast-img{height: 255px !important;}
 .launchpad-labels .rounded{border-radius: 14px;}
 @media (min-width: 768px) { 
-  .project-details-popup .banner-size {    height: 355px !important;}
+  .project-details-popup .banner-size {    height: 355px !important; width: 100% !important;}
+  .project-details-popup .col-width {width: 33% ;}
   .banner-size { height: 380px !important;}
   .token-type{width: 508px;}
   .profile-size{ width: 106px;}
