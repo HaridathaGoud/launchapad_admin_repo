@@ -96,6 +96,7 @@ const UserProfile = (props) => {
     const { firstName, lastName, phoneNo,countryCode, country } = isChange ? obj : form
     const newErrors = {};
     const numbersOnly = /^\d+$/;
+    const alphabetsOnly = /^[a-zA-Z\s]+$/;
     const whiteSpace = /\s/;
     const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
     if (!firstName || firstName === '') {
@@ -119,8 +120,14 @@ const UserProfile = (props) => {
     else if ((!countryCode || countryCode === " ") ||countryCode ==="Select" || countryCode===undefined) {
       newErrors.phoneNo = "Is required";
     }
+    else if(!validateContentRules("",countryCode) || countryCode?.match(specialCharsOnly)) {
+      newErrors.phoneNo = "Accepts numeric only.";
+    }
     if(!country || country === "Select Country"){
       newErrors.country = "Is required";
+    }
+    else if(!validateContentRules("",country) || !country?.match(alphabetsOnly)){
+      newErrors.country = "Accepts alphabets only.";
     }
     return newErrors;
   }
@@ -440,6 +447,7 @@ const UserProfile = (props) => {
                                     style={{ width: "150px" }}
                                     onChange={filterPhoneCodes}
                                   />
+                                 
                       <Form.Control.Feedback type="invalid">{errors.countryCode}</Form.Control.Feedback>
                      
                       <Form.Control
@@ -478,8 +486,9 @@ const UserProfile = (props) => {
                                     onChange={filterCountries}
                                   />
                                 {/* <span className="icon downarrow-white"></span> */}
-                               
-                                <Form.Control.Feedback type="invalid">{errors.country}</Form.Control.Feedback>
+                                <Form.Control.Feedback className="error-space" type="invalid" style={{ display: errors.country ? 'block' : 'none' }}>
+                                  {errors.country}
+                                </Form.Control.Feedback>
                               </InputGroup>
                               </Form.Group>
                           </Col>

@@ -176,6 +176,7 @@ class InvestorsGrid extends Component {
         const emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
         const newErrors = {};
         const numbersOnly = /^\d+$/;
+        const alphabetsOnly = /^[a-zA-Z\s]+$/;
         const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
         if (!firstName?.trim() || firstName?.trim() === '') {
             newErrors.firstName = "Is required";
@@ -203,8 +204,6 @@ class InvestorsGrid extends Component {
         } else if (!emailReg) {
             newErrors.email = "Invalid email address";
         }
-
-
         if (!phoneNo || phoneNo === '') {
             newErrors.phoneNo = "Is required";
         }
@@ -214,8 +213,14 @@ class InvestorsGrid extends Component {
         if ((!phoneNoCountryCode || phoneNoCountryCode === " ") ||phoneNoCountryCode ==="Select" || phoneNoCountryCode===undefined) {
             newErrors.phoneNo = "Is required";
         }
+        else if (!validateContentRules("", phoneNoCountryCode) || phoneNoCountryCode?.match(specialCharsOnly)) {
+            newErrors.phoneNo = "Accepts numeric only";
+        }
         if (!country || country === "Select Country") {
             newErrors.country = "Is required";
+        }
+        else if (!validateContentRules("", country)  || !country?.match(alphabetsOnly) ) {
+            newErrors.country = "Accepts alphabets only.";
         }
         if (!password || password === '') {
             newErrors.password = "Please enter your password";
