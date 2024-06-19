@@ -224,7 +224,7 @@ const handleTabChange = (tab) => {
         >
           <Modal.Header className="d-flex justify-content-between">
             <Modal.Title id="example-custom-modal-styling-title">
-              Confirm Approve ?
+              Confirm Approve 
             </Modal.Title>
             <span className="icon close" onClick={() => handleClose()}></span>
           </Modal.Header>
