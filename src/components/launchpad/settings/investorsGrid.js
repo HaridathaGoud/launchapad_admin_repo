@@ -397,7 +397,7 @@ class InvestorsGrid extends Component {
                                                     maxLength={49}
                                                     className=""
                                                 />
-                                                <Form.Control.Feedback type="invalid">{this.state.errors.firstName}</Form.Control.Feedback>
+                                                <Form.Control.Feedback className="error-space" type="invalid">{this.state.errors.firstName}</Form.Control.Feedback>
                                             </Form.Group>
 
                                         </Col>
@@ -416,7 +416,7 @@ class InvestorsGrid extends Component {
                                                     placeholder="Enter Last Name "
                                                     maxLength={49}
                                                 />
-                                                <Form.Control.Feedback type="invalid">{this.state.errors.lastName}</Form.Control.Feedback>
+                                                <Form.Control.Feedback className="error-space" type="invalid">{this.state.errors.lastName}</Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
                                         <Col xl={6} className="mb-3">
@@ -439,7 +439,7 @@ class InvestorsGrid extends Component {
                                                         );
                                                       }}
                                                 />
-                                                <Form.Control.Feedback type="invalid">{this.state.errors.userName}</Form.Control.Feedback>
+                                                <Form.Control.Feedback className="error-space" type="invalid">{this.state.errors.userName}</Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
                                         <Col xl={6} className="mb-3">
@@ -471,7 +471,7 @@ class InvestorsGrid extends Component {
                                                     }));
                                                 }} className={`icon ${this.state?.showPassword ? "pwd-eye-close" : "pwd-eye"} position-absolute c-pointer`}></span>
                                                 </div>
-                              {this.state.errors.password && <div className="text-invalid">{this.state.errors.password} </div>}
+                              {this.state.errors.password && <div className="text-invalid error-space">{this.state.errors.password} </div>}
                                             </Form.Group>
                                         </Col>
 
@@ -495,7 +495,7 @@ class InvestorsGrid extends Component {
                                                         );
                                                       }}
                                                 />
-                                                <Form.Control.Feedback type="invalid">{this.state.errors.email}</Form.Control.Feedback>
+                                                <Form.Control.Feedback className="error-space" type="invalid">{this.state.errors.email}</Form.Control.Feedback>
                                             </Form.Group>
 
                                         </Col>
@@ -531,7 +531,7 @@ class InvestorsGrid extends Component {
                                                         autoComplete="off"
                                                         maxLength={12}
                                                     />
-                                                    <Form.Control.Feedback className="phonecode-error" type="invalid">{this.state.errors.phoneNo}</Form.Control.Feedback>
+                                                    <Form.Control.Feedback className="phonecode-error error-space" type="invalid">{this.state.errors.phoneNo}</Form.Control.Feedback>
 
                                                 </InputGroup>
                                             </Form.Group>
@@ -551,7 +551,7 @@ class InvestorsGrid extends Component {
                                                             onChange={this.filterCountries}
                                                         />
                                                     </div>
-                                                    <Form.Control.Feedback type="invalid" style={{ display: this.state.errors.country ? 'block' : 'none' }}>
+                                                    <Form.Control.Feedback className="error-space" type="invalid" style={{ display: this.state.errors.country ? 'block' : 'none' }}>
                                                         {this.state.errors.country}
                                                     </Form.Control.Feedback>
                                                 </InputGroup>

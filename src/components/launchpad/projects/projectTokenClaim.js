@@ -288,7 +288,7 @@ const ProjectsTokenClaim = (props) => {
                       || props?.isIdeoRequest
                     )}
                   />
-                  <Form.Control.Feedback type="invalid">{formErrors?.noofSlots || state.errors.noofSlots}</Form.Control.Feedback>
+                  <Form.Control.Feedback className='error-space' type="invalid">{formErrors?.noofSlots || state.errors.noofSlots}</Form.Control.Feedback>
 
 
                 </Col>
@@ -317,7 +317,7 @@ const ProjectsTokenClaim = (props) => {
                       || props?.isIdeoRequest
                     )}
                   />
-                  <Form.Control.Feedback type="invalid">{formErrors.vestingDays || state.errors.vestingDays}</Form.Control.Feedback>
+                  <Form.Control.Feedback className='error-space' type="invalid">{formErrors.vestingDays || state.errors.vestingDays}</Form.Control.Feedback>
 
 
                 </Col>
@@ -344,7 +344,7 @@ const ProjectsTokenClaim = (props) => {
                         props?.isIdeoRequest
                       ) }
                   />
-                  <Form.Control.Feedback type="invalid">{formErrors.privateStartDate || state.errors.privateStartDate}</Form.Control.Feedback>
+                  <Form.Control.Feedback className='error-space' type="invalid">{formErrors.privateStartDate || state.errors.privateStartDate}</Form.Control.Feedback>
                 </Form.Group>
               </Col>
               <Col lg={6} md={12}>
@@ -366,7 +366,7 @@ const ProjectsTokenClaim = (props) => {
                         props?.isIdeoRequest
                       ) }
                   />
-                  <Form.Control.Feedback type="invalid">{formErrors.privateEndDate || state.errors.privateEndDate}</Form.Control.Feedback>
+                  <Form.Control.Feedback className='error-space' type="invalid">{formErrors.privateEndDate || state.errors.privateEndDate}</Form.Control.Feedback>
                 </Form.Group>
               </Col>
 
@@ -388,7 +388,7 @@ const ProjectsTokenClaim = (props) => {
                         props?.projectInfo?.projectStatus == "Approved"  ||
                         props?.isIdeoRequest) }
                   />
-                  <Form.Control.Feedback type="invalid">{formErrors.publicStartDate || state.errors.publicStartDate}</Form.Control.Feedback>
+                  <Form.Control.Feedback className='error-space' type="invalid">{formErrors.publicStartDate || state.errors.publicStartDate}</Form.Control.Feedback>
                 </Form.Group>
               </Col>
 
@@ -410,7 +410,7 @@ const ProjectsTokenClaim = (props) => {
                         props?.projectInfo?.projectStatus == "Approved"  ||
                         props?.isIdeoRequest) }
                   />
-                  <Form.Control.Feedback type="invalid">{formErrors.publicEndDate || state.errors.publicEndDate}</Form.Control.Feedback>
+                  <Form.Control.Feedback className='error-space' type="invalid">{formErrors.publicEndDate || state.errors.publicEndDate}</Form.Control.Feedback>
                 </Form.Group>
 
               </Col>
