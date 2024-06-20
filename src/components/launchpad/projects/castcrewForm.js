@@ -58,7 +58,8 @@ const CastCrewForm = (props) => {
                                                     onClick={() => props.inputRef3.current?.click()}
                                                 ></span>
                                                 <p className="c-pointer pt-3">
-                                                    Jpg, Jpeg, Png, Gif, Webp <br/>260*255
+                                                    Jpg, Jpeg, Png, Gif, Webp <br/>
+                                                    {/* 260*255 */}
 
                                                 </p>
                                             </div>
