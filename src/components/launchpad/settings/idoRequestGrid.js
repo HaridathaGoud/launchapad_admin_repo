@@ -328,7 +328,9 @@ class IdoRequestGrid extends Component {
             }
         }));
     };
-
+     clearErrorMsg=()=>{
+        this.setState({errorMsg: false }) 
+      }
 
     render() {
         const { searchObj, gridUrl } = this.state;
@@ -336,11 +338,14 @@ class IdoRequestGrid extends Component {
             <>
                 {this.state.errorMsg && (
                     <Alert variant="danger">
-                        <div className='d-flex align-items-center'>
-                            <span className='icon error-alert'></span>
-                            <p className='m1-2' style={{ color: 'red' }}>{this.state.errorMsg}</p>
-                        </div>
-                    </Alert>
+                    <div className='d-flex gap-4'>
+                     <div className='d-flex gap-2 flex-1'>
+                     <span className='icon error-alert'></span>
+                     <p className='m1-2' style={{ color: 'red' }}>{this.state.errorMsg}</p>
+                     </div>
+                     <span className='icon close-red' onClick={this.clearErrorMsg}></span>
+                    </div>
+                  </Alert>
                 )}
                 <div className='custom-flex-launchpad statechange-sm'>
                     <Form className="d-flex grid-search">
@@ -382,9 +387,12 @@ class IdoRequestGrid extends Component {
                     <Modal centered show={this.state.show} onHide={this.handleClose} backdrop={false} className="settings-modal profile-modal">
                         {this.state.errorMsg && (
                             <Alert variant="danger">
-                                <div className='d-flex align-items-center'>
-                                    <span className='icon error-alert'></span>
-                                    <p className='m1-2' style={{ color: 'red' }}>{this.state.errorMsg}</p>
+                                <div className='d-flex gap-4'>
+                                    <div className='d-flex gap-2 flex-1'>
+                                        <span className='icon error-alert'></span>
+                                        <p className='m1-2' style={{ color: 'red' }}>{this.state.errorMsg}</p>
+                                    </div>
+                                    <span className='icon close-red' onClick={this.clearErrorMsg}></span>
                                 </div>
                             </Alert>
                         )}

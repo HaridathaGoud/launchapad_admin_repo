@@ -210,7 +210,9 @@ const AllocationRoundTwo = (props) => {
       detailsToUpdate.isround2allocationEnd = isAllocated;
     }
   };
-
+  const clearErrorMsg=()=>{
+    dispatch({ type: 'setErrorMgs', payload: null }) 
+  }
   return (
     <div>
 
@@ -231,22 +233,22 @@ const AllocationRoundTwo = (props) => {
             <CBreadcrumbItem active>Round Two Allocation</CBreadcrumbItem>
           </CBreadcrumb>
           {state.errorMgs && (
-            <Alert variant="danger" className='d-lg-flex justify-content-between mobile-block'>
-              <div className="d-flex align-items-center flex-1">
-                <span className="icon error-alert me-2 alert-error mt-0"></span>
-                <p style={{ color: 'red', }} className="error-align mb-0 allocation-error">
-                  {state.errorMgs}
-                </p>
+            <Alert variant="danger">
+            <div className='d-flex gap-4'>
+              <div className='d-flex gap-2 flex-1'>
+                <span className='icon error-alert'></span>
+                <p className='m1-2' style={{ color: 'red' }}>{state.errorMgs}</p>
               </div>
               {state.txHash && <div className='text-end'>
                 <Link className='text-end hyper-text' to={`${polygonUrl}${state.txHash}`} target="_blank" >
                   Click here </Link>
-                <span className='mr-25 mb-0 ' style={{ color: 'red', }}>to see details</span> 
+                <span className='mr-25 mb-0 ' style={{ color: 'red', }}>to see details</span>
               </div>}
-            </Alert>
+              <span className='icon close-red' onClick={clearErrorMsg}></span>
+            </div>
+          </Alert>
           )}
-       
-          
+           
           <TiersData tiersData={tiersData?.data} detailsFromContract={state.detailsFromContract} projectData={state.data}/>
           <div className='text-end pb-4 pe-5' >
           <Button className='filled-btn' onClick={() => getWalletAddress()}

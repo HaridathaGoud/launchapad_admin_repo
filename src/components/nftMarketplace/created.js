@@ -53,7 +53,8 @@ const CreatedList = (props) => {
         setLoader(false);
         setErrorMsg(null)
       })
-      .catch(() => {
+      .catch((error) => {
+        setErrorMsg(apiCalls.isErrorDispaly(error));
         setLoader(false);
       });
   };
@@ -104,16 +105,23 @@ const CreatedList = (props) => {
       GetNfts(1, 10, 'low to high', null);
     }
   };
+  const clearErrorMsg=()=>{
+    setErrorMsg(null)
+  }
   return (
     <>
       {errorMsg && (
         <Alert variant="danger">
-          <div className='d-flex align-items-center'>
+        <div className='d-flex gap-4'>
+          <div className='d-flex gap-2 flex-1'>
             <span className='icon error-alert'></span>
             <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
           </div>
-        </Alert>
+          <span className='icon close-red' onClick={clearErrorMsg}></span>
+        </div>
+      </Alert>
       )}
+      
       <div className="items-tab">
         <div className=" align-items-center mobile-hide accounts-tabs">
           

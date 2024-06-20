@@ -322,6 +322,10 @@ if (isMobile) {
     inputEndClassName += " mobile-icon";
   }
 }
+const clearErrorMsg=()=>{
+  setErrorMsg(null) 
+  dispatch({type:'modalError',payload:null})
+}
 
     return (
        
@@ -334,13 +338,16 @@ if (isMobile) {
             </Col>
             <Col md={8}>
             {errorMsg && (
-                <Alert variant="danger" className='mt-3'>
-                  <div className='d-flex align-items-center'>
+              <Alert variant="danger">
+                <div className='d-flex gap-4'>
+                  <div className='d-flex gap-2 flex-1'>
                     <span className='icon error-alert'></span>
                     <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
                   </div>
-                </Alert>
-        )}
+                  <span className='icon close-red' onClick={clearErrorMsg}></span>
+                </div>
+              </Alert>
+            )}
               <div className='praposal-left-card ms-md-4'>
                 <Form noValidate onSubmit={(e) => handleRedirectToPublishProposalScreen(e)}>
                   <Form.Label className='starlabel mb-0'>Author</Form.Label>
@@ -453,12 +460,15 @@ if (isMobile) {
           </Modal.Header>
           <Modal.Body> 
           {state?.modalError && (
-                <Alert variant="danger" className='mt-3'>
-                  <div className='d-flex align-items-center'>
+              <Alert variant="danger">
+                <div className='d-flex gap-4'>
+                  <div className='d-flex gap-2 flex-1'>
                     <span className='icon error-alert'></span>
                     <p className='m1-2' style={{ color: 'red' }}>{state?.modalError}</p>
                   </div>
-                </Alert>
+                  <span className='icon close-red' onClick={clearErrorMsg}></span>
+                </div>
+              </Alert>
         )}        
             <div >
             <Col sm={12} xs={12} md={12} lg={12} xl={12} xxl={12} className='text-end mb-4'>

@@ -116,7 +116,7 @@ const KycDetails = (props) => {
                   <div className="col">
                     <p className="mb-0 tab-val">
                       {userDetails?.dob && <>
-                        <Moment format="DD/MM/YYYY">
+                        <Moment format="DD-MM-YYYY">
                           {userDetails?.dob?.slice(0, 10)}
                         </Moment>
                       </>}

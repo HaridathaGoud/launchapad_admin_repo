@@ -23,9 +23,12 @@ const CastCrewForm = (props) => {
             <Modal.Body className="launchpadadmin-modal px-4">
                 {props.castCrewImageError && (
                     <Alert variant="danger">
-                        <div className='d-flex align-items-center'>
-                            <span className='icon error-alert'></span>
-                            <p className='m1-2' style={{ color: 'red' }}>{props.castCrewImageError}</p>
+                        <div className='d-flex gap-4'>
+                            <div className='d-flex gap-2 flex-1'>
+                                <span className='icon error-alert'></span>
+                                <p className='m1-2' style={{ color: 'red' }}>{props.castCrewImageError}</p>
+                            </div>
+                            <span className='icon close-red' onClick={props.clearErrorMsg}></span>
                         </div>
                     </Alert>
                 )}

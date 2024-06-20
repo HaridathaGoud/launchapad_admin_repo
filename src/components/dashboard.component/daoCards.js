@@ -153,12 +153,18 @@ const Dashboard = (props) => {
         goToProposalList(item)
        } 
     }
+    const clearErrorMsg=()=>{
+        setErrorMsg(null); 
+      }
     return (
         <> {errorMsg && (
-            <Alert variant="danger" className='mt-3'>
-              <div className='d-flex align-items-center'>
-                <span className='icon error-alert'></span>
-                <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
+            <Alert variant="danger">
+              <div className='d-flex gap-4'>
+               <div className='d-flex gap-2 flex-1'>
+               <span className='icon error-alert'></span>
+               <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
+               </div>
+               <span className='icon close-red' onClick={clearErrorMsg}></span>
               </div>
             </Alert>
     )}

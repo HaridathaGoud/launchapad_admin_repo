@@ -198,7 +198,9 @@ const ProjectTokenDetails = (props) => {
     if(isAdmin?.isAdmin){
     props.closeProject(false)}
   }
-
+  const clearErrorMsg=()=>{
+    dispatch({type:'errorMgs',payload:null}) 
+  }
   return (<>
     {state.tokenloader&&<div className="text-center"><Spinner ></Spinner></div>}
     {!state.projectsPoolsStaking && !state.tokenloader&&
@@ -206,11 +208,14 @@ const ProjectTokenDetails = (props) => {
       
       {state.errorMgs && (
         <Alert variant="danger">
-          <div className='d-flex align-items-center'>
-            <span className='icon error-alert'></span>
-            <p className='m1-2' style={{ color: 'red' }}>{state.errorMgs}</p>
-          </div>
-        </Alert>
+        <div className='d-flex gap-4'>
+         <div className='d-flex gap-2 flex-1'>
+         <span className='icon error-alert'></span>
+         <p className='m1-2' style={{ color: 'red' }}>{state.errorMgs}</p>
+         </div>
+         <span className='icon close-red' onClick={clearErrorMsg}></span>
+        </div>
+      </Alert>
       )}
       <Form noValidate validated={state.validated} onSubmit={(e) => handleSavePaymentDetails(e)} className='launchpad-labels'>
 
@@ -218,7 +223,7 @@ const ProjectTokenDetails = (props) => {
 
       {isAdmin?.isAdmin&& window.location.pathname.includes('investors') &&   <CBreadcrumb>
           <CBreadcrumbItem>
-            <CLink href="#" onClick={() => navigate(mode === "projectsDetails" && `/launchpad/investors`)}>{mode === "projectsDetails" ? "Inverstors":"Projects"}</CLink>
+            <CLink href="#" onClick={() => navigate(mode === "projectsDetails" && `/launchpad/investors`)}>{mode === "projectsDetails" ? "Project Owners":"Projects"}</CLink>
           </CBreadcrumbItem>
           {mode &&
             <CBreadcrumbItem>

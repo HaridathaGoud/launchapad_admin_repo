@@ -10,6 +10,7 @@ import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from "react-router-dom";
 import nodata from "src/assets/images/no-data.png";
 import defaultLogo from '../../assets/images/default-avatar.jpg';
+import apiCalls from 'src/api/apiCalls';
 
 const favorited = (props) => {
   const [favouritecollections, setFavouriteCollections] = useState([]);
@@ -52,7 +53,7 @@ const favorited = (props) => {
       setFavouriteCollections(mergeData);
     
     } else {
-      setErrorMsg(isErrorDispaly(response));
+      setErrorMsg(apiCalls.isErrorDispaly(response));
       setLoader(false);
     }
   };
@@ -93,18 +94,24 @@ const favorited = (props) => {
     setShowPutOnSale(false);
     getFavourites(1, 10, type, null);
   };
-
+  const clearErrorMsg=()=>{
+    setErrorMsg(null); 
+  }
   return (
     <div>
      
       {errorMsg && (
         <Alert variant="danger">
-          <div className='d-flex align-items-center'>
-            <span className='icon error-alert'></span>
-            <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
-          </div>
-        </Alert>
+        <div className='d-flex gap-4'>
+         <div className='d-flex gap-2 flex-1'>
+         <span className='icon error-alert'></span>
+         <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
+         </div>
+         <span className='icon close-red' onClick={clearErrorMsg}></span>
+        </div>
+      </Alert>
       )}
+      
       <div className="items-tab">
       <div className=" d-flex justify-content-between mobile-show mobile-flex d-sm-bloc">
           <div className="d-flex mb-3 align-items-center">

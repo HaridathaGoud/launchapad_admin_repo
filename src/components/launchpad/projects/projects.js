@@ -592,6 +592,12 @@ const Projects = (props) => {
   const handleTokenTypeChange = (event) => {
     setSelectedTokeType(event.target.value);
   };
+const clearErrorMsg=()=>{
+  setImageError(null)
+  dispatch({ type: 'errorMgs', payload: null })
+  dispatch({ type: 'projectDetails', payload: { ...projectDetails, errorMsg: null } });
+  dispatch({ type: 'castCrewImageError', payload: null })
+}
 
 return (<>
     {state.loader && <div className="text-center"><Spinner ></Spinner></div>}
@@ -605,16 +611,19 @@ return (<>
                <span className='icon error-alert'></span>
                <p className='m1-2' style={{ color: 'red' }}>{state?.errorMgs}</p>
                </div>
-               {/* <span className='icon close-red'></span> */}
+               <span className='icon close-red' onClick={clearErrorMsg}></span>
               </div>
             </Alert>
           )}
 
           {projectDetails?.errorMgs && (
             <Alert variant="danger">
-              <div className='d-flex align-items-center'>
-                <span className='icon error-alert'></span>
-                <p className='m1-2' style={{ color: 'red' }}>{projectDetails?.errorMgs}</p>
+              <div className='d-flex gap-4'>
+               <div className='d-flex gap-2 flex-1'>
+               <span className='icon error-alert'></span>
+               <p className='m1-2' style={{ color: 'red' }}>{projectDetails?.errorMgs}</p>
+               </div>
+               <span className='icon close-red' onClick={clearErrorMsg}></span>
               </div>
             </Alert>
           )}
@@ -623,7 +632,7 @@ return (<>
             {isAdmin?.isAdmin && window.location.pathname.includes('investors') &&
               <CBreadcrumb>
                 <CBreadcrumbItem>
-                  <CLink href="#" onClick={() => navigate(mode === "projectsDetails" ? `/launchpad/investors` : '/launchpad/investors')}>{mode === "projectsDetails" ? "Investors" : "Projects"}</CLink>
+                  <CLink href="#" onClick={() => navigate(mode === "projectsDetails" ? `/launchpad/investors` : '/launchpad/investors')}>{mode === "projectsDetails" ? "Project Owners" : "Projects"}</CLink>
                 </CBreadcrumbItem>
                 {projectName && <CBreadcrumbItem >{projectName}</CBreadcrumbItem>}
                   {mode &&
@@ -655,10 +664,13 @@ return (<>
 
             {imageError && (
               <Alert variant="danger">
-                <div className='d-flex align-items-center'>
-                  <span className='icon error-alert'></span>
-                  <p className='m1-2' style={{ color: 'red' }}>{imageError}</p>
-                </div>
+                <div className='d-flex gap-4'>
+               <div className='d-flex gap-2 flex-1'>
+               <span className='icon error-alert'></span>
+               <p className='m1-2' style={{ color: 'red' }}>{imageError}</p>
+               </div>
+               <span className='icon close-red' onClick={clearErrorMsg}></span>
+              </div>
               </Alert>
             )}
 
@@ -970,7 +982,8 @@ return (<>
                 <div><h6 className='input-label section-title mb-2 mt-2'>Project Feed</h6></div>
             <div className='projects-editor'>
               <Editor
-                apiKey='sr9qzkyye574at479qfqi56rc3bprw5vols3fvpvmewh491f'
+                // apiKey='sr9qzkyye574at479qfqi56rc3bprw5vols3fvpvmewh491f'
+                apiKey='iyxb6xszeihmrg8x8aaj5b2605ajvgmyu79o08ej20sxr6li'
                 onInit={(evt, editor) => editorRef.current = editor}
                 initialValue={state.projectSaveDetails?.introductionHtml}
                 onChange={handledescription}
@@ -1253,7 +1266,7 @@ return (<>
                         )}
                       />
                       {/* <Form.Control.Feedback type="invalid">{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</Form.Control.Feedback> */}
-                      {(errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens) &&<p className='invaliid-textstyle error-space mb-0 mt-1'>{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</p>}
+                      {(errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens) &&<p className='invaliid-textstyle error-space'>{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</p>}
                     </Col>
                     <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
@@ -1441,7 +1454,8 @@ return (<>
               castCrewLoader={castCrewLoader}
               inputRef3={inputRef3}
               castImgLoader={state.castImgLoader}
-              isIdeoRequest={isIdeoRequest}/>
+              isIdeoRequest={isIdeoRequest}
+              clearErrorMsg={clearErrorMsg} />
             </Modal>
           </Form>
         </>

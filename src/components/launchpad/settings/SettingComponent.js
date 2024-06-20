@@ -180,7 +180,9 @@ const convertUtcToLocal = (date) => {
       dispatch({ type: "setValidated", payload: true });
       dispatch({ type: "setBtnLoader", payload: false });
     }
-    
+  }
+  const clearErrorMsg=()=>{
+    dispatch({ type: "setErrorMgs", payload: null }); 
   }
 
   return (
@@ -190,11 +192,15 @@ const convertUtcToLocal = (date) => {
     <div className='token-listing'>
       {state.errorMgs && (
         <Alert variant="danger">
-          <div className='d-flex align-items-center'>
-            <span className='icon error-alert'></span>
-            <p className='m1-2' style={{ color: 'red' }}>{state.errorMgs}</p>
-          </div>
-        </Alert>
+        <div className='d-flex gap-4'>
+         <div className='d-flex gap-2 flex-1'>
+         <span className='icon error-alert'></span>
+         <p className='m1-2' style={{ color: 'red' }}>{state.errorMgs}</p>
+         </div>
+         <span className='icon close-red' onClick={clearErrorMsg}></span>
+        </div>
+      </Alert>
+
       )}
 
       <Form noValidate validated={state.validated} action="" name="settingsForm" >

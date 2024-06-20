@@ -312,7 +312,11 @@ class InvestorsGrid extends Component {
         this.setState({ filteredPhnCodes: filtered });
         this.setField('phoneNoCountryCode', value);
     }
-
+     clearErrorMsg=()=>{
+        this.setState({
+            errorMessageProfile: null,
+        });
+      }
     render() {
         const { searchObj, gridUrl } = this.state;
         return (
@@ -373,12 +377,16 @@ class InvestorsGrid extends Component {
                         <Modal.Body className='launchpadadmin-modal'>
                             {this.state.errorMessageProfile && (
                                 <Alert variant="danger">
-                                    <div className='d-flex align-items-center'>
-                                        <span className='icon error-alert'></span>
-                                        <p className='m1-2' style={{ color: 'red' }}>{this.state.errorMessageProfile}</p>
+                                    <div className='d-flex gap-4'>
+                                        <div className='d-flex gap-2 flex-1'>
+                                            <span className='icon error-alert'></span>
+                                            <p className='m1-2' style={{ color: 'red' }}>{this.state.errorMessageProfile}</p>
+                                        </div>
+                                        <span className='icon close-red' onClick={this.clearErrorMsg}></span>
                                     </div>
                                 </Alert>
                             )}
+                            
                             <Row className="mb-4">
 
 

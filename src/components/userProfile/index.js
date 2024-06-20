@@ -156,7 +156,7 @@ const UserProfile = (props) => {
           obj.isAdmin= adminDetails.isAdmin,
           obj.kycStatus= adminDetails.adminDetails,
           obj.userName= adminDetails.userName
-          let response = await apiCalls.saveAdmin(obj)
+          let response = await apiCalls.saveAdmin('')
           if (response.ok) {
             store.dispatch(adminProfileImg(profile?.profilePicUrl || adminDetails?.profilePicUrl));
             setSuccess("Profile details saved successfully");
@@ -258,18 +258,26 @@ const UserProfile = (props) => {
     setFilteredCountries( filtered );
     setField('country', value);
 }
+const clearErrorMsg=()=>{
+  setErrorMessageProfile(null);
+  setErrorMessage(null);
+}
   return (
    <>
     <div className='container'>
       <div className='profile-container'>
         {errorMessage && (
           <Alert variant="danger">
-            <div className='d-flex align-items-center'>
+          <div className='d-flex gap-4'>
+            <div className='d-flex gap-2 flex-1'>
               <span className='icon error-alert'></span>
               <p className='m1-2' style={{ color: 'red' }}>{errorMessage}</p>
             </div>
-          </Alert>
+            <span className='icon close-red' onClick={clearErrorMsg}></span>
+          </div>
+        </Alert>
         )}
+
         {loader && <div className="profile-section mb-5 mt-5"> 
         <div>
        <Placeholder as="p" animation="glow" className='mt-3 custom-flex align-items-start mb-4 tab-block'>
@@ -369,11 +377,14 @@ const UserProfile = (props) => {
                   <Modal.Body className="launchpadadmin-modal">
                     {errorMessageProfile && (
                       <Alert variant="danger">
-                        <div className='d-flex align-items-center'>
+                      <div className='d-flex gap-4'>
+                        <div className='d-flex gap-2 flex-1'>
                           <span className='icon error-alert'></span>
                           <p className='m1-2' style={{ color: 'red' }}>{errorMessageProfile}</p>
                         </div>
-                      </Alert>
+                        <span className='icon close-red' onClick={clearErrorMsg}></span>
+                      </div>
+                    </Alert>
                     )}
                     <Row className="mb-4">
                       <Col xl={12}>

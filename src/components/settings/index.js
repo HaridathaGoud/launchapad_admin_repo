@@ -167,7 +167,10 @@ const Settings = () => {
       setLoaderform(false);
     }
   }
-
+  const clearErrorMsg=()=>{
+    setPasswordErrorMsg(null);
+    setErrorMessage(null)
+  }
   return (
     <div className=''>
     {pageLoader && <div className="text-center">
@@ -191,12 +194,16 @@ const Settings = () => {
         <h5 className="page-title mb-3 mt-3">Settings</h5>
         {errorMessage && (
           <Alert variant="danger">
-            <div className='d-flex align-items-center'>
-              <span className='icon error-alert'></span>
-              <p className='m1-2' style={{ color: 'red' }}>{errorMessage}</p>
-            </div>
-          </Alert>
+          <div className='d-flex gap-4'>
+           <div className='d-flex gap-2 flex-1'>
+           <span className='icon error-alert'></span>
+           <p className='m1-2' style={{ color: 'red' }}>{errorMessage}</p>
+           </div>
+           <span className='icon close-red' onClick={clearErrorMsg}></span>
+          </div>
+        </Alert>
         )}
+        
         <div className="d-lg-flex gap-4 ">
           <div className='profile-section flex-1 mb-4 mb-lg-0'>
 
@@ -232,12 +239,15 @@ const Settings = () => {
             </Modal.Header>
             <Modal.Body>
               {passwordErrorMsg && (
-                <Alert variant="danger" className="Change-Password d-flex">
-                  <div className='d-flex align-items-center'>
+                <Alert variant="danger">
+                <div className='d-flex gap-4'>
+                  <div className='d-flex gap-2 flex-1'>
                     <span className='icon error-alert'></span>
                     <p className='m1-2' style={{ color: 'red' }}>{passwordErrorMsg}</p>
                   </div>
-                </Alert>
+                  <span className='icon close-red' onClick={clearErrorMsg}></span>
+                </div>
+              </Alert>
               )}
               <Row className="change-passwordmodal">
                 <Col xl={12}>

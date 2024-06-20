@@ -45,16 +45,21 @@ function TestingPraposalflow(props) {
     return recorderValues[recorder - 1];
   };
 
-
+  const clearErrorMsg=()=>{
+    dispatch({ type: 'proViewData', payload: {...proViewData,error:null} }); 
+  }
   return (
       <div className='praposal-left-card mb-5'>
       {errorMsg && (
-          <Alert variant="danger">
-            <div className='d-flex align-items-center'>
-              <span className='icon error-alert'></span>
-              <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
-            </div>
-          </Alert>
+         <Alert variant="danger">
+         <div className='d-flex gap-4'>
+          <div className='d-flex gap-2 flex-1'>
+          <span className='icon error-alert'></span>
+          <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
+          </div>
+          <span className='icon close-red' onClick={clearErrorMsg}></span>
+         </div>
+       </Alert>
             )}
        {!loading?<div className='voting-card'>
           <div className='p-voting'>

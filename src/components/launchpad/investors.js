@@ -14,12 +14,12 @@ const Investors =()=>{
     navigate(`/launchpad/investors/projects/${val?.id}`)
   }
   return(<>
-   <h3 className='page-title mb-3'>Investors</h3>
+   <h3 className='page-title mb-3'>Project Owners</h3>
     <CBreadcrumb>
       <CBreadcrumbItem>
         Launchpad
       </CBreadcrumbItem>
-      <CBreadcrumbItem active>Investors</CBreadcrumbItem>
+      <CBreadcrumbItem active>Project Owners</CBreadcrumbItem>
     </CBreadcrumb>
         
         <InvestorsGrid  getRedirect={handleProjects}/>

@@ -9,6 +9,8 @@ import { getMarketPlaceData,post  } from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 import nodata from "src/assets/images/no-data.png"
 import defaultLogo from '../../assets/images/default-avatar.jpg';
+import Alert from 'react-bootstrap/Alert';
+import apiCalls from 'src/api/apiCalls';
 
 const owned = (props) => {
   const [ownedNftCollection, setOwnedNftCollection] = useState([]);
@@ -50,7 +52,7 @@ const owned = (props) => {
         setLoader(false);
       })
       .catch((error) => {
-        setErrorMsg(isErrorDispaly(error));
+        setErrorMsg(apiCalls.isErrorDispaly(error));
         setLoader(false);
       });
   };
@@ -91,7 +93,7 @@ const owned = (props) => {
         getOwnedNfts(1, 10, type, null);
       })
       .catch((error) => {
-        setErrorMsg(isErrorDispaly(error));
+        setErrorMsg(apiCalls.isErrorDispaly(error));
       });
   };
   const handlePriceRangeSelection = (e) => {
@@ -106,15 +108,21 @@ const owned = (props) => {
   const handleSelect=(item)=>{
    navigate(`/marketplace/customers/profileinfo/${item?.tokenId}/${item?.collectionContractAddress}/${props?.userDetails?.id}/view`)
   }
+  const clearErrorMsg=()=>{
+    setErrorMsg(null); 
+  }
   return (
     <>
       {errorMsg && (
         <Alert variant="danger">
-          <div className='d-flex align-items-center'>
-          <span className='icon error-alert'></span>
-          <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
-          </div>
-        </Alert>
+        <div className='d-flex gap-4'>
+         <div className='d-flex gap-2 flex-1'>
+         <span className='icon error-alert'></span>
+         <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
+         </div>
+         <span className='icon close-red' onClick={clearErrorMsg}></span>
+        </div>
+      </Alert>
       )}
 
       <div className="items-tab">

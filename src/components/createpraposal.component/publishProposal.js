@@ -187,7 +187,9 @@ const publishProposal =  async() => {
         setBtnLoader(false)
       }
 }
-
+const clearErrorMsg=()=>{
+  setErrorMsg(null);
+}
   return (
     <div className='dao-mt'>
       <Link className=' title-width-fit' to={`/dao/createpraposal/${params.id}`}><div className='d-flex align-items-center title-width-fit'>  <span className='icon-dao back mr-2 c-pointer'></span><span className='mb-0 ms-2 back-text'>Create Proposal</span></div></Link>
@@ -199,21 +201,22 @@ const publishProposal =  async() => {
           <Col md={8} className='mt-5'>
             <div className='praposal-left-card ms-md-4'>
               {errorMsg && (
-                <Alert variant="danger" className="cust-alert-design">
-                  <div className='d-flex align-items-center justify-content-between mobile-d-block'>
-                    <p style={{ color: 'red', }} className="d-flex align-items-start error-align mb-0">
-                      <span className="icon error-alert me-2 alert-error mt-0"></span>
-                      {errorMsg}
-                    </p>
-                    {txHash &&
-                      <div>
-                        <Link className='text-end hyper-text' to={`${polygonUrl}${txHash}`} >
-                          Click here </Link>
-                        <span className='mr-25 mb-0 ' style={{ color: 'red', }}>to see details</span></div>}
+                <Alert variant="danger">
+                <div className='d-flex gap-4'>
+                  <div className='d-flex gap-2 flex-1'>
+                    <span className='icon error-alert'></span>
+                    <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
                   </div>
-                </Alert>
+                  {txHash && <div className='text-end'>
+                    <Link className='text-end hyper-text' to={`${polygonUrl}${txHash}`} target="_blank" >
+                      Click here </Link>
+                    <span className='mr-25 mb-0 ' style={{ color: 'red', }}>to see details</span>
+                  </div>}
+                  <span className='icon close-red' onClick={clearErrorMsg}></span>
+                </div>
+              </Alert>
               )}
-
+            
               {!contractData?.loading ? 
               <div className='voting-card'>
                 <div className=' p-voting'>

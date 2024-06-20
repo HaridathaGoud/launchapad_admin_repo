@@ -101,6 +101,10 @@ const ProfileInfo = () => {
 const handleTabChange = (tab) => {
   setActiveTab(tab);
 };
+const clearErrorMsg=()=>{
+  setErrorMsg(false);
+  setErrorMessage(null)
+}
   return (
     <div className=''>
        <h5 className="mt-3 page-title mb-3">Personal Info</h5>
@@ -116,12 +120,16 @@ const handleTabChange = (tab) => {
        
         {errorMessage && (
           <Alert variant="danger">
-            <div className='d-flex align-items-center'>
-              <span className='icon error-alert'></span>
-              <p className='m1-2' style={{ color: 'red' }}>{errorMessage}</p>
+            <div className='d-flex gap-4'>
+              <div className='d-flex gap-2 flex-1'>
+                <span className='icon error-alert'></span>
+                <p className='m1-2' style={{ color: 'red' }}>{errorMessage}</p>
+              </div>
+              <span className='icon close-red' onClick={clearErrorMsg}></span>
             </div>
           </Alert>
         )}
+        
         <div className="text-center">{loader && <ProfileViewShimmer/>}</div>
         {!loader &&
           <div className='profile-section bg-none'>
@@ -231,11 +239,14 @@ const handleTabChange = (tab) => {
           <Modal.Body>
             {errorMsg && (
               <Alert variant="danger">
-                <div className='d-flex align-items-center'>
+              <div className='d-flex gap-4'>
+                <div className='d-flex gap-2 flex-1'>
                   <span className='icon error-alert'></span>
                   <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
                 </div>
-              </Alert>
+                <span className='icon close-red' onClick={clearErrorMsg}></span>
+              </div>
+            </Alert>
             )}
            Do you really want to approve the KYC ?
 

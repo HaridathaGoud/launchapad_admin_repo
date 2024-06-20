@@ -454,7 +454,10 @@ const ProjectCards = () => {
     console.log(error);;
   }
  }
-
+ const clearErrorMsg=()=>{
+  dispatch({ type: 'errorMgs', payload: null }); 
+  dispatch({ type: 'previewErrorMsg', payload: null })
+}
  return (
     <div>
       <div className='Container'>
@@ -464,7 +467,7 @@ const ProjectCards = () => {
         </div>
         {isAdmin && <CBreadcrumb>
           <CBreadcrumbItem>
-            <CLink href="#" onClick={() => navigate(`/launchpad/investors`)} className='c-pointer'>Investors</CLink>
+            <CLink href="#" onClick={() => navigate(`/launchpad/investors`)} className='c-pointer'>Project Owners</CLink>
           </CBreadcrumbItem>
           {projectName && <CBreadcrumbItem >{projectName}</CBreadcrumbItem>}
           <CBreadcrumbItem active>Projects</CBreadcrumbItem>
@@ -477,12 +480,15 @@ const ProjectCards = () => {
         </CBreadcrumb>}
 
         {state.errorMgs && (
-          <Alert variant="danger">
-            <div className='d-flex align-items-center'>
-              <span className='icon error-alert'></span>
-              <p className='m1-2' style={{ color: 'red' }}>{state.errorMgs}</p>
-            </div>
-          </Alert>
+         <Alert variant="danger">
+           <div className='d-flex gap-4'>
+             <div className='d-flex gap-2 flex-1'>
+               <span className='icon error-alert'></span>
+               <p className='m1-2' style={{ color: 'red' }}>{state.errorMgs}</p>
+             </div>
+             <span className='icon close-red' onClick={clearErrorMsg}></span>
+           </div>
+         </Alert>
         )}
 
         <div className='d-md-flex mt-4 justify-content-between'>
@@ -578,12 +584,15 @@ const ProjectCards = () => {
           </Modal.Header>
           <Modal.Body className='p-4'>
             {state.previewErrorMsg && (
-              <Alert variant="danger">
-                <div className='d-flex align-items-center'>
-                  <span className='icon error-alert'></span>
-                  <p className='m1-2' style={{ color: 'red' }}>{state.previewErrorMsg}</p>
-                </div>
-              </Alert>
+             <Alert variant="danger">
+               <div className='d-flex gap-4'>
+                 <div className='d-flex gap-2 flex-1'>
+                   <span className='icon error-alert'></span>
+                   <p className='m1-2' style={{ color: 'red' }}>{state.previewErrorMsg}</p>
+                 </div>
+                 <span className='icon close-red' onClick={clearErrorMsg}></span>
+               </div>
+             </Alert>
             )}
             <div className="text-center">{state.previewLoader && <Spinner className='text-center'></Spinner>}</div>
             {!state.previewLoader &&

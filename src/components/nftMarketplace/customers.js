@@ -84,7 +84,7 @@ const CustomersInfo = () => {
       "customerId": userDetails?.id,
       "isKyc": userDetails?.kycStatus ? true : false
     }
-    let response = await apiCalls.kycStatus(obj)
+    let response = await apiCalls.kycStatus('obj')
     if (response.ok) {
       setBtnLoader(false);
       setShow(false);
@@ -98,6 +98,10 @@ const CustomersInfo = () => {
     setCopied(true)
     setCopySelections(dataItem)
     setTimeout(() => setCopied(false), 1000)
+}
+const clearErrorMsg=()=>{
+  setErrorMessage(null) 
+  setErrorMsg(false);
 }
   return (
     <div className=''>
@@ -113,9 +117,12 @@ const CustomersInfo = () => {
        
         {errorMessage && (
           <Alert variant="danger">
-            <div className='d-flex align-items-center'>
-              <span className='icon error-alert'></span>
-              <p className='m1-2' style={{ color: 'red' }}>{errorMessage}</p>
+            <div className='d-flex gap-4'>
+              <div className='d-flex gap-2 flex-1'>
+                <span className='icon error-alert'></span>
+                <p className='m1-2' style={{ color: 'red' }}>{errorMessage}</p>
+              </div>
+              <span className='icon close-red' onClick={clearErrorMsg}></span>
             </div>
           </Alert>
        
@@ -223,11 +230,14 @@ const CustomersInfo = () => {
         <Modal.Body>
           {errorMsg && (
             <Alert variant="danger">
-              <div className='d-flex align-items-center'>
-                <span className='icon error-alert'></span>
-                <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
-              </div>
-            </Alert>
+            <div className='d-flex gap-4'>
+             <div className='d-flex gap-2 flex-1'>
+             <span className='icon error-alert'></span>
+             <p className='m1-2' style={{ color: 'red' }}>{errorMsg}</p>
+             </div>
+             <span className='icon close-red' onClick={clearErrorMsg}></span>
+            </div>
+          </Alert>
           )}
           Do you really want to approve the KYC ?
 

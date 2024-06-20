@@ -212,7 +212,9 @@ const ProjectsTokenClaim = (props) => {
       props.closeProject(false)
     }
   }
-
+  const clearErrorMsg=()=>{
+    dispatch({ type: 'errorMsg', payload: null }); 
+  }
   return (
     <>
      {state.claimloader&&<div className="text-center"><Spinner ></Spinner></div>}
@@ -221,16 +223,19 @@ const ProjectsTokenClaim = (props) => {
           <>
             {state.errorMsg && (
               <Alert variant="danger">
-                <div className='d-flex align-items-center'>
-                  <span className='icon error-alert'></span>
-                  <p className='m1-2' style={{ color: 'red' }}>{state.errorMsg}</p>
-                </div>
-              </Alert>
+              <div className='d-flex gap-4'>
+               <div className='d-flex gap-2 flex-1'>
+               <span className='icon error-alert'></span>
+               <p className='m1-2' style={{ color: 'red' }}>{state.errorMsg}</p>
+               </div>
+               <span className='icon close-red' onClick={clearErrorMsg}></span>
+              </div>
+            </Alert>
             )}
 
             {isAdmin?.isAdmin && window.location.pathname.includes('investors') && <CBreadcrumb>
               <CBreadcrumbItem>
-                <CLink href="#" onClick={() => navigate(mode === "projectsDetails" && `/launchpad/investors`)}>{mode === "projectsDetails" ? "Inverstors" : "Projects"}</CLink>
+                <CLink href="#" onClick={() => navigate(mode === "projectsDetails" && `/launchpad/investors`)}>{mode === "projectsDetails" ? "Project Owners" : "Projects"}</CLink>
               </CBreadcrumbItem>
               {mode &&
                 <CBreadcrumbItem>
