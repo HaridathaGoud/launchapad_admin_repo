@@ -6,6 +6,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
 import { useSelector} from 'react-redux';
 import { useParams,useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types'
 
 function LaunchPadMenu(props){
   const {pId} = useParams();
@@ -53,10 +54,10 @@ function LaunchPadMenu(props){
         <Popover id="popover-basic" className='settings-popover'>
           <Popover.Header as="h3" className='bg-transparent'>Settings</Popover.Header>
           <Popover.Body>
-                <div className='btn-transparent' onClick={() => handlenavigatemenu('fcfs')}>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('fcfs')} >
                     Set FCFS Start Time
                 </div>
-                <div className='btn-transparent' onClick={() => handlenavigatemenu('fcfsendtime')}>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('fcfsendtime')} >
                     Set FCFS End Time
                 </div>
                 {/* <div className='btn-transparent' onClick={() => handlenavigatemenu('vestingtime')}>
@@ -65,16 +66,16 @@ function LaunchPadMenu(props){
                 <div className='btn-transparent' onClick={() => handlenavigatemenu('tokenlisting')}>
                     Set Token Listing Time
                 </div>*/}
-                <div className='btn-transparent' onClick={() => handlenavigatemenu('roundonestart')}>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('roundonestart')} >
                     Set Round One Start Time
                 </div>
-                <div className='btn-transparent' onClick={() => handlenavigatemenu('roundoneend')}>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('roundoneend')} >
                     Set Round One End Time
                 </div>
-                <div className='btn-transparent' onClick={() => handlenavigatemenu('allocation')}>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('allocation')} >
                     Allocation
                 </div>
-                <div className='btn-transparent' onClick={() => handlenavigatemenu('allocationroundtwo')}>
+                <div className='btn-transparent' onClick={() => handlenavigatemenu('allocationroundtwo')} >
                     Round Two Allocation
                 </div>
           </Popover.Body>
@@ -173,4 +174,8 @@ function LaunchPadMenu(props){
         )
     }
 }
+LaunchPadMenu.propTypes = {
+    handleMenuNavigate: PropTypes.any,
+    app_name : PropTypes.any,
+  };
 export default LaunchPadMenu;

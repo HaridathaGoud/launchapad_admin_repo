@@ -726,7 +726,7 @@ return (<>
                     }
                   </div>
                   <p className='error-space ps-0 text-center' type="invalid">{state.errors.MediaImage}</p>
-                  {!state.MediaImage && state.MediaImageLoader &&<p className="image-types text-center">
+                  {!state.MediaImage &&<p className="image-types text-center">
                        Jpg, Jpeg, Png, Gif, Webp<br/>
                        {/* 46*46 */}
                       </p>}
@@ -1104,10 +1104,10 @@ return (<>
                   </div>
                   <p className='error-space ps-0' type="invalid">{state.errors.cardImage}</p>
 
-                  <p className="image-types text-start">
+                 {!state.projectCardImages &&  <p className="image-types text-start">
                           Jpg, Jpeg, Png, Gif, Webp<br/> 
                            {/* 50*50 */}
-                          </p>
+                          </p>}
                 </Col>
 
 
