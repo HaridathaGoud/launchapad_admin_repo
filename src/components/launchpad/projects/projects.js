@@ -600,9 +600,12 @@ return (<>
         <>
           {state?.errorMgs && (
             <Alert variant="danger">
-              <div className='d-flex align-items-center'>
-                <span className='icon error-alert'></span>
-                <p className='m1-2' style={{ color: 'red' }}>{state?.errorMgs}</p>
+              <div className='d-flex gap-4'>
+               <div className='d-flex gap-2 flex-1'>
+               <span className='icon error-alert'></span>
+               <p className='m1-2' style={{ color: 'red' }}>{state?.errorMgs}</p>
+               </div>
+               <span className='icon close-red'></span>
               </div>
             </Alert>
           )}
