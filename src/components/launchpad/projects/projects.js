@@ -726,10 +726,10 @@ return (<>
                     }
                   </div>
                   <p className='error-space ps-0 text-center' type="invalid">{state.errors.MediaImage}</p>
-                  <p className="image-types text-center">
+                  {!state.MediaImage && state.MediaImageLoader &&<p className="image-types text-center">
                        Jpg, Jpeg, Png, Gif, Webp<br/>
-                       46*46
-                      </p>
+                       {/* 46*46 */}
+                      </p>}
                       
                   </div>
                   <Form.Label className="input-label upload-file ms-2">Project Card Image<span className="text-danger">*</span></Form.Label>
@@ -759,7 +759,8 @@ return (<>
                           ></span>
 
                           <p className="c-pointer pt-3">
-                            Jpg, Jpeg, Png, Gif, Webp <br/>345*199
+                            Jpg, Jpeg, Png, Gif, Webp <br/>
+                            {/* 345*199 */}
 
                           </p>
                           <Form.Control.Feedback type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback>
@@ -821,7 +822,8 @@ return (<>
                             onClick={() => inputRef1.current?.click()}
                           ></span>
                           <p className="c-pointer pt-3">
-                            Jpg, Jpeg, Png, Gif, Webp <br/>790*380
+                            Jpg, Jpeg, Png, Gif, Webp <br/>
+                            {/* 790*380 */}
 
                           </p>
                           <Form.Control.Feedback type="invalid">{state.errors.bannerImage}</Form.Control.Feedback>
@@ -1101,7 +1103,8 @@ return (<>
                   <p className='error-space ps-0' type="invalid">{state.errors.cardImage}</p>
 
                   <p className="image-types text-start">
-                          Jpg, Jpeg, Png, Gif, Webp<br/>  50*50
+                          Jpg, Jpeg, Png, Gif, Webp<br/> 
+                           {/* 50*50 */}
                           </p>
                 </Col>
 
@@ -1315,7 +1318,8 @@ return (<>
                         onClick={() => inputRef2.current?.click()}
                       ></span>
                       <p className="c-pointer pt-3">
-                        Jpg, Jpeg, Png, Gif, Webp <br/> 516*516
+                        Jpg, Jpeg, Png, Gif, Webp <br/>
+                         {/* 516*516 */}
                       </p>
                       <Form.Control.Feedback className='error-space' type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
                     </div>
