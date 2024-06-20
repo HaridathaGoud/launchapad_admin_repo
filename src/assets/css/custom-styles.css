@@ -574,6 +574,9 @@ th .k-link{cursor: default !important;}
 .deploy-loader{width: 16px !important;height: 16px !important;font-size: 14px;}
 .cast-img{height: 255px !important;}
 .launchpad-labels .rounded{border-radius: 14px;}
+.radio-select input{border-color: #9fa2b4;}
+.radio-select .form-check-input:checked{background-color: #d60000;border-color: #d60000;}
+.radio-select .form-check-input:focus{box-shadow: none;}
 @media (min-width: 768px) { 
   .project-details-popup .banner-size {    height: 355px !important; width: 100% !important;}
   .project-details-popup .col-width {width: 33% ;}

@@ -589,8 +589,8 @@ const Projects = (props) => {
     }
   }
 
-  const handleTokenType = (eventKey, event) => {
-    setSelectedTokeType(eventKey);
+  const handleTokenTypeChange = (event) => {
+    setSelectedTokeType(event.target.value);
   };
 
 return (<>
@@ -660,10 +660,10 @@ return (<>
             )}
 
             <div className="text-center"> {state.loader && <div className="text-center"><Spinner ></Spinner></div>}</div>
-            {!state.loader && <><div className='launchpad-labels'>
-
-              <div className='d-lg-flex align-items-center justify-content-between mb-2'><h3 className='section-title mb-1 mt-2'>Project Details</h3><p className='mb-0 page-number'><span className='active-number'>1</span> of 3</p></div>
-               
+            {!state.loader && <>
+           
+            <div className='launchpad-labels'>
+              <div className='d-lg-flex align-items-center justify-content-between mb-2'><h3 className='section-title mb-1 mt-2'>Project Details</h3><p className='mb-0 page-number'><span className='active-number'>1</span> of 3</p></div>               
               <div className='px-2'>
               <Row className='mb-4 border p-3 rounded'>
                 <Col lg={4} md={12} className='col-width' >
@@ -985,7 +985,37 @@ return (<>
               <h3 className='section-title mb-2 mt-5'>Token Details</h3>
            <Col lg={6} md={12} className='pe-2' >
             <Form.Label className='input-label'>Token Type<span className="text-danger">*</span></Form.Label>
-             <Dropdown className={`matic-dropdown ${selectedTokeType =='ERC-721' ? 'token-type':''}`} onSelect={handleTokenType}>
+              <Form className='radio-select d-flex gap-4 ms-3'>
+                <Form.Check
+                  type='radio'
+                  label='ERC-20'
+                  value='ERC-20'
+                  onChange={handleTokenTypeChange}
+                  checked={selectedTokeType === 'ERC-20'}
+                  disabled={
+                    state.projectSaveDetails?.projectStatus === 'Deployed' ||
+                    state.projectSaveDetails?.projectStatus === 'Rejected' ||
+                    state.projectSaveDetails?.projectStatus === 'Approved' ||
+                    state.projectSaveDetails?.projectStatus === 'Deploying' ||
+                    isIdeoRequest
+                  }
+                />
+                <Form.Check
+                  type='radio'
+                  label='ERC-721'
+                  value='ERC-721'
+                  onChange={handleTokenTypeChange}
+                  checked={selectedTokeType === 'ERC-721'}
+                  disabled={
+                    state.projectSaveDetails?.projectStatus === 'Deployed' ||
+                    state.projectSaveDetails?.projectStatus === 'Rejected' ||
+                    state.projectSaveDetails?.projectStatus === 'Approved' ||
+                    state.projectSaveDetails?.projectStatus === 'Deploying' ||
+                    isIdeoRequest
+                  }
+                />
+              </Form>
+             {/* <Dropdown className={`matic-dropdown ${selectedTokeType =='ERC-721' ? 'token-type':''}`} onSelect={handleTokenType}>
               <Dropdown.Toggle variant="secondary" id="dropdown-basic"
                 disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                   || state.projectSaveDetails?.projectStatus == "Rejected"
@@ -1000,7 +1030,7 @@ return (<>
                   <Dropdown.Item eventKey={option.tokenName}>{option.tokenName} </Dropdown.Item>
                 ))}
               </Dropdown.Menu>
-            </Dropdown> 
+            </Dropdown>  */}
           </Col> 
               {selectedTokeType =='ERC-20' &&
               <Row className='mb-4 Token-Details mt-4'>
@@ -1185,7 +1215,6 @@ return (<>
                           || isIdeoRequest
                         )}
                       />
-                      {/* <Form.Control.Feedback type="invalid">{errors?.tokenDecimal || state?.errors?.tokenDecimal}</Form.Control.Feedback> */}
                       {(errors?.tokenDecimal || state?.errors?.tokenDecimal) &&<span className='error-space'>{errors?.tokenDecimal || state?.errors?.tokenDecimal}</span>}
                     </Col>
                     <Col lg={12} md={12} className='mb-3'>
@@ -1245,7 +1274,6 @@ return (<>
                           || isIdeoRequest
                         )}
                       />
-                      {/* <Form.Control.Feedback type="invalid">{errors?.initialSupply || state?.errors?.initialSupply}</Form.Control.Feedback> */}
                       {(errors?.initialSupply || state?.errors?.initialSupply) &&<p className='invaliid-textstyle error-space'>{errors?.initialSupply || state?.errors?.initialSupply}</p>}
                     </Col>
                  </Row>
@@ -1359,6 +1387,10 @@ return (<>
             </Col>
           </Row>}
             </div>
+
+             
+             
+
               <div className='profile-section'>
                 <div className='d-flex justify-content-between  align-items-center mb-2'>
                   <h3 className='section-title '>Cast And Crew <span className="text-danger">*</span></h3>
