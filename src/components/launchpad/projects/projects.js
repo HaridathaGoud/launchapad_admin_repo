@@ -605,7 +605,7 @@ return (<>
                <span className='icon error-alert'></span>
                <p className='m1-2' style={{ color: 'red' }}>{state?.errorMgs}</p>
                </div>
-               <span className='icon close-red'></span>
+               {/* <span className='icon close-red'></span> */}
               </div>
             </Alert>
           )}
