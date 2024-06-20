@@ -669,7 +669,7 @@ return (<>
               <div className='d-lg-flex align-items-center justify-content-between mb-2'><h3 className='section-title mb-1 mt-2'>Project Details</h3><p className='mb-0 page-number'><span className='active-number'>1</span> of 3</p></div>               
               <div className='px-2'>
               <Row className='mb-4 border p-3 rounded'>
-                <Col lg={4} md={12} className='col-width' >
+                <Col lg={4} md={12} className='col-width py-0 d-md-flex flex-column justify-content-between' >
                 <div>
                   <Form.Label className="input-label upload-file ms-2">Upload Media Image<span className="text-danger">*</span></Form.Label>
                   <div
@@ -732,7 +732,8 @@ return (<>
                       </p>}
                       
                   </div>
-                  <Form.Label className="input-label upload-file ms-2">Project Card Image<span className="text-danger">*</span></Form.Label>
+                 <div>
+                 <Form.Label className="input-label upload-file ms-2">Project Card Image<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`Project-Card ${isIdeoRequest ?
                       'upload-img mb-2 position-relative c-notallowed' :
@@ -792,6 +793,7 @@ return (<>
                       </div>
                     }
                   </div>
+                 </div>
                  
                 </Col>
                 <Col lg={8} md={12}>
@@ -1194,7 +1196,7 @@ return (<>
                   </Row>
                 </Col>
                 <Col lg={6} md={12} className='mb-0'>
-                 <Row>
+                 <Row className='mt-space'>
                  <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
                         controlId="floatingInput"
