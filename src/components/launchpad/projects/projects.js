@@ -1253,7 +1253,7 @@ return (<>
                         )}
                       />
                       {/* <Form.Control.Feedback type="invalid">{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</Form.Control.Feedback> */}
-                      {(errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens) &&<p className='invaliid-textstyle error-space'>{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</p>}
+                      {(errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens) &&<p className='invaliid-textstyle error-space mb-0 mt-1'>{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</p>}
                     </Col>
                     <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
