@@ -738,11 +738,11 @@ return (<>
                     }
                   </div>
                   <p className='error-space ps-0 text-center' type="invalid">{state.errors.MediaImage}</p>
-                  {!state.MediaImage &&<p className="image-types text-center">
-                       Jpg, Jpeg, Png, Gif, Webp<br/>
-                       {/* 46*46 */}
-                      </p>}
+                  {!state.MediaImage &&<p className="image-types text-center mb-2">
+                      Jpg, Jpeg, Png, Gif, Webp
                       
+                      </p>}
+                      <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 46 * 46 Resolution</p>
                   </div>
                  <div>
                  <Form.Label className="input-label upload-file ms-2">Project Card Image<span className="text-danger">*</span></Form.Label>
@@ -771,11 +771,10 @@ return (<>
                             onClick={() => inputRef.current?.click()}
                           ></span>
 
-                          <p className="c-pointer pt-3">
+                          <p className="c-pointer pt-3 mb-2">
                             Jpg, Jpeg, Png, Gif, Webp <br/>
-                            {/* 345*199 */}
-
                           </p>
+                          <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 345 * 200 Resolution</p>
                           <Form.Control.Feedback type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback>
                         </div>
                       </div>
@@ -837,9 +836,8 @@ return (<>
                           ></span>
                           <p className="c-pointer pt-3">
                             Jpg, Jpeg, Png, Gif, Webp <br/>
-                            {/* 790*380 */}
-
                           </p>
+                          <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 790 * 350 Resolution</p>
                           <Form.Control.Feedback type="invalid">{state.errors.bannerImage}</Form.Control.Feedback>
                         </div>
                       </div>
@@ -1117,10 +1115,11 @@ return (<>
                   </div>
                   <p className='error-space ps-0' type="invalid">{state.errors.cardImage}</p>
 
-                 {!state.projectCardImages &&  <p className="image-types text-start">
-                          Jpg, Jpeg, Png, Gif, Webp<br/> 
-                           {/* 50*50 */}
-                          </p>}
+                 {!state.projectCardImages &&  <>
+                  <p className="image-types text-start mb-2">Jpg, Jpeg, Png, Gif, Webp </p>
+                   <p className='note-resolution'><span>Note:</span> For Better Appearance Upload 50 * 50 Resolution</p>
+                 </>
+                          }
                 </Col>
 
 
@@ -1332,10 +1331,8 @@ return (<>
                         className="icon camera"
                         onClick={() => inputRef2.current?.click()}
                       ></span>
-                      <p className="c-pointer pt-3">
-                        Jpg, Jpeg, Png, Gif, Webp <br/>
-                         {/* 516*516 */}
-                      </p>
+                      <p className="c-pointer pt-3 mb-2">   Jpg, Jpeg, Png, Gif, Webp </p>                     
+                       <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 516 * 516 Resolution</p>
                       <Form.Control.Feedback className='error-space' type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
                     </div>
 

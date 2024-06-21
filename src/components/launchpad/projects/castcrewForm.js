@@ -60,11 +60,8 @@ const CastCrewForm = (props) => {
                                                     className="icon camera"
                                                     onClick={() => props.inputRef3.current?.click()}
                                                 ></span>
-                                                <p className="c-pointer pt-3">
-                                                    Jpg, Jpeg, Png, Gif, Webp <br/>
-                                                    {/* 260*255 */}
-
-                                                </p>
+                                                <p className="c-pointer pt-3">  Jpg, Jpeg, Png, Gif, Webp  </p> 
+                                                 <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 260 * 255 Resolution</p>
                                             </div>
                                         </div>
                                     }
