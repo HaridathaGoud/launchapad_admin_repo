@@ -141,6 +141,7 @@ const ProjectCards = () => {
   }
 
   const getOwenersProjects = async (pageNum, pageListSize, searchProject) => {
+    setHide(false)
     dispatch({ type: 'errorMgs', payload: null })
     if (state.ownerProjects?.length === 0) {
       dispatch({ type: 'loader', payload: true })
