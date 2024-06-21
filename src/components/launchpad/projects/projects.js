@@ -641,7 +641,7 @@ return (<>
                   </CBreadcrumbItem>}
                   <CBreadcrumbItem >{pId === "00000000-0000-0000-0000-000000000000" ? "Add Project" :`${state.projectSaveDetails?.projectName}`}</CBreadcrumbItem>
                   {pId !== "00000000-0000-0000-0000-000000000000" && <CBreadcrumbItem > {"View"}</CBreadcrumbItem>}
-              </CBreadcrumb>}
+              </CBreadcrumb>} 
 
             {isAdmin?.isAdmin && window.location.pathname.includes('idorequest') &&
               <CBreadcrumb>
