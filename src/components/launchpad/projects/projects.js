@@ -1116,10 +1116,9 @@ return (<>
                   <p className='error-space ps-0' type="invalid">{state.errors.cardImage}</p>
 
                  {!state.projectCardImages &&  <>
-                  <p className="image-types text-start mb-2">Jpg, Jpeg, Png, Gif, Webp </p>
+                  <p className="image-types text-start mb-2">Jpg, Jpeg, Png, Gif, Webp </p></>}
                    <p className='note-resolution'><span>Note:</span> For Better Appearance Upload 50 * 50 Resolution</p>
-                 </>
-                          }
+                 
                 </Col>
 
 
