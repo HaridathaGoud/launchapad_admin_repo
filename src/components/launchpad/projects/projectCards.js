@@ -532,7 +532,7 @@ const ProjectCards = () => {
               <Col xs={12} md={6} lg={3} className="mb-3" key={val?.id}>
                 <div className="card-style p-0 home-card position-relative cursor-pointer">
                   <div className='card-content'>
-                    <div className='card-image' onClick={() => getOnePersonDetailsBasedOnId(val)}> <span className='card-image-span'><img src={val?.tokenLogo || defaultLogo} alt="" /></span></div>
+                    <div className='card-image' onClick={() => getOnePersonDetailsBasedOnId(val)}> <span className='card-image-span'><img src={val?.cardImage || defaultLogo} alt="" /></span></div>
                     <div className="px-3">
                       <div className=" mt-3" onClick={() => getOnePersonDetailsBasedOnId(val)} >
                         <h3 className="project-name">{val?.projectName}</h3>
