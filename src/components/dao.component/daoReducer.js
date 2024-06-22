@@ -19,6 +19,7 @@ export const daoInitialState = {
     hide: false,
     selection: null,
     shimmerLoading:true,
+    connectErrorMsg:null
 
   };
 
@@ -63,6 +64,8 @@ const daoReducers = (state=daoInitialState, action) => {
             return { ...state, selection: action.payload };
         case 'setShimmerLoading':
             return { ...state, shimmerLoading: action.payload };
+        case 'setConnectErrorMsg':
+            return { ...state, connectErrorMsg: action.payload };
     }
     return state;
 }

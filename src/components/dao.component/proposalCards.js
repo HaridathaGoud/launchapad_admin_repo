@@ -58,21 +58,10 @@ const Dao = (props) => {
           return true;
         }
       } catch (error) {
-        dispatch({ type: 'setErrorMsg', payload: "User rejected transaction." })
-        throw new Error('User rejected transaction.');
+        dispatch({ type: 'setErrorMsg', payload: 'Please connect your wallet.' })
       }
     }
-    useEffect(()=>{
-        connectCheck()
-    },[isConnected, address])
 
-    const connectCheck=async()=>{
-        if (isConnected) {
-           await handleNetwork();
-         } else {
-           await connectWallet();
-         }
-    }
     useEffect(() => {
         getApprovedProposalData(state?.status)
         dispatch({ type: 'setLoading', payload: true })
@@ -86,7 +75,6 @@ const Dao = (props) => {
          }else{
             getDaosList(null,1);            
         }
-        getDaoItem();
     }, [isAdmin?.id,address])
    
     const getDaosList = async (data,page) => {
@@ -103,7 +91,31 @@ const Dao = (props) => {
           data: data ,
         },isAdmin?.id);
       };
+      
+      useEffect( ()=>{
+          const daoData = DaoDetail?.find((item) => item?.daoId === params.id?.toLocaleLowerCase());
+          dispatch({ type: 'setDaoDeatils', payload: daoData });
+          if (DaoDetail && daoData?.contractAddress && isConnected && address) {
+            getDetails(daoData);
+            getVotingOwner(daoData);
+          }
+          checkConnection()
+    },[isConnected,address,DaoDetail])
 
+    const checkConnection = async () => {
+        try {
+          if (isConnected) {
+            dispatch({ type: 'setConnectErrorMsg', payload: null });
+            await handleNetwork();
+          } else {
+            dispatch({ type: 'setConnectErrorMsg', payload: 'Please connect your wallet.' });
+            await connectWallet();
+          }
+        } catch (error) {
+          dispatch({ type: 'setConnectErrorMsg', payload: 'Please connect your wallet.' });
+        }
+      };
+       
     useEffect(() => {
         const updatedList = proposalData.map((item) => {
             const currentDate =  moment(new Date()).utc().format("YYYY-MM-DDTHH:mm:ss");
@@ -115,19 +127,6 @@ const Dao = (props) => {
           dispatch({ type: 'setProposalCardList', payload: updatedList })
     }, [proposalData])
 
-    const getDaoItem = async () => {
-        let daoData = DaoDetail?.find((item) => item?.daoId == params.id?.toLocaleLowerCase())
-        dispatch({ type: 'setDaoDeatils', payload: daoData })
-        if(isConnected&& daoData){
-            await connectCheck()
-           await getDetails(daoData)
-           await getVotingOwner(daoData)
-        }else{
-            await connectCheck() ;
-            await getDetails(daoData);
-            await getVotingOwner(daoData);
-        }
-    }
     async function getVotingOwner(daoData) {
       let contractAddress=daoData?.contractAddress;
         try {
@@ -280,7 +279,7 @@ const Dao = (props) => {
       }
       await  handleVote(item);
     } catch (error) {
-      dispatch({ type: 'setErrorMsg', payload: "User rejected transaction."})
+      dispatch({ type: 'setErrorMsg', payload: 'Please connect your wallet.'})
       dispatch({ type: 'setBtnLoader', payload: false})
     }
       }
@@ -414,8 +413,10 @@ const Dao = (props) => {
         )
     }, [address, isConnected, userDetailsFromContract, state?.daoDetails, isAdmin?.isInvestor]);
     const clearErrorMsg=()=>{
-        dispatch({ type: 'setErrorMsg', payload: null}); 
+        dispatch({ type: 'setErrorMsg', payload: null});
+        dispatch({ type: 'setConnectErrorMsg', payload: null}); 
       }
+
     return (
         <>{params.id == "null" ? <ErrorPage /> :
             <>
@@ -423,12 +424,12 @@ const Dao = (props) => {
                 <shimmers.ProposalsShimmer  count={3}/>
                 }
                 {!state?.loading && <div className='dao-mt'>
-                    {state?.errorMsg && (
+                    { (state?.errorMsg ||state?.connectErrorMsg) && (
                         <Alert variant="danger">
                         <div className='d-flex gap-4'>
                           <div className='d-flex gap-2 flex-1'>
                             <span className='icon error-alert'></span>
-                            <p className='m1-2' style={{ color: 'red' }}>{state.errorMsg}</p>
+                            <p className='m1-2' style={{ color: 'red' }}>{state?.errorMsg|| state?.connectErrorMsg}</p>
                           </div>
                           {state.txHash && <div className='text-end'>
                             <Link className='text-end hyper-text' to={`${polygonUrl}${state.txHash}`} target="_blank" >
@@ -458,7 +459,7 @@ const Dao = (props) => {
                                             className={`mb-0 ms-2 back-text cursor-pointer ${UserInfo?.role == "Super Admin" && "c-pointer"}`}
                                              onClick={handledashboard}>Proposals</span></div>
 
-                                        {(userDetailsFromContract?.owner===address ||isEligibleForProposal) && <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
+                                        {isEligibleForProposal && <Button className='filled-btn sm-m-2 c-pointer' onClick={handleRedirect}>Create Proposal</Button>}
                                     </div>
                                 </Col>
 
@@ -557,7 +558,7 @@ const Dao = (props) => {
                                                             </div>))}
                                                         </div>
 
-                                                        {userDetailsFromContract?.daoowner===address && UserInfo.role ==="Admin" && item.status == "Closed" && item?.dateEnded &&
+                                                        {isConnected && userDetailsFromContract?.daoowner===address && UserInfo.role ==="Admin" && item.status == "Closed" && item?.dateEnded &&
                                                          <div className='text-end'>
                                                              <Button
                                                         disabled={state?.btnLoader}
@@ -581,7 +582,7 @@ const Dao = (props) => {
                                     </div>
                                 }
                             </Row>
-                        </div> : <FirstPraposal handleRedirect={handleRedirect} isEligibleForProposal={ isConnected && userDetailsFromContract?.owner=== address ||isEligibleForProposal} />}
+                        </div> : <FirstPraposal handleRedirect={handleRedirect} isEligibleForProposal={ isConnected && isEligibleForProposal} />}
                 </div>}
             </>
         }</>
