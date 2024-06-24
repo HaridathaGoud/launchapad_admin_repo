@@ -511,12 +511,22 @@ const Projects = (props) => {
     }
   }
 
+  const trimField = (field) => {
+    let value = state.projectSaveDetails[field]?.trim() || '';
+    dispatch({ type: 'projectSaveDetails', payload:{ ...state.projectSaveDetails,[field]: value }  })
+}
+
   const handlecastCrewData = (field,value) => {
     dispatch({type: 'cast_CrewsFormDeatils', payload: {...state.cast_CrewsFormDeatils,[field]: value}  });
     if (errors[field]) {
       setErrors({ ...errors, [field]: null })
     }
   }
+  const trimcastCrewField = (field) => {
+    let value = state.cast_CrewsFormDeatils[field]?.trim() || '';
+    dispatch({type: 'cast_CrewsFormDeatils', payload: {...state.cast_CrewsFormDeatils,[field]: value}  });
+}
+
 
   const handleEdit = (index) => {
     setShow(true)
@@ -884,7 +894,8 @@ return (<>
                     type="text"
                     placeholder="Name"
                     onChange={(e)=>handleChange('projectName',e.currentTarget.value)}
-                    onBlur={(e) => handleChange('projectName',e.target.value.trim().replace(/\s+/g, " "))}
+                    onBlur={() => trimField('projectName')}
+                    // onBlur={(e) => handleChange('projectName',e.target.value.trim().replace(/\s+/g, " "))}
                     required
                     maxLength={100}
                     isInvalid={!!errors?.projectName}
@@ -967,7 +978,8 @@ return (<>
                     as="textarea"
                     placeholder="Description"
                     onChange={(e)=>handleChange('description',e.currentTarget.value)}
-                    onBlur={(e) => handleChange('description',e.target.value.trim().replace(/\s+/g, " "))}
+                    onBlur={() => trimField('description')}
+                    // onBlur={(e) => handleChange('description',e.target.value.trim().replace(/\s+/g, " "))}
                     maxLength={1000}
                     isInvalid={errors?.description}
                     required
@@ -1163,7 +1175,7 @@ return (<>
                         type="text"
                         placeholder="Token Name"
                         onChange={(e)=>handleChange('tokenName',e.currentTarget.value)}
-                        onBlur={(e) => handleChange('tokenName',e.target.value.trim().replace(/\s+/g, " "))}
+                        onBlur={(e) => trimField('tokenName')}
                         isInvalid={!!errors?.tokenName}
                         required
                         maxLength={100 }
@@ -1442,6 +1454,7 @@ return (<>
               uploadToClient={uploadToClient}
               errors={errors}
               handlecastCrewData={handlecastCrewData}
+              trimcastCrewField={trimcastCrewField}
               handleCancell={handleCancell}
               handleCastCrewDataSave={handleCastCrewDataSave}
               castCrewRolesLu={castCrewRolesLu}
@@ -1456,7 +1469,13 @@ return (<>
           </Form>
         </>
       }
-      {state?.projectTokenShow && <ProjectTokenDetails isIdeoRequest={isIdeoRequest} onBack={onBack} closeProject={props.closeProject} projectData={state.projectData} projectDetails={state.projectDetails} />}
+      {state?.projectTokenShow && <ProjectTokenDetails 
+      isIdeoRequest={isIdeoRequest} 
+      onBack={onBack} 
+      closeProject={props.closeProject} 
+      projectData={state.projectData} 
+      projectDetails={state.projectDetails}
+      projectOwner={projectName} />}
     </>}
   </>)
 }

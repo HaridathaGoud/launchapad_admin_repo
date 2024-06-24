@@ -237,6 +237,7 @@ const ProjectsTokenClaim = (props) => {
               <CBreadcrumbItem>
                 <CLink href="#" onClick={() => navigate(mode === "projectsDetails" && `/launchpad/investors`)}>{mode === "projectsDetails" ? "Project Owners" : "Projects"}</CLink>
               </CBreadcrumbItem>
+              {props?.projectOwner && <CBreadcrumbItem >{props?.projectOwner}</CBreadcrumbItem>}
               {mode &&
                 <CBreadcrumbItem>
                   <CLink href="#" onClick={() => navigate(`/launchpad/investors/projects/${isProjectCardsId}`)}>Projects</CLink>
@@ -248,7 +249,6 @@ const ProjectsTokenClaim = (props) => {
             {isAdmin?.isAdmin && window.location.pathname.includes('idorequest') &&
               <CBreadcrumb>
                 <CBreadcrumbItem>
-                 
                   <CLink href="#" onClick={() => idoRequestBredCrumd()}>{"IDO Request"}</CLink>
                 </CBreadcrumbItem>
                 <CBreadcrumbItem >{projectSaveDetails.projectName}</CBreadcrumbItem>

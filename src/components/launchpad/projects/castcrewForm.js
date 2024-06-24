@@ -100,7 +100,7 @@ const CastCrewForm = (props) => {
                                             name="name"
                                             autoComplete="off"
                                             onChange={(e) => props.handlecastCrewData('name', e.currentTarget.value)}
-                                            onBlur={(e) => props.handlecastCrewData('name', e.target.value.trim().replace(/\s+/g, " "))}
+                                            onBlur={(e) => props.trimcastCrewField('name')}
                                             isInvalid={!!props.errors.name}
                                             required
                                             placeholder="Name"
@@ -158,7 +158,7 @@ const CastCrewForm = (props) => {
                                             placeholder="Enter Bio"
                                             style={{ height: '100px' }}
                                             onChange={(e) => props.handlecastCrewData('bio', e.currentTarget.value)}
-                                            onBlur={(e) => props.handlecastCrewData('bio', e.target.value.trim().replace(/\s+/g, " "))}
+                                            onBlur={(e) => props.trimcastCrewField('bio')}
                                             isInvalid={!!props.errors.bio}
                                             maxLength={256}
                                             disabled={props?.isIdeoRequest}

@@ -225,6 +225,7 @@ const ProjectTokenDetails = (props) => {
           <CBreadcrumbItem>
             <CLink href="#" onClick={() => navigate(mode === "projectsDetails" && `/launchpad/investors`)}>{mode === "projectsDetails" ? "Project Owners":"Projects"}</CLink>
           </CBreadcrumbItem>
+          {props?.projectOwner && <CBreadcrumbItem >{props?.projectOwner}</CBreadcrumbItem>}
           {mode &&
             <CBreadcrumbItem>
               <CLink href="#" onClick={() =>  navigate(`/launchpad/investors/projects/${isProjectCardsId}`) }>Projects</CLink>
@@ -347,7 +348,7 @@ const ProjectTokenDetails = (props) => {
      
      {state.projectsPoolsStaking && <ProjectsTokenClaim isIdeoRequest={props?.isIdeoRequest} closeProject={props.closeProject} goBackToPoolsStaking={goBackToTokenDetails} 
      saveTiersDetails={state.saveTiersDetails} stakingDetails={state.stakingDetails} projectId={state.projetTokenData} 
-     projectInfo={props?.projectDetails?.projectsViewModel} />}  
+     projectInfo={props?.projectDetails?.projectsViewModel} projectOwner={props?.projectOwner} />}  
      </>)
    
 }
