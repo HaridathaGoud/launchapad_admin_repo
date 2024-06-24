@@ -431,7 +431,7 @@ const Projects = (props) => {
         let _obj = { ...state.projectImages };
         if (type == "LOGO") {
           _obj.tokenLogo = data[0];
-          dispatch({ type: 'errors', payload:{ ...state.errors,  tokenLogo: ''}  });
+          dispatch({ type: 'errors', payload:{ ...state.errors,  cardImage: ''}  });
           dispatch({ type: 'loading', payload: false })
           dispatch({ type: 'projectLogoImages', payload: data[0] })
         } else if (type == "banner") {
@@ -441,7 +441,7 @@ const Projects = (props) => {
           dispatch({ type: 'projectBannerImages', payload: data[0] })
         } else if (type == "CARD") {
           _obj.cardImage = data[0];
-          dispatch({ type: 'errors', payload:{ ...state.errors,  cardImage: ''}  });
+          dispatch({ type: 'errors', payload:{ ...state.errors,  tokenLogo: ''}  });
           dispatch({ type: 'cardImgLoader', payload: false })
           dispatch({ type: 'projectCardImages', payload: data[0] })
         } else if (type == "image") {
@@ -762,7 +762,7 @@ return (<>
                             className="d-none custom-btn active btn"
                             type="file"
                             ref={inputRef}
-                            isInvalid={!!state.errors.tokenLogo}
+                            isInvalid={!!state.errors.cardImage}
                             onChange={(e) => uploadToClient(e, 'LOGO')}
                             disabled={isIdeoRequest}
                           />
@@ -775,7 +775,7 @@ return (<>
                             Jpg, Jpeg, Png, Gif, Webp <br/>
                           </p>
                           <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 345 * 200 Resolution</p>
-                          <Form.Control.Feedback type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback>
+                          <Form.Control.Feedback type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
                         </div>
                       </div>
                     }
@@ -791,7 +791,7 @@ return (<>
                             className="d-none custom-btn active btn"
                             type="file"
                             ref={inputRef}
-                            isInvalid={!!state.errors.tokenLogo}
+                            isInvalid={!!state.errors.cardImage}
                             onChange={(e) => uploadToClient(e, 'LOGO')}
                             disabled={isIdeoRequest}
                           />
@@ -799,7 +799,7 @@ return (<>
                             className="icon camera"
                             onClick={() => inputRef.current?.click()}
                           ></span>
-                          <Form.Control.Feedback type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback>
+                          <Form.Control.Feedback type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
                         </div>
                       </div>
                     }
@@ -1074,7 +1074,7 @@ return (<>
                             type="file"
                             ref={inputRef2}
                             onChange={(e) => uploadToClient(e, 'CARD')}
-                            isInvalid={!!state.errors.cardImage}
+                            isInvalid={!!state.errors.tokenLogo}
                             disabled={isIdeoRequest}
                           />
                           <span
@@ -1097,7 +1097,7 @@ return (<>
                             type="file"
                             ref={inputRef2}
                             onChange={(e) => uploadToClient(e, 'CARD')}
-                            isInvalid={!!state.errors.cardImage}
+                            isInvalid={!!state.errors.tokenLogo}
                             disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                               || state.projectSaveDetails?.projectStatus == "Deploying"
                               || isIdeoRequest
@@ -1107,13 +1107,13 @@ return (<>
                             className="icon camera"
                             onClick={() => inputRef2.current?.click()}
                           ></span>
-                          <Form.Control.Feedback className='error-space' type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
+                          {/* <Form.Control.Feedback className='error-space' type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback> */}
                         </div>
 
                       </div>
                     }
                   </div>
-                  <p className='error-space ps-0' type="invalid">{state.errors.cardImage}</p>
+                  <p className='error-space ps-0' type="invalid">{state.errors.tokenLogo}</p>
 
                  {!state.projectCardImages &&  <>
                   <p className="image-types text-start mb-2">Jpg, Jpeg, Png, Gif, Webp </p></>}
@@ -1323,7 +1323,7 @@ return (<>
                         type="file"
                         ref={inputRef2}
                         onChange={(e) => uploadToClient(e, 'CARD')}
-                        isInvalid={!!state.errors.cardImage}
+                        isInvalid={!!state.errors.tokenLogo}
                         disabled={isIdeoRequest}
                       />
                       <span
@@ -1332,7 +1332,7 @@ return (<>
                       ></span>
                       <p className="c-pointer pt-3 mb-2">   Jpg, Jpeg, Png, Gif, Webp </p>                     
                        <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 516 * 516 Resolution</p>
-                      <Form.Control.Feedback className='error-space' type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
+                      <Form.Control.Feedback className='error-space' type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback>
                     </div>
 
                   </div>
@@ -1350,7 +1350,7 @@ return (<>
                         type="file"
                         ref={inputRef2}
                         onChange={(e) => uploadToClient(e, 'CARD')}
-                        isInvalid={!!state.errors.cardImage}
+                        isInvalid={!!state.errors.tokenLogo}
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
                           || state.projectSaveDetails?.projectStatus == "Rejected"
                           || state.projectSaveDetails?.projectStatus == "Approved"
@@ -1362,7 +1362,7 @@ return (<>
                         className="icon camera"
                         onClick={() => inputRef2.current?.click()}
                       ></span>
-                      <Form.Control.Feedback className='error-space' type="invalid">{state.errors.cardImage}</Form.Control.Feedback>
+                      <Form.Control.Feedback className='error-space' type="invalid">{state.errors.tokenLogo}</Form.Control.Feedback>
                     </div>
 
                   </div>
