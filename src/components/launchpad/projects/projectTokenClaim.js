@@ -156,8 +156,8 @@ const ProjectsTokenClaim = (props) => {
          privateEndDate = state.claimDetails?.privateEndDate && moment(state.claimDetails.privateEndDate).utc().format("YYYY-MM-DDTHH:mm");
       let obj = {
         id: props?.projectId.id ? props?.projectId.id : "00000000-0000-0000-0000-000000000000",
-        noofSlots: state.claimDetails != null ? state.claimDetails.noofSlots : '',
-        vestingDays: state.claimDetails != null ? state.claimDetails.vestingDays : '',
+        noofSlots: state.claimDetails.noofSlots || null,
+        vestingDays: state.claimDetails.vestingDays || null,
         publicStartDate: publicStartDate,
         publicEndDate: publicEndDate,
         privateStartDate: privateStartDate,
@@ -275,7 +275,7 @@ const ProjectsTokenClaim = (props) => {
                     className=""
                   >Claim Slots<span className="text-danger">*</span></Form.Label>
                   <NumericFormat
-                    value={state.claimDetails?.noofSlots}
+                    value={state.claimDetails?.noofSlots === 0 ? '' : state.claimDetails?.noofSlots }
                     name='noofSlots'
                     allowNegative={false}
                     className={`form-control ${formErrors.noofSlots ? 'is-invalid' : ''}`}
@@ -304,7 +304,7 @@ const ProjectsTokenClaim = (props) => {
                     className=""
                   >Claim Vesting Time (Hours)<span className="text-danger">*</span></Form.Label>
                   <NumericFormat
-                    value={state.claimDetails?.vestingDays}
+                    value={state.claimDetails?.vestingDays === 0 ? '' : state.claimDetails?.vestingDays}
                     name='vestingDays'
                     allowNegative={false}
                     className={`form-control ${formErrors.vestingDays ? 'is-invalid' : ''}`}

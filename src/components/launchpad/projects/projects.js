@@ -1393,7 +1393,7 @@ return (<>
                   >Member Ship Count<span className="text-danger">*</span></Form.Label>
                   <NumericFormat
                   className='form-control'
-                   value={state.projectSaveDetails?.nftImagesCount}
+                   value={state.projectSaveDetails?.nftImagesCount === 0 ? '' : state.projectSaveDetails?.nftImagesCount }
                     name='nftImagesCount'
                     allowNegative={false}
                     thousandSeparator={false}
