@@ -103,7 +103,7 @@ const PeojectAllocation = (props) => {
 
         }).catch((err) => {
           dispatch({ type: 'setBtnLoader', payload: false })
-          dispatch({ type: 'setErrorMgs', payload: apiCalls.isErrorDispaly(res) })
+          dispatch({ type: 'setErrorMgs', payload: apiCalls.isErrorDispaly(err) })
         })
       } else {
         dispatch({ type: 'setBtnLoader', payload: false })
