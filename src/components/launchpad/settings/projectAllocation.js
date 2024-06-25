@@ -36,6 +36,7 @@ const PeojectAllocation = (props) => {
   const isAdmin = useSelector(reducerstate => reducerstate.oidc?.adminDetails);
   const tiersData = useSelector((state) => state.settings?.allTiersData)
   const [pageloader, setPageloader] = useState(false);
+  const [privateRoundClosed, setPrivateRoundClosed] = useState(false);
   const { chain } = useNetwork();
 
   useEffect(() => {
@@ -45,6 +46,7 @@ const PeojectAllocation = (props) => {
       dispatch({ type: 'setData', payload: callback.data })
       setPageloader(false);
       getDetails(callback.data?.projectsViewModel)
+      checkPrivateRoundClosed(callback.data?.claimsAndAllocations?.privateEndDate);
     })
   }, [params?.pId])
 
@@ -202,6 +204,15 @@ const PeojectAllocation = (props) => {
       detailsToUpdate.isAllocated = isAllocated;
     }
   };
+
+  const checkPrivateRoundClosed = (privateEndDate) => {
+    const currentDate = new Date();
+    const endDate = new Date(privateEndDate);
+    if (endDate.getTime() < currentDate.getTime()) {
+      setPrivateRoundClosed(true);
+      dispatch({ type: 'setErrorMgs', payload: "Private rounds are closed" });
+    }
+  };
   const clearErrorMsg=()=>{
     dispatch({ type: 'setErrorMgs', payload: null }) 
   }
@@ -245,7 +256,7 @@ return (<>
             onClick={() => getWalletAddress()}
             disabled={
               (state.data?.projectsViewModel?.tokenType === "ERC-20" && state.detailsFromContract?.isAllocated === 1)
-              ||state.btnLoader} >
+              ||state.btnLoader || privateRoundClosed} >
             {state.btnLoader && <Spinner size='sm' className={`${state.btnLoader ? "text-black" : "text-light"}`} />}
             Allocate</Button>
           {state.isTransactionSuccess && (

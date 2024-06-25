@@ -307,7 +307,7 @@ const ProjectCards = () => {
         fcfse,
         privatePrice,
         publicPrice,
-        { gasLimit: 9000000, gasPrice: 300000 });
+        { gasLimit: 5000000, gasPrice: 300000 });
       contractRes.wait().then(async (receipt) => {
         const address = receipt.logs[0].address;
         const updateProject = {
@@ -361,12 +361,6 @@ const ProjectCards = () => {
     const provider = new ethers.providers.Web3Provider(window?.ethereum)
     const factory = new ethers.Contract(MintFactory.contractAddress, MintFactory.abi, provider.getSigner());
     try {
-      console.log(ercCustomToken,
-        baseFiatPrice,
-        nativePriceFeeAddres,
-        secondaryPriceFeeAdres,
-        platformFee,
-        'gasLimit: 3000000');
       const contractRes = await factory.deployMembershipToken(
         ercCustomToken,
         baseFiatPrice,

@@ -201,13 +201,14 @@ const AllocationRoundTwo = (props) => {
     if (isAllocated) {
       detailsToUpdate.isAllocated = isAllocated;
     } else {
-      dispatch({ type: 'setErrorMgs', payload: '' })
+      dispatch({ type: 'setErrorMgs', payload: 'Round one allocation not yet completed' })
     }
   };
   const updateRoud2Allocation = (detailsToUpdate, round2allocation) => {
     const isAllocated = round2allocation?.isround2allocationEnd;
     if (isAllocated) {
       detailsToUpdate.isround2allocationEnd = isAllocated;
+      dispatch({ type: 'setErrorMgs', payload: 'Round two allocation completed' })
     }
   };
   const clearErrorMsg=()=>{
