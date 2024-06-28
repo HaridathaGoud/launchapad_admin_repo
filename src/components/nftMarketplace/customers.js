@@ -84,7 +84,7 @@ const CustomersInfo = () => {
       "customerId": userDetails?.id,
       "isKyc": userDetails?.kycStatus ? true : false
     }
-    let response = await apiCalls.kycStatus('obj')
+    let response = await apiCalls.kycStatus(obj)
     if (response.ok) {
       setBtnLoader(false);
       setShow(false);
