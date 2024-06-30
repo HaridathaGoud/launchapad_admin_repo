@@ -553,7 +553,7 @@ th .k-link{cursor: default !important;}
 .font-regular{font-weight: 400;}
 .button-secondary:disabled:hover{background-color: transparent !important;}
 .card-state{position: absolute;top: 0;right: 0; color: #fff; padding: 2px 8px; border-radius: 0 10px 0 10px;min-width: 100px;  text-align: center;}
-.card-desc{overflow: hidden;  text-overflow: ellipsis;  display: -webkit-box;  -webkit-line-clamp: 3;  -webkit-box-orient: vertical;}
+.card-desc{overflow: hidden;  text-overflow: ellipsis;  display: -webkit-box; height: 72px;  -webkit-line-clamp: 3;  -webkit-box-orient: vertical;}
 .invaliid-textstyle{ font-size: 0.875em;color: #e55353;}
 .bg-platinum{background-color: #E3F8FF;padding: 4px 15px; color: #035388;font-size: 12px;font-weight: 600;border-radius: 30px;}
 .bg-diamond{background-color: #FFE3EC;padding: 4px 15px; color: #620042;font-size: 12px;font-weight: 600;border-radius: 30px;}

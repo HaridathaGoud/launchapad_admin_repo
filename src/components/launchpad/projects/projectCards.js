@@ -530,7 +530,7 @@ const ProjectCards = () => {
                     <div className="px-3">
                       <div className=" mt-3" onClick={() => getOnePersonDetailsBasedOnId(val)} >
                         <h3 className="project-name">{val?.projectName}</h3>
-                        <p className='card-desc'> {val?.description} </p>
+                        <p className='card-desc' title={val?.description} > {val?.description} </p>
                       </div>
                       <div className=''>
                         {val?.projectstatus?.toLowerCase() === 'rejected' &&
