@@ -21,6 +21,8 @@ import PropTypes from 'prop-types'
 import useEthers from 'src/utils/useEthers';
 import { useContract } from 'src/contract/useContract';
 import shimmers from 'src/components/shimmers/shimmers';
+import ConvertLocalFormat from 'src/utils/convertToLocal';
+import moment from 'moment';
 const polygonUrl = process.env.REACT_APP_ENV === "production" ? process.env.REACT_APP_CHAIN_MAIN_POLYGON_SCAN_URL : process.env.REACT_APP_CHAIN_MUMBAI_POLYGON_SCAN_URL
 const stakingAdress  = process.env.REACT_APP_STAKING_CONTRACT;
 
@@ -206,9 +208,11 @@ const PeojectAllocation = (props) => {
   };
 
   const checkPrivateRoundClosed = (privateEndDate) => {
-    const currentDate = new Date();
-    const endDate = new Date(privateEndDate);
-    if (endDate.getTime() < currentDate.getTime()) {
+    debugger
+    const nowDate = moment.utc(new Date()).toDate().getTime();
+    const endDate = moment.utc(privateEndDate).toDate().getTime();
+    const isEnable = endDate < nowDate;
+    if (isEnable) {
       setPrivateRoundClosed(true);
       dispatch({ type: 'setErrorMgs', payload: "Private rounds are closed" });
     }
