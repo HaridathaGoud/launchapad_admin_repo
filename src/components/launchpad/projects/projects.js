@@ -693,7 +693,7 @@ return (<>
               <Row className='mb-4 border p-3 rounded'>
                 <Col lg={4} md={12} className='col-width py-0 d-md-flex flex-column justify-content-between' >
                 <div>
-                  <Form.Label className="input-label upload-file ms-2">Upload Media Image<span className="text-danger">*</span></Form.Label>
+                  <Form.Label className="input-label upload-file ms-2">Upload Logo<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`media-image ${isIdeoRequest ?
                       'upload-img mb-2 position-relative c-notallowed' :
