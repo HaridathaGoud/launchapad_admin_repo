@@ -103,13 +103,13 @@ const UserProfile = (props) => {
       newErrors.firstName = "Is required";
     } 
     else if(!validateContentRules("",firstName) || firstName?.match(numbersOnly) || firstName?.match(specialCharsOnly)) {
-      newErrors.firstName = "Accepts alphanumeric and special chars.";
+      newErrors.firstName = "Invalid first name";
     }
     if (!lastName || lastName === '') {
       newErrors.lastName = "Is required";
     } 
     else if(!validateContentRules("",lastName)  || lastName?.match(numbersOnly) || lastName?.match(specialCharsOnly)){
-      newErrors.lastName = "Accepts alphanumeric and special chars.";
+      newErrors.lastName = "Invalid last name";
     }
     if (!phoneNo || phoneNo === '') {
       newErrors.phoneNo = "Is required";

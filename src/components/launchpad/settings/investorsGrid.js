@@ -182,19 +182,19 @@ class InvestorsGrid extends Component {
             newErrors.firstName = "Is required";
         }
         else if (!validateContentRules("", firstName?.trim()) || firstName?.trim()?.match(numbersOnly) || firstName?.trim()?.match(specialCharsOnly)) {
-            newErrors.firstName = "Accepts alphanumeric and special chars.";
+            newErrors.firstName = "Invalid first name";
         }
         if (!lastName?.trim() || lastName?.trim() === '') {
             newErrors.lastName = "Is required";
         }
         else if (!validateContentRules("", lastName?.trim())|| lastName?.trim()?.match(numbersOnly) || lastName?.trim()?.match(specialCharsOnly)) {
-            newErrors.lastName = "Accepts alphanumeric and special chars.";
+            newErrors.lastName = "Invalid last name";
         }
         if (!userName || userName === '') {
             newErrors.userName = "Is required";
         }
         else if (!validateContentRules("", userName)  || userName?.match(numbersOnly) || userName?.match(specialCharsOnly)) {
-            newErrors.userName = "Accepts alphanumeric and special chars.";
+            newErrors.userName = "Invalid user name";
         }
 
         if (!email || email == '') {

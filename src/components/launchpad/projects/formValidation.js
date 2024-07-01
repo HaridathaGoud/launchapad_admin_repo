@@ -12,7 +12,7 @@ export  const erc20FormValidation = (obj) => {
     if (!projectName?.trim() || projectName?.trim() === '') {
       newErrors.projectName = 'Is required';
     } else if (!validateContentRules('', projectName?.trim()) || projectName?.trim()?.match(numbersOnly) || projectName?.trim()?.match(specialCharsOnly)) {
-      newErrors.projectName = 'Accepts alphanumeric and special chars.';
+      newErrors.projectName = 'Invalid project name';
     }
     if (!countryRestrictions || countryRestrictions === '' || countryRestrictions?.length == 0) {
       newErrors.countryRestrictions = 'Is required';
@@ -43,22 +43,22 @@ export  const erc20FormValidation = (obj) => {
     if (!description?.trim() || description?.trim() == '') {
       newErrors.description = 'Is required';
     }else if (!validateContentRules('', description?.trim())|| description?.trim()?.match(specialCharsOnly) || description?.trim()?.match(numbersOnly) ) {
-      newErrors.description = 'Accepts alphanumeric and special chars.';
+      newErrors.description = 'Invalid description';
     }
     if (!tokenContractAddress || tokenContractAddress == '') {
       newErrors.tokenContractAddress = 'Is required';
     } else if (!validateContentRules("", tokenContractAddress) || (emojiRejex.test(tokenContractAddress))|| tokenContractAddress?.match(specialCharsOnly) || tokenContractAddress?.match(numbersOnly) ) {
-      newErrors.tokenContractAddress = 'Accepts alphanumeric and special chars.';
+      newErrors.tokenContractAddress = 'Invalid token contract address';
     }
     if (!tokenName?.trim() || tokenName?.trim() == '') {
       newErrors.tokenName = 'Is required';
     } else if (!validateContentRules("", tokenName?.trim()) || (emojiRejex.test(tokenName?.trim()))|| tokenName?.trim()?.match(specialCharsOnly) || tokenName?.trim()?.match(numbersOnly) ) {
-      newErrors.tokenName = 'Accepts alphanumeric and special chars.';
+      newErrors.tokenName = 'Invalid token name';
     }
     if (!tokenSymbol || tokenSymbol == '') {
       newErrors.tokenSymbol = 'Is required';
     } else if (!validateContentRules("", tokenSymbol) || (emojiRejex.test(tokenSymbol))|| tokenSymbol?.match(specialCharsOnly) || tokenSymbol?.match(numbersOnly) ) {
-      newErrors.tokenSymbol = 'Accepts alphanumeric and special chars.';
+      newErrors.tokenSymbol = 'Invalid token symbol';
     }
     if (tokenDecimal===null || tokenDecimal === '' || tokenDecimal === undefined) {
       newErrors.tokenDecimal = 'Is required';
@@ -66,7 +66,7 @@ export  const erc20FormValidation = (obj) => {
       newErrors.tokenDecimal = 'Token decimal must be greater than zero';
     }
     else if (tokenDecimal && (emojiRejex.test(tokenDecimal))) {
-      newErrors.tokenDecimal = 'Accepts alphanumeric and special chars.';
+      newErrors.tokenDecimal = 'Invalid token decimal';
     }
     if (totalNumberOfTokens===null || totalNumberOfTokens === ''|| totalNumberOfTokens === undefined) {
       newErrors.totalNumberOfTokens = 'Is required';
@@ -74,7 +74,7 @@ export  const erc20FormValidation = (obj) => {
       newErrors.totalNumberOfTokens = 'Total number of tokens must be greater than zero';
     }
     else if (totalNumberOfTokens && (emojiRejex.test(totalNumberOfTokens))) {
-      newErrors.totalNumberOfTokens = 'Accepts alphanumeric and special chars.';
+      newErrors.totalNumberOfTokens = 'Invalid total number of tokens';
     }
     return newErrors;
   };
@@ -88,7 +88,7 @@ export  const erc20FormValidation = (obj) => {
     if (!projectName?.trim() || projectName?.trim() === '') {
       newErrors.projectName = 'Is required';
     } else if (!validateContentRules('', projectName?.trim()) || projectName?.trim()?.match(numbersOnly) || projectName?.trim()?.match(specialCharsOnly)) {
-      newErrors.projectName = 'Accepts alphanumeric and special chars.';
+      newErrors.projectName = 'Invalid project ame';
     }
 
     if (!countryRestrictions || countryRestrictions === '' || countryRestrictions?.length == 0) {
@@ -115,7 +115,7 @@ export  const erc20FormValidation = (obj) => {
     if (!description?.trim() || description?.trim() == '') {
       newErrors.description = 'Is required';
     }else if (!validateContentRules('', description?.trim())|| description?.trim()?.match(specialCharsOnly) || description?.trim()?.match(numbersOnly) ) {
-      newErrors.description = 'Accepts alphanumeric and special chars.';
+      newErrors.description = 'Invalid description';
     }
     if(!nftImagesCount || nftImagesCount ==''){
       newErrors.nftImagesCount = 'Is required';
@@ -237,14 +237,14 @@ export  const erc20FormValidation = (obj) => {
     if (!name?.trim() || name?.trim() === '') {
       newErrors.name = 'Is required';
     } else if (!validateContentRules('', name?.trim())  || name?.trim()?.match(numbersOnly) || name?.trim()?.match(specialCharsOnly)) {
-      newErrors.name = 'Accepts alphanumeric and special chars.';
+      newErrors.name = 'Invalid name';
     }
     if (!role || role === ''|| !role.length) {
       newErrors.role = 'Is required';
     }
     if (bio?.trim() && bio.trim() !== '') {
       if (!validateContentRules('', bio?.trim()) || bio?.trim().match(numbersOnly) || bio?.trim().match(specialCharsOnly)) {
-          newErrors.bio = 'Accepts alphanumeric and special chars.';
+          newErrors.bio = 'Invalid bio';
       }
   }
     if (webisite && validateUrl(webisite)) {

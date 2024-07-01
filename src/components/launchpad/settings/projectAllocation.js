@@ -208,7 +208,6 @@ const PeojectAllocation = (props) => {
   };
 
   const checkPrivateRoundClosed = (privateEndDate) => {
-    debugger
     const nowDate = moment.utc(new Date()).toDate().getTime();
     const endDate = moment.utc(privateEndDate).toDate().getTime();
     const isEnable = endDate < nowDate;
