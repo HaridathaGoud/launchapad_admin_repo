@@ -280,8 +280,6 @@ const ProjectTokenDetails = (props) => {
                 required
                 isInvalid={!!(errors?.privateTokenEquivalentToPaymentType||state?.errors?.privateTokenEquivalentToPaymentType)}
                 disabled={(projectSaveDetails?.projectStatus == "Deployed"
-                  || projectSaveDetails?.projectStatus == "Rejected"
-                  || projectSaveDetails?.projectStatus == "Approved"
                   || projectSaveDetails?.projectStatus == "Deploying"
                   || props?.isIdeoRequest
                 )}
@@ -312,8 +310,6 @@ const ProjectTokenDetails = (props) => {
                 required
                 isInvalid={!!(errors?.publicTokenEquivalentToPaymentType ||state?.errors?.privateTokenEquivalentToPaymentType)}
                 disabled={(projectSaveDetails?.projectStatus == "Deployed"
-                  || projectSaveDetails?.projectStatus == "Rejected"
-                  || projectSaveDetails?.projectStatus == "Approved"
                   || projectSaveDetails?.projectStatus == "Deploying"
                   || props?.isIdeoRequest
                 )}

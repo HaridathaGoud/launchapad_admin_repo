@@ -287,8 +287,6 @@ const ProjectsTokenClaim = (props) => {
                     required
                     isInvalid={!!formErrors?.noofSlots}
                     disabled={(props?.projectInfo?.projectStatus == "Deployed"
-                      || props?.projectInfo?.projectStatus == "Rejected"
-                      || props?.projectInfo?.projectStatus == "Approved"
                       || props?.projectInfo?.projectStatus == "Deploying"
                       || props?.isIdeoRequest
                     )}
@@ -316,8 +314,6 @@ const ProjectsTokenClaim = (props) => {
                     required
                     isInvalid={!!formErrors?.vestingDays}
                     disabled={(props?.projectInfo?.projectStatus == "Deployed"
-                      || props?.projectInfo?.projectStatus == "Rejected"
-                      || props?.projectInfo?.projectStatus == "Approved"
                       || props?.projectInfo?.projectStatus == "Deploying"
                       || props?.isIdeoRequest
                     )}
@@ -343,9 +339,7 @@ const ProjectsTokenClaim = (props) => {
                     isInvalid={!!formErrors.privateStartDate}
                     disabled={
                       (props?.projectInfo?.projectStatus == "Deployed"   ||
-                        props?.projectInfo?.projectStatus == "Rejected"  ||
                         props?.projectInfo?.projectStatus == "Deploying" ||
-                        props?.projectInfo?.projectStatus == "Approved"  ||
                         props?.isIdeoRequest
                       ) }
                   />
@@ -365,9 +359,7 @@ const ProjectsTokenClaim = (props) => {
                     isInvalid={!!formErrors.privateEndDate}
                     disabled={
                       (props?.projectInfo?.projectStatus == "Deployed" ||
-                        props?.projectInfo?.projectStatus == "Rejected" ||
                         props?.projectInfo?.projectStatus == "Deploying" ||
-                        props?.projectInfo?.projectStatus == "Approved"  ||
                         props?.isIdeoRequest
                       ) }
                   />
@@ -388,9 +380,7 @@ const ProjectsTokenClaim = (props) => {
                     isInvalid={!!formErrors.publicStartDate}
                     disabled={
                       (props?.projectInfo?.projectStatus == "Deployed" ||
-                        props?.projectInfo?.projectStatus == "Rejected" ||
                         props?.projectInfo?.projectStatus == "Deploying" ||
-                        props?.projectInfo?.projectStatus == "Approved"  ||
                         props?.isIdeoRequest) }
                   />
                   <Form.Control.Feedback className='error-space' type="invalid">{formErrors.publicStartDate || state.errors.publicStartDate}</Form.Control.Feedback>
@@ -410,9 +400,7 @@ const ProjectsTokenClaim = (props) => {
                     isInvalid={!!formErrors.publicEndDate}
                     disabled={
                       (props?.projectInfo?.projectStatus == "Deployed" ||
-                        props?.projectInfo?.projectStatus == "Rejected" ||
                         props?.projectInfo?.projectStatus == "Deploying" ||
-                        props?.projectInfo?.projectStatus == "Approved"  ||
                         props?.isIdeoRequest) }
                   />
                   <Form.Control.Feedback className='error-space' type="invalid">{formErrors.publicEndDate || state.errors.publicEndDate}</Form.Control.Feedback>

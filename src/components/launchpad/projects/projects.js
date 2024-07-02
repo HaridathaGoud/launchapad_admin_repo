@@ -929,8 +929,6 @@ return (<>
                   <Dropdown className='matic-dropdown' defaultValue={"Matic"} value="Matic">
                     <Dropdown.Toggle variant="secondary" id="dropdown-basic"
                       disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                        || state.projectSaveDetails?.projectStatus == "Rejected"
-                        || state.projectSaveDetails?.projectStatus == "Approved"
                         || state.projectSaveDetails?.projectStatus == "Deploying"
                         || isIdeoRequest
                       )}
@@ -1024,8 +1022,6 @@ return (<>
                   checked={selectedTokeType === 'ERC-20'}
                   disabled={
                     state.projectSaveDetails?.projectStatus === 'Deployed' ||
-                    state.projectSaveDetails?.projectStatus === 'Rejected' ||
-                    state.projectSaveDetails?.projectStatus === 'Approved' ||
                     state.projectSaveDetails?.projectStatus === 'Deploying' ||
                     isIdeoRequest
                   }
@@ -1038,8 +1034,6 @@ return (<>
                   checked={selectedTokeType === 'ERC-721'}
                   disabled={
                     state.projectSaveDetails?.projectStatus === 'Deployed' ||
-                    state.projectSaveDetails?.projectStatus === 'Rejected' ||
-                    state.projectSaveDetails?.projectStatus === 'Approved' ||
                     state.projectSaveDetails?.projectStatus === 'Deploying' ||
                     isIdeoRequest
                   }
@@ -1048,8 +1042,6 @@ return (<>
              {/* <Dropdown className={`matic-dropdown ${selectedTokeType =='ERC-721' ? 'token-type':''}`} onSelect={handleTokenType}>
               <Dropdown.Toggle variant="secondary" id="dropdown-basic"
                 disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                  || state.projectSaveDetails?.projectStatus == "Rejected"
-                  || state.projectSaveDetails?.projectStatus == "Approved"
                   || state.projectSaveDetails?.projectStatus == "Deploying"
                   || isIdeoRequest
                 )}
@@ -1153,8 +1145,6 @@ return (<>
                         required
                         maxLength={250 }
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                          || state.projectSaveDetails?.projectStatus == "Rejected"
-                          || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
                           || isIdeoRequest
                         )}
@@ -1180,8 +1170,6 @@ return (<>
                         required
                         maxLength={100 }
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                          || state.projectSaveDetails?.projectStatus == "Rejected"
-                          || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
                           || isIdeoRequest
                         )}
@@ -1206,8 +1194,6 @@ return (<>
                         required
                         maxLength={10 }
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                          || state.projectSaveDetails?.projectStatus == "Rejected"
-                          || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
                           || isIdeoRequest
                         )}
@@ -1240,8 +1226,6 @@ return (<>
                         onBlur={(e) => handleChange('tokenDecimal',e.target.value.trim().replace(/\s+/g, " "))}
                         required
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                          || state.projectSaveDetails?.projectStatus == "Rejected"
-                          || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
                           || isIdeoRequest
                         )}
@@ -1269,8 +1253,6 @@ return (<>
                         required
                         isInvalid={!!errors?.totalNumberOfTokens}
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                          || state.projectSaveDetails?.projectStatus == "Rejected"
-                          || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
                           || isIdeoRequest
                         )}
@@ -1299,8 +1281,6 @@ return (<>
                         required
                         isInvalid={!!errors?.initialSupply}
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                          || state.projectSaveDetails?.projectStatus == "Rejected"
-                          || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
                           || isIdeoRequest
                         )}
@@ -1364,8 +1344,6 @@ return (<>
                         onChange={(e) => uploadToClient(e, 'CARD')}
                         isInvalid={!!state.errors.tokenLogo}
                         disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                          || state.projectSaveDetails?.projectStatus == "Rejected"
-                          || state.projectSaveDetails?.projectStatus == "Approved"
                           || state.projectSaveDetails?.projectStatus == "Deploying"
                           || isIdeoRequest
                         )}
@@ -1405,8 +1383,6 @@ return (<>
                     onBlur={(e) => handleChange('nftImagesCount',e.target.value.trim())}
                     required
                     disabled={(state.projectSaveDetails?.projectStatus == "Deployed"
-                      || state.projectSaveDetails?.projectStatus == "Rejected"
-                      || state.projectSaveDetails?.projectStatus == "Approved"
                       || state.projectSaveDetails?.projectStatus == "Deploying"
                       || isIdeoRequest
                     )}
