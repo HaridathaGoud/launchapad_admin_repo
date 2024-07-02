@@ -49,7 +49,7 @@ const favorited = (props) => {
       setPageNo(_pageNo);
       setType(nftType);
       setSearch(search);
-      let mergeData = pageNum == 1 ? [...response.data] : [...favouritecollections, ...response.data];
+      let mergeData = pageNum == 1 ? [...response.data ||[]] : [...favouritecollections, ...response.data ||[]];
       setFavouriteCollections(mergeData);
     
     } else {

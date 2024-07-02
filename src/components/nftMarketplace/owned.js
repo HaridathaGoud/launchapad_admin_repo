@@ -41,8 +41,9 @@ const owned = (props) => {
     }
     const skip = pageNum * pageListSize - pageListSize;
     const take = pageListSize;
-    await getMarketPlaceData(`GetOwnNfts/${props?.walletAddress}/${take}/${skip}/${nftType}/${searchBy}`)
-      .then((response) => {
+
+   let response =  await getMarketPlaceData(`GetOwnNfts/${props?.walletAddress}/${take}/${skip}/${nftType}/${searchBy}`);
+        if (response) {
         let _pageNo = pageNum + 1;
         setPageNo(_pageNo);
         setType(nftType);
@@ -50,11 +51,11 @@ const owned = (props) => {
         let mergeData = pageNum == 1 ? [...response.data] : [...ownedNftCollection, ...response.data];
         setOwnedNftCollection(mergeData);
         setLoader(false);
-      })
-      .catch((error) => {
-        setErrorMsg(apiCalls.isErrorDispaly(error));
-        setLoader(false);
-      });
+
+       } else {
+      setErrorMsg(apiCalls.isErrorDispaly(response));
+      setLoader(false);
+    }
   };
 
 

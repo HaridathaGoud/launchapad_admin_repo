@@ -307,7 +307,9 @@ const ProjectCards = () => {
         fcfse,
         privatePrice,
         publicPrice,
-        { gasLimit: 5000000, gasPrice: 300000 });
+        { gasLimit: 5000000, gasPrice: 100000000 }
+      
+      );
       contractRes.wait().then(async (receipt) => {
         const address = receipt.logs[0].address;
         const updateProject = {
@@ -367,7 +369,7 @@ const ProjectCards = () => {
         nativePriceFeeAddres,
         secondaryPriceFeeAdres,
         platformFee,
-        // { gasLimit: 3000000 , gasPrice: 300000});
+        { gasLimit: 5000000, gasPrice: 100000000 } //gasPrice: 300000
       )
       contractRes.wait().then(async (receipt) => {
         const address = receipt.logs[0].address;
@@ -719,6 +721,14 @@ const ProjectCards = () => {
                           : '--'}</h6>
                       </div>
                     </Col>
+                    {state.detailsPreview?.tokenType == 'ERC-721'&& state.detailsPreview?.nftImagesCount >=10  &&
+                    <div className="view-data">
+                    <h6 className='about-label text-overflow mb-0'>
+                    {'Note : Deployment may take longer if membership count is large,'}<br/>
+                     {'as it needs to create images for each one. Please specify your start and end dates based on your'}<br/>
+                     { 'membership count.'}
+                    </h6>
+                    </div> }
                   </Row>
                 </div>
               }

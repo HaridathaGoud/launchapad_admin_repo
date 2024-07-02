@@ -78,7 +78,6 @@ const ProfileView = () => {
             getMoreNftsCollection(response?.data);
             setNftDetails(response?.data);
             getbidData(response?.data?.id);
-            setFav(response?.data?.isFavorite);
             setLoader(false);
             
           })
