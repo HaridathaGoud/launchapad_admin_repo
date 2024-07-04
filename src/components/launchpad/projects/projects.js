@@ -1246,7 +1246,7 @@ return (<>
                         className='form-control'
                         thousandSeparator={true}
                         placeholder="Total No of Token"
-                        maxLength={ 30}
+                        maxLength={ 20}
                         decimalScale={0}
                         onChange={(e)=>handleChange('totalNumberOfTokens',e.currentTarget.value)}
                         onBlur={(e) => handleChange('totalNumberOfTokens',e.target.value.trim().replace(/\s+/g, " "))}
@@ -1274,7 +1274,7 @@ return (<>
                         className='form-control'
                         thousandSeparator={true}
                         placeholder="Initial Supply"
-                        maxLength={30 }
+                        maxLength={20 }
                         decimalScale={0}
                         onChange={(e)=>handleChange('initialSupply',e.currentTarget.value)}
                         onBlur={(e) => handleChange('initialSupply',e.target.value.trim().replace(/\s+/g, " "))}
