@@ -82,6 +82,10 @@ const reducer = (state, action) => {
       return { ...state, MediaImage: action.payload };
     case "MediaImageLoader":
     return { ...state, MediaImageLoader: action.payload };
+    case "SetProjectHeroImg":
+      return { ...state, ProjectHeroImg: action.payload };
+    case "ProjectHeroImgLoader":
+    return { ...state, ProjectHeroImgLoader: action.payload };
     default:
       return state;
   }
@@ -120,6 +124,8 @@ const initialState = {
   castCrewFormLoader:false,
   MediaImage:null,
   MediaImageLoader:false,
+  ProjectHeroImg:null,
+  ProjectHeroImgLoader:false,
 };
 const Projects = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -131,6 +137,7 @@ const Projects = (props) => {
   const inputRef2 = useRef();
   const inputRef3 = useRef();
   const inputRef4 = useRef();
+  const inputRef5 = useRef();
   const walletAddress = useSelector((state) => state.walletAddress.walletAddress)
   const projectDetails = useSelector((state) => state.launchpad.projectDetails)
   const isProjectCardsId = useSelector(state => state.oidc?.isProjectCardsId)
@@ -161,18 +168,21 @@ const Projects = (props) => {
     dispatch({ type: 'bannerImgLoader', payload: true })
     dispatch({ type: 'MediaImageLoader', payload: true })
     dispatch({ type: 'cardImgLoader', payload: true })
+    dispatch({ type: 'ProjectHeroImgLoader', payload: true })
     window.scroll(0, 0);
     props.projectDetailsReducerData(pId || props.informationProjectView, (callback) => {
       dispatch({ type: 'projectSaveDetails', payload: callback.data?.projectsViewModel })
       dispatch({ type: 'projectLogoImages', payload: callback.data?.projectsViewModel?.cardImage })
       dispatch({ type: 'projectBannerImages', payload: callback.data?.projectsViewModel?.bannerImage })
       dispatch({ type: 'MediaImage', payload: callback.data?.projectsViewModel?.mediaImage })
+      dispatch({ type: 'SetProjectHeroImg', payload: callback.data?.projectsViewModel?.ProjectHeroImg })
       dispatch({ type: 'projectCardImages', payload: callback.data?.projectsViewModel?.tokenLogo })
       dispatch({ type: 'castCrewDataList', payload: callback.data?.projectsViewModel?.castCrews ? callback.data?.projectsViewModel?.castCrews : [] });
       dispatch({ type: 'projectDetails', payload: callback.data })
       dispatch({ type: 'loading', payload: false })
       dispatch({ type: 'bannerImgLoader', payload: false })
       dispatch({ type: 'MediaImageLoader', payload: false })
+      dispatch({ type: 'ProjectHeroImgLoader', payload: false })
       dispatch({ type: 'cardImgLoader', payload: false })
       dispatchData(setProjectDetail(callback?.data?.claimsAndAllocations))
       setSelectedValues(callback.data?.projectsViewModel?.countryRestrictions)
@@ -254,6 +264,7 @@ const Projects = (props) => {
         "totalNumberOfTokens": state.projectSaveDetails?.totalNumberOfTokens || null,
         "bannerImage": state.projectBannerImages,
         "mediaImage" : state.MediaImage,
+        "projecthereImage":state.ProjectHeroImg,
         "cardImage":state.projectLogoImages || null,
         "projectName": state.projectSaveDetails?.projectName,
         "networkSymbol": "Matic",
@@ -400,6 +411,12 @@ const Projects = (props) => {
             setErrors({ ...errors, MediaImage: null })
           }
         } 
+        else if (type === 'ProjectHeroImg') {
+          dispatch({ type: 'ProjectHeroImgLoader', payload: true })
+          if (errors[type]) {
+            setErrors({ ...errors, ProjectHeroImg: null })
+          }
+        }
         else {
           dispatch({ type: 'cardImgLoader', payload: true })
           if (errors[type]) {
@@ -421,6 +438,7 @@ const Projects = (props) => {
         dispatch({ type: 'bannerImgLoader', payload: false })
         dispatch({ type: 'castImgLoader', payload: false })
         dispatch({ type: 'MediaImageLoader', payload: false })
+        dispatch({ type: 'ProjectHeroImgLoader', payload: false })
         if(type !='image'){
           dispatch({ type: 'errorMgs', payload: apiCalls.uploadErrorDisplay(res) })
         }else{
@@ -454,6 +472,12 @@ const Projects = (props) => {
           dispatch({ type: 'MediaImageLoader', payload: false })
           dispatch({ type: 'MediaImage', payload: data[0] })
         }
+        else if (type == "ProjectHeroImg") {
+          _obj.ProjectHeroImg = data[0];
+          dispatch({ type: 'errors', payload:{ ...state.errors,  ProjectHeroImg: ''}  });
+          dispatch({ type: 'ProjectHeroImgLoader', payload: false })
+          dispatch({ type: 'SetProjectHeroImg', payload: data[0] })
+        }
       }
     } catch (error) {
       if(type !='image'){
@@ -465,6 +489,7 @@ const Projects = (props) => {
       dispatch({ type: 'loading', payload: false })
       dispatch({ type: 'cardImgLoader', payload: false })
       dispatch({ type: 'castImgLoader', payload: false })
+      dispatch({ type: 'ProjectHeroImgLoader', payload: false })
       window.scroll(0, 0);
     }
   };
@@ -817,8 +842,9 @@ return (<>
                  </div>
                  
                 </Col>
+                {/* BANNER IMAGE */}
                 <Col lg={8} md={12}>
-                  <Form.Label className="input-label upload-file ms-2">Upload Banner Image<span className="text-danger">*</span></Form.Label>
+                  <Form.Label className="input-label upload-file ms-2">Project Banner Image<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`banner-size ${isIdeoRequest ?
                       'upload-img mb-2 position-relative c-notallowed' :
@@ -872,6 +898,68 @@ return (<>
                             onClick={() => inputRef1.current?.click()}
                           ></span>
                           <Form.Control.Feedback type="invalid">{state.errors.bannerImage}</Form.Control.Feedback>
+                        </div>
+                      </div>
+                    }
+                  </div>
+
+                </Col>
+                {/* HERO IMAGE */}
+                <Col lg={8} md={12}>
+                  <Form.Label className="input-label upload-file ms-2">Project Hero Image<span className="text-danger">*</span></Form.Label>
+                  <div
+                    className={`banner-size ${isIdeoRequest ?
+                      'upload-img mb-2 position-relative c-notallowed' :
+                      'upload-img mb-2 position-relative '}`}
+                    role="button"
+                  >
+                    {state.ProjectHeroImgLoader && <Spinner fallback={state.ProjectHeroImgLoader} className='position-absolute'></Spinner>}
+                    {state.ProjectHeroImg && !state.ProjectHeroImgLoader && <span className='imgupload-span'>
+                      <Image src={state.ProjectHeroImg} width="100" height="100" alt="" /></span>}
+                    {!state.ProjectHeroImg && !state.ProjectHeroImgLoader &&
+                      <div className="choose-image">
+                        <div>
+                          <Form.Control
+                            required
+                            className="d-none custom-btn active btn"
+                            type="file"
+                            ref={inputRef5}
+                            isInvalid={!!state.errors.ProjectHeroImg}
+                            onChange={(e) => uploadToClient(e, 'ProjectHeroImg')}
+                            disabled={isIdeoRequest}
+                          />
+                          <span
+                            className="icon camera"
+                            onClick={() => inputRef5.current?.click()}
+                          ></span>
+                          <p className="c-pointer pt-3">
+                            Jpg, Jpeg, Png, Gif, Webp <br/>
+                          </p>
+                          <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 790 * 350 Resolution</p>
+                          <Form.Control.Feedback type="invalid">{state.errors.bannerImage}</Form.Control.Feedback>
+                        </div>
+                      </div>
+                    }
+                    {state.ProjectHeroImg && !state.ProjectHeroImgLoader &&
+                      <div
+                        className={`${isIdeoRequest ?
+                          'onhover-upload c-notallowed' :
+                          'onhover-upload'}`}>
+                        <div className='bring-front'>
+                          <Form.Control
+                            required
+                            className="d-none custom-btn active btn"
+                            type="file"
+                            ref={inputRef5}
+                            isInvalid={!!state.errors.ProjectHeroImg}
+                            onChange={(e) => uploadToClient(e, 'ProjectHeroImg')}
+                            disabled={isIdeoRequest}
+                          />
+                          <span
+                            className="icon camera"
+                            onClick={() => inputRef5.current?.click()}
+                          ></span>
+                          <Form.Control.Feedback type="invalid">{state.errors.ProjectHeroImg}</Form.Control.Feedback>
                         </div>
                       </div>
                     }
