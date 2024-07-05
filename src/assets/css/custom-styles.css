@@ -583,7 +583,7 @@ th .k-link{cursor: default !important;}
 .py-0.col-lg-4{padding-top: 0 !important;padding-bottom: 0 !important;}
 .mb-hide .user-head{width: 85%;}
 .note-resolution{font-size: 14px !important;color: #000 !important;opacity: 60%;}
-.note-resolution span{font-weight: 600;}
+.note-resolution span{font-weight: 600;flex-shrink: 0;}
 @media (min-width: 768px) { 
   .project-details-popup .banner-size {    height: 355px !important; width: 100% !important;}
   .project-details-popup .col-width {width: 33% ;}

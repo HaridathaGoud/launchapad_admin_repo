@@ -723,10 +723,11 @@ const ProjectCards = () => {
                     </Col>
                     {state.detailsPreview?.tokenType == 'ERC-721'&& state.detailsPreview?.nftImagesCount >=10  &&
                     <div className="view-data">
-                    <h6 className='about-label text-overflow mb-0'>
-                    {'Note : Deployment may take longer if membership count is large,'}<br/>
-                     {'as it needs to create images for each one. Please specify your start and end dates based on your'}<br/>
-                     { 'membership count.'}
+                    <h6 className='note-resolution mt-3 d-flex gap-2'>
+                    <span>Note :</span>
+                    Deployment may take longer if membership count is large,
+                     as it needs to create images for each one. Please specify your start and end dates based on your
+                     membership count.
                     </h6>
                     </div> }
                   </Row>
