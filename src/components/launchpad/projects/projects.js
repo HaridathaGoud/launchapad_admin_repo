@@ -175,7 +175,7 @@ const Projects = (props) => {
       dispatch({ type: 'projectLogoImages', payload: callback.data?.projectsViewModel?.cardImage })
       dispatch({ type: 'projectBannerImages', payload: callback.data?.projectsViewModel?.bannerImage })
       dispatch({ type: 'MediaImage', payload: callback.data?.projectsViewModel?.mediaImage })
-      dispatch({ type: 'SetProjectHeroImg', payload: callback.data?.projectsViewModel?.ProjectHeroImg })
+      dispatch({ type: 'SetProjectHeroImg', payload: callback.data?.projectsViewModel?.heroImage })
       dispatch({ type: 'projectCardImages', payload: callback.data?.projectsViewModel?.tokenLogo })
       dispatch({ type: 'castCrewDataList', payload: callback.data?.projectsViewModel?.castCrews ? callback.data?.projectsViewModel?.castCrews : [] });
       dispatch({ type: 'projectDetails', payload: callback.data })
@@ -264,7 +264,7 @@ const Projects = (props) => {
         "totalNumberOfTokens": state.projectSaveDetails?.totalNumberOfTokens || null,
         "bannerImage": state.projectBannerImages,
         "mediaImage" : state.MediaImage,
-        "ProjectHeroImg":state.ProjectHeroImg,
+        "heroImage":state.ProjectHeroImg,
         "cardImage":state.projectLogoImages || null,
         "projectName": state.projectSaveDetails?.projectName,
         "networkSymbol": "Matic",
@@ -305,12 +305,12 @@ const Projects = (props) => {
           dispatch({ type: 'loader', payload: false })
           dispatch({ type: 'buttonLoader', payload: false })
         } else {
-          if (obj.cast_Crews?.length === 0) {
-            dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
-            window.scroll(0, 0);
-            dispatch({ type: 'buttonLoader', payload: false })
-            return; 
-        }
+        //   if (obj.cast_Crews?.length === 0) {
+        //     dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
+        //     window.scroll(0, 0);
+        //     dispatch({ type: 'buttonLoader', payload: false })
+        //     return; 
+        // }
           obj.tokenListingDate = moment(obj.tokenListingDate).utc().format("YYYY-MM-DDTHH:mm:ss")
           let res = await apiCalls.UpdateProjectDetail(obj);
           if (res.ok) {
@@ -340,12 +340,12 @@ const Projects = (props) => {
           dispatch({ type: 'loader', payload: false })
           dispatch({ type: 'buttonLoader', payload: false })
         } else {
-          if (obj.cast_Crews?.length === 0) {
-            dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
-            window.scroll(0, 0);
-            dispatch({ type: 'buttonLoader', payload: false })
-            return; 
-        }
+        //   if (obj.cast_Crews?.length === 0) {
+        //     dispatch({ type: 'errorMgs', payload: 'Please add at least one cast and crew' });
+        //     window.scroll(0, 0);
+        //     dispatch({ type: 'buttonLoader', payload: false })
+        //     return; 
+        // }
           obj.tokenListingDate = moment(obj.tokenListingDate).utc().format("YYYY-MM-DDTHH:mm:ss")
           let res = await apiCalls.UpdateProjectDetail(obj);
           if (res.ok) {
@@ -1480,10 +1480,8 @@ return (<>
           </Row>}
             </div>
 
-             
-             
 
-              <div className='profile-section'>
+              {/* <div className='profile-section'>
                 <div className='d-flex justify-content-between  align-items-center mb-2'>
                   <h3 className='section-title '>Cast And Crew <span className="text-danger">*</span></h3>
                   <Button className='button-style mt-3 mt-md-0' onClick={() => handleEdit(null)}
@@ -1492,7 +1490,8 @@ return (<>
                 <Row className='mb-4 mt-4'>
                   <CastcrewCards castCrewDataList={state?.castCrewDataList} handleEdit={handleEdit}/>
                 </Row>
-              </div>
+              </div> */}
+
               <div className='text-end mt-5 mb-5'>
                 <Button className='cancel-btn me-2' onClick={() => handleCancel()} >
                   Cancel</Button>{' '}

@@ -2,7 +2,7 @@ import { validateContentRules } from "src/utils/custom.validator";
 import { validateUrl } from "src/utils/validations";
 export  const erc20FormValidation = (obj) => {
     const { projectName, tokenLogo, cardImage, bannerImage, countryRestrictions, networkSymbol, tokenListingDate, description, tokenContractAddress,
-      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply,mediaImage,ProjectHeroImg  } = obj;
+      tokenName, tokenSymbol, tokenDecimal, totalNumberOfTokens, initialSupply,mediaImage,heroImage  } = obj;
     const newErrors = {};
     const numbersOnly = /^\d+$/;
     const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
@@ -32,7 +32,7 @@ export  const erc20FormValidation = (obj) => {
     if (!mediaImage || mediaImage == '') {
       newErrors.MediaImage = 'Is required';
     }
-    if (!ProjectHeroImg || ProjectHeroImg == '') {
+    if (!heroImage || heroImage == '') {
       newErrors.ProjectHeroImg = 'Is required';
     }
     if (!tokenListingDate || tokenListingDate === '') {
@@ -83,7 +83,7 @@ export  const erc20FormValidation = (obj) => {
   };
 
   export  const erc721FormValidation = (obj) => {
-    const { projectName, tokenLogo, cardImage, bannerImage,mediaImage, countryRestrictions, networkSymbol, tokenListingDate, description,nftImagesCount,ProjectHeroImg  } = obj;
+    const { projectName, tokenLogo, cardImage, bannerImage,mediaImage, countryRestrictions, networkSymbol, tokenListingDate, description,nftImagesCount,heroImage  } = obj;
     const newErrors = {};
     const numbersOnly = /^\d+$/;
     const specialCharsOnly = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
@@ -112,7 +112,7 @@ export  const erc20FormValidation = (obj) => {
     if (!mediaImage || mediaImage == '') {
       newErrors.MediaImage = 'Is required';
     }
-    if (!ProjectHeroImg || ProjectHeroImg == '') {
+    if (!heroImage || heroImage == '') {
       newErrors.ProjectHeroImg = 'Is required';
     }
     if (!tokenListingDate || tokenListingDate === '') {
