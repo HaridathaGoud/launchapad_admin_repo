@@ -264,7 +264,7 @@ const Projects = (props) => {
         "totalNumberOfTokens": state.projectSaveDetails?.totalNumberOfTokens || null,
         "bannerImage": state.projectBannerImages,
         "mediaImage" : state.MediaImage,
-        "projecthereImage":state.ProjectHeroImg,
+        "ProjectHeroImg":state.ProjectHeroImg,
         "cardImage":state.projectLogoImages || null,
         "projectName": state.projectSaveDetails?.projectName,
         "networkSymbol": "Matic",
@@ -718,7 +718,7 @@ return (<>
               <Row className='mb-4 border p-3 rounded'>
                 <Col lg={4} md={12} className='col-width py-0 d-md-flex flex-column justify-content-between' >
                 <div>
-                  <Form.Label className="input-label upload-file ms-2">Upload Logo<span className="text-danger">*</span></Form.Label>
+                  <Form.Label className="input-label upload-file ms-2">Project Logo<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`media-image ${isIdeoRequest ?
                       'upload-img mb-2 position-relative c-notallowed' :
@@ -905,10 +905,10 @@ return (<>
 
                 </Col>
                 {/* HERO IMAGE */}
-                <Col lg={8} md={12}>
+                <Col lg={8} md={12} className='mt-3'>
                   <Form.Label className="input-label upload-file ms-2">Project Hero Image<span className="text-danger">*</span></Form.Label>
                   <div
-                    className={`banner-size ${isIdeoRequest ?
+                    className={`hero-img ${isIdeoRequest ?
                       'upload-img mb-2 position-relative c-notallowed' :
                       'upload-img mb-2 position-relative '}`}
                     role="button"
@@ -936,7 +936,7 @@ return (<>
                             Jpg, Jpeg, Png, Gif, Webp <br/>
                           </p>
                           <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 790 * 350 Resolution</p>
-                          <Form.Control.Feedback type="invalid">{state.errors.bannerImage}</Form.Control.Feedback>
+                          <Form.Control.Feedback type="invalid">{state.errors.ProjectHeroImg}</Form.Control.Feedback>
                         </div>
                       </div>
                     }
@@ -983,7 +983,6 @@ return (<>
                     placeholder="Name"
                     onChange={(e)=>handleChange('projectName',e.currentTarget.value)}
                     onBlur={() => trimField('projectName')}
-                    // onBlur={(e) => handleChange('projectName',e.target.value.trim().replace(/\s+/g, " "))}
                     required
                     maxLength={100}
                     isInvalid={!!errors?.projectName}
@@ -1065,7 +1064,6 @@ return (<>
                     placeholder="Description"
                     onChange={(e)=>handleChange('description',e.currentTarget.value)}
                     onBlur={() => trimField('description')}
-                    // onBlur={(e) => handleChange('description',e.target.value.trim().replace(/\s+/g, " "))}
                     maxLength={1000}
                     isInvalid={errors?.description}
                     required
