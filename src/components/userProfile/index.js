@@ -156,7 +156,7 @@ const UserProfile = (props) => {
           obj.isAdmin= adminDetails.isAdmin,
           obj.kycStatus= adminDetails.adminDetails,
           obj.userName= adminDetails.userName
-          let response = await apiCalls.saveAdmin('')
+          let response = await apiCalls.saveAdmin(obj)
           if (response.ok) {
             store.dispatch(adminProfileImg(profile?.profilePicUrl || adminDetails?.profilePicUrl));
             setSuccess("Profile details saved successfully");
