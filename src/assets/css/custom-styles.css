@@ -59,7 +59,7 @@ h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
 .profile-size{ height: 106px; position: relative;overflow: hidden;border-radius: 8px;}
 .image-box{ box-sizing: border-box;display: inline-block; overflow: hidden;width: initial; height: initial; background: none;opacity: 1;border: 0px; margin: 0px; padding: 0px; max-width: 100%;}
 .image-setup{position: absolute;  inset: 0px; box-sizing: border-box;  padding: 0px; border: none; margin: auto; display: block;  width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%;  max-height: 100%;object-fit: cover;}
-.profile-section{padding:30px;border-radius: 12px;background: #fff;border: 1px solid #a5a5a5  ;}
+.profile-section{padding:30px;border-radius: 12px;background: #ffffff;border: 1px solid #a5a5a5;}
 .activity-title{font-weight:400;font-size: 24px;}
 .text-lightblue{color: #D60000;}
 .text-white, .dropdown-item{color: #ffffff;}
@@ -108,7 +108,7 @@ h1, h2, h3, h4, h5{font-family: 'Roboto', sans-serif !important;}
 /* profie end  */
 
 /* profile tabs start */
-.profile-tabs{background-color: #fff !important;border: 1px solid #ccc; border-bottom: 0 !important;padding: 8px !important;border-radius: 8px !important;gap: 8px !important;}
+.profile-tabs{background-color: #ffffff !important;border-bottom: 0 !important;padding: 8px !important;border-radius: 8px !important;gap: 8px !important;border: 1px solid #a5a5a5;}
 .profile-tabs li{min-width: 109px !important;border-radius: 8px !important;}
 .profile-tabs li button{color: #ffffff;border-radius: 8px;}
 .profile-tabs .nav-fill > .nav-link, .nav-fill .nav-item{flex: unset !important;}
@@ -696,8 +696,8 @@ html:not([dir=rtl]) .sidebar.hide:not(.sidebar-end){ margin-left: 0 !important  
   .token-type{width: 516px;}
   .Project-Card{width: 345px !important;}
   .banner-size { width: 870px !important;}
-  .nft-img{height: 516px !important;width: 516px !important;}
   .modal-content .nft-img{width: 100% !important;}
+  .nft-img{height: 516px !important;width: 516px !important;}
   /* .custom-grid.mint-grid .k-grid-table, .custom-grid.mint-grid .k-grid-header-table{width:1224px !important;} */
   .dashboard-text{padding: 60px 0px;}
   /* .profile-container{width: 1358px;margin: 0 auto;} */
