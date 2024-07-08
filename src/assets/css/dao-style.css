@@ -36,7 +36,7 @@ box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
     /* border:1px solid #0068FF !important; */
     max-width: 100%;border-top-left-radius: 10px;border-top-right-radius: 10px;}
   .dao-mt{margin-top: 32px;}
-  .firstpraposal-card{width: 790px;height: 458px;background: #F5f5f5;border-radius: 10px;display: flex;justify-content: center;text-align: center;padding:50px;}
+  .firstpraposal-card{width: 790px;height: 458px;background: #fff;border-radius: 12px;display: flex;justify-content: center;text-align: center;padding:50px;border: 1px solid #a5a5a5;}
   .pra-description{color:#000;font-size:14px;font-weight: 400;}
 /* main dashboard start */
 /* Dashboard start */
@@ -97,7 +97,7 @@ option{background-color: #fff;border: 1px solid #9fa2b4; color: #000;}
 /* Dashboard end */
 /* Proposal start */
 .proposal-type {border-radius: 28px;border: 1px solid rgba(159, 162, 180, 0.50);height: 36px;display: flex;align-items: center;padding-left: 18px;margin-bottom: 16px;}
-.kpi-list{background: #F5F5F5;box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);border-radius: 10px;padding: 22px;margin-top: 16px;}
+.kpi-list{background: #fff;border-radius: 12px;padding: 22px;margin-top: 16px;border: 1px solid #a5a5a5;}
 .card-pading{padding: 22px;border-radius: 8px;}
 .proposal-text{font-weight: 600 !important;font-size: 18px !important;color: var(--textBlack) !important;}
 .para-text{font-weight: 400;font-size: 16px;color: #000;}
@@ -220,7 +220,7 @@ input[type=checkbox]:checked+span.icon-check{background-position: -693px -595px 
 /* thank you end */
 
 /* status start  */
-.status-section{border-radius: 8px;  background: #F5F5F5;    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);      border-radius: 10px;padding: 16px;}
+.status-section{border-radius: 12px;  background: #fff;     border: 1px solid #a5a5a5; padding: 16px;}
 .status-section h2{font-weight: 600;  font-size: 16px;margin-bottom: 10px;}
 .text-green{font-weight: 500;  font-size: 14px;color: #69DD8A;}
 .common-text{font-weight: 400;  font-size: 14px;}
@@ -264,7 +264,7 @@ a{text-decoration: none !important;}
 .icon-dao.block{background-position: -1183px -270px !important;height: 30px;  width: 30px;margin-left: 12px;}
 .yes-no li{flex: 200px;}
 .progress-bar{background-color: #69DD8A !important;}
-.dashboard-card .card-body{padding-top:32px;border-bottom-left-radius: 5px;  border-bottom-right-radius: 5px;
+.dashboard-card .card-body{padding-top:32px;border-bottom-left-radius: 12px;  border-bottom-right-radius: 12px;
   /* border: 1px solid #0068FF !important; */
   border-top: 0 !important;}
 .icon.alert-icon{background-position: -1224px -272px !important;}
@@ -274,7 +274,7 @@ a{text-decoration: none !important;}
   border: 1px solid #A5A5A5;
   border-radius: 8px;}
 .custom-datepicker .form-control.form-select.cust-br-style {border-top: 0 !important;border-left: 0 !important;border-right: 1px solid var(--inputbr) !important;border-bottom: 0 !important;border-top-right-radius: 0;border-bottom-right-radius: 0;}
-.input-style input, .input-style .form-control, .form-select {border-radius: 28px;font-weight: 400 !important;font-size: 16px !important;width: 100% !important;height: 36px !important;padding: 6px 16px !important;border: 1px solid #A5A5A5;}
+.input-style input, .input-style .form-control, .form-select {border-radius: 12px;font-weight: 400 !important;font-size: 16px !important;width: 100% !important;height: 36px !important;padding: 6px 16px !important;border: 1px solid #A5A5A5;}
 input[type='date']:disabled{cursor: not-allowed !important;}
 .custom-datepicker .form-control.form-select {border: 0 !important;}
 .proposal-text.text-primary{color: #000 !important;}

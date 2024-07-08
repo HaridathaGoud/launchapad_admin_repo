@@ -340,7 +340,7 @@ class InvestorsGrid extends Component {
                     </Form>
                     <div className='d-flex align-items-center justify-content-end'>
             <Button className='primary-btn mt-3 mt-md-0 button-style'
-              onClick={() => this.addInvestors()}><span className='icon add-icon'></span> Add Investor</Button>
+              onClick={() => this.addInvestors()}><span className='icon add-icon'></span> Add Project Owner</Button>
           </div>
                 </div>
                 <div className=''>

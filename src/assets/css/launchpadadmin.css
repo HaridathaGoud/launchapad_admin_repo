@@ -62,7 +62,7 @@
 .page-title{font-size: 24px;font-weight: 500;color: #fff;}
 /* dashboard page end  */
 /* users start  */
-.search-style{background: #29333D; border-radius: 30px;color: #ffffff !important;padding: 8px 17px !important;border:  1px solid rgba(255, 255, 255, 0.14) !important;
+.search-style{background: #29333D; border-radius: 12px;color: #ffffff !important;padding: 8px 17px !important;border:  1px solid rgba(255, 255, 255, 0.14) !important;
   background-origin: border-box !important; padding-right: 42px !important; font-size: 18px !important;position: relative;}
 .icon.search-icon{ background-position: -43px -425px;width: 22px !important; height: 22px !important;}
 .grid-search .search-icon{position: absolute;right: 16px;top: 8px;cursor: pointer;}
@@ -72,7 +72,7 @@
 .icon.error-alert{flex: 30px 0 0;flex-grow: 0; flex-shrink: 0; flex-basis: 30px;}
 .text-lightpurpl{color: #000 !important;}
 .icon.grid-filter{background-position: -14px -423px;width: 24px !important; height: 24px !important;}
-.filter-style{background: #d60000;border: 1px solid rgba(255, 255, 255, 0.14);border-radius: 24px;padding:10px 14px;font-weight: 600;}
+.filter-style{background: #d60000;border: 1px solid rgba(255, 255, 255, 0.14);border-radius: 12px;padding:10px 14px;font-weight: 600;}
 .badge-style{background: linear-gradient(146.29deg, #1C262F 4.04%, #29323B 84.79%);padding: 8px 12px;border-radius: 8px;border: 1px solid  rgba(255, 255, 255, 0.14);margin: 8px 0px;display: flex;justify-content: space-between;align-items: center;}
 .text-overflow{white-space: nowrap; overflow: hidden;text-overflow: ellipsis;width: 100%;}
 .icon.eye-view{background-position: -125px -418px;width: 28px !important; height: 28px !important;}
@@ -242,14 +242,14 @@ line-height: 15px;
 /*Project card End*/
   /* investor start  */
 .investor-avathar{height: 50px;position: relative;overflow: hidden;border-radius: 12px;width: 50px;border-radius: 50%;cursor: pointer;}
-.button-style{ padding: 8px 20px;font-weight: 600;font-size: 16px;border-radius: 28px; background: #d60000 ;border: 1px solid #d60000;color: #fff;}
+.button-style{ padding: 8px 20px;font-weight: 600;font-size: 16px;border-radius: 12px; background: #d60000 ;border: 1px solid #d60000;color: #fff;}
 .button-style:hover,.button-style:active{background: #d60000 !important;border: 1px solid #d60000 !important;}
 .c-pointer{cursor: pointer;}
 .name-overflow{width: 100px;}
 .card-image{position: relative;height: 213px;overflow: hidden; border-top-left-radius: 10px; border-top-right-radius: 10px;}
 .card-image-span{ box-sizing: border-box;display: inline-block; overflow: hidden;width: initial; height: initial; background: none;opacity: 1;border: 0px; margin: 0px; padding: 0px; max-width: 100%;}
 .card-image-span img{position: absolute;  inset: 0px; box-sizing: border-box;  padding: 0px; border: none; margin: auto; display: block;  width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%;  max-height: 100%;object-fit: cover;}
-.card-style{border-radius: 10px;background: #fff;border: 1px solid #fff;box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);height: 100%;}
+.card-style{border-radius: 12px;background: #fff;border: 1px solid #fff;height: 100%;border: 1px solid #a5a5a5;}
 .icon.add-icon{background-position: -289px -149px;width: 18px !important;height: 18px !important;}
 .button-transparent{border: 1px solid #0068ff;background-color: transparent;font-weight: 600;font-size: 16px;}
 .button-transparent:hover{  background: #0068ff;}
@@ -342,7 +342,7 @@ body.mceContentBody {
 .matic-dropdown .dropdown-toggle::after{position: absolute;right: 16px;top: 16px;}
 .matic-icon{background-position: -370px -7px;  width: 22px !important;  height: 22px !important;}
 .eth-icon{background-position: -397px -3px;}
-.matic-dropdown button{height: 36px;border-radius: 28px;}
+.matic-dropdown button{height: 36px;border-radius: 12px;}
 .matic-dropdown button.btn:disabled{background: transparent;}
 .black-bg td{background-color: #192229 !important;color: #fff;border-bottom-color:#ffffff1b ;}
 .launchpad-labels .form-control.is-invalid { padding-right: 12px !important;}

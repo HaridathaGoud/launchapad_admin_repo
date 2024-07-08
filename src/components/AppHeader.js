@@ -155,7 +155,7 @@ function AppHeader(props){
 
   const renderTooltipInvestorPage = (props) => (
     <Tooltip id="button-tooltip" {...props}>
-      Investors
+      Project Owners
     </Tooltip>
   );
   const renderTooltipIdoRequest = (props) => (

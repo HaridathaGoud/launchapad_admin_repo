@@ -873,7 +873,7 @@ return (<>
                           <p className="c-pointer pt-3">
                             Jpg, Jpeg, Png, Gif, Webp <br/>
                           </p>
-                          <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 790 * 350 Resolution</p>
+                          <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 870 * 380 Resolution</p>
                           <Form.Control.Feedback type="invalid">{state.errors.bannerImage}</Form.Control.Feedback>
                         </div>
                       </div>
@@ -905,7 +905,7 @@ return (<>
 
                 </Col>
                 {/* HERO IMAGE */}
-                <Col lg={8} md={12} className='mt-3'>
+                <Col lg={12} md={12} className='mt-3'>
                   <Form.Label className="input-label upload-file ms-2">Project Hero Image<span className="text-danger">*</span></Form.Label>
                   <div
                     className={`hero-img ${isIdeoRequest ?
@@ -935,7 +935,7 @@ return (<>
                           <p className="c-pointer pt-3">
                             Jpg, Jpeg, Png, Gif, Webp <br/>
                           </p>
-                          <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 790 * 350 Resolution</p>
+                          <p className='note-resolution text-center'><span>Note:</span> For Better Appearance Upload <br/> 1140 * 380 Resolution</p>
                           <Form.Control.Feedback type="invalid">{state.errors.ProjectHeroImg}</Form.Control.Feedback>
                         </div>
                       </div>
@@ -1344,7 +1344,7 @@ return (<>
                         )}
                       />
                       {/* <Form.Control.Feedback type="invalid">{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</Form.Control.Feedback> */}
-                      {(errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens) &&<p className='invaliid-textstyle error-space'>{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</p>}
+                      {(errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens) &&<p className='invaliid-textstyle error-space mb-0'>{errors?.totalNumberOfTokens || state?.errors?.totalNumberOfTokens}</p>}
                     </Col>
                     <Col lg={12} md={12} className='mb-3'>
                       <Form.Label
@@ -1371,7 +1371,7 @@ return (<>
                           || isIdeoRequest
                         )}
                       />
-                      {(errors?.initialSupply || state?.errors?.initialSupply) &&<p className='invaliid-textstyle error-space'>{errors?.initialSupply || state?.errors?.initialSupply}</p>}
+                      {(errors?.initialSupply || state?.errors?.initialSupply) &&<p className='invaliid-textstyle error-space mb-0'>{errors?.initialSupply || state?.errors?.initialSupply}</p>}
                     </Col>
                  </Row>
                 </Col>
@@ -1473,7 +1473,7 @@ return (<>
                       || isIdeoRequest
                     )}
                   />
-                  {(errors?.nftImagesCount || state?.errors?.nftImagesCount) &&<p className='invaliid-textstyle error-space'>{errors?.nftImagesCount || state?.errors?.nftImagesCount}</p>}
+                  {(errors?.nftImagesCount || state?.errors?.nftImagesCount) &&<p className='invaliid-textstyle error-space mb-0'>{errors?.nftImagesCount || state?.errors?.nftImagesCount}</p>}
                 </Col>
               </Row>
             </Col>
