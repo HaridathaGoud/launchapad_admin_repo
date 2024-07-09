@@ -238,7 +238,7 @@ td {
 .breadcrumb-item.active{letter-spacing: 0.4px;color: #4F8CC3;font-weight: 600;}
 .breadcrumb-item.active,.breadcrumb li:last-child{color: #D60000;font-weight: 600;}
 .breadcrumb-item:hover a{color: #D60000;}
-.breadcrumb-item a{color: #1c16c8;}
+.breadcrumb-item a{color: #0068FF;}
 .breadcrumb-item + .breadcrumb-item::before { color: rgb(253 253 253 / 68%);}
 option{color: #000 !important;}
 .nav-search input,.nav-search input:focus{background-color: #29333D !important;  border: 1px solid rgba(255, 255, 255, 0.14) !important ;color: #fff !important;}
@@ -1084,7 +1084,7 @@ h1.heading{font-size: 24px;font-weight: 600;color:var(--textWhite);margin-bottom
 }
 .creator-card .creator-bg {
   background: #fff;
-  border: 1px solid #e0e0e0;  
+  border: 1px solid #e0e0e0;
   border-radius: 12px;
   height: 100%;
 }

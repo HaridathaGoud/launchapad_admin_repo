@@ -254,7 +254,7 @@ const getWalletddressDetails = async() =>{
           }} /></div>
       <CHeaderNav className="ms-3 align-items-center">
       {walletAddres && <li><div className='login-user'><span className='text-word-br'>{walletAddres.substring(0, 4) + "...." + walletAddres.slice(-4)}</span>
-              <CopyToClipboard text={walletAddres.substring(0, 4) + "...." + walletAddres.slice(-4)} options={{ format: 'text/plain' }}
+              <CopyToClipboard text={walletAddres} options={{ format: 'text/plain' }}
                 onCopy={() => handleCopy()}
               >
                 <span className={copied ? "icon copied-check ms-2" : "icon copy c-pointer"} />
