@@ -19,6 +19,7 @@ import shimmers from '../shimmers/shimmers';
 import { useAccount,useNetwork } from 'wagmi'
 import { switchNetwork } from 'wagmi/actions';
 import { useConnectWallet } from 'src/hooks/useConnectWallet';
+import { Image } from 'react-bootstrap';
 const take = 8;
 const Dashboard = (props) => {
     const loading = useSelector((state) => state?.proposal?.daoCards?.loading)
@@ -170,16 +171,17 @@ const Dashboard = (props) => {
     )}
         <div><div className='dao-mt'>
             <h5 className='mb-1 page-title'>DAO’s</h5>
-                <Row className='gap-4 gap-md-0'>
+                <div className='dao-card-style'>
                     {!loading && <>
                         { daoCardDetails?.data?.map((item) => (
-                            <Col lg={3} md={6} xs={12} className='mt-md-3' key={item?.daoId}>
-                                {<Card className='dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full' key={item?.daoId} >
-                                    <Card.Img variant="top" src={item?.logo || profileavathar}  onClick={() => isDeployed(item) } />
-                                    <Card.Body>
-                                        <Card.Text className='mb-1 '>
-                                            <p className='m-0 font-bold'>{item.name}</p>
-                                        </Card.Text>
+                            <div className='mt-md-3' key={item?.daoId}>
+                                {<div className='p-relative dashboard-card mt-md-0 mt-3 sm-m-0 c-pointer h-full dao-cards-design' key={item?.daoId} >
+                                <div>
+                                    <Image variant="top" src={item?.logo || profileavathar}  onClick={() => isDeployed(item) } />
+                                    
+                                        <div className='mb-1 '>
+                                            <p className='dao-title'>{item.name}</p>
+                                        </div>
                                         {/* <Card.Text className='card-description d-flex mb-1'>
                                             <p className='m-0 col-3'>members :</p> <p className='m-0 '>{item?.members?.toLocaleString()}</p>
                                         </Card.Text>  */}
@@ -199,13 +201,13 @@ const Dashboard = (props) => {
                                              disabled={selectedDaoId === item.daoId}>
                                             <span>{selectedDaoId === item.daoId  && <Spinner className={`loaderStyle  ${deployContractLoader ? 'text-black' : 'text-light'}`}></Spinner>}</span>
                                             <span>Deploy </span></Button>}
-                                    </Card.Body>
-                                </Card>}
-                            </Col>
+                                    </div>
+                                </div>}
+                            </div>
                         ))}
                     </>
                     }
-                </Row>
+                </div>
                       
                 {loading &&
                  <div className='mt-4 mb-4'>

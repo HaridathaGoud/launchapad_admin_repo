@@ -1378,8 +1378,8 @@ return (<>
               </Row>
             }
             {selectedTokeType =='ERC-721' && 
-            <Row className='mb-4 Token-Details mt-4'>
-            <Col lg={5} md={12} className='mb-0'>
+            <div className='mb-4 Token-Details mt-4 row-details'>
+            <div className='mb-0'>
               <Form.Label className="input-label upload-file">Upload NFT Image<span className="text-danger">*</span></Form.Label>
               <div
                 className={`nft-img ${(state.projectSaveDetails?.projectStatus == "Deployed"
@@ -1444,12 +1444,10 @@ return (<>
                   </div>
                 }
               </div>
-            </Col>
+            </div>
 
 
-            <Col lg={7} md={12} className='mb-0'>
-              <Row >
-                <Col lg={12} md={12} className='mb-3'>
+            <div className='mb-0 w-100'>
                   <Form.Label
                     controlId="floatingInput"
                     label="Token Decimals*"
@@ -1474,10 +1472,9 @@ return (<>
                     )}
                   />
                   {(errors?.nftImagesCount || state?.errors?.nftImagesCount) &&<p className='invaliid-textstyle error-space mb-0'>{errors?.nftImagesCount || state?.errors?.nftImagesCount}</p>}
-                </Col>
-              </Row>
-            </Col>
-          </Row>}
+                
+            </div>
+          </div>}
             </div>
 
 

@@ -196,7 +196,7 @@ const clearErrorMsg=()=>{
               <Tabs
                 activeKey={activeTab} onSelect={handleTabChange}
                 id="fill-tab-example"
-                className="profile-tabs"
+                className="profile-tabs cust-pf-tabs-design"
               >
                 <Tab eventKey="Kyc" title="KYC" >
                   <KycDetails userDetailsId={userDetails}></KycDetails>
