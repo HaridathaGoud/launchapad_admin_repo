@@ -26,6 +26,8 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Collapse from 'react-bootstrap/Collapse';
 import { setUserInfo } from 'src/reducers/profileReducer';
+import { CopyToClipboard } from "react-copy-to-clipboard";
+
 
 function AppHeader(props){
   const [open, setOpen] = useState(false);
@@ -43,7 +45,8 @@ function AppHeader(props){
   const viewedProject = useSelector(state => state.launchpad?.viewedProject);
   const [url, setUrl] = useState(null);
   const [menu, setMenu] = useState(null);
-
+  const [copied,setCopied]=useState(false);
+  const [walletAddres, setWalletAddres]=useState()
   const navigate = useNavigate();
   const params = useParams()
 
@@ -51,8 +54,9 @@ function AppHeader(props){
   useEffect(() => {
     let locationSplit = location.pathname.split('/');
     setUrl(locationSplit[1]);
+    getWalletddressDetails();
   },[location]);
-  
+
   const onAppSelect = (app_name) => {
     dispatch(setApp(app_name));
   }
@@ -61,7 +65,10 @@ function AppHeader(props){
     dispatch(setDefaultDao(data));
 
   };
-
+const getWalletddressDetails = async() =>{
+  let walletAddress = await getAddress();
+  setWalletAddres(walletAddress)
+}
   const redirectToProfile = () => {
      onAppSelect("userprofile")
     navigate('/userprofile')
@@ -92,6 +99,7 @@ function AppHeader(props){
     let walletAddress = await getAddress();
     if (walletAddress) {
       customerDetails(walletAddress,path);
+      setWalletAddres(walletAddress)
     }
     else {
       navigate(path);
@@ -112,7 +120,10 @@ function AppHeader(props){
       navigate(`/launchpad/investors/projects/${params?.pId}/settings/${menuItem}`);
     }
   }
-
+  const handleCopy = () => {
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1000);
+  }
   const handleLogout = () => {
     dispatch(clearProfile())
     userManager?.signoutRedirect();
@@ -205,7 +216,7 @@ function AppHeader(props){
     </Popover>
   );
   return (
-<> 
+<>
     <CHeader position="sticky" className="custom-header herader-top">
       {url == "minting" ?
 
@@ -231,7 +242,7 @@ function AppHeader(props){
               ))}
             </NavDropdown> </>)}</div> : ""}
       </CSidebar> : <CSidebar className='bg-none menu-left superadmin-leftmenu '></CSidebar>}
-      
+
      <div> <CHeaderToggler className='mb-show icon toggole-icon d-md-none' onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
         aria-expanded={open} />
@@ -242,6 +253,12 @@ function AppHeader(props){
             navigate('/launchpad/dashboard');
           }} /></div>
       <CHeaderNav className="ms-3 align-items-center">
+      {walletAddres && <li><div className='login-user'><span className='text-word-br'>{walletAddres.substring(0, 4) + "...." + walletAddres.slice(-4)}</span>
+              <CopyToClipboard text={walletAddres.substring(0, 4) + "...." + walletAddres.slice(-4)} options={{ format: 'text/plain' }}
+                onCopy={() => handleCopy()}
+              >
+                <span className={copied ? "icon copied-check ms-2" : "icon copy c-pointer"} />
+              </CopyToClipboard></div></li>}
         <ul className='header-menu'>
         {/* {props?.oidc?.adminDetails?.isInvestor == false  &&
           <li><Link to="/kyc/customers" className={"underline" + (url === ("kyc") ? " active" : "")}
@@ -277,10 +294,10 @@ function AppHeader(props){
           <Dropdown.Item eventKey="1" onClick={() => redirectToProfile()} ><span className='icon profile me-1'></span>Profile</Dropdown.Item>
           <Dropdown.Item eventKey="2" onClick={() => redirectToSettings()} ><span className='icon settings me-1'></span>Settings</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item eventKey="4" onClick={() => handleLogout()}><span className='icon logout me-1'></span>Logout</Dropdown.Item> 
+          <Dropdown.Item eventKey="4" onClick={() => handleLogout()}><span className='icon logout me-1'></span>Logout</Dropdown.Item>
         </DropdownButton>
         <span className='icon downarrow-white header-downarrow'></span>
-        </div>     
+        </div>
       </CHeaderNav>
     </CHeader>
 
@@ -300,7 +317,7 @@ function AppHeader(props){
                     </OverlayTrigger>
                   </CNavItem>
                   </>} */}
-                  {/* <CNavItem className='mobile-active-menu'> 
+                  {/* <CNavItem className='mobile-active-menu'>
                     <CNavItem><Link to="/kyc/customers" className={"underline" + (url === ("kyc") ? " active" : "")} onClick={() => dispatch(setApp("kyc"))}>KYC</Link></CNavItem>
                     {window.location.pathname.includes('kyc') && <>   <CNavItem className={"underline" + (menu === "customers" ? " customer active" : " ")}>
                     <OverlayTrigger
@@ -313,16 +330,21 @@ function AppHeader(props){
                     </OverlayTrigger>
                   </CNavItem></>}
                     <CNavItem><Link to="/minting/dashboard" className={"underline" + (url === "minting" ? " active" : "")} onClick={() => gotoMinting()}>Minting</Link></CNavItem>
-                    
+
                   </CNavItem> */}
-                  
+                    {/* {walletAddres && <div className='login-user'><img src={user} alt=''></img><span className='text-word-br'>{walletAddres}</span>
+                      <CopyToClipboard text={walletAddres} options={{ format: 'text/plain' }}
+                        onCopy={() => handleCopy()}
+                      >
+                        <span className={copied ? "icon copied-check ms-2" : "icon copy c-pointer"} />
+                      </CopyToClipboard></div>} */}
                   {window.location.pathname.includes('') && <> <CNavItem  className='mobile-active-menu'>
                     <OverlayTrigger
-                   
+
                       placement="right"
                       overlay={renderTooltipLaunchPad} >
                       <CNavLink  onClick={() => navigate('launchpad/dashboard')} className={"underline" + (url === "launchpad" ? " active" : "")}>
-                       
+
                         <span className=''>LaunchPad</span>
                       </CNavLink>
                     </OverlayTrigger>
@@ -338,13 +360,13 @@ function AppHeader(props){
                   </CNavItem></>}
 
                   {window.location.pathname.includes('launchpad')&&
-                  isAdmin?.isAdmin && showSetting && viewedProject?.projectstatus=="Deployed"&& 
+                  isAdmin?.isAdmin && showSetting && viewedProject?.projectstatus=="Deployed"&&
                    <CNavItem className={"underline" + (menu=== "Settings" ? " active" : "")}>
                     <OverlayTrigger
                       placement="right"
                       overlay={popover} >
                         <CNavLink className='customer' ><span className="icon nav-settings" /><span className=' mx-1'>Settings</span></CNavLink>
-                     
+
                     </OverlayTrigger>
                   </CNavItem>}
 
@@ -454,7 +476,7 @@ function AppHeader(props){
                         ))}
                       </NavDropdown> </>)}</div> : ""}
                    <CNavItem  className={"underline" + (menu=== "dashboard" ? " active" : "")}>
-                    <OverlayTrigger 
+                    <OverlayTrigger
                       placement="right"
                       overlay={renderTooltipDashboard} >
                       <CNavLink className='customer' onClick={() => navigate('minting/dashboard')}><span className="icon menu" /><span className=' mx-2'>Dashboard</span>
@@ -500,8 +522,8 @@ function AppHeader(props){
                   </CNavItem></>} */}
                   {/* <div className='marketplace-admin'> */}
 
-                  <CNavItem className='mobile-active-menu'> 
-                    
+                  <CNavItem className='mobile-active-menu'>
+
                     {props?.userInfo?.role=="Super Admin"&&<CNavItem><Link to="/marketplace/dashboard" className={"underline" + (url === "marketplace" ? " active" : "")} onClick={() => dispatch(setApp("marketplace"))}>Marketplace</Link></CNavItem>}
                   </CNavItem>
                     {window.location.pathname.includes('home') && <>  <CNavItem>
@@ -532,8 +554,8 @@ function AppHeader(props){
                       </OverlayTrigger>
                     </CNavItem></>}
 
-                    
-                    
+
+
                   {window.location.pathname.includes('home') && <> <CNavItem>
                     <OverlayTrigger
                       placement="right"
@@ -542,13 +564,13 @@ function AppHeader(props){
                     </OverlayTrigger>
                   </CNavItem>
                   </>}
-                  
 
-                  
 
-                 
-                  
-                  
+
+
+
+
+
 
                 </SimpleBar>
               </CSidebarNav>
