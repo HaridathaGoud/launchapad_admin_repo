@@ -67,16 +67,16 @@ const owned = (props) => {
       NftSearch(null)
     }
   };
-  const handleEnterSearch =  (e) => {	
+  const handleEnterSearch =  (e) => {
 		let data=e.target.value.trim();
 			if (e.key == 'Enter') {
-				if(data == ""){		
-          getOwnedNfts(1, 10, null, null);		
+				if(data == ""){
+          getOwnedNfts(1, 10, null, null);
 				e.preventDefault();
 				}else{
           getOwnedNfts(1, 10, null, nftSearch);
 					e.preventDefault();
-			   }	
+			   }
 			}
 	}
 
@@ -110,7 +110,7 @@ const owned = (props) => {
    navigate(`/marketplace/customers/profileinfo/${item?.tokenId}/${item?.collectionContractAddress}/${props?.userDetails?.id}/view`)
   }
   const clearErrorMsg=()=>{
-    setErrorMsg(null); 
+    setErrorMsg(null);
   }
   return (
     <>
@@ -128,12 +128,12 @@ const owned = (props) => {
 
       <div className="items-tab">
         <div className=" align-items-center mobile-hide accounts-tabs">
-         
+
           <div className="d-flex justify-content-between w-search d-sm-bloc">
             <div className="">
             <Form className="d-flex grid-search">
             <Form.Control
-                          
+
                           placeholder="Search"
                           className=" search-style mb-3 my-lg-0"
                           aria-label="Search"
@@ -169,12 +169,12 @@ const owned = (props) => {
               <div className="row creator-card create-by-row">
                 <div className="text-center">{loader && <Spinner></Spinner>}</div>
                 {!loader && (
-                  <> 
+                  <>
                   {ownedNftCollection?.length > 0 ? (
                     ownedNftCollection?.map((item, idx) => (
-                   
+
                     <div className="col-md-6 col-lg-3 col-xl-3 mt-3" >
-                      <Card className="creator-bg c-pointer" 
+                      <Card className="creator-bg c-pointer"
                      onClick={()=>handleSelect(item)}
                       >
                         <div >
@@ -204,22 +204,22 @@ const owned = (props) => {
                           <div className="card-body card-bg-body pb-0">
                             {item.creator && <label className="card-text">{item.creator}</label>}
                             <Card.Title className="card-title text-white mt-1">
-                              {item.name} 
+                              {item.name}
                             </Card.Title>
                           </div>
                           <div className="card-footer explore-footer">
                             <div className="footer-price">
                               <label className="card-text">Price</label>
                               <h5 className="cardfooter-ellipse text-white">
-                              {(item.price!=null && item.price!="0")?<>{item.price} {item.crypto}</>:"-"}
-                                
+                              {(item.price!=null && item.price!="0")?<>{item.price} {item.crypto}</>:"--"}
+
                               </h5>
                             </div>
                             <div className="footer-price">
                               <label className="card-text">Highest bid</label>
                               <h5 className="cardfooter-ellipse text-white">
-                              {(item.biddingAmount!=null && item.biddingAmount!="0")?<>{item.biddingAmount} {item.crypto}</>:"-"}
-                                
+                              {(item.biddingAmount!=null && item.biddingAmount!="0")?<>{item.biddingAmount} {item.crypto}</>:"--"}
+
                               </h5>
                             </div>
                           </div>

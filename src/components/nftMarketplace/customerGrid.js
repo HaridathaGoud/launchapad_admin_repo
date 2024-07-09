@@ -169,7 +169,7 @@ class MarketplaceCustomers extends Component {
 								onClick={(e) => this.handleKYCCustomer(e)}
 							/>
 							<span></span>
-						</label>{" "}<p className="mx-1 mb-0">Include Pending KYC Customers</p>
+						</label>{" "}<p className="mx-1 mb-0">Include All KYC Statuses</p>
 					</Form>
 				</div>
 				<div className=''>

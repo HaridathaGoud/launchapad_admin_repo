@@ -65,19 +65,19 @@ const CreatedList = (props) => {
     if (!data) {
       GetNfts(1, 10,null,null)
       NftSearch(null)
-    } 
+    }
   };
- 
-  const handleEnterSearch =  (e) => {	
+
+  const handleEnterSearch =  (e) => {
 		let data=e.target.value.trim();
 			if (e.key == 'Enter') {
-				if(data == ""){		
-          GetNfts(1, 10, null, null);		
+				if(data == ""){
+          GetNfts(1, 10, null, null);
 				e.preventDefault();
 				}else{
           GetNfts(1, 10, null, nftSearch);
 					e.preventDefault();
-			   }	
+			   }
 			}
 	}
 
@@ -121,14 +121,14 @@ const CreatedList = (props) => {
         </div>
       </Alert>
       )}
-      
+
       <div className="items-tab">
         <div className=" align-items-center mobile-hide accounts-tabs">
-          
+
           <div className="d-flex justify-content-between w-search d-sm-bloc">
-            <div className="">              
+            <div className="">
               <Form className="d-flex grid-search">
-                        <Form.Control                          
+                        <Form.Control
                             name='searchBy'
                             type="text"
                             autoComplete="off"
@@ -154,7 +154,7 @@ const CreatedList = (props) => {
             </div>
           </div>
         </div>
-       
+
         <InfiniteScroll
         className='infinite-scroll-none'
           dataLength={nftcollections?.length}
@@ -172,8 +172,8 @@ const CreatedList = (props) => {
                     {nftcollections?.length > 0 ? (
                       nftcollections?.map((item, idx) => (
                         <div className="col-md-6 col-lg-3 col-xl-3 mt-3" key={idx}>
-                        
-                         
+
+
                       <Card className="creator-bg c-pointer"  onClick={() => navigate(`/marketplace/customers/profileinfo/${item.tokenId}/${item?.collectionContractAddress}/${props?.userDetails?.id}/view`)}>
                         <div >
                           <div className="account-card-img">
@@ -183,7 +183,7 @@ const CreatedList = (props) => {
                                 item?.image && !item?.image?.includes('null')
                                   ? item.image.replace('ipfs://', 'https://ipfs.io/ipfs/')
                                   : defaultLogo
-                              }                              
+                              }
                               alt=""
                               style={{ cursor: 'pointer' }}
 
@@ -207,21 +207,21 @@ const CreatedList = (props) => {
                             <div className="footer-price">
                               <label className="card-text">Price</label>
                               <h5 className="cardfooter-ellipse text-white">
-                                {(item.price!=null && item.price!="0" )?<>{item.price} {item.crypto}</>:"-"}
-                               
+                                {(item.price!=null && item.price!="0" )?<>{item.price} {item.crypto}</>:"--"}
+
                               </h5>
                             </div>
                             <div className="footer-price">
                               <label className="card-text">Highest bid</label>
                               <h5 className="cardfooter-ellipse text-white">
-                              {(item.biddingAmount!=null && item.biddingAmount !="0")?<>{item.biddingAmount} {item.crypto}</>:"-"}
-                               
+                              {(item.biddingAmount!=null && item.biddingAmount !="0")?<>{item.biddingAmount} {item.crypto}</>:"--"}
+
                               </h5>
                             </div>
                           </div>
                         </div>
                       </Card>
-                  
+
                         </div>
                       ))
                     ) : (

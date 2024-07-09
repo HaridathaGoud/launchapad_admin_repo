@@ -46,7 +46,7 @@ const CustomersInfo = () => {
       setActiveTab(activeTabParam);
     }
   }, [key]);
- 
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     navigate(`/marketplace/customers/profileInfo/${tab}/${address}`)
@@ -65,7 +65,7 @@ const CustomersInfo = () => {
       setLoader(false);
       });
   };
-   
+
   const handleUpload = () => {
     inputRef.current?.click();
   };
@@ -73,7 +73,7 @@ const CustomersInfo = () => {
     setShow(true);
     setErrorMsg(false);
   }
-  
+
   const handleClose =()=>{
     setShow(false);
   }
@@ -100,7 +100,7 @@ const CustomersInfo = () => {
     setTimeout(() => setCopied(false), 1000)
 }
 const clearErrorMsg=()=>{
-  setErrorMessage(null) 
+  setErrorMessage(null)
   setErrorMsg(false);
 }
   return (
@@ -114,7 +114,7 @@ const clearErrorMsg=()=>{
           <CBreadcrumbItem>Personal Info</CBreadcrumbItem>
           <CBreadcrumbItem>{userDetails?.firstName || "unnamed"}</CBreadcrumbItem>
         </CBreadcrumb>
-       
+
         {errorMessage && (
           <Alert variant="danger">
             <div className='d-flex gap-4'>
@@ -125,12 +125,12 @@ const clearErrorMsg=()=>{
               <span className='icon close-red' onClick={clearErrorMsg}></span>
             </div>
           </Alert>
-       
+
         )}
          <div className="text-center">{loader && <ProfileViewShimmer/>}</div>
          {!loader &&
           <div className='profile-section bg-none'>
-            
+
             <div className="custom-flex align-items-start mb-4">
               <div className='profile-size no-hover' onClick={handleUpload} >
                 <span className='image-box'>
@@ -141,25 +141,25 @@ const clearErrorMsg=()=>{
                 <div className="d-flex align-items-center mb-3 justify-content-between">
                       <h5 className="activity-title mb-0">
                         {userDetails.firstName ? userDetails.firstName : "unnamed"}</h5>
-                       
+
                         </div>
                 <div className="custom-flex align-items-center flex-wrap row gap-4">
                   <div className="value-card col-md-3 "><span className="icon country"></span><label className="text-medium text-secondary ms-1">{userDetails.country ? userDetails.country : "--"}</label></div>
                   <div className="value-card col-md-3 "><span className="icon contact"></span><label className="text-medium text-secondary ms-1">{userDetails.countryCode ? userDetails.countryCode : "--"}{' '}{userDetails.phoneNo ? userDetails.phoneNo : "--"}</label></div>
                   <div className="value-card col-md-3 "><span className="icon email"></span><label className="text-medium text-secondary ms-1">{userDetails.email ? userDetails.email : "--"}</label></div>
-                  
-                  <div className="value-card col-md-3 "><span className="icon discord"></span><label className="text-medium text-secondary ms-1">{userDetails.discordId?userDetails.discordId:"-"}</label></div>
-                  <div className="d-flex align-items-center value-card col-md-3 ">                  
-                    <span className="icon small-referral"></span>                  
+
+                  <div className="value-card col-md-3 "><span className="icon discord"></span><label className="text-medium text-secondary ms-1">{userDetails.discordId?userDetails.discordId:"--"}</label></div>
+                  <div className="d-flex align-items-center value-card col-md-3 ">
+                    <span className="icon small-referral"></span>
                     <span className="text-medium text-secondary ms-1">{userDetails?.referralCode || "--"}
-                  
+
                     </span>
                   </div>
-                  <div className="d-flex align-items-center value-card col-md-3 ">                  
-                  <span className="icon small-referral"></span>                   
+                  <div className="d-flex align-items-center value-card col-md-3 ">
+                  <span className="icon small-referral"></span>
                     <span className="text-medium text-secondary ms-1">{userDetails?.customerReferralCode || "--"}
-                   {userDetails?.customerReferralCode && ( <CopyToClipboard 
-                      text={userDetails.customerReferralCode } 
+                   {userDetails?.customerReferralCode && ( <CopyToClipboard
+                      text={userDetails.customerReferralCode }
                       options={{ format: 'text/plain' }}
 						        	onCopy={() => handleCopy(userDetails.customerReferralCode)}
               >
@@ -169,18 +169,18 @@ const clearErrorMsg=()=>{
                   </div>
                   <div className="value-card"><span className="icon wallet"></span>
                   <label className="text-medium text-secondary ms-1 text-ellipsis">{userDetails.walletAddress ? userDetails.walletAddress : "--"}
-               
 
-                  <CopyToClipboard 
-                      text={userDetails.walletAddress} 
+
+                  <CopyToClipboard
+                      text={userDetails.walletAddress}
                       options={{ format: 'text/plain' }}
 						        	onCopy={() => handleCopy(userDetails.walletAddress)}
               >
 							<span className={(copied && selection === userDetails.walletAddress) ? "icon copied-check ms-2" : "icon copy c-pointer"}></span>
 						</CopyToClipboard></label>
                   </div>
-                  </div>  
-                                 
+                  </div>
+
                   <div className="align-items-center custom-flex justify-content-between mt-3">
                   <div className="d-flex align-items-center">{userDetails?.kycStatus&&<h6 className="mb-0">KYC Status </h6>}{"  "}
                   {userDetails?.kycStatus &&<span className={`${userDetails?.kycStatus == "Rejected"&& "complitedRed kyc-badge ms-2"||userDetails?.kycStatus !="Completed" && "kyc-badge ms-2" || userDetails?.kycStatus =="Completed" && "kyc-badge completedGreen ms-2"}`}>{userDetails?.kycStatus}</span>}
@@ -250,7 +250,7 @@ const clearErrorMsg=()=>{
 
       </Modal>
     </div>
-    
+
   );
 }
 export default CustomersInfo;

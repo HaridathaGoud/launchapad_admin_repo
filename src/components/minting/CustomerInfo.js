@@ -93,9 +93,9 @@ class CustomerGrid extends Component {
 		if(e.target.value.trim() == ""){
 			let { searchObj } = this.state;
 			searchObj.searchBy = null;
-			this.gridRef?.current?.refreshGrid();						
+			this.gridRef?.current?.refreshGrid();
 		}else{
-		let value = e.target.value.trim()          
+		let value = e.target.value.trim()
 		let { searchObj } = this.state;
 		if (value == "") {
 			searchObj.searchBy = null;
@@ -119,15 +119,15 @@ class CustomerGrid extends Component {
 	}
 	};
 
-	handleEnterSearch = async (e) => {	
+	handleEnterSearch = async (e) => {
 		let data=e.target.value.trim();
 			if (e.key == 'Enter') {
-				if(data == ""||data.includes(".")){				
+				if(data == ""||data.includes(".")){
 				e.preventDefault();
 				}else{
 					this.gridRef?.current?.refreshGrid();
 					e.preventDefault();
-			   }	
+			   }
 			}
 	}
 	handleKYCCustomer=(e)=>{
@@ -149,7 +149,7 @@ class CustomerGrid extends Component {
               </CBreadcrumb>
 				<div className='custom-flex pb-4 pt-2 justify-content-between'>
 							<Form className="d-lg-flex grid-search mobile-block sm-text-right" >
-								<Form.Control 
+								<Form.Control
 								    style={{width:"450px"}}
 								    name='searchBy'
 								    type="text"
@@ -162,10 +162,10 @@ class CustomerGrid extends Component {
 									placeholder="Search by Name, Email and Wallet Address" />
 								<Button className="filled-btn ms-lg-3 " type="button" onClick={this.handleSearch} >
 									Search</Button>
-							</Form>	
+							</Form>
 							<Form className="d-flex grid-search mobile-block" >
-							
-						
+
+
 									  <label className='check-input-style  c-pointer d-flex align-items-center'>
                       <input className=""
                         name='isCheck'
@@ -173,8 +173,8 @@ class CustomerGrid extends Component {
 						onClick={(e)=>this.handleKYCCustomer(e)}
                       />
                       <span></span>
-                    </label>{" "}<p className="me-2 mb-0 mx-1">Include Pending KYC Customers</p>
-							</Form>					
+                    </label>{" "}<p className="me-2 mb-0 mx-1">Include All KYC Statuses</p>
+							</Form>
                         </div>
 				<div className='profile-section'>
 					<List

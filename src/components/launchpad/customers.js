@@ -198,7 +198,7 @@ class LaunchpadCustomers extends Component {
                                 onClick={(e) => this.handleKYCCustomer(e)}
                             />
                             <span></span>
-                        </label>{" "}<p className="ms-1 me-2 mb-0">Include Pending KYC Customers</p>
+                        </label>{" "}<p className="ms-1 me-2 mb-0">Include All KYC Statuses</p>
                     </Form>
                 </div>
                 <div className=''>

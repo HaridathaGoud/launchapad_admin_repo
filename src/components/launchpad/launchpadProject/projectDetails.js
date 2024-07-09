@@ -70,13 +70,13 @@ function projectdetails() {
   const handleClaimsCheck = (calimsData) => {
     let privateEndDate = new Date(pjctInfo.privateEndDate).getTime();
     let publicEndDate = new Date(pjctInfo.publicEndDate).getTime();
-    
+
     if (calimsData?.length > 0) {
       calimsData?.map((value) => {
         let claimDate = new Date(value.date).getTime();
         if (isType && (privateEndDate <= claimDate || publicEndDate <= claimDate)) {
           claimsArray.push(value);
-        } 
+        }
       });
     }
   };
@@ -89,13 +89,13 @@ function projectdetails() {
         getPjctFeed();
         swapProgressBarCalculation(res);
       })
-    
+
   };
 
   const getProjectClaimsDetails = async (e) => {
     setAllocationsLoader(true);
     setClaimErrorMsg(null);
-    
+
     if (e === 'allocations') {
       const userId = userData.id ? userData.id : '00000000-0000-0000-0000-000000000000';
       await apiCalls.getAllocationDetails(params.id, userId)
@@ -264,7 +264,7 @@ function projectdetails() {
                             <p className="regular-text">Price</p>
                           </div>
                           <div className="rght-divalign card-width">
-                            <h5 className="blue-text mb-0">{pjctInfo?.intialsupply?.toLocaleString() || '-'}</h5>
+                            <h5 className="blue-text mb-0">{pjctInfo?.intialsupply?.toLocaleString() || '--'}</h5>
                             <p className="regular-text">Initial Supply</p>
                           </div>
                         </div>

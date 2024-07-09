@@ -51,7 +51,7 @@ const favorited = (props) => {
       setSearch(search);
       let mergeData = pageNum == 1 ? [...response.data ||[]] : [...favouritecollections, ...response.data ||[]];
       setFavouriteCollections(mergeData);
-    
+
     } else {
       setErrorMsg(apiCalls.isErrorDispaly(response));
       setLoader(false);
@@ -64,18 +64,18 @@ const favorited = (props) => {
     if (!data) {
       getFavourites(1, 10,null,null)
       NftSearch(null)
-    } 
+    }
   };
-  const handleEnterSearch =  (e) => {	
+  const handleEnterSearch =  (e) => {
 		let data=e.target.value.trim();
 			if (e.key == 'Enter') {
-				if(data == ""){		
-          getFavourites(1, 10, null, null);		
+				if(data == ""){
+          getFavourites(1, 10, null, null);
 				e.preventDefault();
 				}else{
           getFavourites(1, 10, null, nftSearch);
 					e.preventDefault();
-			   }	
+			   }
 			}
 	}
 
@@ -95,11 +95,11 @@ const favorited = (props) => {
     getFavourites(1, 10, type, null);
   };
   const clearErrorMsg=()=>{
-    setErrorMsg(null); 
+    setErrorMsg(null);
   }
   return (
     <div>
-     
+
       {errorMsg && (
         <Alert variant="danger">
         <div className='d-flex gap-4'>
@@ -111,14 +111,14 @@ const favorited = (props) => {
         </div>
       </Alert>
       )}
-      
+
       <div className="items-tab">
       <div className=" d-flex justify-content-between mobile-show mobile-flex d-sm-bloc">
           <div className="d-flex mb-3 align-items-center">
-           
+
             <div className='d-flex grid-search'>
             <Form.Control
-                          
+
                           placeholder="Search"
                           className=" search-style mb-3 my-lg-0"
                           aria-label="Search"
@@ -126,7 +126,7 @@ const favorited = (props) => {
                           onKeyDown ={(e)=>handleEnterSearch(e)}
                         />
                         <i className="icon search-icon" onClick={handleSearch}></i>
-           
+
             </div>
           </div>
           <div className="cust-dropdown me-0">
@@ -185,22 +185,22 @@ const favorited = (props) => {
                           <div className="card-body card-bg-body pb-0">
                             {item.creator && <label className="card-text">{item.creator}</label>}
                             <Card.Title className="card-title text-white mt-1">
-                              {item.name} 
+                              {item.name}
                             </Card.Title>
                           </div>
                           <div className="card-footer explore-footer">
                             <div className="footer-price">
                               <label className="card-text">Price</label>
                               <h5 className="cardfooter-ellipse text-white">
-                              {(item.price!=null && item.price!="0")?<>{item.price} {item.crypto}</>:"-"}
-                               
+                              {(item.price!=null && item.price!="0")?<>{item.price} {item.crypto}</>:"--"}
+
                               </h5>
                             </div>
                             <div className="footer-price">
                               <label className="card-text">Highest bid</label>
                               <h5 className="cardfooter-ellipse text-white">
-                              {(item.biddingAmount!=null && item.biddingAmount!="0")?<>{item.biddingAmount} {item.crypto}</>:"-"}
-                               
+                              {(item.biddingAmount!=null && item.biddingAmount!="0")?<>{item.biddingAmount} {item.crypto}</>:"--"}
+
                               </h5>
                             </div>
                           </div>

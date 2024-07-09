@@ -63,21 +63,21 @@ const CollectionsView = (props) => {
 
   const handleChange = ({ currentTarget: { value } }) => {
     if (value) {
-      NftSearch(value)     
+      NftSearch(value)
     } else {
       getExploreNftsDetails(1, 10, category?.toLowerCase());
     }
   };
-  const handleEnterSearch =  (e) => {	
+  const handleEnterSearch =  (e) => {
 		let data=e.target.value.trim();
 			if (e.key == 'Enter') {
-				if(data == ""){		
+				if(data == ""){
           getExploreNftsDetails(1, 10, category?.toLowerCase());
 				e.preventDefault();
 				}else{
           getExploreNftsDetails(1, 10, nftSearch);
 					e.preventDefault();
-			   }	
+			   }
 			}
 	}
   const handleSearch=(e)=>{
@@ -87,7 +87,7 @@ const CollectionsView = (props) => {
     }else{
       getExploreNftsDetails(1, 10, nftSearch);
     }
-    
+
   }
 
 
@@ -116,7 +116,7 @@ const CollectionsView = (props) => {
                 />
                 <span className="icon search"  onClick={(e)=>handleSearch(e)}></span>
               </Form>
-     
+
         </div>
         {errorMessage && (
             <Alert variant="danger">
@@ -171,20 +171,20 @@ const CollectionsView = (props) => {
                           <div className="card-body card-bg-body">
                             <label className="card-text">{item.creator}</label>
                             <Card.Title className="card-title">
-                              {item.name} 
+                              {item.name}
                             </Card.Title>
                           </div>
                           <div className="card-footer explore-footer">
                             <div className="footer-price">
                               <label className="card-text">Price</label>
                               <h5 className="cardfooter-ellipse">
-                                {item.price!=null?<>{item.price} {item.currency}</>:"-"}
+                                {item.price!=null?<>{item.price} {item.currency}</>:"--"}
                               </h5>
                             </div>
                             <div className="footer-price">
                               <label className="card-text">Highest bid</label>
                               <h5 className="cardfooter-ellipse">
-                              {item.highestBid!=null?<>{item.highestBid} {item.currency}</>:"-"}
+                              {item.highestBid!=null?<>{item.highestBid} {item.currency}</>:"--"}
                               </h5>
                             </div>
                           </div>
