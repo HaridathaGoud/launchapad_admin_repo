@@ -221,7 +221,7 @@ const convertUtcToLocal = (date) => {
                max={`${new Date().getFullYear() + 9999}-12-31T23:59`}
                required 
                  />
-              <Form.Control.Feedback type="invalid" className='error-absolute'>Is required</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid" className='error-absolute error-space'>Is required</Form.Control.Feedback>
               </div>
           </Col>}
               {props.funcName=="setVestingTime"&&  

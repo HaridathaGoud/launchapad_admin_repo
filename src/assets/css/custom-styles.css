@@ -476,8 +476,8 @@ font-size: 12px;color: #FFFFFF;font-family: 'Roboto', sans-serif !important;}
 .status-card{margin-bottom: 20px;}
 .card-row{margin-left: 0;margin-right: 0;}
 .word-break{word-break: break-all;}
-.multiselecter .searchWrapper{min-height: 36px;display: flex;  align-items: center;overflow: auto;border-radius: 12px;padding: 0 12px;}
-.multiselecter .chip{margin-bottom: 0 !important;border-radius: 12px;}
+.multiselecter .searchWrapper{min-height: 36px;display: flex;  align-items: center;overflow: auto;border-radius: 12px;padding: 0 12px 0 4px;}
+.multiselecter .chip{margin-bottom: 0 !important;border-radius: 16px;}
 .was-validated .form-control:valid, .form-control.is-valid{background-image: none;}
 html:not([dir=rtl]) .form-control.is-invalid{padding-right: 0;}
 .settings-popover .popover-body div:hover{background-color: rgba(128, 128, 128, 0.505);}
@@ -1084,11 +1084,11 @@ h1.heading{font-size: 24px;font-weight: 600;color:var(--textWhite);margin-bottom
 }
 .creator-card .creator-bg {
   background: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.38);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 15px;
+  border: 1px solid #e0e0e0;  
+  border-radius: 12px;
   height: 100%;
 }
+.card-footer{background-color: #f9fcfe;border-bottom-right-radius: 12px !important;border-bottom-left-radius: 12px !important;}
 .creator-card-style .card-title {
   text-overflow: ellipsis;
   overflow: hidden;

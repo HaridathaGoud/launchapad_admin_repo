@@ -196,7 +196,7 @@ const CreatedList = (props) => {
                             onClick={() => saveFavorite(item)}
                           ></span>
                         </div>
-                        <div>
+                        <div className='mt-2'>
                           <div className="card-body card-bg-body pb-0">
                             {item.creator && <label className="card-text mt-2">{item.creator}</label>}
                             <Card.Title className="card-title text-white mt-0">

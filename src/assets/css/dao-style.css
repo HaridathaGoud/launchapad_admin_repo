@@ -10,7 +10,7 @@ a,
 p,
 div,
 input {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Roboto', sans-serif !important;
   color: #000;
 }
 /* icons start */
@@ -33,10 +33,9 @@ box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   text-overflow: ellipsis;}
   .dashboard-card img{object-fit: cover;height: 300px;
-    /* border:1px solid #0068FF !important; */
     max-width: 100%;border-top-left-radius: 10px;border-top-right-radius: 10px;}
   .dao-mt{margin-top: 32px;}
-  .firstpraposal-card{width: 790px;height: 458px;background: #F5f5f5;border-radius: 12px;display: flex;justify-content: center;text-align: center;padding:50px;border: 1px solid #a5a5a5;}
+  .firstpraposal-card{width: 790px;height: 458px;background: #fff;border-radius: 12px;display: flex;justify-content: center;text-align: center;padding:50px;border: 1px solid #a5a5a5;}
   .pra-description{color:#000;font-size:14px;font-weight: 400;}
 /* main dashboard start */
 /* Dashboard start */
@@ -97,7 +96,7 @@ option{background-color: #fff;border: 1px solid #9fa2b4; color: #000;}
 /* Dashboard end */
 /* Proposal start */
 .proposal-type {border-radius: 28px;border: 1px solid rgba(159, 162, 180, 0.50);height: 36px;display: flex;align-items: center;padding-left: 18px;margin-bottom: 16px;}
-.kpi-list{background: #FFFFFF;box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);border-radius: 12px;padding: 22px;margin-top: 16px;border: 1px solid #a5a5a5;}
+.kpi-list{background: #FFFFFF;border-radius: 12px;padding: 22px;margin-top: 16px;border: 1px solid #a5a5a5;}
 .card-pading{padding: 22px;border-radius: 8px;}
 .proposal-text{font-weight: 600 !important;font-size: 18px !important;color: var(--textBlack) !important;}
 .para-text{font-weight: 400;font-size: 16px;color: #000;}
@@ -115,7 +114,7 @@ option{background-color: #fff;border: 1px solid #9fa2b4; color: #000;}
 .cust-head-active .nav-item.active:after{content: '';background: url(../images/head-bg.svg)no-repeat;display: inline-block;height: 28px;width: 28px;position: absolute;bottom:-19.3px;left: 36px;}
 .cust-head-active .nav-item:hover .nav-link,.nav-item.active .nav-link{color: #b4b4ff !important;}
 .icon-dao.search{background-position: -520px -272px !important;height: 24px;width: 24px;position: absolute;top: 10px;right: 8px;}
-.profile-section .form-control,.profile-section .form-control:focus{background: #fff !important;  border: 1px solid #A5A5A5 !important;  border-radius: 28px;height: 36px;color: #000 !important;padding-right: 38px;}
+.profile-section .form-control,.profile-section .form-control:focus{background: #fff !important;  border: 1px solid #A5A5A5 !important;  border-radius: 12px;height: 36px;color: #000 !important;padding-right: 38px;}
 .btn-dao-cust .head-btn{color: #ffffff !important;border-radius: 5px !important;font-family: 'Do Hyeon' !important;font-weight: 400 !important;font-size: 16px !important;padding: 8px 16px !important;}
 /* Header end */
 
@@ -184,7 +183,7 @@ input[type=checkbox]:checked+span.icon-check{background-position: -693px -595px 
 .published-text{font-weight: 400;  font-size: 16px;color: #000;word-break: break-word;}
 .yellow-text{color: #000000 !important;}
 .testing-flow{color: #000;font-weight: 400;  font-size: 16px;word-break: break-word;text-transform: capitalize;}
-.voting-card{background: #F5F5F5;  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);border-radius: 4px;padding: 16px;}
+.voting-card{background: #fdfdfd;border-radius: 12px;padding: 16px;border: 1px solid #e0e0e0;}
 /* .p-voting{padding: 25px 34px;} */
 .voting-title{font-weight: 500;  font-size: 24px;color: #000;}
 .voting-cards{list-style: none;  display: inline-flex;border: 1px solid #0068FF;  border-radius: 5px;padding: 0;}
@@ -224,7 +223,7 @@ input[type=checkbox]:checked+span.icon-check{background-position: -693px -595px 
 .status-section h2{font-weight: 600;  font-size: 16px;margin-bottom: 10px;}
 .text-green{font-weight: 500;  font-size: 14px;color: #69DD8A;}
 .common-text{font-weight: 400;  font-size: 14px;}
-.common-text.address-label{background: #d0d0d0;  border: 1px solid rgba(121, 118, 118, 0.1);  border-radius: 5px;padding: 8px 15px;color: #000;}
+.common-text.address-label{background: #ffffff;  border: 1px solid #57606a;  border-radius: 5px;padding: 8px 15px;color: #000;}
 .icon-dao.greencheck{background-position: -1081px -273px !important;}
 .icon-dao.time{background-position:-1110px -270px !important ;}
 .icon-dao.help{background-position: -1147px -270px !important;}
@@ -256,8 +255,8 @@ input::-webkit-calendar-picker-indicator {cursor: pointer;}
   .voters-table{padding: 8px;}
   .voters-table tr td:last-child,.voters-table tr th:last-child{border-right: transparent;}
   .voters-table tr:last-child td{border-bottom: transparent;}
-  .voters-table tr th:first-child{background: #F0EEEE;    border-top-left-radius: 8px;color: #000;}
-  .voters-table tr th:last-child{background: #F0EEEE;    border-top-right-radius: 8px;color:#000;}
+  .voters-table tr th:first-child{background: #F0F0F0;    border-top-left-radius: 12px;color: #000;}
+  .voters-table tr th:last-child{background: #F0F0F0;    border-top-right-radius: 12px;color:#000;}
 .success-vote .success-icon{transform: scale(1.5);  flex: 0 30px;background-position: -625px -271px !important;}
 a{text-decoration: none !important;}
 .form-control{color: #000 !important;}
@@ -287,6 +286,17 @@ input[type='date']:disabled{cursor: not-allowed !important;}
 .shimmer-icon{border-radius: 50%;  height: 24px;  width: 24px !important;}
 /* shimmers end */
 .praposal-left-card input::placeholder,.praposal-left-card textarea::placeholder,.add-block input::placeholder,.wallet-input input::placeholder,.nav-search input::placeholder{color: #9AA0A6 !important;}
+/* dao's cards start */
+.dashboard-card.dao-cards-design img{width: 82px;height: 82px;min-width: 82px;border-radius: 99999px;object-fit: cover;margin-bottom: 12px;}
+.dashboard-card.dao-cards-design{height: 266px;min-height:auto;box-shadow: none;border: 1px solid #e0e0e0;display: flex;align-items: center;justify-content: center;}
+.dashboard-card.dao-cards-design div{text-align: center;}
+.dao-card-style{display: grid;grid-template-columns: repeat(6, 1fr);gap: 10px;grid-auto-rows: minmax(100px, auto);}
+.dao-title{font-size: 20px;font-weight: 600;color: #000000;overflow: hidden;white-space: nowrap;width: 200px;margin: 0 auto;text-overflow: ellipsis;text-transform: capitalize;}
+.dashboard-card.dao-cards-design:hover{border: 1px solid #000;}
+.row-details{gap:16px}
+.form-select:focus{border: 1px solid #A5A5A5; box-shadow: none;}
+.profile-tabs.cust-pf-tabs-design{border-bottom: 1px solid #a5a5a5 !important;}
+/* dao's cards end */
 /* media quiry start*/
 @media (min-width: 768px){
 .toaster-cust .toast{position: absolute;
@@ -295,6 +305,8 @@ input[type='date']:disabled{cursor: not-allowed !important;}
 .md-d-flex{display: flex;}
 }
 @media (min-width: 992px){
+  .row-details{display: flex;}
+  .nft-img {height: 516px !important;width: 516px !important;}
   .desk-hidden{display: none !important;}  
 .flex-alignment{display: flex;align-items: center;justify-content: space-between;}
 .cardbtn-mt{margin-top: 46px;}
@@ -321,6 +333,7 @@ input[type='date']:disabled{cursor: not-allowed !important;}
   .cust-head-active{padding: 0 54px !important;}
 }
 @media (max-width: 767.98px){
+  .row-details{display: block;}
   .was-validated input[type="datetime-local"].form-control:invalid, input[type="datetime-local"].form-control.is-invalid,
 .was-validated input[type="date"].form-control:invalid, input[type="date"].form-control.is-invalid{
   background: url(../images/date.svg) no-repeat;background-position: right 14px center !important;
