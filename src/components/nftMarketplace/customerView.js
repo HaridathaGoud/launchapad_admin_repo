@@ -46,7 +46,7 @@ const ProfileView = () => {
         }
       }
         handleScrollToTop()
-       
+
       }, [tokenId, collectionContractAddress, id]);
 
       const handleScrollToTop = () => {
@@ -64,7 +64,7 @@ const ProfileView = () => {
        loadNFTViewsCount(item.id);
        getNFTContractdetails(item.tokenId,item.collectionContractAddress);
         getNFTProperties(tokenId,collectionContractAddress);
-       
+
       }
 
 
@@ -79,7 +79,7 @@ const ProfileView = () => {
             setNftDetails(response?.data);
             getbidData(response?.data?.id);
             setLoader(false);
-            
+
           })
           .catch((error) => {
             setLoader(false);
@@ -150,8 +150,8 @@ const ProfileView = () => {
             return "Something went wrong please try again!";
         }
     }
-   
-   
+
+
       const getNFTImageUrl = (file) => {
         const filePath = file?.replace('ipfs://', '');
         return `https://ipfs.io/ipfs/${filePath}`;
@@ -228,7 +228,7 @@ const ProfileView = () => {
                         <span className="icon polygon"></span>
                       </div>
                             </div>
-                            <div className="card-fixes detail-card-fixes">                            
+                            <div className="card-fixes detail-card-fixes">
                   <Image
                     src={
                       nftDetails?.image && !nftDetails?.image?.includes('null')
@@ -252,7 +252,7 @@ const ProfileView = () => {
                     <div className="">
                       <div className="d-flex justify-content-between align-items-baseline mb-3">
                         <h1 className="detail-title">
-                          {nftDetails?.name} 
+                          {nftDetails?.name}
                         </h1>
                       </div>
                       <div className="nft-details d-flex">
@@ -297,7 +297,7 @@ const ProfileView = () => {
                      <span className="icon love-border"></span>
                       <span className="detail-view-label">{favCount} favorites</span>
                      </div>
-                    
+
                     </div>
                     <hr className="detail-border" />
                     {nftDetails?.price && (
@@ -310,10 +310,10 @@ const ProfileView = () => {
                     )}
                   </div>
                 </Col>
-              
+
               </Row>
             </section>
-        
+
              <section>
               <Row className="tab-section">
                 <Col lg={6} sm={12}>
@@ -354,7 +354,7 @@ const ProfileView = () => {
                       <Tab eventKey="second" title=" Details">
                         <div>
                           <Row className="mt-5">
-                            
+
                             <Col lg={4}>
                               <label className="address-label">Token ID</label>
                               <h4 className="overview-value mt-2">{nftcontractDetails?.tokenId}</h4>
@@ -369,7 +369,7 @@ const ProfileView = () => {
                             </Col>
                           </Row>
                           <Row className="mt-3 update-address">
-                            
+
                             <Col lg={4}>
                               <label className="address-label">Last Updated</label>
                               <h4 className="overview-value mt-2">{getDate(nftcontractDetails?.date)}</h4>
@@ -440,11 +440,11 @@ const ProfileView = () => {
                             </h4> : <h4
                               className="overview-value mt-2 "
                             >
-                              {"-"}
+                              {"--"}
                             </h4>}
-                          
+
                         </Col>}
-                       
+
                           </Row>
                         </div>
                       </Tab>
@@ -486,7 +486,7 @@ const ProfileView = () => {
                 <Carousel autoPlaySpeed={1000} infinite responsive={responsive} className="corousel-arrows">
                   {moreCollection?.map((item) => (
                     <div className="creator-card">
-                        <Card className="creator-bg c-pointer" 
+                        <Card className="creator-bg c-pointer"
                      onClick={()=>handleSelect(item)}
                       >
                         <div >
@@ -516,20 +516,20 @@ const ProfileView = () => {
                           <div className="card-body card-bg-body">
                             {item.creator && <label className="card-text">{item.creator}</label>}
                             <Card.Title className="card-title text-white">
-                              {item.name} 
+                              {item.name}
                             </Card.Title>
                           </div>
                           <div className="card-footer explore-footer">
                             <div className="footer-price">
                               <label className="card-text">Price</label>
                               <h5 className="cardfooter-ellipse text-white">
-                              {item.price ? item.price : "-"} {item.price ? item.currency  : ""}
+                              {item.price ? item.price : "--"} {item.price ? item.currency  : ""}
                               </h5>
                             </div>
                             <div className="footer-price">
                               <label className="card-text">Highest bid</label>
                               <h5 className="cardfooter-ellipse text-white">
-                              {item.highestBid ? item.highestBid : "-"} {item.highestBid ? item.currency  : ""}
+                              {item.highestBid ? item.highestBid : "--"} {item.highestBid ? item.currency  : ""}
                               </h5>
                             </div>
                           </div>

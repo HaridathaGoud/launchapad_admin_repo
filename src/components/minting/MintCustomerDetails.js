@@ -37,7 +37,7 @@ const MintCustomersInfo = () => {
   }, []);//eslint-disable-line react-hooks/exhaustive-deps
 
   const userProfile = async () => {
-    
+
     setLoader(true);
     let res = await apiCalls.customerDetails(address);
     if (res.ok) {
@@ -103,7 +103,7 @@ const MintCustomersInfo = () => {
          <div className="text-center">{loader && <Spinner></Spinner>}</div>
          {!loader &&
           <div className='profile-section'>
-            
+
             <div className="custom-flex align-items-start mb-4 tab-block">
               <div className='profile-size no-hover mb-2 mb-lg-0' onClick={handleUpload} >
                 <span className='image-box'>
@@ -119,26 +119,26 @@ const MintCustomersInfo = () => {
                   <div className="value-card phone-card"><span className="icon contact"></span><label className="text-medium text-secondary ms-1">{userDetails.countryCode ? userDetails.countryCode : "--"}{' '}{userDetails.phoneNo ? userDetails.phoneNo : "--"}</label></div>
                   <div className="value-card"><span className="icon email"></span><label className="text-medium text-secondary ms-1">{userDetails.email ? userDetails.email : "--"}</label></div>
                   <div className="value-card"><span className="icon wallet"></span><label className="text-medium text-secondary ms-1 text-ellipsis">{userDetails.walletAddress ? userDetails.walletAddress : "--"}
-                  <CopyToClipboard 
-                      text={userDetails.walletAddress} 
+                  <CopyToClipboard
+                      text={userDetails.walletAddress}
                       options={{ format: 'text/plain' }}
 						        	onCopy={() => handleCopy(userDetails.walletAddress)}
               >
 							<span className={(copied && selection === userDetails.walletAddress) ? "icon copied-check ms-2" : "icon copy c-pointer"}></span>
 						</CopyToClipboard></label>
                   </div>
-                  <div className="value-card"><span className="icon discord"></span><label className="text-medium text-secondary ms-1">{userDetails.discordId?userDetails.discordId:"-"}</label></div>
-                  <div className="d-flex align-items-center value-card">                  
-                    <span className="icon small-referral"></span>                  
+                  <div className="value-card"><span className="icon discord"></span><label className="text-medium text-secondary ms-1">{userDetails.discordId?userDetails.discordId:"--"}</label></div>
+                  <div className="d-flex align-items-center value-card">
+                    <span className="icon small-referral"></span>
                     <span className="text-medium text-secondary ms-1">{userDetails?.referralCode || "--"}
-                  
+
                     </span>
                   </div>
-                  <div className="d-flex align-items-center value-card">                  
-                  <span className="icon small-referral"></span>                   
+                  <div className="d-flex align-items-center value-card">
+                  <span className="icon small-referral"></span>
                     <span className="text-medium text-secondary ms-1">{userDetails?.customerReferralCode || "--"}
-                   {userDetails?.customerReferralCode && ( <CopyToClipboard 
-                      text={userDetails.customerReferralCode } 
+                   {userDetails?.customerReferralCode && ( <CopyToClipboard
+                      text={userDetails.customerReferralCode }
                       options={{ format: 'text/plain' }}
 						        	onCopy={() => handleCopy(userDetails.customerReferralCode)}
               >
@@ -155,7 +155,7 @@ const MintCustomersInfo = () => {
                     }
                     {"  "}{userDetails?.kycStatus &&<span className={`${userDetails?.kycStatus == "Rejected"&& "complitedRed kyc-badge ms-2"||userDetails?.kycStatus !="Completed" && "kyc-badge ms-2" || userDetails?.kycStatus =="Completed" && "kyc-badge completedGreen ms-2"}`}>{userDetails?.kycStatus}</span>}
                   </div>
-                 
+
                   </div>
                   <div>
                   {userInfo.role=="Super Admin" &&
@@ -168,9 +168,9 @@ const MintCustomersInfo = () => {
 
                 </div>
                 </div>
-                
+
               </div>
-              
+
             </div>
             <div className="content-green-bg">
               <Tabs

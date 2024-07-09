@@ -32,7 +32,7 @@ const MintedNfts = (props) => {
   }, [props.activeTab,selectedDAO]);
 
   const getWalletNFTS = async () => {
-   
+
     let address = params.address;
     let contract=selectedDAO?.mintingContractAddress;
     let options = {
@@ -51,7 +51,7 @@ const MintedNfts = (props) => {
   };
 
   const getNftDetails = (_nfts) => {
-   
+
     let list = [];
     let data = _nfts.map((item) => {
       return {
@@ -76,7 +76,7 @@ const MintedNfts = (props) => {
   };
 
   const handleModal = (item) => {
-   
+
     setShow(true);
     setSelectedNft(item);
     setSelectedNftProperties(item.attributes)
@@ -114,7 +114,7 @@ const MintedNfts = (props) => {
           <Modal.Body>
             <div className="row mobile-reverse">
               <div>
-                
+
               </div>
               <div className="col-md-7">
                 <h2 className="modal-title">
@@ -132,11 +132,11 @@ const MintedNfts = (props) => {
                 </div>
                 <div className="mb-5">
                   <h3 className="modal-sub-title">Description</h3>
-                  <p className="modal-common-text">{selectedNft?.description?selectedNft?.description:'-'}</p>
+                  <p className="modal-common-text">{selectedNft?.description?selectedNft?.description:'--'}</p>
                 </div>
                 <div className="modal-details">
-                  
-                  {selectedNftProperties?.length>0? 
+
+                  {selectedNftProperties?.length>0?
                     <>
                     <h3 className="modal-sub-title">Properties</h3>
                     <div className='row'>
@@ -147,13 +147,13 @@ const MintedNfts = (props) => {
                           <p>{item.value}</p>
                         </div>
                         </div>
-                      ))} 
+                      ))}
                       </div>
                     </>:""
                   }
                   <h3 className="modal-sub-title">Details</h3>
                   <div className="row first-row">
-                    
+
                     <div className="col-md-4 col-sm-2 properties-align">
                       <label>Token ID</label>
                       <p>{selectedNft?.tokenId}</p>
@@ -169,19 +169,19 @@ const MintedNfts = (props) => {
                     </div>
                     <div className="col-md-4 col-sm-2 properties-align">
                       <label>Contract Address</label>
-                      <div className='d-flex'> 
+                      <div className='d-flex'>
                       <p className='text-ellipsis '>
                         {selectedNft?.tokenAddress}
                       </p>
-                      <CopyToClipboard 
-                      text={selectedNft?.tokenAddress} 
+                      <CopyToClipboard
+                      text={selectedNft?.tokenAddress}
                       options={{ format: 'text/plain' }}
 						        	onCopy={() => handleCopy(selectedNft?.tokenAddress)}
               >
 							<span className={(copied && selection === selectedNft?.tokenAddress) ? "icon copied-check ms-2" : "icon copy c-pointer"}></span>
 						</CopyToClipboard>
             </div>
-                    </div>                  
+                    </div>
                   </div>
                 </div>
               </div>
@@ -202,24 +202,24 @@ const MintedNfts = (props) => {
           </Modal.Body>
         </Modal>
       <div className="items-tab">
-        
+
               <div className="row mt-4">
             <div className="col-md-12">
               <div className="row creator-card create-by-row">
                 <div className="text-center">{loader && <Spinner></Spinner>}</div>
                 {!loader && (
-                  <> 
-                 
+                  <>
+
                    {nfts!==0 && nfts?.map((item, idx) => (
                     <div className="col-md-6 col-lg-3 col-xl-3 mt-3" >
-                     
+
                       <Card className="creator-bg created-card" onClick={() =>handleModal(item)}>
                         <Link>
 
                           <div className="account-card-img">
                           <Image className='creator-img card-img' src={item?.image ? `${getNFTImageUrl(item?.image)}` : profileavathar
                                 }></Image>
-                          
+
                           </div>
                         </Link>
                         <div className="creator-like">
@@ -227,7 +227,7 @@ const MintedNfts = (props) => {
                             className={`icon md creator-icon`}
                           ></span>
                         </div>
-                       
+
                           <Card.Body className="pb-0 pe-0 ps-0 pt-0">
                             <div className="card-body">
                               <h4 className="card-title mb-0 b-0 text-white">

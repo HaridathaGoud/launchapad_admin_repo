@@ -351,7 +351,7 @@ export default function Projects(props) {
                                   </div>
                                   <div className="total-status">
                                     <div className="card-width">
-                                      <h5 className="totall-supply mb-0">{`$${item?.totalSupply?.toLocaleString() || '-'
+                                      <h5 className="totall-supply mb-0">{`$${item?.totalSupply?.toLocaleString() || '--'
                                         }`}</h5>
                                       <p className="regular-text">Total Supply</p>
                                     </div>
@@ -360,7 +360,7 @@ export default function Projects(props) {
                                     <div className="card-width">
                                       <h5 className="totall-supply mb-0">
                                         {item.totalRaised?.toLocaleString() ? '$' : ''}
-                                        {`${item.totalRaised?.toLocaleString() || '-'}`}
+                                        {`${item.totalRaised?.toLocaleString() || '--'}`}
                                       </h5>
                                       <p className="regular-text">Total Raise</p>
                                     </div>
@@ -539,7 +539,7 @@ export default function Projects(props) {
                                   </div>
                                   <div className="total-status">
                                     <div className="card-width">
-                                      <h5 className="totall-supply mb-0">{`$${item?.totalSupply?.toLocaleString() || '-'
+                                      <h5 className="totall-supply mb-0">{`$${item?.totalSupply?.toLocaleString() || '--'
                                         }`}</h5>
                                       <p className="regular-text">Total Supply</p>
                                     </div>
@@ -548,7 +548,7 @@ export default function Projects(props) {
                                     <div className="card-width">
                                       <h5 className="totall-supply mb-0">
                                         {item.totalRaised?.toLocaleString() ? '$' : ''}
-                                        {`${item?.totalRaised?.toLocaleString() || '-'}`}
+                                        {`${item?.totalRaised?.toLocaleString() || '--'}`}
                                       </h5>
                                       <p className="regular-text">Total Raise</p>
                                     </div>
@@ -761,7 +761,7 @@ item.accessType == 'Private'? endDate: item.publicEndDate
                                   </div>
                                   <div className="total-status">
                                     <div className="card-width">
-                                      <h5 className="totall-supply mb-0">{`$${item?.totalSupply?.toLocaleString() || '-'
+                                      <h5 className="totall-supply mb-0">{`$${item?.totalSupply?.toLocaleString() || '--'
                                         }`}</h5>
                                       <p className="regular-text">Total Supply</p>
                                     </div>
@@ -770,7 +770,7 @@ item.accessType == 'Private'? endDate: item.publicEndDate
                                     <div className="card-width">
                                       <h5 className="totall-supply mb-0">
                                         {item.totalRaised?.toLocaleString() ? '$' : ''}
-                                        {item?.totalRaised?.toLocaleString() || '-'}
+                                        {item?.totalRaised?.toLocaleString() || '--'}
                                       </h5>
                                       <p className="regular-text">Total Raise</p>
                                     </div>
