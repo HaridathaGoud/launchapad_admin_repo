@@ -102,9 +102,9 @@ class KYCCustomers extends Component {
 		if(e.target.value == ""){
 			let { searchObj } = this.state;
 			searchObj.searchBy = null;
-			this.gridRef?.current?.refreshGrid();						
+			this.gridRef?.current?.refreshGrid();
 		}else{
-		let value = e.target.value          
+		let value = e.target.value
 		let { searchObj } = this.state;
 		if (value == "") {
 			searchObj.searchBy = null;
@@ -127,15 +127,15 @@ class KYCCustomers extends Component {
 		}
 	};
 
-     handleEnterSearch = async (e) => {	
+     handleEnterSearch = async (e) => {
 		let data=e.target.value.trim();
 			if (e.key == 'Enter') {
-				if(data == ""){				
+				if(data == ""){
 				e.preventDefault();
 				}else{
 					this.gridRef?.current?.refreshGrid();
 					e.preventDefault();
-			   }	
+			   }
 			}
 	}
 	handleKYCCustomer=(e)=>{
@@ -156,8 +156,8 @@ class KYCCustomers extends Component {
 					<CBreadcrumbItem active>Customers</CBreadcrumbItem>
 				</CBreadcrumb>
 				<div className='custom-flex kyc-filter pb-4 pt-2 justify-content-between'>
-				<Form className="d-md-flex grid-search mobile-block" >							  
-								<Form.Control 
+				<Form className="d-md-flex grid-search mobile-block" >
+								<Form.Control
 								    name='searchBy'
 								    type="text"
 								    autoComplete="off"
@@ -166,21 +166,21 @@ class KYCCustomers extends Component {
 									onChange={(e) => this.handleChange(e)}
 									onKeyDown ={(e)=>this.handleEnterSearch(e)}
 									maxLength={48}
-									placeholder="Search by Name, Email and Wallet Address" />									
+									placeholder="Search by Name, Email and Wallet Address" />
 								<Button className="filled-btn ms-lg-3 ms-2 mt-lg-0" type="button" onClick={this.handleSearch} >
 									Search</Button>
-							</Form>	
+							</Form>
 							<Form className="d-flex grid-search mobile-block" >
-							
+
 									 <label className='check-input-style  c-pointer d-flex align-items-center'>
-                      <input className='' 
+                      <input className=''
                         name='isCheck'
                         type="checkbox"
 						onClick={(e)=>this.handleKYCCustomer(e)}
                       />
                       <span></span>
-                    </label>{" "}<p className="me-2 mb-0 mx-1">Include Pending KYC Customers</p>
-							</Form>	
+                    </label>{" "}<p className="me-2 mb-0 mx-1">Include All KYC Statuses</p>
+							</Form>
                         </div>
 				<div className='profile-section'>
 					<List
